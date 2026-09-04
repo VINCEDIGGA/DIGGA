@@ -2,6 +2,7 @@
 
 
 CI/CD :
+
 https://www.youtube.com/watch?v=AknbizcLq4w
 
 System design : 
@@ -25,35 +26,33 @@ https://www.youtube.com/watch?v=oblaHqULUHk
 
 | Command | Action | Watch Out For |
 
-| :--- | :--- | :--- |
+| `git status` | Shows modified/staged files   | Always run this first   |
 
-| `git status` | Shows modified/staged files \[cite: 1]. | Always run this first \[cite: 1]. |
+| `git add <file>` | Stages files for commit   | Avoid `git add .` without a `.gitignore`   |
 
-| `git add <file>` | Stages files for commit \[cite: 1]. | Avoid `git add .` without a `.gitignore` \[cite: 1]. |
+| `git commit -m "msg"` | Saves a local snapshot   | Keep messages clear and descriptive   |
 
-| `git commit -m "msg"` | Saves a local snapshot \[cite: 1]. | Keep messages clear and descriptive \[cite: 1]. |
+| `git push origin <branch>` | Uploads local commits to GitHub   | Don't use `--force` on shared branches   |
 
-| `git push origin <branch>` | Uploads local commits to GitHub \[cite: 1]. | Don't use `--force` on shared branches \[cite: 1]. |
+| `git pull origin <branch>` | Downloads \& merges remote changes   | Can trigger surprise merge conflicts   |
 
-| `git pull origin <branch>` | Downloads \& merges remote changes \[cite: 1]. | Can trigger surprise merge conflicts \[cite: 1]. |
-
-| `git merge <branch>` | Combines another branch into yours \[cite: 1]. | Watch out for overlapping code changes \[cite: 1]. |
+| `git merge <branch>` | Combines another branch into yours   | Watch out for overlapping code changes   |
 
 
 
 \## 2. The Industry Fix: Branches \& PRs
 
-Never push directly to `main` \[cite: 1]. Instead:
+Never push directly to `main`   Instead:
 
-1\. `git pull origin main` (Get latest) \[cite: 1]
+1\. `git pull origin main` (Get latest)  
 
-2\. `git checkout -b feat/my-work` (Create branch) \[cite: 1]
+2\. `git checkout -b feat/my-work` (Create branch)  
 
-3\. Work, `add`, and `commit` \[cite: 1].
+3\. Work, `add`, and `commit`  
 
-4\. `git push -u origin feat/my-work` (Push branch) \[cite: 1]
+4\. `git push -u origin feat/my-work` (Push branch)  
 
-5\. Open a \*\*Pull Request (PR)\*\* on GitHub for review and merging \[cite: 1].
+5\. Open a \*\*Pull Request (PR)\*\* on GitHub for review and merging  
 
 
 
@@ -77,21 +76,21 @@ git push origin main
 
 \## 3. Merge Conflicts
 
-A conflict happens when two branches change the \*\*exact same line\*\* of code in different ways \[cite: 1]. Git pauses the merge and adds markers (`<<<<<<<`, `=======`, `>>>>>>>`) inside the file so you can fix it manually \[cite: 1].
+A conflict happens when two branches change the \*\*exact same line\*\* of code in different ways   Git pauses the merge and adds markers (`<<<<<<<`, `=======`, `>>>>>>>`) inside the file so you can fix it manually  
 
 
 
 \### 3.1 How to Resolve
 
-1\. \*\*Edit:\*\* Open the file, keep the correct code, and delete all Git markers (`<<<<<<<`, `=======`, `>>>>>>>`) \[cite: 1].
+1\. \*\*Edit:\*\* Open the file, keep the correct code, and delete all Git markers (`<<<<<<<`, `=======`, `>>>>>>>`)  
 
-2\. \*\*Stage:\*\* Run `git add <file>` to mark it resolved \[cite: 1].
+2\. \*\*Stage:\*\* Run `git add <file>` to mark it resolved  
 
-3\. \*\*Commit:\*\* Run `git commit` to finish the merge \[cite: 1].
+3\. \*\*Commit:\*\* Run `git commit` to finish the merge  
 
 
 
-\*(Stuck? Run `git merge --abort` to cancel and start over \[cite: 1]).\*
+\*(Stuck? Run `git merge --abort` to cancel and start over  \*
 
 
 
