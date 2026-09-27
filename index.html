@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Ena Agents</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <img
+            class="slogan-img"
+            src="images/ena-agent.png?v=3"
+            alt="Ena Agents"
+          />
+        </div>
+
+        <nav class="side-nav">
+          <button type="button" class="nav-item" id="new-case-btn">
+            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 5v14M5 12h14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+            Nytt ärende
+          </button>
+          <button type="button" class="nav-item" id="archive-view-btn">
+            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8" />
+              <path d="M12 8v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            Arkiv
+          </button>
+          <button type="button" class="nav-item" id="ongoing-view-btn">
+            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M5 7h14v9a2 2 0 0 1-2 2H9l-4 3V7z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Pågående ärenden
+          </button>
+        </nav>
+
+        <p class="notice" id="limit-notice" hidden>
+          Högst två pågående ärenden.
+        </p>
+
+        <div class="list-section">
+          <ul class="case-list" id="case-list"></ul>
+        </div>
+      </aside>
+
+      <main class="chat-panel">
+        <section class="chat is-empty" id="chat-view">
+          <div class="chat-messages" id="chat-messages"></div>
+          <div class="chat-center">
+            <p class="chat-intro">Hur kan jag hjälpa dig?</p>
+          </div>
+          <form class="chat-form" id="chat-form">
+            <label class="visually-hidden" for="message-input">Fråga</label>
+            <input
+              id="message-input"
+              type="text"
+              autocomplete="off"
+              placeholder="Skriv din fråga här"
+            />
+            <button type="submit" class="btn-send" aria-label="Skicka">
+              ↑
+            </button>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="modal" id="info-dialog">
+      <form method="dialog" class="modal-content">
+        <p id="info-text"></p>
+        <button type="submit" class="btn-primary">OK</button>
+      </form>
+    </dialog>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
