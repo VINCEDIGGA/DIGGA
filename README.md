@@ -14,6 +14,12 @@ integrering av DIGG/ENA-PoC:n i vänprojektets nuvarande gränssnitt.
 - Lägg aldrig LLM API-nycklar i frontend. Nycklar ska ligga i backendens
   konfiguration.
 
+## Backend
+
+En minimal PHP-backend finns i `backend/`. Den innehåller chat-endpoint,
+databasanslutning, embedding-retrieval och ett studentvänligt schema/seed.
+Se `backend/README.md` för lokal setup.
+
 
 # DIGG-A prerequisites skills.
 

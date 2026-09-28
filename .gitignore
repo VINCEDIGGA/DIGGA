@@ -1,0 +1,4 @@
+backend/api/local.secrets.php
+.env
+.env.*
+!.env.example
