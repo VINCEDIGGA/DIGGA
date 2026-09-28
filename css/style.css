@@ -92,6 +92,10 @@ body {
   background: var(--hover);
 }
 
+.nav-link {
+  text-decoration: none;
+}
+
 .nav-item:focus-visible,
 .case-item-btn:focus-visible,
 .menu-toggle:focus-visible,
@@ -318,6 +322,55 @@ body {
   color: var(--text);
 }
 
+.message.assistant {
+  align-self: flex-start;
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--text);
+  max-width: min(44rem, 88%);
+  white-space: normal;
+}
+
+.message.assistant h2,
+.message.assistant h3,
+.message.assistant h4,
+.message.assistant p,
+.message.assistant ul {
+  margin: 0 0 0.65rem;
+}
+
+.message.assistant h2,
+.message.assistant h3,
+.message.assistant h4 {
+  font-size: 1rem;
+  line-height: 1.35;
+  margin-bottom: 0.55rem;
+}
+
+.message.assistant p:last-child,
+.message.assistant ul:last-child {
+  margin-bottom: 0;
+}
+
+.message.assistant ul {
+  padding-left: 1.1rem;
+}
+
+.message.assistant li + li {
+  margin-top: 0.25rem;
+}
+
+.message.assistant hr {
+  margin: 0.85rem 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+
+.message.assistant a {
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+
 .chat-form {
   display: flex;
   align-items: center;
@@ -376,6 +429,11 @@ body {
 
 .btn-send:hover {
   background: var(--accent-hover);
+}
+
+.btn-send:disabled {
+  cursor: wait;
+  opacity: 0.7;
 }
 
 .btn-primary {

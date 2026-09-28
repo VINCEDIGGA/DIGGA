@@ -1,3 +1,20 @@
+# DIGG-A
+
+Frontend för Ena Agents. Den här branchen innehåller en första försiktig
+integrering av DIGG/ENA-PoC:n i vänprojektets nuvarande gränssnitt.
+
+## PoC-integrering i denna version
+
+- Startsidan (`index.html`) är fortfarande vänprojektets chattvy.
+- Flödet startar från ärendemenyn: `Ansluta till hjälp` ->
+  `poc/steg-for-steg.html`.
+- `poc/steg-for-steg.html` är en tom placeholder just nu.
+- Chatten sparar ärenden lokalt men hämtar svar från PoC-backendens RAG/LLM:
+  `http://127.0.0.1:8080/api/chat.php`.
+- Lägg aldrig LLM API-nycklar i frontend. Nycklar ska ligga i backendens
+  konfiguration.
+
+
 # DIGG-A prerequisites skills.
 
 

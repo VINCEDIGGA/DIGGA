@@ -8,6 +8,7 @@
   const chatMessages = document.getElementById("chat-messages");
   const chatForm = document.getElementById("chat-form");
   const messageInput = document.getElementById("message-input");
+  const sendButton = chatForm.querySelector(".btn-send");
   const infoDialog = document.getElementById("info-dialog");
   const infoText = document.getElementById("info-text");
 
@@ -239,16 +240,148 @@
     });
   }
 
+  function normalizeDisplayText(text) {
+    return String(text || "")
+      .replace(/Ã¥/g, "å")
+      .replace(/Ã¤/g, "ä")
+      .replace(/Ã¶/g, "ö")
+      .replace(/Ã…/g, "Å")
+      .replace(/Ã„/g, "Ä")
+      .replace(/Ã–/g, "Ö")
+      .replace(/Ã©/g, "é")
+      .replace(/Â /g, " ")
+      .replace(/â€“/g, "-")
+      .replace(/â€”/g, "-")
+      .replace(/â€™/g, "'")
+      .replace(/â€œ/g, '"')
+      .replace(/â€/g, '"')
+      .replace(/├Ñ/g, "å")
+      .replace(/├ñ/g, "ä")
+      .replace(/├Â/g, "ö")
+      .replace(/├à/g, "Å")
+      .replace(/├ä/g, "Ä")
+      .replace(/├û/g, "Ö")
+      .replace(/f├År/g, "för")
+      .replace(/F├År/g, "För")
+      .replace(/f\\|År/g, "för")
+      .replace(/F\\|År/g, "För")
+      .replace(/tv├Ñ/g, "två")
+      .replace(/Tv├Ñ/g, "Två")
+      .replace(/tv\\|Ñ/g, "två")
+      .replace(/Tv\\|Ñ/g, "Två");
+  }
+
+  function appendPlainOrLink(parent, text) {
+    const pattern = /(https?:\/\/[^\s)]+)/g;
+    let index = 0;
+    let match;
+    while ((match = pattern.exec(text)) !== null) {
+      if (match.index > index) {
+        parent.appendChild(document.createTextNode(text.slice(index, match.index)));
+      }
+      const link = document.createElement("a");
+      link.href = match[0];
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      link.textContent = match[0];
+      parent.appendChild(link);
+      index = match.index + match[0].length;
+    }
+    if (index < text.length) {
+      parent.appendChild(document.createTextNode(text.slice(index)));
+    }
+  }
+
+  function appendInlineMarkdown(parent, text) {
+    const pattern = /(\*\*[^*]+\*\*|\*[^*\n]+\*)/g;
+    let index = 0;
+    let match;
+    while ((match = pattern.exec(text)) !== null) {
+      if (match.index > index) {
+        appendPlainOrLink(parent, text.slice(index, match.index));
+      }
+      const token = match[0];
+      const markerLength = token.startsWith("**") ? 2 : 1;
+      const element = document.createElement(markerLength === 2 ? "strong" : "em");
+      appendPlainOrLink(
+        element,
+        token.slice(markerLength, token.length - markerLength)
+      );
+      parent.appendChild(element);
+      index = match.index + token.length;
+    }
+    if (index < text.length) {
+      appendPlainOrLink(parent, text.slice(index));
+    }
+  }
+
+  function appendParagraph(parent, text) {
+    const paragraph = document.createElement("p");
+    appendInlineMarkdown(paragraph, text);
+    parent.appendChild(paragraph);
+  }
+
+  function renderAssistantMessage(parent, text) {
+    const lines = normalizeDisplayText(text).replace(/\r\n/g, "\n").split("\n");
+    let list = null;
+
+    lines.forEach(function (line) {
+      const trimmed = line.trim();
+      if (!trimmed) {
+        list = null;
+        return;
+      }
+      if (/^-{3,}$/.test(trimmed)) {
+        list = null;
+        return;
+      }
+
+      const heading = /^(#{1,6})\s+(.+)$/.exec(trimmed);
+      if (heading) {
+        list = null;
+        const level = Math.min(4, heading[1].length + 1);
+        const element = document.createElement("h" + level);
+        appendInlineMarkdown(element, heading[2]);
+        parent.appendChild(element);
+        return;
+      }
+
+      const bullet = /^[-*]\s+(.+)$/.exec(trimmed);
+      if (bullet) {
+        if (!list) {
+          list = document.createElement("ul");
+          parent.appendChild(list);
+        }
+        const item = document.createElement("li");
+        appendInlineMarkdown(item, bullet[1]);
+        list.appendChild(item);
+        return;
+      }
+
+      list = null;
+      appendParagraph(parent, trimmed);
+    });
+  }
+
   function renderMessages(messages) {
     chatMessages.innerHTML = "";
     messages.forEach(function (msg) {
       const bubble = document.createElement("div");
       bubble.className = "message " + msg.role;
-      bubble.textContent = msg.text;
+      if (msg.role === "assistant") {
+        renderAssistantMessage(bubble, msg.text);
+      } else {
+        bubble.textContent = normalizeDisplayText(msg.text);
+      }
       chatMessages.appendChild(bubble);
     });
     chatMessages.scrollTop = chatMessages.scrollHeight;
     chatView.classList.toggle("is-empty", messages.length === 0);
+  }
+
+  function setSending(isSending) {
+    messageInput.disabled = isSending;
+    sendButton.disabled = isSending;
   }
 
   async function selectCase(id) {
@@ -329,7 +462,7 @@
 
   async function connectHelp(id) {
     await DiggApi.requestHelp(id);
-    showInfo("Ansluta till hjälp är valt. Kopplas till backend senare.");
+    window.location.href = "poc/steg-for-steg.html?case=" + encodeURIComponent(id);
   }
 
   async function setView(next) {
@@ -372,9 +505,18 @@
 
     messageInput.value = "";
     limitNotice.hidden = true;
-    await DiggApi.addUserMessage(selectedId, text);
-    await loadCases();
-    await selectCase(selectedId);
+    setSending(true);
+    try {
+      await DiggApi.addUserMessage(selectedId, text);
+      await loadCases();
+      await selectCase(selectedId);
+      await DiggApi.addAssistantReply(selectedId, text);
+      await loadCases();
+      await selectCase(selectedId);
+    } finally {
+      setSending(false);
+      messageInput.focus();
+    }
   });
 
   document.addEventListener("click", function () {

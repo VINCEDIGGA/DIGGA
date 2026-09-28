@@ -1,10 +1,11 @@
 /**
- * Tillfällig frontend-lagring.
- * Byt innehållet i funktionerna mot fetch() när backend finns.
+ * Frontend-lagring för ärenden och meddelanden.
+ * Chattsvar hämtas från PoC-backendens RAG/LLM-endpoint.
  */
 const DiggApi = (function () {
   const STORAGE_KEY = "digg-temp-frontend-v2";
   const MAX_ONGOING = 2;
+  const RAG_CHAT_ENDPOINT = "http://127.0.0.1:8080/api/chat.php";
 
   function load() {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -39,6 +40,38 @@ const DiggApi = (function () {
       return line;
     }
     return line.slice(0, 40).trim() + "…";
+  }
+
+  async function askRag(question) {
+    const response = await fetch(RAG_CHAT_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question: question }),
+    });
+    const data = await response.json().catch(function () {
+      return {};
+    });
+    if (!response.ok) {
+      throw new Error(data.error || "Backend svarade med HTTP " + response.status);
+    }
+    return data;
+  }
+
+  function formatAssistantText(data) {
+    let text = data.answer || "Jag fick inget textsvar från RAG-backenden.";
+    if (data.warning) {
+      text += "\n\nObs: " + data.warning;
+    }
+    return text;
+  }
+
+  function assistantErrorText(error) {
+    return (
+      "Jag kunde inte nå RAG/LLM-backenden just nu.\n\n" +
+      "Kontrollera att PHP-backenden kör på http://127.0.0.1:8080, att databasen är igång och att Mistral API-nyckeln ligger i backendens konfiguration.\n\n" +
+      "Teknisk detalj: " +
+      error.message
+    );
   }
 
   return {
@@ -148,6 +181,30 @@ const DiggApi = (function () {
           item.title = titleFromChat(text);
         }
       }
+      save(data);
+      return message;
+    },
+
+    addAssistantReply: async function (caseId, question) {
+      const data = load();
+      if (!data.messages[caseId]) {
+        data.messages[caseId] = [];
+      }
+
+      let text;
+      try {
+        text = formatAssistantText(await askRag(question));
+      } catch (error) {
+        console.warn("RAG/LLM-anrop misslyckades", error);
+        text = assistantErrorText(error);
+      }
+
+      const message = {
+        id: "msg-" + Date.now() + "-assistant",
+        role: "assistant",
+        text: text,
+      };
+      data.messages[caseId].push(message);
       save(data);
       return message;
     },
