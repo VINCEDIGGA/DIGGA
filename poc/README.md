@@ -1,7 +1,8 @@
-# PoC-integrering
+# PoC Integration
 
-Nuvarande flöde:
+Current flow:
 
 `Ansluta till hjälp` -> `poc/steg-for-steg.html`
 
-`steg-for-steg.html` är medvetet tom just nu så frontend kan byggas upp stegvis.
+`steg-for-steg.html` is intentionally blank for now so the frontend can be built
+up gradually.

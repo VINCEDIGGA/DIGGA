@@ -1,119 +1,69 @@
 # DIGG-A
 
-Frontend för Ena Agents. Den här branchen innehåller en första försiktig
-integrering av DIGG/ENA-PoC:n i vänprojektets nuvarande gränssnitt.
+Frontend for Ena Agents with a first careful integration of the DIGG/ENA proof
+of concept into the existing UI.
 
-## PoC-integrering i denna version
+## PoC Integration In This Version
 
-- Startsidan (`index.html`) är fortfarande vänprojektets chattvy.
-- Flödet startar från ärendemenyn: `Ansluta till hjälp` ->
+- `index.html` is still the existing chat page.
+- The help flow starts from the case menu: `Ansluta till hjälp` ->
   `poc/steg-for-steg.html`.
-- `poc/steg-for-steg.html` är en tom placeholder just nu.
-- Chatten sparar ärenden lokalt men hämtar svar från PoC-backendens RAG/LLM:
+- `poc/steg-for-steg.html` is intentionally blank for now.
+- Chat cases and messages are stored locally in the browser.
+- Assistant answers are fetched from the PoC RAG/LLM backend:
   `http://127.0.0.1:8080/api/chat.php`.
-- Lägg aldrig LLM API-nycklar i frontend. Nycklar ska ligga i backendens
-  konfiguration.
+- Never put LLM API keys in the frontend. Keys belong in backend configuration.
 
 ## Backend
 
-En minimal PHP-backend finns i `backend/`. Den innehåller chat-endpoint,
-databasanslutning, embedding-retrieval och ett studentvänligt schema/seed.
-Se `backend/README.md` för lokal setup.
+A minimal PHP backend is included in `backend/`. It contains the chat endpoint,
+database connection, embedding retrieval, and a student-friendly schema/seed
+file. See `backend/README.md` for local setup.
 
+## Learning Links
 
-# DIGG-A prerequisites skills.
+- CI/CD: https://www.youtube.com/watch?v=AknbizcLq4w
+- System design: https://www.youtube.com/watch?v=SE2KF-vxvS0
+- Docker: https://www.youtube.com/watch?v=3c-iBn73dDE
+- MCP: https://www.youtube.com/watch?v=oblaHqULUHk
 
+## Quick Git And GitHub Guide
 
-CI/CD :
-
-https://www.youtube.com/watch?v=AknbizcLq4w
-
-System design : 
-
-https://www.youtube.com/watch?v=SE2KF-vxvS0
-
-Docker : 
-
-https://www.youtube.com/watch?v=3c-iBn73dDE
-
-MCP : 
-
-https://www.youtube.com/watch?v=oblaHqULUHk
-
-
-# Quick Git \& GitHub Guide
-
-
-
-\## 1. Essential Commands
+### Essential Commands
 
 | Command | Action | Watch Out For |
+| --- | --- | --- |
+| `git status` | Shows modified and staged files | Always run this first |
+| `git add <file>` | Stages files for commit | Avoid `git add .` without a `.gitignore` |
+| `git commit -m "msg"` | Saves a local snapshot | Keep messages clear and descriptive |
+| `git push origin <branch>` | Uploads local commits to GitHub | Do not use `--force` on shared branches |
+| `git pull origin <branch>` | Downloads and merges remote changes | Can trigger merge conflicts |
+| `git merge <branch>` | Combines another branch into yours | Watch out for overlapping edits |
 
-| `git status` | Shows modified/staged files   | Always run this first   |
+### Branch And PR Routine
 
-| `git add <file>` | Stages files for commit   | Avoid `git add .` without a `.gitignore`   |
-
-| `git commit -m "msg"` | Saves a local snapshot   | Keep messages clear and descriptive   |
-
-| `git push origin <branch>` | Uploads local commits to GitHub   | Don't use `--force` on shared branches   |
-
-| `git pull origin <branch>` | Downloads \& merges remote changes   | Can trigger surprise merge conflicts   |
-
-| `git merge <branch>` | Combines another branch into yours   | Watch out for overlapping code changes   |
-
-
-
-\## 2. The Industry Fix: Branches \& PRs
-
-Never push directly to `main`   Instead:
-
-1\. `git pull origin main` (Get latest)  
-
-2\. `git checkout -b feat/my-work` (Create branch)  
-
-3\. Work, `add`, and `commit`  
-
-4\. `git push -u origin feat/my-work` (Push branch)  
-
-5\. Open a \*\*Pull Request (PR)\*\* on GitHub for review and merging  
-
-
-
-\### 2.1 Solo Routine (Working Alone)
+Do not push directly to `main` on shared work. Use a branch and a pull request:
 
 ```bash
-
-git status
-
-git add .
-
-git commit -m "feat: short description"
-
 git pull origin main
-
-git push origin main
-
+git checkout -b feat/my-work
+git status
+git add <file>
+git commit -m "feat: short description"
+git push -u origin feat/my-work
 ```
 
+Then open a pull request on GitHub for review and merging.
 
+### Merge Conflicts
 
-\## 3. Merge Conflicts
+A merge conflict happens when two branches change the same line differently.
+Git pauses the merge and adds conflict markers inside the file. The markers
+start with strings such as `<<<<<<<`, `=======`, and `>>>>>>>`.
 
-A conflict happens when two branches change the \*\*exact same line\*\* of code in different ways   Git pauses the merge and adds markers (`<<<<<<<`, `=======`, `>>>>>>>`) inside the file so you can fix it manually  
+To resolve it, edit the file, keep the correct code, delete the markers, run
+`git add <file>`, and commit. If you need to cancel the merge, run:
 
-
-
-\### 3.1 How to Resolve
-
-1\. \*\*Edit:\*\* Open the file, keep the correct code, and delete all Git markers (`<<<<<<<`, `=======`, `>>>>>>>`)  
-
-2\. \*\*Stage:\*\* Run `git add <file>` to mark it resolved  
-
-3\. \*\*Commit:\*\* Run `git commit` to finish the merge  
-
-
-
-\*(Stuck? Run `git merge --abort` to cancel and start over  \*
-
-
-
+```bash
+git merge --abort
+```
