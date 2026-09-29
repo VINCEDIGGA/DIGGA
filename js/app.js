@@ -4,6 +4,7 @@
   const archiveViewBtn = document.getElementById("archive-view-btn");
   const limitNotice = document.getElementById("limit-notice");
   const caseListEl = document.getElementById("case-list");
+  const guideLink = document.querySelector(".guide-link");
   const chatView = document.getElementById("chat-view");
   const chatMessages = document.getElementById("chat-messages");
   const chatForm = document.getElementById("chat-form");
@@ -11,9 +12,10 @@
   const sendButton = chatForm.querySelector(".btn-send");
   const infoDialog = document.getElementById("info-dialog");
   const infoText = document.getElementById("info-text");
+  const SELECTED_CASE_KEY = "digg-selected-case-v3";
 
   let cases = [];
-  let selectedId = null;
+  let selectedId = localStorage.getItem(SELECTED_CASE_KEY) || null;
   let view = "ongoing";
 
   function resetMenuPosition(menu) {
@@ -124,6 +126,65 @@
     infoDialog.showModal();
   }
 
+  function guideHref(caseId) {
+    if (!caseId) {
+      return "poc/steg-for-steg.html";
+    }
+    return "poc/steg-for-steg.html?case=" + encodeURIComponent(caseId);
+  }
+
+  function ongoingCasesFromStorage() {
+    try {
+      const stored = JSON.parse(localStorage.getItem(DiggApi.storageKey));
+      const storedCases =
+        stored && Array.isArray(stored.cases) ? stored.cases : [];
+      return storedCases.filter(function (item) {
+        return item && !item.archived;
+      });
+    } catch (error) {
+      console.warn("Kunde inte läsa ärenden för guide-länk", error);
+      return [];
+    }
+  }
+
+  function guideCaseId() {
+    const ongoing = ongoingCasesFromStorage();
+    if (
+      selectedId &&
+      ongoing.some(function (item) {
+        return item.id === selectedId;
+      })
+    ) {
+      return selectedId;
+    }
+
+    const remembered = localStorage.getItem(SELECTED_CASE_KEY);
+    if (
+      remembered &&
+      ongoing.some(function (item) {
+        return item.id === remembered;
+      })
+    ) {
+      return remembered;
+    }
+
+    return ongoing.length > 0 ? ongoing[ongoing.length - 1].id : "";
+  }
+
+  function updateGuideLink() {
+    if (guideLink) {
+      guideLink.href = guideHref(guideCaseId());
+    }
+  }
+
+  function rememberSelectedCase() {
+    if (selectedId) {
+      localStorage.setItem(SELECTED_CASE_KEY, selectedId);
+    } else {
+      localStorage.removeItem(SELECTED_CASE_KEY);
+    }
+  }
+
   function addMenuItem(label, iconSvg, onClick) {
     const btn = document.createElement("button");
     btn.type = "button";
@@ -154,6 +215,7 @@
   }
 
   function renderCaseList() {
+    updateGuideLink();
     caseListEl.innerHTML = "";
     const visible = cases;
     if (visible.length === 0) {
@@ -386,17 +448,21 @@
 
   async function selectCase(id) {
     selectedId = id;
+    rememberSelectedCase();
     const item = cases.find(function (c) {
       return c.id === id;
     });
     renderCaseList();
     if (!item) {
       selectedId = null;
+      rememberSelectedCase();
+      updateGuideLink();
       renderMessages([]);
       return;
     }
     const messages = await DiggApi.getMessages(id);
     renderMessages(messages);
+    updateGuideLink();
     messageInput.focus();
   }
 
@@ -408,7 +474,9 @@
     });
     if (!stillThere) {
       selectedId = null;
+      rememberSelectedCase();
     }
+    updateGuideLink();
     const ongoing = await DiggApi.getCases();
     if (ongoing.length < DiggApi.MAX_ONGOING) {
       limitNotice.hidden = true;
@@ -425,18 +493,10 @@
   async function startConversation() {
     view = "ongoing";
     limitNotice.hidden = true;
-    const ongoing = await DiggApi.getCases();
-    if (ongoing.length >= DiggApi.MAX_ONGOING) {
-      limitNotice.hidden = false;
-      return;
-    }
-    const result = await DiggApi.createCase();
-    if (!result.ok) {
-      limitNotice.hidden = false;
-      return;
-    }
+    selectedId = null;
+    rememberSelectedCase();
     await loadCases();
-    await selectCase(result.case.id);
+    messageInput.focus();
   }
 
   async function deleteCase(id) {
@@ -462,48 +522,56 @@
 
   async function connectHelp(id) {
     await DiggApi.requestHelp(id);
-    window.location.href = "poc/steg-for-steg.html?case=" + encodeURIComponent(id);
+    window.location.href = guideHref(id);
   }
 
   async function setView(next) {
     view = next;
     selectedId = null;
+    rememberSelectedCase();
     await loadCases();
   }
 
-  newCaseBtn.addEventListener("click", startConversation);
-  ongoingViewBtn.addEventListener("click", function () {
-    setView("ongoing");
-  });
-  archiveViewBtn.addEventListener("click", function () {
-    setView("archive");
-  });
-
-  chatForm.addEventListener("submit", async function (event) {
-    event.preventDefault();
-    const text = messageInput.value.trim();
+  async function sendQuestion(text, preferredCaseId) {
     if (!text) {
       return;
     }
 
-    if (!selectedId || view === "archive") {
-      view = "ongoing";
-      const ongoing = await DiggApi.getCases();
-      if (!selectedId && ongoing.length >= DiggApi.MAX_ONGOING) {
+    view = "ongoing";
+    const ongoing = await DiggApi.getCases();
+    if (preferredCaseId) {
+      if (
+        ongoing.some(function (item) {
+          return item.id === preferredCaseId;
+        })
+      ) {
+        selectedId = preferredCaseId;
+        rememberSelectedCase();
+      }
+    } else if (
+      selectedId &&
+      !ongoing.some(function (item) {
+        return item.id === selectedId;
+      })
+    ) {
+      selectedId = null;
+      rememberSelectedCase();
+    }
+
+    if (!selectedId) {
+      if (ongoing.length >= DiggApi.MAX_ONGOING) {
         limitNotice.hidden = false;
         return;
       }
-      if (!selectedId) {
-        const result = await DiggApi.createCase(text);
-        if (!result.ok) {
-          limitNotice.hidden = false;
-          return;
-        }
-        selectedId = result.case.id;
+      const result = await DiggApi.createCase(text);
+      if (!result.ok) {
+        limitNotice.hidden = false;
+        return;
       }
+      selectedId = result.case.id;
+      rememberSelectedCase();
     }
 
-    messageInput.value = "";
     limitNotice.hidden = true;
     setSending(true);
     try {
@@ -517,6 +585,32 @@
       setSending(false);
       messageInput.focus();
     }
+  }
+
+  async function handleGuideQuestionFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const guideQuestion = params.get("guideQuestion");
+    if (!guideQuestion) {
+      return;
+    }
+    const caseId = params.get("case");
+    window.history.replaceState(null, "", window.location.pathname);
+    await sendQuestion(guideQuestion, caseId);
+  }
+
+  newCaseBtn.addEventListener("click", startConversation);
+  ongoingViewBtn.addEventListener("click", function () {
+    setView("ongoing");
+  });
+  archiveViewBtn.addEventListener("click", function () {
+    setView("archive");
+  });
+
+  chatForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    const text = messageInput.value.trim();
+    messageInput.value = "";
+    await sendQuestion(text);
   });
 
   document.addEventListener("click", function () {
@@ -532,5 +626,16 @@
     }
   });
 
-  loadCases();
+  if (guideLink) {
+    guideLink.addEventListener("mouseenter", function () {
+      updateGuideLink();
+    });
+    guideLink.addEventListener("focus", updateGuideLink);
+    guideLink.addEventListener("click", updateGuideLink);
+  }
+
+  (async function init() {
+    await loadCases();
+    await handleGuideQuestionFromUrl();
+  })();
 })();

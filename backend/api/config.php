@@ -6,7 +6,7 @@ $localSecrets = is_file(__DIR__ . '/local.secrets.php')
     : [];
 
 if (!function_exists('env_value')) {
-    function env_value(string $key, ?string $default = null): ?string
+    function env_value(string $key, $default = null)
     {
         $value = getenv($key);
         return $value === false || $value === '' ? $default : $value;

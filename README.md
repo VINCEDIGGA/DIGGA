@@ -1,17 +1,26 @@
 # DIGG-A
 
-Frontend for Ena Agents with a first careful integration of the DIGG/ENA proof
-of concept into the existing UI.
+Frontend for Ena Agents with a need-driven V3 flow for DIGG/ENA onboarding.
 
-## PoC Integration In This Version
+## V3 Flow
 
-- `index.html` is still the existing chat page.
-- The help flow starts from the case menu: `Ansluta till hjälp` ->
+- `index.html` stays as a clean chat page.
+- `poc/steg-for-steg.html` starts the V3 flow with the municipality need and
+  optional supporting files.
+- The guide flow can also start from the case menu: `Ansluta till hjälp` ->
   `poc/steg-for-steg.html`.
-- `poc/steg-for-steg.html` is intentionally blank for now.
+- The guide page creates a case, asks the backend for a specific guide, and
+  stores the need/material list locally with that case.
+- `poc/steg-for-steg.html` shows a contextual six-step anslutningsresa when it
+  is opened from a V3 case.
 - Chat cases and messages are stored locally in the browser.
-- Assistant answers are fetched from the PoC RAG/LLM backend:
-  `http://127.0.0.1:8080/api/chat.php`.
+- Assistant answers are fetched from the PoC RAG/LLM backend configured in
+  `js/config.js`. The default endpoint is the relative path
+  `backend/api/chat.php`, which is suitable when the whole project is uploaded
+  to one PHP-capable school environment.
+- Example PDF knowledge about nationella grunddata is extracted into
+  `backend/data/schema_and_seed_student.sql`, so it becomes available after the
+  normal phpMyAdmin import.
 - Never put LLM API keys in the frontend. Keys belong in backend configuration.
 
 ## Backend
@@ -19,6 +28,27 @@ of concept into the existing UI.
 A minimal PHP backend is included in `backend/`. It contains the chat endpoint,
 database connection, embedding retrieval, and a student-friendly schema/seed
 file. See `backend/README.md` for local setup.
+
+## School Upload Checklist
+
+The static UI and guided checklist work on ordinary web hosting. The AI chat
+requires PHP and MySQL.
+
+1. Upload the project folder with `index.html`, `css/`, `js/`, `poc/`, and
+   `backend/` kept in the same relative structure.
+2. Import `backend/data/schema_and_seed_student.sql` into the school MySQL
+   database.
+3. Copy `backend/api/local.secrets.example.php` to
+   `backend/api/local.secrets.php` on the server.
+4. Add the school database credentials and Mistral API key in
+   `backend/api/local.secrets.php`.
+5. Keep `js/config.js` as `ragChatEndpoint: "backend/api/chat.php"` if the
+   backend folder is uploaded next to `index.html`. Change that value only if
+   the school server places the API somewhere else.
+
+If PHP, MySQL, or the API key is missing, the app still opens and the guide
+still works. The chat will show a clear message that AI answers are not active
+in that environment.
 
 ## Learning Links
 

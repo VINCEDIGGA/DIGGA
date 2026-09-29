@@ -36,6 +36,28 @@ CREATE TABLE IF NOT EXISTS chat_messages (
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS guide_step_context (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  case_id VARCHAR(120) NOT NULL,
+  step_index INT UNSIGNED NOT NULL,
+  check_index INT UNSIGNED NOT NULL,
+  step_title VARCHAR(255) NOT NULL,
+  check_text VARCHAR(500) NOT NULL,
+  organization_name VARCHAR(255) NOT NULL DEFAULT '',
+  organization_number VARCHAR(80) NOT NULL DEFAULT '',
+  contact_name VARCHAR(255) NOT NULL DEFAULT '',
+  contact_email VARCHAR(255) NOT NULL DEFAULT '',
+  contact_role VARCHAR(160) NOT NULL DEFAULT '',
+  short_description TEXT NULL,
+  need_text TEXT NULL,
+  application_json MEDIUMTEXT NULL,
+  files_json JSON NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uq_guide_step_context (case_id, step_index, check_index),
+  INDEX idx_guide_step_context_case (case_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS validation_runs (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   profile VARCHAR(32) NOT NULL,
@@ -201,6 +223,30 @@ VALUES
     'PoC guide',
     'local://poc/dry-run-to-qa',
     'För att gå från dry-run till riktig QA för SDK och Mina meddelanden behöver organisationen samla: beslut och ansvarig kontakt, organisationsuppgifter, offentlig aktör-underlag, avtal eller avtalsägare, DIGG-ansökningsunderlag, tekniskt vägval, källsystemets API eller exportformat, målsystemets QA-endpoint eller leverantörsväg, API-dokumentation och OpenAPI, fältmappning, testdata utan skarpa personuppgifter, säkerhetsklassning, loggning och felhantering, certifikat eller O2O-plan för SDK, funktionsadresser, accesspunkt eller meddelandesystem, tekniska testfall, kvittohantering och HITL-godkännande. Live-sändning får bara aktiveras när QA-miljö, credentials, endpoint, avtal och testdatapolicy är klara.'
+  ),
+  (
+    'PDF: Process för att utveckla och förvalta nationella grunddata',
+    'Nationella grunddata',
+    'local://pdf/grunddata-process',
+    'Bilagan beskriver processen för hur nationella grunddata beslutas, utvecklas, fastställs och förvaltas. Triggern är ett identifierat behov av nationella grunddata. Kandidatsteget omfattar att dokumentera inkomna behov, bedöma juridiska förutsättningar, bedöma informationssäkerhetsbehov, analysera datamängder och identifiera intressenter. Utveckling och anpassning omfattar riskanalys, specifikation, kvalitetssäkring och publicering. Förvaltning handlar om ändringar, uppdatering, fortsatt tillgängliggörande och ett likartat arbetssätt mellan grunddatadomäner.'
+  ),
+  (
+    'PDF: Roller inom nationella grunddata',
+    'Nationella grunddata',
+    'local://pdf/grunddata-roller',
+    'Bilagan beskriver roller och ansvar för nationella grunddata. Grunddatadomänansvarig samordnar utveckling och förvaltning inom en grunddatadomän, följer ramverket, samverkar med andra aktörer, rapporterar status och främjar användning av nationella grunddata. Grunddataproducenten ansvarar för sina datamängder, metadata, kvalitet och tillgängliggörande där det är rättsligt möjligt. Rollbeskrivningarna hjälper kommunen att placera ansvar, beslutsmandat, samverkan och förvaltningsansvar innan en integrations- eller datadelningslösning byggs.'
+  ),
+  (
+    'PDF: Begreppsmodeller för nationella grunddata',
+    'Nationella grunddata',
+    'local://pdf/grunddata-begreppsmodeller',
+    'Bilagan förklarar att begreppsmodeller visar relationer mellan begrepp inom ramverket för nationella grunddata. Begreppsmodellerna kompletterar begreppskatalogen på Sveriges dataportal och hjälper aktörer att skapa gemensam förståelse innan informationsmodeller, API:er och mappningar tas fram. I en anslutningsresa bör oklara begrepp, datamängder, informationsobjekt och ansvariga roller identifieras tidigt så att källsystem och målsystem inte använder samma ord på olika sätt.'
+  ),
+  (
+    'PDF: Informationsarkitektur för nationella grunddata',
+    'Nationella grunddata',
+    'local://pdf/grunddata-informationsarkitektur',
+    'Bilagan beskriver modelltyper, standarder, specifikationer och gemensamma regler för informationsarkitektur. Begreppsmodeller beskriver verksamhetens begrepp och relationer. Informationsmodeller beskriver informationens struktur, attribut, relationer och regler. Specifikationer bör vara tydliga, spårbara och återanvändbara. Namnsättning, dokumenterad notation, enhetligt utseende, metadata och koppling mellan behov, juridik, informationssäkerhet och tekniska gränssnitt är viktigt när kommunen tar fram API-dokumentation, OpenAPI, fältmappning och testbara integrationskrav.'
   )
 ON DUPLICATE KEY UPDATE
   title = VALUES(title),

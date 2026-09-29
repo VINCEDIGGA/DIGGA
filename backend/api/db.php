@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 allow_local_dev_cors();
 
-function allow_local_dev_cors(): void
+function allow_local_dev_cors()
 {
     $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
     $isLocalDev = $origin === 'null'
@@ -13,7 +13,7 @@ function allow_local_dev_cors(): void
         header('Access-Control-Allow-Origin: ' . $origin);
         header('Vary: Origin');
         header('Access-Control-Allow-Headers: Content-Type');
-        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+        header('Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS');
     }
 
     if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'OPTIONS') {
@@ -64,7 +64,7 @@ function json_input(): array
     return $data;
 }
 
-function respond(array $payload, int $status = 200): never
+function respond(array $payload, int $status = 200)
 {
     http_response_code($status);
     header('Content-Type: application/json; charset=utf-8');
@@ -72,9 +72,24 @@ function respond(array $payload, int $status = 200): never
     exit;
 }
 
-function require_post(): void
+function require_post()
 {
     if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
         respond(['error' => 'Endast POST stöds.'], 405);
     }
+}
+
+function contains_text(string $haystack, string $needle): bool
+{
+    return $needle === '' || strpos($haystack, $needle) !== false;
+}
+
+function text_length(string $value): int
+{
+    return function_exists('mb_strlen') ? mb_strlen($value) : strlen($value);
+}
+
+function text_slice(string $value, int $start, int $length): string
+{
+    return function_exists('mb_substr') ? mb_substr($value, $start, $length) : substr($value, $start, $length);
 }

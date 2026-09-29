@@ -7,28 +7,127 @@
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <title>Steg-för-steg | Ena Agents</title>
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/poc.css" />
+    <link rel="stylesheet" href="../css/style.css?v=6" />
+    <link rel="stylesheet" href="../css/poc.css?v=10" />
   </head>
   <body>
     <div class="app">
       <aside class="sidebar">
         <div class="brand-block">
-          <img
-            class="slogan-img"
-            src="../images/ena-agent.png?v=3"
-            alt="Ena Agents"
-          />
+          <span class="brand-title">Ena Agents</span>
         </div>
 
         <nav class="side-nav" aria-label="Navigation">
           <a class="nav-item nav-link" href="../index.html">Fråga agenten</a>
+          <div class="nav-group">
+            <a class="nav-item nav-link active" id="guide-link" href="steg-for-steg.html">
+              Guidad anslutning
+            </a>
+            <a class="nav-subitem nav-link" id="underlag-link" href="steg-underlag.html">
+              Underlag
+            </a>
+          </div>
         </nav>
       </aside>
 
-      <main class="chat-panel">
-        <section class="poc-blank" aria-label="Steg-för-steg"></section>
+      <main class="chat-panel guide-shell">
+        <section class="guide-workspace" aria-label="Guidad anslutning till SDK">
+          <section class="guide-intake" id="guide-intake" aria-label="Kommunens behov och underlag">
+            <form class="intake-card guide-intake-card" id="guide-intake-form">
+              <p class="intake-kicker">V3 arbetsflöde</p>
+              <h1>Beskriv kommunens behov</h1>
+              <textarea
+                id="need-input"
+                rows="4"
+                placeholder="Exempel: Vi behöver skicka frånvarounderlag säkert från skolans system till regional elevhälsa."
+              ></textarea>
+
+              <div class="material-strip">
+                <label class="file-drop" for="material-input">
+                  <span class="file-drop-icon" aria-hidden="true">+</span>
+                  <span>
+                    <strong>Lägg till underlag</strong>
+                    <small>DIGG-källor, OpenAPI, mappning eller API-dokumentation</small>
+                  </span>
+                </label>
+                <input
+                  class="visually-hidden"
+                  id="material-input"
+                  type="file"
+                  multiple
+                  accept=".pdf,.json,.yaml,.yml,.txt,.md,.csv,.xml"
+                />
+              </div>
+
+              <ul class="material-list" id="material-list" aria-live="polite"></ul>
+
+              <p class="notice" id="guide-limit-notice" hidden>
+                Högst två pågående ärenden.
+              </p>
+
+              <button class="btn-primary intake-submit" type="submit">
+                Skapa specifik guide
+              </button>
+            </form>
+          </section>
+
+          <header class="guide-header">
+            <div>
+              <p class="eyebrow">SDK onboarding</p>
+              <h1 id="guide-title">Guidad anslutning för kommuner</h1>
+              <p class="guide-lede" id="guide-lede">
+                En kort arbetsyta för att ta kommunen från beslut till praktisk
+                användning av SDK.
+              </p>
+              <div class="guide-context" id="guide-context" hidden>
+                <strong id="guide-need"></strong>
+                <ul id="guide-materials"></ul>
+              </div>
+            </div>
+            <div class="readiness-panel" aria-label="Mognadsgrad">
+              <span class="readiness-label">Mognadsgrad</span>
+              <strong id="readiness-score">43%</strong>
+              <span id="readiness-copy">Starta med ansvar och nuläge.</span>
+            </div>
+          </header>
+
+          <div class="guide-grid">
+            <section class="phase-panel" aria-label="Anslutningsfaser">
+              <div class="section-heading">
+                <h2>Anslutningsresa</h2>
+                <span id="phase-count">1 av 4</span>
+              </div>
+              <ol class="phase-list" id="phase-list"></ol>
+            </section>
+
+            <section class="action-panel" aria-label="Aktuellt steg">
+              <div class="phase-detail" id="phase-detail"></div>
+              <div class="step-actions">
+                <button class="btn-secondary" type="button" id="prev-step">
+                  Föregående
+                </button>
+                <button class="btn-primary" type="button" id="next-step">
+                  Nästa steg
+                </button>
+              </div>
+            </section>
+          </div>
+        </section>
       </main>
     </div>
+    <dialog class="modal" id="guide-info-dialog">
+      <form method="dialog" class="modal-content">
+        <p id="guide-info-text"></p>
+        <button type="submit" class="btn-primary">OK</button>
+      </form>
+    </dialog>
+    <script>
+      window.DIGGA_CONFIG = {
+        ragChatEndpoint: "../backend/api/chat.php",
+        stepContextEndpoint: "../backend/api/step_context.php",
+      };
+    </script>
+    <script src="../js/api.js?v=8"></script>
+    <script src="../js/step-guide.js?v=18"></script>
   </body>
 </html>

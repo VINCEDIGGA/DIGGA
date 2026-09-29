@@ -14,7 +14,7 @@ require_once __DIR__ . '/db.php';
 /**
  * Skapar embeddingtabellen om den saknas.
  */
-function embedding_ensure_schema(): void
+function embedding_ensure_schema()
 {
     db()->exec(
         "CREATE TABLE IF NOT EXISTS document_embeddings (
@@ -83,7 +83,9 @@ function embedding_index_documents(array $config, int $limit = 80): array
     $skipped = 0;
 
     foreach (array_chunk($candidates, $batchSize) as $batch) {
-        $texts = array_map(static fn(array $row): string => $row['embedding_text'], $batch);
+        $texts = array_map(static function (array $row): string {
+            return $row['embedding_text'];
+        }, $batch);
         $vectors = embedding_create_vectors($texts, $config);
         foreach ($batch as $index => $row) {
             $vector = $vectors[$index] ?? null;
@@ -111,19 +113,28 @@ function embedding_index_documents(array $config, int $limit = 80): array
  */
 function embedding_retrieve_chunks(string $question, array $config, int $limit): array
 {
-    embedding_ensure_schema();
+    try {
+        embedding_ensure_schema();
+    } catch (Throwable $error) {
+        return [];
+    }
+
     if (!embedding_enabled($config) || embedding_api_key($config) === '') {
         return [];
     }
 
-    $status = embedding_status($config);
+    try {
+        $status = embedding_status($config);
+    } catch (Throwable $error) {
+        return [];
+    }
     if (($status['indexedDocuments'] ?? 0) <= 0) {
         return [];
     }
 
     try {
         $queryVector = embedding_create_vectors([$question], $config)[0] ?? [];
-    } catch (Throwable) {
+    } catch (Throwable $error) {
         return [];
     }
     if (!$queryVector) {
@@ -157,7 +168,12 @@ function embedding_retrieve_chunks(string $question, array $config, int $limit):
         $scored[] = $row;
     }
 
-    usort($scored, static fn(array $a, array $b): int => ($b['score'] <=> $a['score']));
+    usort($scored, static function (array $a, array $b): int {
+        if ($a['score'] === $b['score']) {
+            return 0;
+        }
+        return ($a['score'] < $b['score']) ? 1 : -1;
+    });
     return array_slice($scored, 0, max(1, $limit));
 }
 
@@ -250,7 +266,7 @@ function embedding_create_vectors(array $texts, array $config): array
 /**
  * Sparar en vektor för ett dokument.
  */
-function embedding_store_vector(int $documentId, string $model, string $hash, array $vector): void
+function embedding_store_vector(int $documentId, string $model, string $hash, array $vector)
 {
     $stmt = db()->prepare(
         "INSERT INTO document_embeddings (document_id, model, text_hash, embedding, vector_norm)
