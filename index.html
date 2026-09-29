@@ -7,20 +7,29 @@
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <title>Ena Agents</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=5" />
   </head>
   <body>
     <div class="app">
       <aside class="sidebar">
         <div class="brand-block">
-          <img
-            class="slogan-img"
-            src="images/ena-agent.png?v=3"
-            alt="Ena Agents"
-          />
+          <span class="brand-title">Ena Agents</span>
         </div>
 
         <nav class="side-nav">
+          <a class="nav-item nav-link guide-link" href="poc/steg-for-steg.html">
+            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M9 6h11M9 12h11M9 18h11M4 6l1.3 1.3L7.5 5M4 12l1.3 1.3L7.5 11M4 18l1.3 1.3L7.5 17"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Guidad anslutning
+          </a>
           <button type="button" class="nav-item" id="new-case-btn">
             <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
               <path
@@ -67,7 +76,7 @@
         <section class="chat is-empty" id="chat-view">
           <div class="chat-messages" id="chat-messages"></div>
           <div class="chat-center">
-            <p class="chat-intro">Hur kan jag hjälpa dig?</p>
+            <p class="chat-intro">Fråga om SDK, certifikat eller leverantörer</p>
           </div>
           <form class="chat-form" id="chat-form">
             <label class="visually-hidden" for="message-input">Fråga</label>
@@ -92,7 +101,8 @@
       </form>
     </dialog>
 
-    <script src="js/api.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/config.js?v=2"></script>
+    <script src="js/api.js?v=7"></script>
+    <script src="js/app.js?v=11"></script>
   </body>
 </html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Underlag | Ena Agents</title>
+    <link rel="stylesheet" href="../css/style.css?v=6" />
+    <link rel="stylesheet" href="../css/poc.css?v=10" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <span class="brand-title">Ena Agents</span>
+        </div>
+
+        <nav class="side-nav" aria-label="Navigation">
+          <a class="nav-item nav-link" href="../index.html">Fråga agenten</a>
+          <div class="nav-group">
+            <a class="nav-item nav-link" id="guide-link" href="steg-for-steg.html">
+              Guidad anslutning
+            </a>
+            <a class="nav-subitem nav-link active" id="underlag-link" href="steg-underlag.html">
+              Underlag
+            </a>
+          </div>
+        </nav>
+      </aside>
+
+      <main class="chat-panel guide-shell">
+        <section class="context-workspace" aria-label="Underlag för checklistpunkt">
+          <header class="context-header">
+            <p class="eyebrow">Underlag</p>
+            <h1 id="context-title">Checkpunkt</h1>
+            <p id="context-subtitle"></p>
+          </header>
+
+          <form class="context-form" id="context-form">
+            <section class="context-panel">
+              <div class="section-heading">
+                <h2>Beskrivning och behov</h2>
+              </div>
+              <div class="context-grid">
+                <label class="full">
+                  <span>Kort beskrivning</span>
+                  <textarea
+                    id="short-description"
+                    rows="4"
+                    placeholder="Beskriv kommunens faktiska anslutningsbehov. Den här texten styr Anslutning Workflow."
+                  ></textarea>
+                </label>
+                <label class="full">
+                  <span>Det ni vet, saknar eller behöver få bekräftat</span>
+                  <textarea
+                    id="need-text"
+                    rows="5"
+                    placeholder="Skriv källsystem, mottagare, datamängd, ansvar, leverantörsfrågor eller osäkerheter."
+                  ></textarea>
+                </label>
+              </div>
+            </section>
+
+            <section class="context-panel">
+              <div class="section-heading">
+                <h2>Ansökande organisation</h2>
+              </div>
+              <div class="context-grid">
+                <label>
+                  <span>Organisationsnamn</span>
+                  <input id="organization-name" autocomplete="organization" />
+                </label>
+                <label>
+                  <span>Organisationsnummer</span>
+                  <input id="organization-number" inputmode="numeric" />
+                </label>
+                <label>
+                  <span>Offentlig aktör/typ av verksamhet</span>
+                  <input
+                    data-application-field="public_actor_type"
+                    placeholder="Exempel: kommunal myndighet, skola, vårdgivare"
+                  />
+                </label>
+                <label>
+                  <span>Intern referens eller projekt</span>
+                  <input data-application-field="internal_reference" />
+                </label>
+              </div>
+            </section>
+
+            <section class="context-panel">
+              <div class="section-heading">
+                <h2>Faktureringsuppgifter</h2>
+              </div>
+              <div class="context-grid">
+                <label>
+                  <span>Fakturamottagare</span>
+                  <input data-application-field="invoice_receiver" />
+                </label>
+                <label>
+                  <span>Organisationsnummer fakturamottagare</span>
+                  <input data-application-field="invoice_org_number" inputmode="numeric" />
+                </label>
+                <label>
+                  <span>Elektronisk fakturaadress</span>
+                  <input
+                    data-application-field="electronic_invoice_address"
+                    placeholder="Peppol-ID eller GLN"
+                  />
+                </label>
+                <label>
+                  <span>Fakturareferens</span>
+                  <input data-application-field="invoice_reference" />
+                </label>
+                <label class="full">
+                  <span>Fakturaadress</span>
+                  <input data-application-field="invoice_address" />
+                </label>
+                <label>
+                  <span>Postnummer</span>
+                  <input data-application-field="invoice_zip" inputmode="numeric" />
+                </label>
+                <label>
+                  <span>Postort</span>
+                  <input data-application-field="invoice_city" />
+                </label>
+                <label class="full">
+                  <span class="context-check">
+                    <input
+                      type="checkbox"
+                      data-application-field="invoice_exception"
+                    />
+                    Vi vill ansöka om undantag och bli fakturerade via fakturaadress.
+                  </span>
+                </label>
+              </div>
+            </section>
+
+            <section class="context-panel">
+              <div class="section-heading">
+                <h2>Ansvarig kontaktperson</h2>
+              </div>
+              <div class="context-grid">
+                <label>
+                  <span>För- och efternamn</span>
+                  <input id="contact-name" autocomplete="name" />
+                </label>
+                <label>
+                  <span>Telefonnummer</span>
+                  <input data-application-field="contact_phone" autocomplete="tel" />
+                </label>
+                <label>
+                  <span>E-post</span>
+                  <input id="contact-email" type="email" autocomplete="email" />
+                </label>
+                <label>
+                  <span>Funktion/roll</span>
+                  <input id="contact-role" />
+                </label>
+              </div>
+            </section>
+
+            <section class="context-panel">
+              <div class="section-heading">
+                <h2>Verksamhetsansvarig</h2>
+              </div>
+              <div class="context-grid">
+                <label>
+                  <span>Namn på funktion eller person</span>
+                  <input data-application-field="business_owner_name" />
+                </label>
+                <label>
+                  <span>Telefonnummer</span>
+                  <input data-application-field="business_owner_phone" autocomplete="tel" />
+                </label>
+                <label class="full">
+                  <span>E-post</span>
+                  <input
+                    data-application-field="business_owner_email"
+                    type="email"
+                    autocomplete="email"
+                  />
+                </label>
+              </div>
+            </section>
+
+            <section class="context-panel">
+              <div class="section-heading">
+                <h2>IT-funktion</h2>
+              </div>
+              <div class="context-grid">
+                <label>
+                  <span>Namn på IT-funktion eller person</span>
+                  <input data-application-field="it_function_name" />
+                </label>
+                <label>
+                  <span>Telefonnummer</span>
+                  <input data-application-field="it_function_phone" autocomplete="tel" />
+                </label>
+                <label class="full">
+                  <span>E-post</span>
+                  <input
+                    data-application-field="it_function_email"
+                    type="email"
+                    autocomplete="email"
+                  />
+                </label>
+              </div>
+            </section>
+
+            <section class="context-panel">
+              <div class="section-heading">
+                <h2>Avtal och underskrift</h2>
+              </div>
+              <div class="context-grid">
+                <label>
+                  <span>Person med mandat att skriva under</span>
+                  <input data-application-field="signer_name" autocomplete="name" />
+                </label>
+                <label>
+                  <span>Befattning</span>
+                  <input data-application-field="signer_role" />
+                </label>
+                <label>
+                  <span>E-post</span>
+                  <input
+                    data-application-field="signer_email"
+                    type="email"
+                    autocomplete="email"
+                  />
+                </label>
+                <label>
+                  <span>Kräver fler undertecknare?</span>
+                  <select data-application-field="multiple_signers">
+                    <option value="">Välj</option>
+                    <option value="nej">Nej</option>
+                    <option value="ja">Ja</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Underskrift 2, namn</span>
+                  <input data-application-field="signer2_name" />
+                </label>
+                <label>
+                  <span>Underskrift 2, e-post</span>
+                  <input data-application-field="signer2_email" type="email" />
+                </label>
+                <label>
+                  <span>Underskrift 3, namn</span>
+                  <input data-application-field="signer3_name" />
+                </label>
+                <label>
+                  <span>Underskrift 3, e-post</span>
+                  <input data-application-field="signer3_email" type="email" />
+                </label>
+              </div>
+            </section>
+
+            <section class="context-panel">
+              <div class="section-heading">
+                <h2>Filer</h2>
+              </div>
+              <div class="context-files">
+                <label class="file-drop" for="context-files">
+                  <span class="file-drop-icon" aria-hidden="true">+</span>
+                  <span>
+                    <strong>Lägg till underlag</strong>
+                    <small>OpenAPI, mappning, text, JSON, XML eller PDF-namn</small>
+                  </span>
+                </label>
+                <input
+                  class="visually-hidden"
+                  id="context-files"
+                  type="file"
+                  multiple
+                  accept=".pdf,.json,.yaml,.yml,.txt,.md,.csv,.xml"
+                />
+                <ul class="material-list" id="context-file-list" aria-live="polite"></ul>
+              </div>
+            </section>
+
+            <div class="context-actions">
+              <a class="btn-secondary" id="back-link" href="steg-for-steg.html">
+                Tillbaka
+              </a>
+              <button class="btn-secondary" type="button" id="ask-ai-btn">
+                Fråga AI om underlaget
+              </button>
+              <button class="btn-primary" type="submit" id="save-context-btn">
+                Spara underlag
+              </button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="modal" id="context-dialog">
+      <form method="dialog" class="modal-content">
+        <p id="context-dialog-text"></p>
+        <button type="submit" class="btn-primary">OK</button>
+      </form>
+    </dialog>
+
+    <script>
+      window.DIGGA_CONFIG = {
+        ragChatEndpoint: "../backend/api/chat.php",
+        stepContextEndpoint: "../backend/api/step_context.php",
+      };
+    </script>
+    <script src="../js/api.js?v=8"></script>
+    <script src="../js/step-context.js?v=3"></script>
+  </body>
+</html>

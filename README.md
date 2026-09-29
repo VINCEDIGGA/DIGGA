@@ -1,96 +1,99 @@
-# DIGG-A prerequisites skills.
+# DIGG-A
 
+Frontend for Ena Agents with a need-driven V3 flow for DIGG/ENA onboarding.
 
-CI/CD :
+## V3 Flow
 
-https://www.youtube.com/watch?v=AknbizcLq4w
+- `index.html` stays as a clean chat page.
+- `poc/steg-for-steg.html` starts the V3 flow with the municipality need and
+  optional supporting files.
+- The guide flow can also start from the case menu: `Ansluta till hjälp` ->
+  `poc/steg-for-steg.html`.
+- The guide page creates a case, asks the backend for a specific guide, and
+  stores the need/material list locally with that case.
+- `poc/steg-for-steg.html` shows a contextual six-step anslutningsresa when it
+  is opened from a V3 case.
+- Chat cases and messages are stored locally in the browser.
+- Assistant answers are fetched from the PoC RAG/LLM backend configured in
+  `js/config.js`. The default endpoint is the relative path
+  `backend/api/chat.php`, which is suitable when the whole project is uploaded
+  to one PHP-capable school environment.
+- Example PDF knowledge about nationella grunddata is extracted into
+  `backend/data/schema_and_seed_student.sql`, so it becomes available after the
+  normal phpMyAdmin import.
+- Never put LLM API keys in the frontend. Keys belong in backend configuration.
 
-System design : 
+## Backend
 
-https://www.youtube.com/watch?v=SE2KF-vxvS0
+A minimal PHP backend is included in `backend/`. It contains the chat endpoint,
+database connection, embedding retrieval, and a student-friendly schema/seed
+file. See `backend/README.md` for local setup.
 
-Docker : 
+## School Upload Checklist
 
-https://www.youtube.com/watch?v=3c-iBn73dDE
+The static UI and guided checklist work on ordinary web hosting. The AI chat
+requires PHP and MySQL.
 
-MCP : 
+1. Upload the project folder with `index.html`, `css/`, `js/`, `poc/`, and
+   `backend/` kept in the same relative structure.
+2. Import `backend/data/schema_and_seed_student.sql` into the school MySQL
+   database.
+3. Copy `backend/api/local.secrets.example.php` to
+   `backend/api/local.secrets.php` on the server.
+4. Add the school database credentials and Mistral API key in
+   `backend/api/local.secrets.php`.
+5. Keep `js/config.js` as `ragChatEndpoint: "backend/api/chat.php"` if the
+   backend folder is uploaded next to `index.html`. Change that value only if
+   the school server places the API somewhere else.
 
-https://www.youtube.com/watch?v=oblaHqULUHk
+If PHP, MySQL, or the API key is missing, the app still opens and the guide
+still works. The chat will show a clear message that AI answers are not active
+in that environment.
 
+## Learning Links
 
-# Quick Git \& GitHub Guide
+- CI/CD: https://www.youtube.com/watch?v=AknbizcLq4w
+- System design: https://www.youtube.com/watch?v=SE2KF-vxvS0
+- Docker: https://www.youtube.com/watch?v=3c-iBn73dDE
+- MCP: https://www.youtube.com/watch?v=oblaHqULUHk
 
+## Quick Git And GitHub Guide
 
-
-\## 1. Essential Commands
+### Essential Commands
 
 | Command | Action | Watch Out For |
+| --- | --- | --- |
+| `git status` | Shows modified and staged files | Always run this first |
+| `git add <file>` | Stages files for commit | Avoid `git add .` without a `.gitignore` |
+| `git commit -m "msg"` | Saves a local snapshot | Keep messages clear and descriptive |
+| `git push origin <branch>` | Uploads local commits to GitHub | Do not use `--force` on shared branches |
+| `git pull origin <branch>` | Downloads and merges remote changes | Can trigger merge conflicts |
+| `git merge <branch>` | Combines another branch into yours | Watch out for overlapping edits |
 
-| `git status` | Shows modified/staged files   | Always run this first   |
+### Branch And PR Routine
 
-| `git add <file>` | Stages files for commit   | Avoid `git add .` without a `.gitignore`   |
-
-| `git commit -m "msg"` | Saves a local snapshot   | Keep messages clear and descriptive   |
-
-| `git push origin <branch>` | Uploads local commits to GitHub   | Don't use `--force` on shared branches   |
-
-| `git pull origin <branch>` | Downloads \& merges remote changes   | Can trigger surprise merge conflicts   |
-
-| `git merge <branch>` | Combines another branch into yours   | Watch out for overlapping code changes   |
-
-
-
-\## 2. The Industry Fix: Branches \& PRs
-
-Never push directly to `main`   Instead:
-
-1\. `git pull origin main` (Get latest)  
-
-2\. `git checkout -b feat/my-work` (Create branch)  
-
-3\. Work, `add`, and `commit`  
-
-4\. `git push -u origin feat/my-work` (Push branch)  
-
-5\. Open a \*\*Pull Request (PR)\*\* on GitHub for review and merging  
-
-
-
-\### 2.1 Solo Routine (Working Alone)
+Do not push directly to `main` on shared work. Use a branch and a pull request:
 
 ```bash
-
-git status
-
-git add .
-
-git commit -m "feat: short description"
-
 git pull origin main
-
-git push origin main
-
+git checkout -b feat/my-work
+git status
+git add <file>
+git commit -m "feat: short description"
+git push -u origin feat/my-work
 ```
 
+Then open a pull request on GitHub for review and merging.
 
+### Merge Conflicts
 
-\## 3. Merge Conflicts
+A merge conflict happens when two branches change the same line differently.
+Git pauses the merge and adds conflict markers inside the file. The markers
+start with strings such as `<<<<<<<`, `=======`, and `>>>>>>>`.
 
-A conflict happens when two branches change the \*\*exact same line\*\* of code in different ways   Git pauses the merge and adds markers (`<<<<<<<`, `=======`, `>>>>>>>`) inside the file so you can fix it manually  
+To resolve it, edit the file, keep the correct code, delete the markers, run
+`git add <file>`, and commit. If you need to cancel the merge, run:
 
-
-
-\### 3.1 How to Resolve
-
-1\. \*\*Edit:\*\* Open the file, keep the correct code, and delete all Git markers (`<<<<<<<`, `=======`, `>>>>>>>`)  
-
-2\. \*\*Stage:\*\* Run `git add <file>` to mark it resolved  
-
-3\. \*\*Commit:\*\* Run `git commit` to finish the merge  
-
-
-
-\*(Stuck? Run `git merge --abort` to cancel and start over  \*
-
-
-
+```bash
+git merge --abort
+```
