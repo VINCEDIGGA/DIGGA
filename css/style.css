@@ -1,15 +1,20 @@
 :root {
-  --bg: #f7f7f8;
+  --bg: #f3f3f3;
   --panel: #ffffff;
-  --text: #0d0d0d;
-  --muted: #6e6e80;
-  --line: #ececf1;
-  --accent: #0d7377;
-  --accent-hover: #095c5f;
+  --text: #2b2a28;
+  --muted: #747372;
+  --line: #e8e8e8;
+  --accent: #546850;
+  --accent-hover: #3b4938;
+  --accent-active: #2a3428;
+  --accent-soft: #eef0ed;
   --hover: #f0f0f0;
   --active: #ececec;
-  --notice: #b42318;
+  --notice: #cd796d;
+  --focus-color: #2b2a28;
+  --radius: 2px;
   --sidebar-width: 272px;
+  --font: Ubuntu, "Helvetica Neue", sans-serif;
 }
 
 * {
@@ -28,7 +33,7 @@ html {
 
 body {
   margin: 0;
-  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-family: var(--font);
   color: var(--text);
   background: var(--bg);
   overflow-x: hidden;
@@ -54,17 +59,43 @@ body {
 
 .brand-block {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: stretch;
+  width: 216px;
   min-height: 2.75rem;
-  margin: 0.15rem 0.55rem 1rem;
+  margin: 0.15rem auto 2rem;
+  gap: 0.45rem;
+}
+
+.brand-logo-link {
+  display: block;
+  width: 100%;
+}
+
+.brand-logo-link:focus-visible {
+  outline: 3px dotted var(--focus-color);
+  outline-offset: 2px;
+}
+
+.brand-logo {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .brand-title {
-  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.2rem;
+  padding: 0.35rem 0.5rem;
+  background: var(--accent-soft);
+  color: var(--accent-hover);
   font-size: 1rem;
   font-weight: 800;
   line-height: 1.2;
+  text-align: center;
+  border-radius: var(--radius);
 }
 
 .side-nav {
@@ -81,9 +112,10 @@ body {
   min-height: 2.75rem;
   padding: 0.58rem 0.75rem;
   border: 0;
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: transparent;
   color: var(--text);
+  font-family: inherit;
   font-size: 1.05rem;
   line-height: 1.3;
   text-align: left;
@@ -110,8 +142,8 @@ body {
   margin-left: 0.75rem;
   padding: 0.42rem 0.7rem 0.42rem 1rem;
   border-left: 2px solid var(--line);
-  border-radius: 0 8px 8px 0;
-  color: #4b5563;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--muted);
   font-size: 0.92rem;
   text-decoration: none;
 }
@@ -119,7 +151,7 @@ body {
 .nav-subitem:hover,
 .nav-subitem.active {
   border-left-color: var(--accent);
-  background: var(--hover);
+  background: var(--accent-soft);
   color: var(--text);
 }
 
@@ -135,20 +167,34 @@ body {
 .nav-subitem:focus-visible,
 .case-item-btn:focus-visible,
 .menu-toggle:focus-visible,
-.menu button:focus-visible {
-  outline: 2px solid var(--accent);
+.menu button:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+  outline: 3px dotted var(--focus-color);
   outline-offset: 2px;
 }
 
 .nav-item.active {
-  background: var(--active);
-  font-weight: 600;
+  background: var(--accent-soft);
+  font-weight: 700;
 }
 
 .nav-icon {
   width: 1.15rem;
   height: 1.15rem;
   flex-shrink: 0;
+}
+
+#new-case-btn .nav-icon {
+  color: #ef8271;
+}
+
+#archive-view-btn .nav-icon {
+  color: #1d1d1b;
+}
+
+#ongoing-view-btn .nav-icon {
+  color: #ed8532;
 }
 
 .notice {
@@ -177,11 +223,11 @@ body {
 .case-item {
   display: flex;
   align-items: center;
-  border-radius: 10px;
+  border-radius: var(--radius);
 }
 
 .case-item.active {
-  background: var(--active);
+  background: var(--accent-soft);
 }
 
 .case-item:hover {
@@ -199,6 +245,7 @@ body {
   padding: 0.5rem 0.45rem 0.5rem 0.7rem;
   border: 0;
   background: transparent;
+  font-family: inherit;
   font-size: 1.02rem;
   cursor: pointer;
   color: var(--text);
@@ -221,10 +268,11 @@ body {
   margin-right: 0.1rem;
   border: 0;
   background: transparent;
+  font-family: inherit;
   font-size: 1.15rem;
   line-height: 1;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: var(--radius);
 }
 
 .menu-toggle:hover,
@@ -242,8 +290,8 @@ body {
   padding: 0.35rem;
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px rgba(43, 42, 40, 0.08);
   z-index: 20;
 }
 
@@ -260,8 +308,9 @@ body {
   min-height: 2.75rem;
   padding: 0.55rem 0.7rem;
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: transparent;
+  font-family: inherit;
   text-align: left;
   cursor: pointer;
 }
@@ -316,7 +365,7 @@ body {
   margin: 0 0 1.5rem;
   color: var(--text);
   font-size: 1.7rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .intake-card {
@@ -327,7 +376,7 @@ body {
   margin: 0 auto 1rem;
   padding: 1.15rem;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: #fff;
   text-align: left;
 }
@@ -352,7 +401,7 @@ body {
   resize: vertical;
   padding: 0.8rem 0.9rem;
   border: 1px solid #b8c0c8;
-  border-radius: 8px;
+  border-radius: var(--radius);
   color: var(--text);
   font: inherit;
   line-height: 1.45;
@@ -360,7 +409,7 @@ body {
 
 .intake-card textarea:focus {
   border-color: var(--accent);
-  outline: 3px solid rgba(13, 115, 119, 0.2);
+  outline: 3px solid rgba(84, 104, 80, 0.2);
 }
 
 .intake-card textarea::placeholder {
@@ -380,15 +429,15 @@ body {
   min-height: 4rem;
   padding: 0.75rem;
   border: 1px dashed #9aa8ad;
-  border-radius: 8px;
-  background: #f9fbfb;
+  border-radius: var(--radius);
+  background: var(--accent-soft);
   cursor: pointer;
 }
 
 .file-drop:hover,
 .file-drop:focus-within {
   border-color: var(--accent);
-  background: #eef8f8;
+  background: var(--accent-soft);
 }
 
 .file-drop-icon {
@@ -397,7 +446,7 @@ body {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  background: #e8f4f4;
+  background: var(--accent-soft);
   color: var(--accent);
   font-weight: 900;
 }
@@ -431,9 +480,9 @@ body {
   max-width: 100%;
   padding: 0.38rem 0.55rem;
   border: 1px solid var(--line);
-  border-radius: 999px;
-  background: #f7f7f8;
-  color: #334155;
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
   font-size: 0.82rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -469,7 +518,7 @@ body {
 .message {
   max-width: 78%;
   padding: 0.8rem 1rem;
-  border-radius: 18px;
+  border-radius: var(--radius);
   line-height: 1.5;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -479,7 +528,7 @@ body {
 
 .message.user {
   align-self: flex-end;
-  background: #e8f4f4;
+  background: var(--accent-soft);
   color: var(--text);
 }
 
@@ -548,27 +597,63 @@ body {
 
 .chat-form:focus-within {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(13, 115, 119, 0.28);
+  box-shadow: 0 0 0 3px rgba(84, 104, 80, 0.28);
 }
 
-.chat-form input {
+.chat-form input[type="text"] {
   flex: 1;
   min-width: 0;
   min-height: 2.75rem;
   padding: 0.7rem 0.9rem;
   border: 0;
   border-radius: 20px;
+  font-family: inherit;
   font-size: 1rem;
   background: transparent;
   color: var(--text);
 }
 
-.chat-form input:focus {
+.chat-form input[type="text"]:focus {
   outline: none;
 }
 
-.chat-form input::placeholder {
+.chat-form input[type="text"]::placeholder {
   color: var(--muted);
+}
+
+.btn-attach {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 1.45rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.btn-attach:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.btn-attach:focus-visible,
+.btn-send:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.attach-name {
+  width: min(46rem, 100%);
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .btn-send {
@@ -579,6 +664,7 @@ body {
   border-radius: 50%;
   background: var(--accent);
   color: #fff;
+  font-family: inherit;
   font-size: 1.05rem;
   cursor: pointer;
 }
@@ -600,26 +686,36 @@ body {
 .btn-primary {
   min-height: 2.75rem;
   padding: 0.55rem 1rem;
-  border: 0;
-  border-radius: 10px;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
   background: var(--accent);
   color: #fff;
+  font-family: inherit;
   font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
 }
 
 .btn-primary:hover {
   background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.btn-primary:active {
+  background: var(--accent-active);
+  border-color: var(--accent-active);
 }
 
 .btn-secondary {
   min-height: 2.75rem;
   padding: 0.55rem 1rem;
-  border: 1px solid #b8c0c8;
-  border-radius: 10px;
-  background: #fff;
+  border: 2px solid var(--text);
+  border-radius: var(--radius);
+  background: var(--panel);
   color: var(--text);
+  font-family: inherit;
   font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -629,13 +725,13 @@ body {
 
 .modal {
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: var(--radius);
   padding: 0;
   width: min(22rem, 92vw);
 }
 
 .modal::backdrop {
-  background: rgba(0, 0, 0, 0.28);
+  background: rgba(43, 42, 40, 0.32);
 }
 
 .modal-content {
@@ -702,7 +798,8 @@ body {
   }
 
   .brand-block {
-    margin: 0.15rem 0 0.55rem;
+    width: 180px;
+    margin: 0.15rem auto 1.5rem;
   }
 
   .list-section {
@@ -741,7 +838,7 @@ body {
     font-size: 1.2rem;
   }
 
-  .chat-form input {
+  .chat-form input[type="text"] {
     font-size: 16px;
   }
 

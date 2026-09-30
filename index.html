@@ -7,29 +7,29 @@
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <title>Ena Agents</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/style.css?v=5" />
   </head>
   <body>
     <div class="app">
       <aside class="sidebar">
         <div class="brand-block">
+          <a class="brand-logo-link" href="index.html">
+            <img
+              class="brand-logo"
+              src="images/DIGG-logo-color.svg"
+              alt="DIGG – Myndigheten för digital förvaltning, till startsidan"
+            />
+          </a>
           <span class="brand-title">Ena Agents</span>
         </div>
 
         <nav class="side-nav">
-          <a class="nav-item nav-link guide-link" href="poc/steg-for-steg.html">
-            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M9 6h11M9 12h11M9 18h11M4 6l1.3 1.3L7.5 5M4 12l1.3 1.3L7.5 11M4 18l1.3 1.3L7.5 17"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            Guidad anslutning
-          </a>
           <button type="button" class="nav-item" id="new-case-btn">
             <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
               <path
@@ -79,6 +79,15 @@
             <p class="chat-intro">Fråga om SDK, certifikat eller leverantörer</p>
           </div>
           <form class="chat-form" id="chat-form">
+            <button type="button" class="btn-attach" id="attach-btn" aria-label="Bifoga fil">
+              +
+            </button>
+            <input
+              id="file-input"
+              class="visually-hidden"
+              type="file"
+              tabindex="-1"
+            />
             <label class="visually-hidden" for="message-input">Fråga</label>
             <input
               id="message-input"
@@ -90,6 +99,7 @@
               ↑
             </button>
           </form>
+          <p class="attach-name" id="attach-name" hidden></p>
         </section>
       </main>
     </div>
