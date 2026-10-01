@@ -171,6 +171,72 @@ VALUES
     'SDK-komponenter som meddelandesystem och klienter ska kunna hantera SDK-meddelanden. SDK-meddelandet paketeras med XHE och MessageType. Innehållsvalidering ska säkerställa problemfri kommunikation mellan parter i SDK-federationen. Meddelandetjänst ska validera SDK-meddelanden med schema och schematron på utgående och inkommande försändelser. Inkommande valideringsfel hanteras med kvittensmeddelande enligt Diggs specifikation.'
   ),
   (
+    'SDK betyder Säker digital kommunikation',
+    'SDK',
+    'https://www.digg.se/saker-digital-kommunikation',
+    'I den här anslutningsguiden betyder SDK alltid Säker digital kommunikation. Det ska inte tolkas som Software Development Kit. SDK är ett säkert utbyte mellan organisationer. O2O betyder organisation till organisation. SDK är inte samma spår som Mina meddelanden eller digital post, och Mina meddelanden ska inte föreslås som ersättning när frågan gäller SDK.'
+  ),
+  (
+    'SDK ansvar mellan kommun och leverantör',
+    'SDK',
+    'https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation',
+    'Kommunen eller deltagarorganisationen behöver äga beslut, ansvar, uppföljning och verksamhetsförankring i en SDK-anslutning. En leverantör kan hjälpa med accesspunkt, meddelandesystem, teknisk installation, test, certifikat och felhantering, men leverantören ersätter inte kommunens ansvar. För en liten kommun bör första frågan vara vad leverantören redan kan hantera och vad kommunen själv måste besluta, bemanna och godkänna.'
+  ),
+  (
+    'SDK certifikat och O2O-underlag',
+    'SDK',
+    'local://sdk/certifikat-o2o-underlag',
+    'Vid SDK-frågor om certifikat bör svaret börja enkelt: fråga leverantören vem som praktiskt skapar, installerar och förvaltar certifikat, vilken testmiljö som används, vilket format som krävs och hur byte eller förnyelse görs. Kommunen bör spara ansvarig kontakt, certifikatägare, miljö, giltighetstid, filnamn, format, teststatus och vem som godkänt inför QA eller produktion. Tekniska detaljer ska förklaras först efter den praktiska ansvarsfördelningen.'
+  ),
+  (
+    'SDK exempel på enkelt tekniskt underlag',
+    'SDK',
+    'local://sdk/exempel-tekniskt-underlag',
+    'För en liten kommun kan tekniskt SDK-underlag beskrivas med enkel filstruktur: underlag/api/openapi.yaml för källsystemets API, underlag/mapping/faltmappning.xlsx för källfält till målfält, underlag/testdata/exempel.json för syntetiskt testfall, underlag/certifikat/README.txt för vem som hanterar certifikat och underlag/ansvar/roller.md för ansvarig verksamhet, IT-kontakt och leverantör. Syftet är att göra frågan begriplig innan detaljer som XHE, MessageType eller schematron tas upp.'
+  ),
+  (
+    'SDK anslutning till QA och produktion',
+    'SDK',
+    'https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/instruktioner-for-anslutning-till-sdk',
+    'Vid anslutning till SDK behöver kommunen se processen som stegvis: avtal och roller, publikt O2O-certifikat i SDK adressbok, notifiering till Digg, publicering i SMP, registrering av funktionsadresser, tillgång till testklient och tester med godkänt resultat innan federationsgodkännande och produktion. För en liten kommun bör checklistan översättas till enkla ägare: vem hos kommunen godkänner, vem hos leverantören installerar och testar, vem registrerar funktionsadresser och vem sparar bevis från QA.'
+  ),
+  (
+    'SDK funktionsadresser för små kommuner',
+    'SDK',
+    'https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/sdk-adressbok',
+    'SDK adressbok innehåller funktionsadresser, inte personadresser. Kommunen behöver beskriva vilka verksamhetsfunktioner som ska kunna skicka eller ta emot meddelanden, till exempel socialtjänst, utbildning, registratur eller en särskild ärendetyp. Varje funktionsadress behöver bemanning, ansvarig administratör, tydlig funktion, beskrivning, eventuell organisatorisk enhet och rutin för uppdatering. Det går inte att skicka SDK-meddelanden direkt till en enskild person, men ett ärende-id eller personreferens kan finnas i meddelandet när behörighet och informationssäkerhet är löst.'
+  ),
+  (
+    'SDK informationsspecifikation adressbok',
+    'SDK',
+    'https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/tekniska-beskrivningar/informationsspecifikation-sdk-adressbok',
+    'SDK adressbok har strukturerade uppgifter för deltagarorganisation och funktionsadresser. För en funktionsadress är praktiska fält exempelvis identifier, unitName, name och description. Identifier ska vara unik inom deltagarorganisationen och inte vara skiftlägeskänslig. För små kommuner bör detta göras begripligt som en lista: funktionsnamn, kort beskrivning, intern ägare, eventuell förvaltning, teknisk identifierare och vem som får ändra posten.'
+  ),
+  (
+    'SDK leverantörsfrågor före teknisk implementation',
+    'SDK',
+    'https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/vagledningar-och-rekommendationer-infor-anslutning-till-sdk/forberedelser-infor-anslutning-till-sdk/checklistor/checklista-for-anskaffning-av-komponenter-infor-anslutning-till-sdk',
+    'När kommunen saknar egen IT bör första tekniska steget vara att fråga leverantören om komponenter och ansvar. Fråga om leverantören stödjer SDK som meddelandesystem eller accesspunkt, vilka miljöer som finns, vem som hanterar certifikat och O2O, hur funktionsadresser kopplas, hur kvittenser och fel loggas, hur testfall körs och vilken dokumentation kommunen får. Svaret ska inte byta till Mina meddelanden bara för att leverantören saknar SDK, utan ska beskriva gapet och möjliga nästa beslut.'
+  ),
+  (
+    'SDK API MT/MK enkel testförståelse',
+    'SDK',
+    'https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/tekniska-beskrivningar/apier-for-sdk/sdk-api-mt-mk/sdk-api-mt-mk-implementationsguide',
+    'SDK API MT/MK-materialet är tekniskt och riktar sig främst till leverantörer av meddelandetjänst eller meddelandeklient. För en kommunal verksamhet bör det översättas till enklare frågor: vilken testmiljö används, vilken funktionsadress används för test, vilket testmeddelande skickas, hur ser kvittens eller fel ut, och var sparas logg och testbevis. Tekniska endpointar och API-anrop bör visas som exempel först efter att ansvar och testmål är klart.'
+  ),
+  (
+    'DIGG RAP-LP validering av OpenAPI',
+    'diggsweden GitHub',
+    'https://github.com/diggsweden/rest-api-profil-lint-processor',
+    'REST API-profil Lint Processor från diggsweden granskar OpenAPI v3-specifikationer mot den nationella REST API-profilen. Verktyget kan användas via npm, npx, Docker eller Podman och kan ge logg eller avstämningsfil. För små kommuner räcker det ofta att be leverantören lämna openapi.yaml och en kort valideringsrapport: vilka fel finns, vilka varningar finns och vad måste rättas innan integrationen testas.'
+  ),
+  (
+    'DIGG DCAT-AP-SE publicering av API-metadata',
+    'diggsweden GitHub',
+    'https://github.com/diggsweden/DCAT-AP-SE-Processor',
+    'DCAT-AP-SE Processor från diggsweden automatiserar metadata enligt DCAT-AP-SE för datamängder och API:er på Sveriges dataportal. För en kommun betyder detta inte att integrationen är klar, utan att API:et eller datamängden kan beskrivas mer strukturerat. Praktiskt underlag är OpenAPI-fil, namn på datamängd eller API, kontakt, åtkomstpunkt, licens eller villkor, beskrivning och ansvarig förvaltning.'
+  ),
+  (
     'DIGG digitala tjänster och datadelningsstöd',
     'DIGG',
     'https://www.digg.se/digitala-tjanster',
@@ -201,16 +267,40 @@ VALUES
     'Sveriges dataportal är ett nationellt nav för att hitta, utforska och använda data från offentlig, privat och civilsamhällessektor. Portalen innehåller metadata och länkar till åtkomstpunkter; själva datamängderna hämtas hos organisationen som ansvarar för dem. Portalen kan användas för att hitta data och API:er som en integration kan bygga på.'
   ),
   (
-    'DCAT-AP-SE Processor',
+    'DIGG DCAT-AP-SE publicering av API-metadata',
     'diggsweden GitHub',
     'https://github.com/diggsweden/DCAT-AP-SE-Processor',
-    'DCAT-AP-SE Processor automatiserar framställning av metadata enligt DCAT-AP-SE för publicering av datamängder och API:er på Sveriges dataportal. Verktyget tar OpenAPI, RAML eller separata metadatafiler som input och genererar RDF redo för skördning. Det kan köras i UI, REST API, CLI eller integreras i CI/CD. Arbetsprocessen omfattar skördningskälla, metadata i API-definition eller separat fil, generering av RDF, skördning och verifiering.'
+    'DCAT-AP-SE Processor automatiserar framställning av metadata enligt DCAT-AP-SE för publicering av datamängder och API:er på Sveriges dataportal. Verktyget tar OpenAPI, RAML eller separata metadatafiler som input och genererar RDF redo för skördning. För en kommun betyder detta inte att integrationen är klar, utan att API:et eller datamängden kan beskrivas mer strukturerat. Praktiskt underlag är OpenAPI-fil, namn på datamängd eller API, kontakt, åtkomstpunkt, licens eller villkor, beskrivning och ansvarig förvaltning.'
   ),
   (
-    'REST API-profil Lint Processor',
+    'DIGG RAP-LP validering av OpenAPI',
     'diggsweden GitHub',
     'https://github.com/diggsweden/rest-api-profil-lint-processor',
-    'REST API-profil Lint Processor, RAP-LP, validerar OpenAPI v3-specifikationer mot den svenska REST API-profilen med hjälp av Spectral. Verktyget kan köras lokalt i CLI-läge eller API-läge, via webgränssnitt, npm/npx eller container. Det stödjer regelkategorier för dokumentation, resurser, säkerhet, spårbarhet, felhantering, versionering, filtrering och fler profilområden.'
+    'REST API-profil Lint Processor, RAP-LP, validerar OpenAPI v3-specifikationer mot den svenska REST API-profilen med hjälp av Spectral. Verktyget kan köras lokalt i CLI-läge eller API-läge, via webgränssnitt, npm/npx, Docker eller Podman. För små kommuner räcker det ofta att be leverantören lämna openapi.yaml och en kort valideringsrapport: vilka fel finns, vilka varningar finns och vad måste rättas innan integrationen testas.'
+  ),
+  (
+    'Svensk REST API-profil - praktisk OpenAPI-struktur',
+    'Dataportal',
+    'https://www.dataportal.se/rest-api-profil#praktisk-openapi-struktur',
+    'När kommunen ber om ett API-underlag bör det normalt vara en OpenAPI v3-specifikation i YAML eller JSON. För en liten kommun kan kravet beskrivas som: lämna en openapi.yaml som innehåller info med titel, version, beskrivning och kontakt; servers med test- eller produktionsadress; paths med resurser och HTTP-metoder; operationId, summary och description per operation; parameters för path/query/header; requestBody där API:et tar emot data; responses med statuskoder; content-typer som application/json där JSON används; components/schemas för datamodeller; säkerhetskrav; felmodell och exempel. Detta säger inte att varje verksamhetsmeddelande måste vara JSON, och AI får inte säga att DIGG alltid kräver JSON eller XML för API-sändning om källan inte uttryckligen säger det. REST API-profilen och RAP-LP arbetar med OpenAPI som beskriver API:et och dess payloads; exakt payload-format måste kontrolleras i tjänstens API-specifikation eller med leverantör/DIGG.'
+  ),
+  (
+    'RAP-LP regelkategorier som AI ska använda vid API-råd',
+    'diggsweden GitHub',
+    'https://github.com/diggsweden/rest-api-profil-lint-processor#regelfiltrering',
+    'RAP-LP kan validera OpenAPI mot regelkategorier från REST API-profilen: dokumentation, datum- och tidsformat, resurser, URL-format och namngivning, mognad, säkerhet, spårbarhet och korrelation, API-meddelanden, API-request, felhantering, versionshantering, filtrering/paginering/sökparametrar och förutsättningar. När AI ger råd om hur ett kommunalt API ska se ut ska svaret översätta dessa kategorier till praktiska frågor: är API:et dokumenterat, är resursnamn och URL:er begripliga, finns säkerhet, finns spårbarhet, finns felmodell, finns versionering och finns filtrering eller paginering där listor returneras.'
+  ),
+  (
+    'RAP-LP strikt läge och leverantörsbevis',
+    'diggsweden GitHub',
+    'https://github.com/diggsweden/rest-api-profil-lint-processor#strikt-läge-oas3-validering',
+    'RAP-LP har ett strikt läge som först kontrollerar att OpenAPI-specifikationen är korrekt uppbyggd och semantiskt giltig enligt OpenAPI 3 innan reglerna i REST API-profilen körs. För kommunens workflow betyder detta att leverantören bör kunna lämna tre saker: själva openapi.yaml eller openapi.json, en RAP-LP-rapport eller logg från validering, och en kort åtgärdslista för kvarvarande fel och varningar. Om kommunen saknar egen IT ska AI inte kräva att kommunen kör verktyget själv först, utan föreslå att leverantören gör valideringen och skickar resultatet.'
+  ),
+  (
+    'OpenAPI exempel för kommunal systemkoppling',
+    'Dataportal',
+    'local://rest-api-profil/kommun-openapi-checklista',
+    'En praktisk kommunal OpenAPI-checklista kan vara: 1. API-namn och version, 2. ansvarig förvaltning och teknisk kontakt, 3. testserver och produktionsserver, 4. endpoints som beskriver verksamhetsresurser med substantiv, till exempel /franvarounderlag eller /elever/{elevId}/franvaro, 5. metoder som GET för hämtning, POST för skapande eller inskick, PUT/PATCH för ändring och DELETE endast där radering verkligen är tillåten, 6. query-parametrar för filtrering och paginering, till exempel limit och page, 7. JSON-schema för request och response om JSON används, 8. felrespons med type, title, status, detail och instance enligt problem response-mönster, 9. autentisering och behörighet, 10. exempelpayload utan skarpa personuppgifter. Vid osäkerhet ska AI säga att RAP-LP-rapport och leverantörsdokumentation behövs.'
   ),
   (
     'PoC-guide: Koppla två system steg för steg',

@@ -354,8 +354,21 @@
     }
   }
 
+  function appendMarkdownLink(parent, label, url) {
+    if (!/^https?:\/\//i.test(url)) {
+      parent.appendChild(document.createTextNode(label + " (" + url + ")"));
+      return;
+    }
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noreferrer";
+    link.textContent = label;
+    parent.appendChild(link);
+  }
+
   function appendInlineMarkdown(parent, text) {
-    const pattern = /(\*\*[^*]+\*\*|\*[^*\n]+\*)/g;
+    const pattern = /(\[[^\]\n]+\]\(https?:\/\/[^)\s]+\)|\*\*[^*]+\*\*|\*[^*\n]+\*)/g;
     let index = 0;
     let match;
     while ((match = pattern.exec(text)) !== null) {
@@ -363,6 +376,12 @@
         appendPlainOrLink(parent, text.slice(index, match.index));
       }
       const token = match[0];
+      const linkMatch = /^\[([^\]\n]+)\]\((https?:\/\/[^)\s]+)\)$/.exec(token);
+      if (linkMatch) {
+        appendMarkdownLink(parent, linkMatch[1], linkMatch[2]);
+        index = match.index + token.length;
+        continue;
+      }
       const markerLength = token.startsWith("**") ? 2 : 1;
       const element = document.createElement(markerLength === 2 ? "strong" : "em");
       appendPlainOrLink(

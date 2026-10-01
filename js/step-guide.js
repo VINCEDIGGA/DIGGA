@@ -539,13 +539,13 @@
           ? " Kommunens behov är: " + currentNeed
           : " Kommunens beskrivning och behov är inte ifyllda än. Förklara generellt och be användaren fylla i Beskrivning och behov innan du ger specifika råd.";
         const question =
-          'Vad menas med checklistpunkten "' +
+          'I SDK-guiden Anslutning Workflow: vad menas med checklistpunkten "' +
           text +
           '" i steget "' +
           phase.title +
           '"?' +
           context +
-          " Förklara kort och konkret vad jag ska göra.";
+          " Håll svaret till Säker digital kommunikation (SDK), inte Mina meddelanden, om checklistan inte uttryckligen säger digital post. Förklara kort och konkret vad jag ska göra.";
         params.set("guideQuestion", question);
         if (caseId) {
           params.set("case", caseId);

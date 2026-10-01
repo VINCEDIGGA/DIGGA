@@ -72,8 +72,48 @@ const DiggApi = (function () {
     }
   }
 
+  function escapeMarkdownLabel(value) {
+    return String(value || "")
+      .replace(/\[/g, "(")
+      .replace(/\]/g, ")")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function sourceLabel(source) {
+    const title = escapeMarkdownLabel(source.title || "Källa");
+    const service = escapeMarkdownLabel(source.service || "");
+    if (!service || title.toLowerCase().includes(service.toLowerCase())) {
+      return title;
+    }
+    return title + " (" + service + ")";
+  }
+
+  function formatSources(sources) {
+    const rows = [];
+    const seen = new Set();
+    (Array.isArray(sources) ? sources : []).forEach(function (source) {
+      const url = String(source.source_url || "").trim();
+      const label = sourceLabel(source);
+      const key = url || label;
+      if (!label || seen.has(key)) {
+        return;
+      }
+      seen.add(key);
+      if (/^https?:\/\//i.test(url)) {
+        rows.push("- [" + label + "](" + url + ")");
+      } else if (url) {
+        rows.push("- " + label + " (" + url + ")");
+      } else {
+        rows.push("- " + label);
+      }
+    });
+    return rows.length ? "\n\n### Källor\n" + rows.join("\n") : "";
+  }
+
   function formatAssistantText(data) {
     let text = data.answer || "Jag fick inget textsvar från RAG-backenden.";
+    text += formatSources(data.sources);
     if (data.warning) {
       text += "\n\nObs: " + data.warning;
     }
@@ -220,8 +260,11 @@ const DiggApi = (function () {
       }
 
       let text;
+      let sources = [];
       try {
-        text = formatAssistantText(await askRag(question, caseId));
+        const response = await askRag(question, caseId);
+        text = formatAssistantText(response);
+        sources = Array.isArray(response.sources) ? response.sources : [];
       } catch (error) {
         console.warn("RAG/LLM-anrop misslyckades", error);
         text = assistantErrorText(error);
@@ -231,6 +274,7 @@ const DiggApi = (function () {
         id: "msg-" + Date.now() + "-assistant",
         role: "assistant",
         text: text,
+        sources: sources,
       };
       data.messages[caseId].push(message);
       save(data);

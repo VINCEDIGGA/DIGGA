@@ -21,9 +21,18 @@ try {
         respond(['error' => 'Frågan får inte vara tom.'], 422);
     }
     $caseId = trim((string) ($input['case_id'] ?? ''));
+    $profile = classify_question($question);
+
+    if (!($profile['in_scope'] ?? true)) {
+        respond([
+            'mode' => 'guardrail',
+            'answer' => out_of_scope_answer($question),
+            'sources' => [],
+        ]);
+    }
 
     $config = require __DIR__ . '/config.php';
-    $chunks = retrieve_chunks($question, $config);
+    $chunks = retrieve_chunks($question, $config, $profile);
     $caseContext = $caseId !== '' ? retrieve_case_context($caseId) : '';
     $sources = array_map(static function (array $row): array {
         return [
@@ -45,13 +54,13 @@ try {
         try {
             respond([
                 'mode' => 'llm',
-                'answer' => call_llm($question, $chunks, $config['llm'], $caseContext),
+                'answer' => call_llm($question, $chunks, $config['llm'], $caseContext, $profile),
                 'sources' => $sources,
             ]);
         } catch (Throwable $error) {
             respond([
                 'mode' => 'database',
-                'answer' => fallback_answer($question, $chunks, $caseContext),
+                'answer' => fallback_answer($question, $chunks, $caseContext, $profile),
                 'warning' => friendly_llm_warning($error),
                 'sources' => $sources,
             ]);
@@ -60,7 +69,7 @@ try {
 
     respond([
         'mode' => 'database',
-        'answer' => fallback_answer($question, $chunks, $caseContext),
+        'answer' => fallback_answer($question, $chunks, $caseContext, $profile),
         'warning' => 'LLM är inte konfigurerad, så svaret bygger direkt på importerade källor.',
         'sources' => $sources,
     ]);
@@ -73,19 +82,152 @@ try {
 }
 
 /**
+ * Avgör om frågan hör hemma i prototypens område och vilket tjänstespår
+ * källsökningen ska prioritera.
+ *
+ * @return array<string, mixed>
+ */
+function classify_question(string $question): array
+{
+    $mentionsSdk = (bool) preg_match(
+        '/\bsdk\b|s[äa]ker digital kommunikation|o2o|organisation till organisation|funktionsadress|accesspunkt|meddelandesystem|deltagarorganisation|x\.?509|pem|certifikat/iu',
+        $question
+    );
+    $mentionsMina = (bool) preg_match(
+        '/mina meddelanden|digital post|brevl[åa]d|f[öo]rs[äa]ndelse|recipient|message service|auktorisationssystem/iu',
+        $question
+    );
+    $mentionsDataSpecific = (bool) preg_match(
+        '/openapi|api-dokumentation|datadelning|nationella grunddata|dataportal|rest api|rest-api|rest api-profil|rest-api-profil|rap-lp|raplp|f[äa]ltmapp|begreppsmodell|informationsmodell/iu',
+        $question
+    );
+    $mentionsPublicApiContext = (bool) preg_match(
+        '/\bapi\b/i',
+        $question
+    ) && (bool) preg_match(
+        '/kommun|digg|anslut|leverant[öo]r|k[äa]llsystem|m[åa]lsystem|integration|underlag|offentlig|datadelning|grunddata/i',
+        $question
+    );
+    $mentionsData = $mentionsDataSpecific || $mentionsPublicApiContext;
+    $mentionsTool = (bool) preg_match(
+        '/anslutningsagent|systemkoppling|dry-run|poc|verktyg|specifik anslutningsguide|kommunens behov:|checklistpunkten|steget "/iu',
+        $question
+    );
+    $outOfScopeCitizenService = (bool) preg_match(
+        '/bygglov|v[åa]rdcentral|boka tid|l[äa]kartid|tandv[åa]rd|pass\b|f[öo]rskoleplats|skolmat|soph[äa]mtning|bibliotek|parkeringstillst[åa]nd/iu',
+        $question
+    );
+    $outOfScopeGeneral = (bool) preg_match(
+        '/huvudstad|frankrike|pizza|pizzadeg|recept|matlag|v[äa]der|sport|fotboll|aktie|bitcoin|online-spel|spel\b|leaderboard|minecraft|film|musik|l[åa]t|s[åa]ng|dikt|poem|haiku|rim|sk[äa]mt|[öo]vers[äa]tt|software development kit|javascript|java script|python|npm|react|node\.?js|programmering|kodbibliotek/iu',
+        $question
+    );
+    $citizenTransaction = (bool) preg_match(
+        '/ans[öo]k|ans[öo]kan|ans[öo]kningar|ta emot|boka|best[äa]ll|f[åa]r jag|hur (f[åa]r|g[öo]r) jag/iu',
+        $question
+    );
+    $domainAnchor = $mentionsSdk || $mentionsMina || $mentionsData || $mentionsTool
+        || (bool) preg_match('/digg|anslut|leverant[öo]r|kommunikation|kommunens underlag|qa|testdata|integration/iu', $question);
+
+    if (($outOfScopeCitizenService && (!$domainAnchor || $citizenTransaction))
+        || $outOfScopeGeneral
+        || (!$domainAnchor && !$mentionsData)) {
+        return [
+            'in_scope' => false,
+            'service' => 'out_of_scope',
+            'allowed_services' => [],
+        ];
+    }
+
+    $service = 'general';
+    $allowedServices = [];
+    if ($mentionsSdk && !$mentionsMina) {
+        $service = 'sdk';
+        $allowedServices = ['SDK'];
+    } elseif ($mentionsMina && !$mentionsSdk) {
+        $service = 'mina_meddelanden';
+        $allowedServices = ['Mina meddelanden'];
+    } elseif ($mentionsSdk && $mentionsMina) {
+        $service = 'mixed';
+        $allowedServices = ['SDK', 'Mina meddelanden'];
+    } elseif ($mentionsData) {
+        $service = 'data_api';
+        $allowedServices = ['Dataportal', 'Nationella grunddata', 'diggsweden GitHub', 'DIGG'];
+    } elseif ($mentionsTool) {
+        $service = 'poc';
+        $allowedServices = ['PoC guide', 'SDK', 'Mina meddelanden', 'Dataportal', 'Nationella grunddata'];
+    }
+
+    if (preg_match('/checklistpunkten/i', $question)
+        && !preg_match('/checklistpunkten "[^"]*(mina meddelanden|digital post|brevl[åa]d)/iu', $question)) {
+        $service = 'sdk';
+        $allowedServices = ['SDK'];
+    }
+
+    return [
+        'in_scope' => true,
+        'service' => $service,
+        'allowed_services' => $allowedServices,
+    ];
+}
+
+function out_of_scope_answer(string $question): string
+{
+    if (preg_match('/software development kit|javascript|java script|python|npm|react|node\.?js|programmering|kodbibliotek/iu', $question)) {
+        return implode("\n", [
+            'Det ligger utanför mitt område.',
+            '- I den här prototypen betyder SDK Säker digital kommunikation, inte Software Development Kit.',
+            '- Jag kan hjälpa till med SDK-anslutning, Mina meddelanden, DIGG-anslutning, API-underlag, fältmappning och kommunens anslutningsresa.',
+            '- Om du menar Säker digital kommunikation: skriv frågan som en anslutningsfråga, till exempel vilken leverantör, vilket källsystem eller vilket certifikat/O2O-underlag kommunen behöver.',
+        ]);
+    }
+
+    if (preg_match('/bygglov/iu', $question)) {
+        return implode("\n", [
+            'Det ligger utanför mitt område.',
+            '- Jag kan hjälpa till med SDK, Mina meddelanden, DIGG-anslutning, API-underlag och kommunens anslutningsarbete.',
+            '- För bygglov ska invånaren använda kommunens egen bygglovssida eller e-tjänst, eller kontakta kommunens bygglovshandläggare.',
+            '- Om frågan egentligen gäller hur kommunen ska skicka bygglovsbeslut eller meddelanden säkert via SDK eller digital post, skriv det så hjälper jag med anslutningsdelen.',
+        ]);
+    }
+
+    if (preg_match('/tandv[åa]rd/iu', $question)) {
+        return implode("\n", [
+            'Det ligger utanför mitt område.',
+            '- Jag kan hjälpa till med SDK, Mina meddelanden, DIGG-anslutning, API-underlag och kommunens anslutningsarbete.',
+            '- För att boka eller hantera tandvård ska användaren gå via tandvårdens eller regionens egen bokningstjänst.',
+            '- Om frågan gäller en teknisk integration mellan kommunala system och en vårdaktör kan du beskriva integrationsbehovet, så hjälper jag med anslutningsdelen.',
+        ]);
+    }
+
+    if (preg_match('/v[åa]rdcentral|boka tid|l[äa]kartid/iu', $question)) {
+        return implode("\n", [
+            'Det ligger utanför mitt område.',
+            '- Jag kan hjälpa till med SDK, Mina meddelanden, DIGG-anslutning, API-underlag och kommunens anslutningsarbete.',
+            '- För att boka tid på vårdcentral ska användaren gå via regionens eller vårdcentralens bokningstjänst, till exempel 1177 där det används.',
+            '- Om frågan gäller en teknisk integration mellan kommunala system och en vårdaktör kan du beskriva integrationsbehovet, så hjälper jag med anslutningsdelen.',
+        ]);
+    }
+
+    return implode("\n", [
+        'Det ligger utanför mitt område.',
+        '- Jag svarar främst på frågor om SDK, Mina meddelanden, DIGG-anslutning, API-underlag, fältmappning och kommunens anslutningsresa.',
+        '- Ställ gärna om frågan så att den handlar om anslutningen, underlaget eller leverantörens tekniska ansvar.',
+    ]);
+}
+
+/**
  * Hämtar relevanta källrader från `reference_documents`.
  *
  * Först används MySQL FULLTEXT. Om det inte fungerar används LIKE-sökning.
  *
  * @return array<int, array<string, mixed>>
  */
-function retrieve_chunks(string $question, array $config): array
+function retrieve_chunks(string $question, array $config, array $profile = []): array
 {
     $limit = (int) ($config['rag']['max_chunks'] ?? 5);
-    $embeddingRows = embedding_retrieve_chunks($question, $config, $limit);
-    if ($embeddingRows) {
-        return $embeddingRows;
-    }
+    $allowedServices = array_values(array_filter((array) ($profile['allowed_services'] ?? [])));
+    $embeddingRows = embedding_retrieve_chunks($question, $config, max($limit * 4, 16));
+    $embeddingRows = filter_chunks_by_services($embeddingRows, $allowedServices);
 
     $pdo = db();
     $terms = preg_replace('/[^\p{L}\p{N}\s-]/u', ' ', $question) ?: '';
@@ -96,6 +238,16 @@ function retrieve_chunks(string $question, array $config): array
     $boolean = implode(' ', array_map(static function (string $word): string {
         return $word . '*';
     }, $words));
+    $servicePlaceholders = [];
+    $serviceParams = [];
+    foreach ($allowedServices as $index => $service) {
+        $placeholder = ':service' . $index;
+        $servicePlaceholders[] = $placeholder;
+        $serviceParams[$placeholder] = $service;
+    }
+    $serviceFilter = $servicePlaceholders
+        ? ' AND service IN (' . implode(', ', $servicePlaceholders) . ')'
+        : '';
 
     if ($boolean !== '') {
         try {
@@ -103,17 +255,20 @@ function retrieve_chunks(string $question, array $config): array
                 'SELECT id, title, service, source_url, content,
                     MATCH(title, service, content) AGAINST(:query_score IN BOOLEAN MODE) AS score
                  FROM reference_documents
-                 WHERE MATCH(title, service, content) AGAINST(:query_filter IN BOOLEAN MODE)
+                 WHERE MATCH(title, service, content) AGAINST(:query_filter IN BOOLEAN MODE)' . $serviceFilter . '
                  ORDER BY score DESC, updated_at DESC
                  LIMIT :limit'
             );
             $stmt->bindValue(':query_score', $boolean, PDO::PARAM_STR);
             $stmt->bindValue(':query_filter', $boolean, PDO::PARAM_STR);
+            foreach ($serviceParams as $placeholder => $service) {
+                $stmt->bindValue($placeholder, $service, PDO::PARAM_STR);
+            }
             $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
             $stmt->execute();
             $rows = $stmt->fetchAll();
             if ($rows) {
-                return $rows;
+                return merge_ranked_chunks($rows, $embeddingRows, $limit);
             }
         } catch (Throwable $error) {
             // Fall back to LIKE when FULLTEXT is unavailable during first setup.
@@ -128,7 +283,7 @@ function retrieve_chunks(string $question, array $config): array
     $stmt = $pdo->prepare(
         'SELECT id, title, service, source_url, content, 0 AS score
          FROM reference_documents
-         WHERE ' . implode(' OR ', $conditions) . '
+         WHERE (' . implode(' OR ', $conditions) . ')' . $serviceFilter . '
          ORDER BY updated_at DESC
          LIMIT :limit'
     );
@@ -136,9 +291,43 @@ function retrieve_chunks(string $question, array $config): array
         $like = '%' . str_replace(['%', '_'], ['\%', '\_'], $word) . '%';
         $stmt->bindValue(":like{$index}", $like, PDO::PARAM_STR);
     }
+    foreach ($serviceParams as $placeholder => $service) {
+        $stmt->bindValue($placeholder, $service, PDO::PARAM_STR);
+    }
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->execute();
-    return $stmt->fetchAll();
+    return merge_ranked_chunks($stmt->fetchAll(), $embeddingRows, $limit);
+}
+
+function filter_chunks_by_services(array $rows, array $allowedServices): array
+{
+    if (!$allowedServices) {
+        return $rows;
+    }
+    return array_values(array_filter($rows, static function (array $row) use ($allowedServices): bool {
+        return in_array((string) ($row['service'] ?? ''), $allowedServices, true);
+    }));
+}
+
+function merge_ranked_chunks(array $primary, array $secondary, int $limit): array
+{
+    $merged = [];
+    $seen = [];
+    foreach (array_merge($primary, $secondary) as $row) {
+        $key = (string) ($row['source_url'] ?? '');
+        if ($key === '') {
+            $key = (string) ($row['id'] ?? count($merged));
+        }
+        if (isset($seen[$key])) {
+            continue;
+        }
+        $seen[$key] = true;
+        $merged[] = $row;
+        if (count($merged) >= $limit) {
+            break;
+        }
+    }
+    return $merged;
 }
 
 function retrieve_case_context(string $caseId): string
@@ -289,24 +478,28 @@ function application_context_lines(array $application): array
 /**
  * Skickar fråga och källutdrag till en OpenAI-kompatibel chat endpoint.
  */
-function call_llm(string $question, array $chunks, array $llm, string $caseContext = ''): string
+function call_llm(string $question, array $chunks, array $llm, string $caseContext = '', array $profile = []): string
 {
     $context = build_context($chunks);
     if ($caseContext !== '') {
         $context .= "\n\nSparat kommununderlag för den här chatten:\n" . $caseContext;
     }
+    $service = (string) ($profile['service'] ?? 'general');
+    $allowedServices = implode(', ', array_filter((array) ($profile['allowed_services'] ?? []))) ?: 'alla relevanta importerade källor';
+    $systemPrompt = build_system_prompt($profile);
+    $maxTokens = max(2200, (int) ($llm['max_tokens'] ?? 800));
     $payload = [
         'model' => $llm['model'],
         'temperature' => 0.1,
-        'max_tokens' => $llm['max_tokens'] ?? 600,
+        'max_tokens' => $maxTokens,
         'messages' => [
             [
                 'role' => 'system',
-                'content' => 'Du är en onboardingassistent för svenska kommuner. Svara endast med stöd av hämtade källor från den importerade källbasen: officiella DIGG/dataportal/diggsweden-källor, importerade PDF-källor om nationella grunddata och PoC:ns egna användarguider när frågan gäller hur verktyget används. Om källorna inte räcker, säg det tydligt. När användaren beskriver kommunens behov och bifogat underlag ska du skapa en specifik anslutningsresa med korta steg, konkreta insamlingspunkter och tydliga frågor till leverantör eller DIGG. Svara enkelt nog för en icke-teknisk användare, kort, konkret och praktiskt. Använd rubrik plus 4-7 punktlistor. Använd inte markdown-tabeller. Vid mappningsfrågor: ge källfält -> målfält, kontroll/risk och relevant källtitel. Vid produktionsfrågor: skilj alltid mellan dry-run, QA och verklig produktion.',
+                'content' => $systemPrompt,
             ],
             [
                 'role' => 'user',
-                'content' => "Fråga:\n{$question}\n\nHämtade källor:\n{$context}",
+                'content' => "Frågeprofil: {$service}\nTillåtna källspår: {$allowedServices}\n\nFråga:\n{$question}\n\nHämtade källor:\n{$context}",
             ],
         ],
     ];
@@ -339,6 +532,55 @@ function call_llm(string $question, array $chunks, array $llm, string $caseConte
         throw new RuntimeException('Tomt svar från LLM.');
     }
     return trim($answer);
+}
+
+function build_system_prompt(array $profile): string
+{
+    $service = (string) ($profile['service'] ?? 'general');
+    $base = [
+        'Du är en onboardingassistent för svenska kommuner som arbetar med DIGG-anslutning.',
+        'Svara endast med stöd av hämtade källor från den importerade källbasen: officiella DIGG/dataportal/diggsweden-källor, importerade PDF-källor om nationella grunddata och PoC:ns egna användarguider när frågan gäller hur verktyget används.',
+        'Om källorna inte räcker, säg det tydligt och hitta inte på detaljer.',
+        'Håll dig till SDK, Mina meddelanden/digital post, DIGG-anslutning, API-underlag, fältmappning, datadelning och verktygets guidade workflow.',
+        'Om användaren frågar om en invånartjänst som bygglov, vårdcentral eller tidsbokning utan tydlig anslutnings- eller integrationsfråga: säg att det ligger utanför området och förklara vilken typ av anslutningsfråga du kan hjälpa med.',
+        'SDK betyder alltid Säker digital kommunikation i den här prototypen. Tolka aldrig SDK som Software Development Kit.',
+        'O2O betyder organisation till organisation.',
+        'Blanda inte ihop SDK med Mina meddelanden. Mina meddelanden/digital post är inte en automatisk ersättning för SDK.',
+        'Svara enkelt nog för en liten kommun utan egen IT-avdelning: börja med vad kommunen behöver göra, vem som bör tillfrågas och vilken risk som minskar.',
+        'Vid tekniska frågor: ge först en kort verksamhetsförklaring. Lägg sedan en kort sektion "Tekniskt exempel" bara om det hjälper, med enkel filstruktur, exempel på underlag eller tydliga frågor till leverantören.',
+        'Vid mappningsfrågor: ge källfält -> målfält, kontroll/risk och relevant källtitel.',
+        'Vid produktionsfrågor: skilj alltid mellan dry-run, QA och verklig produktion.',
+        'Håll svaret komplett. Om ämnet är stort, skriv hellre en kortare prioriterad checklista än ett långt svar som riskerar att sluta mitt i en punkt.',
+        'Svara normalt med högst 350 ord. Undvik kodblock och filtree om användaren inte uttryckligen ber om det.',
+        'Använd rubrik plus 4-7 korta punktlistor. Använd inte markdown-tabeller.',
+    ];
+
+    $servicePrompts = [
+        'sdk' => [
+            'Frågan är klassad som SDK. Håll svaret till Säker digital kommunikation och de SDK-källor som hämtats.',
+            'Nämn inte Mina meddelanden om användaren inte uttryckligen ber om jämförelse eller digital post.',
+            'Förklara att kommunen/deltagarorganisationen äger ansvar, beslut och uppföljning även när leverantören hjälper med accesspunkt, meddelandesystem, certifikat eller tekniska tester.',
+            'När certifikat nämns: börja med att kommunen ska fråga leverantören vem som hanterar certifikat/O2O praktiskt, och vilka filer/format/testmiljöer som krävs.',
+        ],
+        'mina_meddelanden' => [
+            'Frågan är klassad som Mina meddelanden/digital post. Håll svaret till digital post och de Mina meddelanden-källor som hämtats.',
+            'Nämn inte SDK om användaren inte uttryckligen ber om jämförelse eller säker digital kommunikation.',
+        ],
+        'mixed' => [
+            'Frågan nämner både SDK och Mina meddelanden. Skilj dem åt med separata punkter och skriv tydligt när något gäller det ena spåret men inte det andra.',
+        ],
+        'data_api' => [
+            'Frågan är klassad som API/datadelning. Håll svaret till API-underlag, OpenAPI, fältmappning, Sveriges dataportal, nationella grunddata och relevanta DIGG-källor.',
+            'Skilj alltid på OpenAPI-specifikationens filformat och API:ets payload-format. OpenAPI kan lämnas som YAML eller JSON. Payload kan vara application/json, XML eller annat om den specifika tjänstens avtal/specifikation säger det.',
+            'Säg inte att DIGG kräver JSON eller XML för alla API-sändningar om den hämtade källan inte uttryckligen säger det. Svara då att REST API-profil/RAP-LP validerar OpenAPI och content-typer, men att exakt payload-format måste kontrolleras i tjänstens API-specifikation eller med leverantör/DIGG.',
+            'När användaren frågar vad en liten kommun ska kräva av leverantören: använd tre korta delar - Kort svar, Detta ska finnas i OpenAPI, Be leverantören skicka. Max 10 punkter totalt och inga underrubriker i flera nivåer.',
+        ],
+        'poc' => [
+            'Frågan gäller verktyget eller checklistan. Förklara vad användaren ska göra i workflowet och koppla bara till tjänstespår som frågan eller de hämtade källorna faktiskt nämner.',
+        ],
+    ];
+
+    return implode("\n", array_merge($base, $servicePrompts[$service] ?? []));
 }
 
 function format_llm_error(int $status, $data): string
@@ -406,13 +648,17 @@ function friendly_setup_error(Throwable $error): string
 /**
  * Skapar ett enkelt källbaserat svar när LLM inte används.
  */
-function fallback_answer(string $question, array $chunks, string $caseContext = ''): string
+function fallback_answer(string $question, array $chunks, string $caseContext = '', array $profile = []): string
 {
     $isMapping = (bool) preg_match('/mapp|schema|fält|regel|sdk-meddelande|json/i', $question);
     $isHowTo = (bool) preg_match('/anslutningsagent|steg|koppla två system|systemkoppling|hur använder|kom igång/i', $question);
     $isQaPrep = (bool) preg_match('/dry-run|riktig qa|qa-miljö|qa för sdk|gå från/i', $question);
     $isNeedGuide = (bool) preg_match('/specifik anslutningsguide|Kommunens behov:/i', $question);
     $isChecklistQuestion = (bool) preg_match('/checklistpunkten/i', $question);
+    $service = (string) ($profile['service'] ?? 'general');
+    $isSdkProfile = $service === 'sdk';
+    $isMinaProfile = $service === 'mina_meddelanden';
+    $isDataProfile = $service === 'data_api';
     $guideChunk = null;
     $qaChunk = null;
     foreach ($chunks as $row) {
@@ -436,7 +682,15 @@ function fallback_answer(string $question, array $chunks, string $caseContext = 
         $lines[] = '- Behov: ' . $need;
         $lines[] = '- Starta med att avgränsa första verksamhetsflödet, ansvarig person och mottagare.';
         $lines[] = '- Samla källsystemets API-dokumentation, OpenAPI-fil, fältmappning, testdata och kända begrepp.';
-        $lines[] = '- Välj spår: SDK för säker digital kommunikation, Mina meddelanden för digital post eller datadelning/API om behovet främst gäller nationella grunddata.';
+        if ($isSdkProfile) {
+            $lines[] = '- Välj SDK-spåret: Säker digital kommunikation för säkert organisationsutbyte. Föreslå inte Mina meddelanden som ersättning.';
+        } elseif ($isMinaProfile) {
+            $lines[] = '- Välj Mina meddelanden-spåret: digital post till mottagare via infrastrukturen för digital post.';
+        } elseif ($isDataProfile) {
+            $lines[] = '- Välj API/datadelningsspåret: dokumentera datamängd, OpenAPI, fältmappning och ansvar för åtkomst.';
+        } else {
+            $lines[] = '- Välj spår: SDK för Säker digital kommunikation, Mina meddelanden för digital post eller datadelning/API om behovet främst gäller nationella grunddata.';
+        }
         $lines[] = '- Kontrollera juridik, informationssäkerhet, roller, leverantörsansvar och vilka antaganden som måste granskas av människa.';
         $lines[] = '- Kör först dry-run med syntetiska data. Gå inte till QA eller produktion innan avtal, credentials, endpoint, loggning och godkännande är klara.';
         $lines[] = '- Frågor till leverantör eller DIGG: vilket målformat gäller, vilka certifikat eller O2O-krav finns, hur hanteras kvittenser/felkoder och vem äger förvaltningen?';
@@ -461,8 +715,13 @@ function fallback_answer(string $question, array $chunks, string $caseContext = 
         $lines[] = 'Kort förklaring:';
         $lines[] = '- Punkt: ' . $item;
         $lines[] = '- Steg: ' . $step;
+        if ($isSdkProfile) {
+            $lines[] = '- Kontext: detta gäller Anslutning Workflow för SDK, alltså Säker digital kommunikation. Blanda inte in Mina meddelanden om inte checklistan säger digital post.';
+        }
         if ($need) {
             $lines[] = '- Koppla svaret till behovet: ' . $need;
+        } else {
+            $lines[] = '- Kommunens beskrivning och behov är inte ifyllt än. Fyll i det först om du vill ha råd som passar er situation.';
         }
         if ($caseContext !== '') {
             $lines[] = '- Sparat underlag finns i chatten. Använd det för att kontrollera ansvar, saknade uppgifter och nästa fråga till leverantör/DIGG.';
@@ -478,8 +737,13 @@ function fallback_answer(string $question, array $chunks, string $caseContext = 
         $lines[] = '- Organisation: organisationsnummer, ansvarig kontakt, IT-kontakt, verksamhetsägare och offentlig aktör-underlag.';
         $lines[] = '- Beslut och avtal: avtalsägare, DIGG-ansökningsunderlag och vem som får godkänna QA-steg.';
         $lines[] = '- Teknik: källsystemets API/exportformat, målsystemets QA-endpoint eller leverantörsväg, OpenAPI/API-dokumentation och fältmappning.';
-        $lines[] = '- SDK: funktionsadresser, accesspunkt eller meddelandesystem, certifikat/O2O-plan, testfall och kvitto/felhantering.';
-        $lines[] = '- Mina meddelanden: tekniskt vägval, avtal för infrastrukturen, testdata, mottagarkontroll och tjänstekontrakt.';
+        if ($isSdkProfile) {
+            $lines[] = '- SDK: funktionsadresser, accesspunkt eller meddelandesystem, certifikat/O2O-plan, testfall och kvitto/felhantering.';
+        } elseif ($isMinaProfile) {
+            $lines[] = '- Mina meddelanden: tekniskt vägval, avtal för infrastrukturen, testdata, mottagarkontroll och tjänstekontrakt.';
+        } else {
+            $lines[] = '- Välj först vilket spår QA gäller. SDK kräver SDK-underlag som funktionsadresser, accesspunkt/meddelandesystem och certifikat/O2O. Mina meddelanden kräver digital-postavtal, mottagarkontroll och tjänstekontrakt.';
+        }
         $lines[] = '- Säkerhet: testdata utan skarpa personuppgifter, behörighet, loggning, säkerhetsklassning och HITL-godkännande.';
         $lines[] = '- Live-sändning ska vara avstängd tills QA-miljö, credentials, endpoint, avtal och testdatapolicy är klara.';
         $lines[] = 'Källa: ' . (($qaChunk['title'] ?? null) ?: 'PoC-guide och importerade DIGG-källor') . '.';
@@ -490,8 +754,16 @@ function fallback_answer(string $question, array $chunks, string $caseContext = 
         $lines[] = 'Så använder du verktyget steg för steg:';
         $lines[] = '- Fyll i mockorganisationen så ansöknings- och evidence-data finns.';
         $lines[] = '- Importera DIGG-källor, API-dokumentation, OpenAPI-filer och mappningsanteckningar.';
-        $lines[] = '- Kör Anslutningsagenten för att se vad som saknas för Mina meddelanden och SDK.';
-        $lines[] = '- Kör Systemkoppling som dry-run från källpayload till SDK- eller Mina meddelanden-stil payload.';
+        if ($isSdkProfile) {
+            $lines[] = '- Kör Anslutningsagenten för SDK och kontrollera funktionsadresser, accesspunkt/meddelandesystem, certifikat/O2O, testfall och ansvar.';
+            $lines[] = '- Kör Systemkoppling som dry-run från källpayload till ett SDK-liknande payload-utkast.';
+        } elseif ($isMinaProfile) {
+            $lines[] = '- Kör Anslutningsagenten för Mina meddelanden och kontrollera digital-postavtal, mottagarkontroll, tjänstekontrakt och testdata.';
+            $lines[] = '- Kör Systemkoppling som dry-run från källpayload till ett Mina meddelanden-liknande payload-utkast.';
+        } else {
+            $lines[] = '- Kör Anslutningsagenten för att se vad som saknas i valt spår.';
+            $lines[] = '- Kör Systemkoppling som dry-run från källpayload till valt målformat.';
+        }
         $lines[] = '- Skicka osäkra antaganden till Granskning > HITL och låt ansvarig människa godkänna.';
         $lines[] = '- Exportera evidence pack när dry-run, validering och granskning är klara.';
         $lines[] = '- För riktig QA/produktion behövs verkliga avtal, ansökan, QA-miljö, testdata, API-nycklar, certifikat/O2O, accesspunkt eller meddelandesystem, loggning och behöriga beslut.';
@@ -500,7 +772,13 @@ function fallback_answer(string $question, array $chunks, string $caseContext = 
     }
 
     if ($isMapping) {
-        $lines[] = 'Källbaserad vägledning: använd AI-förslaget som ett granskningsbart utkast, inte som en färdig integrationsregel. SDK-materialet betonar validering, funktionsadresser och kontrollerade meddelandeflöden.';
+        if ($isSdkProfile) {
+            $lines[] = 'Källbaserad SDK-vägledning: använd AI-förslaget som ett granskningsbart utkast, inte som en färdig integrationsregel. SDK betyder Säker digital kommunikation och materialet betonar validering, funktionsadresser och kontrollerade meddelandeflöden.';
+        } elseif ($isMinaProfile) {
+            $lines[] = 'Källbaserad vägledning för Mina meddelanden: använd AI-förslaget som ett granskningsbart utkast, inte som en färdig integrationsregel. Kontrollera digital-postflöde, tjänstekontrakt, mottagarkontroll och kvittenser.';
+        } else {
+            $lines[] = 'Källbaserad vägledning: använd AI-förslaget som ett granskningsbart utkast, inte som en färdig integrationsregel. Välj först om mappningen gäller SDK, Mina meddelanden eller API/datadelning.';
+        }
         $lines[] = 'I PoC:n kan du öppna Granskning > HITL för att skapa regler, markera dem som godkända eller ändringskrävande och validera dem innan demo-QA.';
     } else {
         $lines[] = 'Källbaserad vägledning från importerade källor:';
@@ -515,7 +793,7 @@ function fallback_answer(string $question, array $chunks, string $caseContext = 
         $lines[] = "- {$row['title']}: {$snippet}";
     }
 
-    $lines[] = 'För mer specifika svar behöver PoC:n fler importerade källor från DIGG/dataportal/diggsweden och ett LLM-anrop som inte är rate-limited.';
+    $lines[] = 'För mer specifika svar behöver PoC:n fler importerade källor inom rätt spår och ett LLM-anrop som inte är rate-limited.';
     return implode("\n", $lines);
 }
 
