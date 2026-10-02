@@ -58,6 +58,19 @@ CREATE TABLE IF NOT EXISTS guide_step_context (
   INDEX idx_guide_step_context_case (case_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS case_attachments (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  case_id VARCHAR(120) NOT NULL,
+  message_text TEXT NULL,
+  name VARCHAR(255) NOT NULL,
+  mime_type VARCHAR(120) NOT NULL DEFAULT '',
+  size_bytes INT UNSIGNED NOT NULL DEFAULT 0,
+  preview MEDIUMTEXT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_case_attachments_case (case_id),
+  INDEX idx_case_attachments_created (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS validation_runs (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   profile VARCHAR(32) NOT NULL,

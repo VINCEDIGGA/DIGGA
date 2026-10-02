@@ -332,6 +332,8 @@ function merge_ranked_chunks(array $primary, array $secondary, int $limit): arra
 
 function retrieve_case_context(string $caseId): string
 {
+    $parts = [];
+
     try {
         ensure_case_context_schema();
         $stmt = db()->prepare(
@@ -345,14 +347,9 @@ function retrieve_case_context(string $caseId): string
         $stmt->execute([':case_id' => $caseId]);
         $rows = $stmt->fetchAll();
     } catch (Throwable $error) {
-        return '';
+        $rows = [];
     }
 
-    if (!$rows) {
-        return '';
-    }
-
-    $parts = [];
     foreach ($rows as $row) {
         $application = json_decode((string) ($row['application_json'] ?? '{}'), true) ?: [];
         $files = json_decode((string) ($row['files_json'] ?? '[]'), true) ?: [];
@@ -379,6 +376,14 @@ function retrieve_case_context(string $caseId): string
             implode("\n", $applicationLines) . "\n" .
             implode("\n", $fileLines)
         );
+    }
+
+    try {
+        foreach (retrieve_case_attachment_context($caseId) as $attachmentPart) {
+            $parts[] = $attachmentPart;
+        }
+    } catch (Throwable $error) {
+        // Attachment context is helpful, but chat answers must still work if the table is missing.
     }
 
     return implode("\n\n", array_filter($parts));
@@ -410,6 +415,55 @@ function ensure_case_context_schema()
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     );
     ensure_case_context_column('application_json', 'MEDIUMTEXT NULL');
+}
+
+function ensure_case_attachments_schema()
+{
+    db()->exec(
+        "CREATE TABLE IF NOT EXISTS case_attachments (
+            id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            case_id VARCHAR(120) NOT NULL,
+            message_text TEXT NULL,
+            name VARCHAR(255) NOT NULL,
+            mime_type VARCHAR(120) NOT NULL DEFAULT '',
+            size_bytes INT UNSIGNED NOT NULL DEFAULT 0,
+            preview MEDIUMTEXT NULL,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            INDEX idx_case_attachments_case (case_id),
+            INDEX idx_case_attachments_created (created_at)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    );
+}
+
+function retrieve_case_attachment_context(string $caseId): array
+{
+    ensure_case_attachments_schema();
+    $stmt = db()->prepare(
+        'SELECT message_text, name, mime_type, size_bytes, preview, created_at
+         FROM case_attachments
+         WHERE case_id = :case_id
+         ORDER BY created_at ASC, id ASC'
+    );
+    $stmt->execute([':case_id' => $caseId]);
+    $rows = $stmt->fetchAll();
+
+    $parts = [];
+    foreach ($rows as $row) {
+        $fileLine = '- Fil: ' . (string) $row['name'] .
+            ' | typ: ' . (string) $row['mime_type'] .
+            ' | storlek: ' . (string) $row['size_bytes'] . ' bytes';
+        $preview = trim((string) ($row['preview'] ?? ''));
+        if ($preview !== '') {
+            $fileLine .= ' | utdrag: ' . preg_replace('/\s+/', ' ', text_slice($preview, 0, 1200));
+        }
+        $parts[] = trim(
+            "Chattunderlag uppladdat av kommunen\n" .
+            "Fråga vid uppladdning: " . (string) ($row['message_text'] ?? '') . "\n" .
+            $fileLine
+        );
+    }
+
+    return $parts;
 }
 
 function ensure_case_context_column(string $column, string $definition)
@@ -540,6 +594,7 @@ function build_system_prompt(array $profile): string
     $base = [
         'Du är en onboardingassistent för svenska kommuner som arbetar med DIGG-anslutning.',
         'Svara endast med stöd av hämtade källor från den importerade källbasen: officiella DIGG/dataportal/diggsweden-källor, importerade PDF-källor om nationella grunddata och PoC:ns egna användarguider när frågan gäller hur verktyget används.',
+        'Du får använda "Sparat kommununderlag för den här chatten" som lokal kontext om kommunens situation, uppladdade filer och behov. Behandla det inte som officiell DIGG-källa och hitta inte på innehåll som inte finns i utdraget.',
         'Om källorna inte räcker, säg det tydligt och hitta inte på detaljer.',
         'Håll dig till SDK, Mina meddelanden/digital post, DIGG-anslutning, API-underlag, fältmappning, datadelning och verktygets guidade workflow.',
         'Om användaren frågar om en invånartjänst som bygglov, vårdcentral eller tidsbokning utan tydlig anslutnings- eller integrationsfråga: säg att det ligger utanför området och förklara vilken typ av anslutningsfråga du kan hjälpa med.',

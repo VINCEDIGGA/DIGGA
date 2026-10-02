@@ -12,11 +12,17 @@
   const sendButton = chatForm.querySelector(".btn-send");
   const infoDialog = document.getElementById("info-dialog");
   const infoText = document.getElementById("info-text");
+  const attachBtn = document.getElementById("attach-btn");
+  const fileInput = document.getElementById("file-input");
+  const attachName = document.getElementById("attach-name");
   const SELECTED_CASE_KEY = "digg-selected-case-v3";
+  const ATTACHMENT_PREVIEW_LIMIT = 6000;
+  const MAX_TEXT_ATTACHMENT_BYTES = 1024 * 1024;
 
   let cases = [];
   let selectedId = localStorage.getItem(SELECTED_CASE_KEY) || null;
   let view = "ongoing";
+  let pendingFile = null;
 
   function resetMenuPosition(menu) {
     menu.style.position = "";
@@ -463,6 +469,96 @@
   function setSending(isSending) {
     messageInput.disabled = isSending;
     sendButton.disabled = isSending;
+    if (attachBtn) {
+      attachBtn.disabled = isSending;
+    }
+    if (fileInput) {
+      fileInput.disabled = isSending;
+    }
+  }
+
+  function isTextAttachment(file) {
+    return (
+      /^text\//.test(file.type) ||
+      /\.(json|ya?ml|txt|md|csv|xml)$/i.test(file.name)
+    );
+  }
+
+  function formatFileSize(bytes) {
+    if (bytes < 1024) {
+      return bytes + " B";
+    }
+    if (bytes < 1024 * 1024) {
+      return Math.round(bytes / 1024) + " kB";
+    }
+    return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+  }
+
+  function readAttachmentPreview(file) {
+    return new Promise(function (resolve) {
+      if (!isTextAttachment(file) || file.size > MAX_TEXT_ATTACHMENT_BYTES) {
+        resolve("");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function () {
+        resolve(String(reader.result || "").slice(0, ATTACHMENT_PREVIEW_LIMIT));
+      };
+      reader.onerror = function () {
+        resolve("");
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  function attachmentFallbackPreview(file) {
+    if (/\.pdf$/i.test(file.name) || file.type === "application/pdf") {
+      return "PDF uppladdad i chatten. Webbläsaren sparade filnamn, typ och storlek men kunde inte extrahera PDF-text här. Be användaren skriva eller klistra in relevant utdrag om AI ska bedöma innehållet.";
+    }
+    return "Fil uppladdad i chatten. Webbläsaren sparade filnamn, typ och storlek men inget textutdrag kunde extraheras.";
+  }
+
+  async function attachmentSummary(file) {
+    const preview = await readAttachmentPreview(file);
+    return {
+      name: file.name,
+      type: file.type || "okänd filtyp",
+      size: file.size,
+      preview: preview || attachmentFallbackPreview(file),
+    };
+  }
+
+  function renderPendingAttachment() {
+    if (!attachName || !attachBtn) {
+      return;
+    }
+    if (pendingFile) {
+      attachName.hidden = false;
+      attachName.textContent =
+        "Bifogad fil: " + pendingFile.name + " · " + formatFileSize(pendingFile.size);
+      attachBtn.setAttribute("aria-label", "Bifogad fil: " + pendingFile.name);
+    } else {
+      attachName.hidden = true;
+      attachName.textContent = "";
+      attachBtn.setAttribute("aria-label", "Bifoga fil");
+    }
+  }
+
+  function clearPendingAttachment() {
+    pendingFile = null;
+    if (fileInput) {
+      fileInput.value = "";
+    }
+    renderPendingAttachment();
+  }
+
+  async function saveAttachmentForQuestion(caseId, question, file) {
+    const saved = await DiggApi.saveCaseAttachment(
+      caseId,
+      await attachmentSummary(file),
+      question
+    );
+    return saved || { name: file.name };
   }
 
   async function selectCase(id) {
@@ -552,7 +648,11 @@
   }
 
   async function sendQuestion(text, preferredCaseId) {
+    const attachment = pendingFile;
     if (!text) {
+      if (attachment) {
+        showInfo("Skriv en fråga tillsammans med filen, så sparas den som kontext för AI-svaret.");
+      }
       return;
     }
 
@@ -594,12 +694,24 @@
     limitNotice.hidden = true;
     setSending(true);
     try {
-      await DiggApi.addUserMessage(selectedId, text);
+      let displayText = text;
+      if (attachment) {
+        const savedAttachment = await saveAttachmentForQuestion(
+          selectedId,
+          text,
+          attachment
+        );
+        displayText += "\n\nBifogad fil: " + savedAttachment.name;
+        clearPendingAttachment();
+      }
+      await DiggApi.addUserMessage(selectedId, displayText);
       await loadCases();
       await selectCase(selectedId);
       await DiggApi.addAssistantReply(selectedId, text);
       await loadCases();
       await selectCase(selectedId);
+    } catch (error) {
+      showInfo(error.message || "Kunde inte skicka frågan.");
     } finally {
       setSending(false);
       messageInput.focus();
@@ -632,11 +744,6 @@
     await sendQuestion(text);
   });
 
-  const attachBtn = document.getElementById("attach-btn");
-  const fileInput = document.getElementById("file-input");
-  const attachName = document.getElementById("attach-name");
-  let pendingFile = null;
-
   if (attachBtn && fileInput) {
     attachBtn.addEventListener("click", function () {
       fileInput.click();
@@ -644,19 +751,7 @@
     fileInput.addEventListener("change", function () {
       pendingFile =
         fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
-      chatForm.pendingAttachment = pendingFile;
-      if (!attachName) {
-        return;
-      }
-      if (pendingFile) {
-        attachName.hidden = false;
-        attachName.textContent = pendingFile.name;
-        attachBtn.setAttribute("aria-label", "Bifogad fil: " + pendingFile.name);
-      } else {
-        attachName.hidden = true;
-        attachName.textContent = "";
-        attachBtn.setAttribute("aria-label", "Bifoga fil");
-      }
+      renderPendingAttachment();
     });
   }
 
