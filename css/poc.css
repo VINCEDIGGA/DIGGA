@@ -50,7 +50,7 @@
 .guide-lede {
   max-width: 48rem;
   margin: 0.8rem 0 0;
-  color: #3f4a4d;
+  color: var(--text);
   font-size: 1rem;
   line-height: 1.55;
 }
@@ -60,7 +60,7 @@
   margin-top: 0.9rem;
   padding: 0.85rem;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: #fff;
 }
 
@@ -88,9 +88,9 @@
   max-width: 100%;
   padding: 0.32rem 0.52rem;
   border: 1px solid var(--line);
-  border-radius: 999px;
-  background: #f7f7f8;
-  color: #334155;
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
   font-size: 0.78rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -102,7 +102,7 @@
 .action-panel,
 .insight-panel {
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: #fff;
 }
 
@@ -128,7 +128,7 @@
 }
 
 .readiness-panel span:last-child {
-  color: #3f4a4d;
+  color: var(--text);
   font-size: 0.9rem;
   line-height: 1.35;
 }
@@ -177,7 +177,7 @@
   min-height: 4.6rem;
   padding: 0.75rem;
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: transparent;
   color: inherit;
   text-align: left;
@@ -186,7 +186,7 @@
 
 .phase-item:hover,
 .phase-item.active {
-  background: #f0f7f7;
+  background: var(--accent-soft);
 }
 
 .phase-number {
@@ -195,7 +195,7 @@
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  background: #e8f4f4;
+  background: var(--accent-soft);
   color: var(--accent);
   font-size: 0.85rem;
   font-weight: 800;
@@ -237,7 +237,7 @@
 
 .phase-summary {
   margin: 0.7rem 0 1rem;
-  color: #3f4a4d;
+  color: var(--text);
   line-height: 1.55;
 }
 
@@ -260,7 +260,7 @@
   min-height: 2.5rem;
   padding: 0.55rem;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius);
 }
 
 .check-row input {
@@ -295,7 +295,7 @@
 .check-help:hover,
 .check-help:focus-visible {
   border-color: var(--accent);
-  background: #e8f4f4;
+  background: var(--accent-soft);
   outline: none;
 }
 
@@ -342,7 +342,7 @@
 
 .context-panel {
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: #fff;
 }
 
@@ -376,7 +376,7 @@
   min-height: 2.55rem;
   padding: 0.65rem 0.75rem;
   border: 1px solid #b8c0c8;
-  border-radius: 8px;
+  border-radius: var(--radius);
   color: var(--text);
   font: inherit;
 }
@@ -390,7 +390,7 @@
 .context-grid textarea:focus,
 .context-grid select:focus {
   border-color: var(--accent);
-  outline: 3px solid rgba(13, 115, 119, 0.2);
+  outline: 3px solid rgba(84, 104, 80, 0.2);
 }
 
 .context-check {
@@ -472,5 +472,51 @@
 
   .check-help {
     grid-column: 3;
+  }
+}
+
+html:has(body.underlag-page),
+body.underlag-page,
+body.underlag-page .app {
+  height: auto;
+  max-height: none;
+  min-height: 100%;
+  min-height: 100dvh;
+}
+
+body.underlag-page {
+  overflow: visible;
+}
+
+body.underlag-page .guide-shell {
+  overflow: visible;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+body.underlag-page .context-workspace {
+  max-width: 72rem;
+  width: 100%;
+}
+
+body.underlag-page .context-header .eyebrow {
+  display: none;
+}
+
+body.underlag-page .context-panel .section-heading {
+  background: var(--accent-soft);
+}
+
+@media (max-width: 700px) {
+  html:has(body.underlag-page),
+  body.underlag-page,
+  body.underlag-page .app {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  body.underlag-page .sidebar {
+    max-height: none;
   }
 }

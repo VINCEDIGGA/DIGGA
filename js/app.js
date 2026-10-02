@@ -632,6 +632,34 @@
     await sendQuestion(text);
   });
 
+  const attachBtn = document.getElementById("attach-btn");
+  const fileInput = document.getElementById("file-input");
+  const attachName = document.getElementById("attach-name");
+  let pendingFile = null;
+
+  if (attachBtn && fileInput) {
+    attachBtn.addEventListener("click", function () {
+      fileInput.click();
+    });
+    fileInput.addEventListener("change", function () {
+      pendingFile =
+        fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+      chatForm.pendingAttachment = pendingFile;
+      if (!attachName) {
+        return;
+      }
+      if (pendingFile) {
+        attachName.hidden = false;
+        attachName.textContent = pendingFile.name;
+        attachBtn.setAttribute("aria-label", "Bifogad fil: " + pendingFile.name);
+      } else {
+        attachName.hidden = true;
+        attachName.textContent = "";
+        attachBtn.setAttribute("aria-label", "Bifoga fil");
+      }
+    });
+  }
+
   document.addEventListener("click", function () {
     closeMenus();
   });
