@@ -118,7 +118,7 @@ function classify_question(string $question): array
         $question
     );
     $outOfScopeGeneral = (bool) preg_match(
-        '/huvudstad|frankrike|pizza|pizzadeg|recept|matlag|v[äa]der|sport|fotboll|aktie|bitcoin|online-spel|spel\b|leaderboard|minecraft|film|musik|l[åa]t|s[åa]ng|dikt|poem|haiku|rim|sk[äa]mt|[öo]vers[äa]tt|software development kit|javascript|java script|python|npm|react|node\.?js|programmering|kodbibliotek/iu',
+        '/huvudstad|frankrike|pizza|pizzadeg|recept|recipe|matlag|cooking|v[äa]der|weather|sport|fotboll|aktie|bitcoin|online-spel|spel\b|game\b|gaming|leaderboard|minecraft|film|musik|l[åa]t|s[åa]ng|dikt|poem|haiku|rim|sk[äa]mt|joke|[öo]vers[äa]tt|translate|software development kit|javascript|java script|python|npm|react|node\.?js|programmering|kodbibliotek|fix my car|repair my car|car\b|vehicle|engine|brake|tire|tyre|oil change|mechanic|bil(en)?\b|fordon|motor|d[äa]ck|broms|olja|verkstad|tv[äa]ttmaskin|washing machine|homework|l[äa]xa/iu',
         $question
     );
     $citizenTransaction = (bool) preg_match(
@@ -172,6 +172,15 @@ function classify_question(string $question): array
 
 function out_of_scope_answer(string $question): string
 {
+    if (preg_match('/fix my car|repair my car|car\b|vehicle|engine|brake|tire|tyre|oil change|mechanic|bil(en)?\b|fordon|motor|d[äa]ck|broms|olja|verkstad/iu', $question)) {
+        return implode("\n", [
+            'Det ligger utanför mitt område.',
+            '- Jag kan inte hjälpa till med bilreparation eller fordonsfrågor, även om frågan nämner SDK, DIGG, ENA eller Mina meddelanden.',
+            '- Jag kan hjälpa till med SDK-anslutning, Mina meddelanden, DIGG-anslutning, API-underlag, fältmappning och kommunens anslutningsresa.',
+            '- Ställ gärna om frågan så att den handlar om kommunens anslutning, underlag, leverantörsansvar eller tekniska integrationsarbete.',
+        ]);
+    }
+
     if (preg_match('/software development kit|javascript|java script|python|npm|react|node\.?js|programmering|kodbibliotek/iu', $question)) {
         return implode("\n", [
             'Det ligger utanför mitt område.',
@@ -598,6 +607,7 @@ function build_system_prompt(array $profile): string
         'Om källorna inte räcker, säg det tydligt och hitta inte på detaljer.',
         'Håll dig till SDK, Mina meddelanden/digital post, DIGG-anslutning, API-underlag, fältmappning, datadelning och verktygets guidade workflow.',
         'Om användaren frågar om en invånartjänst som bygglov, vårdcentral eller tidsbokning utan tydlig anslutnings- eller integrationsfråga: säg att det ligger utanför området och förklara vilken typ av anslutningsfråga du kan hjälpa med.',
+        'Enstaka nyckelord som SDK, DIGG, ENA eller Mina meddelanden räcker inte för att göra en fråga relevant. Om huvudfrågan handlar om bilreparation, mat, spel, väder, programmeringsbibliotek eller annat vardagsämne ska du säga att det ligger utanför området även om ett DIGG-ord nämns.',
         'SDK betyder alltid Säker digital kommunikation i den här prototypen. Tolka aldrig SDK som Software Development Kit.',
         'O2O betyder organisation till organisation.',
         'Blanda inte ihop SDK med Mina meddelanden. Mina meddelanden/digital post är inte en automatisk ersättning för SDK.',
