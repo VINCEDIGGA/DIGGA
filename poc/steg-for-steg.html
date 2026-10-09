@@ -13,10 +13,10 @@
       href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../css/style.css?v=6" />
-    <link rel="stylesheet" href="../css/poc.css?v=10" />
+    <link rel="stylesheet" href="../css/style.css?v=12" />
+    <link rel="stylesheet" href="../css/poc.css?v=30" />
   </head>
-  <body>
+  <body class="guide-page">
     <div class="app">
       <aside class="sidebar">
         <div class="brand-block">
@@ -44,7 +44,7 @@
       </aside>
 
       <main class="chat-panel guide-shell">
-        <section class="guide-workspace" aria-label="Guidad anslutning till SDK">
+        <section class="guide-workspace guide-intake-wrap">
           <section class="guide-intake" id="guide-intake" aria-label="Kommunens behov och underlag">
             <form class="intake-card guide-intake-card" id="guide-intake-form">
               <p class="intake-kicker">V3 arbetsflöde</p>
@@ -83,26 +83,43 @@
               </button>
             </form>
           </section>
+        </section>
 
-          <header class="guide-header">
-            <div>
-              <p class="eyebrow">SDK onboarding</p>
-              <h1 id="guide-title">Guidad anslutning för kommuner</h1>
-              <p class="guide-lede" id="guide-lede">
-                En kort arbetsyta för att ta kommunen från beslut till praktisk
-                användning av SDK.
-              </p>
-              <div class="guide-context" id="guide-context" hidden>
-                <strong id="guide-need"></strong>
-                <ul id="guide-materials"></ul>
-              </div>
+        <header class="guide-header underlag-hero">
+          <svg
+            class="underlag-hero-shapes"
+            viewBox="0 0 1000 160"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <polygon points="840,0 1000,0 1000,160 790,160" fill="#cd796d" />
+            <polygon points="700,0 840,0 790,160" fill="#2f3c2d" />
+          </svg>
+          <div class="underlag-hero-copy">
+            <p class="eyebrow">SDK onboarding</p>
+            <h1 id="guide-title">Guidad anslutning för kommuner</h1>
+            <p class="guide-lede" id="guide-lede">
+              En kort arbetsyta för att ta kommunen från beslut till praktisk
+              användning av SDK.
+            </p>
+            <div class="guide-context" id="guide-context" hidden>
+              <strong id="guide-need"></strong>
+              <ul id="guide-materials"></ul>
             </div>
-            <div class="readiness-panel" aria-label="Mognadsgrad">
+          </div>
+          <div
+            class="underlag-hero-art readiness-panel"
+            aria-label="Mognadsgrad"
+          >
+            <div class="underlag-hero-promo readiness-meter">
               <span class="readiness-label">Mognadsgrad</span>
               <strong id="readiness-score">43%</strong>
               <span id="readiness-copy">Starta med ansvar och nuläge.</span>
             </div>
-          </header>
+          </div>
+        </header>
+
+        <section class="guide-workspace" aria-label="Guidad anslutning till SDK">
 
           <div class="guide-grid">
             <section class="phase-panel" aria-label="Anslutningsfaser">
@@ -141,6 +158,6 @@
       };
     </script>
     <script src="../js/api.js?v=8"></script>
-    <script src="../js/step-guide.js?v=18"></script>
+    <script src="../js/step-guide.js?v=19"></script>
   </body>
 </html>

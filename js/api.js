@@ -9,6 +9,8 @@ const DiggApi = (function () {
   const RAG_CHAT_ENDPOINT = config.ragChatEndpoint || "backend/api/chat.php";
   const STEP_CONTEXT_ENDPOINT =
     config.stepContextEndpoint || "backend/api/step_context.php";
+  const CASE_ATTACHMENTS_ENDPOINT =
+    config.caseAttachmentsEndpoint || "backend/api/case_attachments.php";
 
   function load() {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -60,7 +62,7 @@ const DiggApi = (function () {
     return data;
   }
 
-  async function deleteRemoteStepContext(caseId) {
+  async function deleteRemoteCaseData(caseId) {
     try {
       await fetch(STEP_CONTEXT_ENDPOINT, {
         method: "DELETE",
@@ -70,10 +72,60 @@ const DiggApi = (function () {
     } catch (error) {
       console.warn("Kunde inte radera underlag i backend", error);
     }
+
+    try {
+      await fetch(CASE_ATTACHMENTS_ENDPOINT, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ case_id: caseId }),
+      });
+    } catch (error) {
+      console.warn("Kunde inte radera uppladdade filer i backend", error);
+    }
+  }
+
+  function escapeMarkdownLabel(value) {
+    return String(value || "")
+      .replace(/\[/g, "(")
+      .replace(/\]/g, ")")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function sourceLabel(source) {
+    const title = escapeMarkdownLabel(source.title || "Källa");
+    const service = escapeMarkdownLabel(source.service || "");
+    if (!service || title.toLowerCase().includes(service.toLowerCase())) {
+      return title;
+    }
+    return title + " (" + service + ")";
+  }
+
+  function formatSources(sources) {
+    const rows = [];
+    const seen = new Set();
+    (Array.isArray(sources) ? sources : []).forEach(function (source) {
+      const url = String(source.source_url || "").trim();
+      const label = sourceLabel(source);
+      const key = url || label;
+      if (!label || seen.has(key)) {
+        return;
+      }
+      seen.add(key);
+      if (/^https?:\/\//i.test(url)) {
+        rows.push("- [" + label + "](" + url + ")");
+      } else if (url) {
+        rows.push("- " + label + " (" + url + ")");
+      } else {
+        rows.push("- " + label);
+      }
+    });
+    return rows.length ? "\n\n### Källor\n" + rows.join("\n") : "";
   }
 
   function formatAssistantText(data) {
     let text = data.answer || "Jag fick inget textsvar från RAG-backenden.";
+    text += formatSources(data.sources);
     if (data.warning) {
       text += "\n\nObs: " + data.warning;
     }
@@ -133,7 +185,7 @@ const DiggApi = (function () {
       });
       delete data.messages[id];
       save(data);
-      await deleteRemoteStepContext(id);
+      await deleteRemoteCaseData(id);
     },
 
     archiveCase: async function (id) {
@@ -220,8 +272,11 @@ const DiggApi = (function () {
       }
 
       let text;
+      let sources = [];
       try {
-        text = formatAssistantText(await askRag(question, caseId));
+        const response = await askRag(question, caseId);
+        text = formatAssistantText(response);
+        sources = Array.isArray(response.sources) ? response.sources : [];
       } catch (error) {
         console.warn("RAG/LLM-anrop misslyckades", error);
         text = assistantErrorText(error);
@@ -231,6 +286,7 @@ const DiggApi = (function () {
         id: "msg-" + Date.now() + "-assistant",
         role: "assistant",
         text: text,
+        sources: sources,
       };
       data.messages[caseId].push(message);
       save(data);
@@ -282,6 +338,25 @@ const DiggApi = (function () {
         throw new Error(data.error || "Kunde inte spara underlag.");
       }
       return data;
+    },
+
+    saveCaseAttachment: async function (caseId, attachment, messageText) {
+      const response = await fetch(CASE_ATTACHMENTS_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          case_id: caseId,
+          message_text: messageText || "",
+          attachment: attachment,
+        }),
+      });
+      const data = await response.json().catch(function () {
+        return {};
+      });
+      if (!response.ok) {
+        throw new Error(data.error || "Kunde inte spara uppladdad fil.");
+      }
+      return data.attachment;
     },
   };
 })();

@@ -13,8 +13,8 @@
       href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../css/style.css?v=6" />
-    <link rel="stylesheet" href="../css/poc.css?v=10" />
+    <link rel="stylesheet" href="../css/style.css?v=12" />
+    <link rel="stylesheet" href="../css/poc.css?v=30" />
   </head>
   <body class="underlag-page">
     <div class="app">
@@ -44,20 +44,46 @@
       </aside>
 
       <main class="chat-panel guide-shell">
+        <header class="context-header underlag-hero">
+          <svg
+            class="underlag-hero-shapes"
+            viewBox="0 0 1000 160"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <polygon points="840,0 1000,0 1000,160 790,160" fill="#cd796d" />
+            <polygon points="700,0 840,0 790,160" fill="#2f3c2d" />
+          </svg>
+          <div class="underlag-hero-copy">
+            <p class="eyebrow">Guidad anslutning</p>
+            <h1 id="context-title">Underlag</h1>
+            <p id="context-subtitle" class="visually-hidden"></p>
+            <p class="underlag-lede">
+              Fyll i uppgifter som behövs för att gå vidare i
+              anslutningsprocessen.
+            </p>
+          </div>
+          <div class="underlag-hero-art" aria-hidden="true">
+            <p class="underlag-hero-promo">
+              Ett enklare sätt för<br />
+              offentlig sektor att<br />
+              använda digitala tjänster.
+            </p>
+          </div>
+        </header>
+
         <section class="context-workspace" aria-label="Underlag för checklistpunkt">
-          <header class="context-header">
-            <p class="eyebrow">Underlag</p>
-            <h1 id="context-title">Checkpunkt</h1>
-            <p id="context-subtitle"></p>
-          </header>
 
           <form class="context-form" id="context-form">
             <section class="context-panel">
               <div class="section-heading">
-                <h2>Beskrivning och behov</h2>
+                <span class="underlag-step-num" aria-hidden="true">1</span>
+                <div class="underlag-step-copy">
+                  <h2>Beskrivning och behov</h2>
+                </div>
               </div>
               <div class="context-grid">
-                <label class="full">
+                <label>
                   <span>Kort beskrivning</span>
                   <textarea
                     id="short-description"
@@ -65,7 +91,7 @@
                     placeholder="Beskriv kommunens faktiska anslutningsbehov. Den här texten styr Anslutning Workflow."
                   ></textarea>
                 </label>
-                <label class="full">
+                <label>
                   <span>Det ni vet, saknar eller behöver få bekräftat</span>
                   <textarea
                     id="need-text"
@@ -78,7 +104,10 @@
 
             <section class="context-panel">
               <div class="section-heading">
-                <h2>Ansökande organisation</h2>
+                <span class="underlag-step-num" aria-hidden="true">2</span>
+                <div class="underlag-step-copy">
+                  <h2>Ansökande organisation</h2>
+                </div>
               </div>
               <div class="context-grid">
                 <label>
@@ -105,7 +134,10 @@
 
             <section class="context-panel">
               <div class="section-heading">
-                <h2>Faktureringsuppgifter</h2>
+                <span class="underlag-step-num" aria-hidden="true">3</span>
+                <div class="underlag-step-copy">
+                  <h2>Faktureringsuppgifter</h2>
+                </div>
               </div>
               <div class="context-grid">
                 <label>
@@ -151,10 +183,13 @@
               </div>
             </section>
 
-            <section class="context-panel">
-              <div class="section-heading">
-                <h2>Ansvarig kontaktperson</h2>
-              </div>
+            <details class="context-panel underlag-accordion">
+              <summary class="section-heading">
+                <span class="underlag-step-num" aria-hidden="true">4</span>
+                <div class="underlag-step-copy">
+                  <h2>Ansvarig kontaktperson</h2>
+                </div>
+              </summary>
               <div class="context-grid">
                 <label>
                   <span>För- och efternamn</span>
@@ -173,12 +208,15 @@
                   <input id="contact-role" />
                 </label>
               </div>
-            </section>
+            </details>
 
-            <section class="context-panel">
-              <div class="section-heading">
-                <h2>Verksamhetsansvarig</h2>
-              </div>
+            <details class="context-panel underlag-accordion">
+              <summary class="section-heading">
+                <span class="underlag-step-num" aria-hidden="true">5</span>
+                <div class="underlag-step-copy">
+                  <h2>Verksamhetsansvarig</h2>
+                </div>
+              </summary>
               <div class="context-grid">
                 <label>
                   <span>Namn på funktion eller person</span>
@@ -197,12 +235,15 @@
                   />
                 </label>
               </div>
-            </section>
+            </details>
 
-            <section class="context-panel">
-              <div class="section-heading">
-                <h2>IT-funktion</h2>
-              </div>
+            <details class="context-panel underlag-accordion">
+              <summary class="section-heading">
+                <span class="underlag-step-num" aria-hidden="true">6</span>
+                <div class="underlag-step-copy">
+                  <h2>IT-funktion</h2>
+                </div>
+              </summary>
               <div class="context-grid">
                 <label>
                   <span>Namn på IT-funktion eller person</span>
@@ -221,12 +262,15 @@
                   />
                 </label>
               </div>
-            </section>
+            </details>
 
-            <section class="context-panel">
-              <div class="section-heading">
-                <h2>Avtal och underskrift</h2>
-              </div>
+            <details class="context-panel underlag-accordion">
+              <summary class="section-heading">
+                <span class="underlag-step-num" aria-hidden="true">7</span>
+                <div class="underlag-step-copy">
+                  <h2>Avtal och underskrift</h2>
+                </div>
+              </summary>
               <div class="context-grid">
                 <label>
                   <span>Person med mandat att skriva under</span>
@@ -269,12 +313,15 @@
                   <input data-application-field="signer3_email" type="email" />
                 </label>
               </div>
-            </section>
+            </details>
 
-            <section class="context-panel">
-              <div class="section-heading">
-                <h2>Filer</h2>
-              </div>
+            <details class="context-panel underlag-accordion">
+              <summary class="section-heading">
+                <span class="underlag-step-num" aria-hidden="true">8</span>
+                <div class="underlag-step-copy">
+                  <h2>Filer</h2>
+                </div>
+              </summary>
               <div class="context-files">
                 <label class="file-drop" for="context-files">
                   <span class="file-drop-icon" aria-hidden="true">+</span>
@@ -292,7 +339,7 @@
                 />
                 <ul class="material-list" id="context-file-list" aria-live="polite"></ul>
               </div>
-            </section>
+            </details>
 
             <div class="context-actions">
               <a class="btn-secondary" id="back-link" href="steg-for-steg.html">

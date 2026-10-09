@@ -495,6 +495,10 @@
     summary.className = "phase-summary";
     summary.textContent = phase.summary;
 
+    const intro = document.createElement("div");
+    intro.className = "step-intro";
+    intro.append(kicker, title, summary);
+
     const checklistHeading = document.createElement("h3");
     checklistHeading.className = "detail-subheading";
     checklistHeading.textContent = "Klart innan nästa steg";
@@ -539,13 +543,13 @@
           ? " Kommunens behov är: " + currentNeed
           : " Kommunens beskrivning och behov är inte ifyllda än. Förklara generellt och be användaren fylla i Beskrivning och behov innan du ger specifika råd.";
         const question =
-          'Vad menas med checklistpunkten "' +
+          'I SDK-guiden Anslutning Workflow: vad menas med checklistpunkten "' +
           text +
           '" i steget "' +
           phase.title +
           '"?' +
           context +
-          " Förklara kort och konkret vad jag ska göra.";
+          " Håll svaret till Säker digital kommunikation (SDK), inte Mina meddelanden, om checklistan inte uttryckligen säger digital post. Förklara kort och konkret vad jag ska göra.";
         params.set("guideQuestion", question);
         if (caseId) {
           params.set("case", caseId);
@@ -559,7 +563,7 @@
       checklist.appendChild(row);
     });
 
-    phaseDetail.append(kicker, title, summary, checklistHeading, checklist);
+    phaseDetail.append(intro, checklistHeading, checklist);
   }
 
   function renderReadiness() {

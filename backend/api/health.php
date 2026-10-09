@@ -11,6 +11,7 @@ $database = [
         'reference_documents' => false,
         'document_embeddings' => false,
         'guide_step_context' => false,
+        'case_attachments' => false,
     ],
 ];
 

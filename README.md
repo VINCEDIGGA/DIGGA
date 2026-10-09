@@ -11,9 +11,11 @@ Frontend for Ena Agents with a need-driven V3 flow for DIGG/ENA onboarding.
   `poc/steg-for-steg.html`.
 - The guide page creates a case, asks the backend for a specific guide, and
   stores the need/material list locally with that case.
-- `poc/steg-for-steg.html` shows a contextual six-step anslutningsresa when it
+- `poc/steg-for-steg.html` shows a contextual four-step anslutningsresa when it
   is opened from a V3 case.
 - Chat cases and messages are stored locally in the browser.
+- Chat file uploads are stored in MySQL as case context, so the AI can use the
+  uploaded underlag through the current `case_id`.
 - Assistant answers are fetched from the PoC RAG/LLM backend configured in
   `js/config.js`. The default endpoint is the relative path
   `backend/api/chat.php`, which is suitable when the whole project is uploaded
@@ -42,9 +44,10 @@ requires PHP and MySQL.
    `backend/api/local.secrets.php` on the server.
 4. Add the school database credentials and Mistral API key in
    `backend/api/local.secrets.php`.
-5. Keep `js/config.js` as `ragChatEndpoint: "backend/api/chat.php"` if the
-   backend folder is uploaded next to `index.html`. Change that value only if
-   the school server places the API somewhere else.
+5. Keep `js/config.js` pointing to `backend/api/chat.php`,
+   `backend/api/step_context.php`, and `backend/api/case_attachments.php` if
+   the backend folder is uploaded next to `index.html`. Change those values only
+   if the school server places the API somewhere else.
 
 If PHP, MySQL, or the API key is missing, the app still opens and the guide
 still works. The chat will show a clear message that AI answers are not active

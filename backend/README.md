@@ -6,6 +6,8 @@ ask the PoC RAG/LLM endpoint.
 ## Included Files
 
 - `api/chat.php`: accepts chat questions via `POST`.
+- `api/case_attachments.php`: stores uploaded chat underlag in MySQL so it can
+  be used as case context.
 - `api/db.php`: connects to MySQL and allows local CORS from the frontend.
 - `api/embedding_lib.php`: uses Mistral embeddings when an index exists.
 - `api/config.php`: reads settings from environment variables or

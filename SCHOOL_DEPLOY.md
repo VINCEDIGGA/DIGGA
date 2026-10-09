@@ -20,7 +20,11 @@ backend/
 2. Create or choose your course database.
 3. Import `backend/data/schema_and_seed_student.sql`.
 
-This import also adds V3 source summaries extracted from the example PDF folder.
+This import also adds V3 source summaries extracted from the example PDF folder
+and creates the chat upload context table `case_attachments`.
+
+If you already imported an older SQL version, import this file again or add the
+new table from the top of `schema_and_seed_student.sql`.
 
 ## Secrets
 
@@ -64,7 +68,17 @@ The frontend reads `js/config.js`. The default is:
 ```js
 window.DIGGA_CONFIG = {
   ragChatEndpoint: "backend/api/chat.php",
+  stepContextEndpoint: "backend/api/step_context.php",
+  caseAttachmentsEndpoint: "backend/api/case_attachments.php",
 };
 ```
 
 Keep this value if `backend/` is uploaded next to `index.html`.
+
+## Upload Context
+
+Chat file uploads are stored as database context, not sent directly to the AI.
+Text-like files such as `.txt`, `.json`, `.yaml`, `.yml`, `.xml`, `.csv`, and
+`.md` store a text preview. PDF and binary files store filename, type, and size;
+paste the important PDF excerpt into the chat or underlag form if the AI needs
+to reason over the contents.
