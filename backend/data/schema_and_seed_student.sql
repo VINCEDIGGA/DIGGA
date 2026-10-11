@@ -71,6 +71,26 @@ CREATE TABLE IF NOT EXISTS case_attachments (
   INDEX idx_case_attachments_created (created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS reformat_jobs (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  case_id VARCHAR(120) NOT NULL,
+  attachment_id BIGINT UNSIGNED NULL,
+  template_key VARCHAR(80) NOT NULL,
+  original_name VARCHAR(255) NOT NULL,
+  detected_format VARCHAR(40) NOT NULL,
+  source_preview MEDIUMTEXT NULL,
+  reformatted_name VARCHAR(255) NOT NULL,
+  reformatted_text MEDIUMTEXT NOT NULL,
+  issues_json JSON NOT NULL,
+  status VARCHAR(24) NOT NULL DEFAULT 'draft',
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_reformat_jobs_case (case_id),
+  INDEX idx_reformat_jobs_attachment (attachment_id),
+  INDEX idx_reformat_jobs_status (status),
+  INDEX idx_reformat_jobs_created (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS validation_runs (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   profile VARCHAR(32) NOT NULL,

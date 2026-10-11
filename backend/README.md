@@ -8,6 +8,9 @@ ask the PoC RAG/LLM endpoint.
 - `api/chat.php`: accepts chat questions via `POST`.
 - `api/case_attachments.php`: stores uploaded chat underlag in MySQL so it can
   be used as case context.
+- `api/reformat_files.php`: prepares the next human-in-the-loop workflow where
+  a municipality file can be matched against a DIGG-style template and
+  reformatted into a draft for review.
 - `api/db.php`: connects to MySQL and allows local CORS from the frontend.
 - `api/embedding_lib.php`: uses Mistral embeddings when an index exists.
 - `api/config.php`: reads settings from environment variables or
@@ -39,6 +42,85 @@ The frontend chat calls the relative endpoint:
 
 ```text
 backend/api/chat.php
+```
+
+## Human-in-the-loop Reformat API
+
+`api/reformat_files.php` is the backend foundation for the next Overleaf-style
+workflow:
+
+- left side: DIGG-style template;
+- right side: municipality material reformatted as a review draft;
+- button action: frontend calls the backend to "reformat" the file;
+- human review: the result is saved as `draft` until a person approves or
+  rejects it.
+
+Supported first-step matches:
+
+- `openapi.yaml` / `openapi.yml`
+- `json`
+- `xml`
+- `p12`, `pfx`, `cer`, `crt`, `pem` certificate metadata
+
+Certificate files are treated carefully. The backend does not store certificate
+content for `.p12`, `.pfx`, `.cer`, `.crt`, or `.pem`; it creates a metadata
+checklist instead. Do not send private keys, passwords, or real certificate
+content into the AI chat.
+
+Fetch templates:
+
+```text
+GET backend/api/reformat_files.php?action=templates
+```
+
+Create a reformat draft:
+
+```json
+{
+  "case_id": "case-123",
+  "template_key": "openapi_yaml",
+  "file": {
+    "name": "openapi.yaml",
+    "type": "text/yaml",
+    "size": 1200,
+    "preview": "openapi: 3.0.3\ninfo:\n  title: Example API\npaths: {}\n"
+  }
+}
+```
+
+You can also reformat a file that was already stored through
+`case_attachments.php`:
+
+```json
+{
+  "case_id": "case-123",
+  "attachment_id": 12,
+  "template_key": "json_payload"
+}
+```
+
+Fetch drafts for a case:
+
+```text
+GET backend/api/reformat_files.php?case_id=case-123
+```
+
+Approve or reject after human review:
+
+```json
+{
+  "action": "approve",
+  "job_id": 1
+}
+```
+
+or:
+
+```json
+{
+  "action": "reject",
+  "job_id": 1
+}
 ```
 
 If you prefer to run only the backend separately for development, start it from

@@ -14,7 +14,11 @@
   const infoText = document.getElementById("info-text");
   const attachBtn = document.getElementById("attach-btn");
   const fileInput = document.getElementById("file-input");
-  const attachName = document.getElementById("attach-name");
+  const attachBar = document.getElementById("attach-bar");
+  const attachFileName = document.getElementById("attach-file-name");
+  const attachFileSize = document.getElementById("attach-file-size");
+  const attachReplaceBtn = document.getElementById("attach-replace-btn");
+  const attachRemoveBtn = document.getElementById("attach-remove-btn");
   const SELECTED_CASE_KEY = "digg-selected-case-v3";
   const ATTACHMENT_PREVIEW_LIMIT = 6000;
   const MAX_TEXT_ATTACHMENT_BYTES = 1024 * 1024;
@@ -470,10 +474,17 @@
     messageInput.disabled = isSending;
     sendButton.disabled = isSending;
     if (attachBtn) {
-      attachBtn.disabled = isSending;
+      attachBtn.classList.toggle("is-disabled", isSending);
+      attachBtn.setAttribute("aria-disabled", isSending ? "true" : "false");
     }
     if (fileInput) {
       fileInput.disabled = isSending;
+    }
+    if (attachReplaceBtn) {
+      attachReplaceBtn.disabled = isSending;
+    }
+    if (attachRemoveBtn) {
+      attachRemoveBtn.disabled = isSending;
     }
   }
 
@@ -529,18 +540,25 @@
   }
 
   function renderPendingAttachment() {
-    if (!attachName || !attachBtn) {
+    if (!attachBar || !attachFileName || !attachFileSize) {
       return;
     }
     if (pendingFile) {
-      attachName.hidden = false;
-      attachName.textContent =
-        "Bifogad fil: " + pendingFile.name + " · " + formatFileSize(pendingFile.size);
-      attachBtn.setAttribute("aria-label", "Bifogad fil: " + pendingFile.name);
+      attachBar.hidden = false;
+      attachBar.classList.add("is-open");
+      attachFileName.textContent = pendingFile.name;
+      attachFileSize.textContent = formatFileSize(pendingFile.size);
+      if (attachBtn) {
+        attachBtn.setAttribute("aria-label", "Bifogad fil: " + pendingFile.name);
+      }
     } else {
-      attachName.hidden = true;
-      attachName.textContent = "";
-      attachBtn.setAttribute("aria-label", "Bifoga fil");
+      attachBar.hidden = true;
+      attachBar.classList.remove("is-open");
+      attachFileName.textContent = "";
+      attachFileSize.textContent = "";
+      if (attachBtn) {
+        attachBtn.setAttribute("aria-label", "Bifoga fil");
+      }
     }
   }
 
@@ -744,14 +762,25 @@
     await sendQuestion(text);
   });
 
-  if (attachBtn && fileInput) {
-    attachBtn.addEventListener("click", function () {
+  if (fileInput) {
+    fileInput.addEventListener("change", function () {
+      const chosen = fileInput.files && fileInput.files[0];
+      if (!chosen) {
+        return;
+      }
+      pendingFile = chosen;
+      renderPendingAttachment();
+    });
+  }
+  if (attachReplaceBtn && fileInput) {
+    attachReplaceBtn.addEventListener("click", function () {
+      fileInput.value = "";
       fileInput.click();
     });
-    fileInput.addEventListener("change", function () {
-      pendingFile =
-        fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
-      renderPendingAttachment();
+  }
+  if (attachRemoveBtn) {
+    attachRemoveBtn.addEventListener("click", function () {
+      clearPendingAttachment();
     });
   }
 

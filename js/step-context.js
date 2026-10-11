@@ -8,6 +8,7 @@
 
   const guideLink = document.getElementById("guide-link");
   const underlagLink = document.getElementById("underlag-link");
+  const workshopLink = document.getElementById("workshop-link");
   const backLink = document.getElementById("back-link");
   const contextTitle = document.getElementById("context-title");
   const contextSubtitle = document.getElementById("context-subtitle");
@@ -39,6 +40,53 @@
 
   function guideUrl() {
     return "steg-for-steg.html?case=" + encodeURIComponent(caseId);
+  }
+
+  function workshopUrl() {
+    return "reformat-workspace.html?case=" + encodeURIComponent(caseId);
+  }
+
+  function cleanText(value) {
+    return String(value || "").replace(/\s+/g, " ").trim();
+  }
+
+  function contextHasContent(context) {
+    if (!context) {
+      return false;
+    }
+    const textFields = [
+      context.organization_name,
+      context.organization_number,
+      context.contact_name,
+      context.contact_email,
+      context.contact_role,
+      context.short_description,
+      context.need_text,
+    ];
+    if (textFields.some(cleanText)) {
+      return true;
+    }
+    const application = context.application || {};
+    if (Object.keys(application).some(function (key) {
+      const value = application[key];
+      return value === true || cleanText(value);
+    })) {
+      return true;
+    }
+    return Array.isArray(context.files) && context.files.length > 0;
+  }
+
+  function setWorkshopEnabled(enabled) {
+    if (!workshopLink) {
+      return;
+    }
+    workshopLink.href = enabled && caseId ? workshopUrl() : "reformat-workspace.html";
+    workshopLink.classList.toggle("is-disabled", !enabled);
+    workshopLink.setAttribute("aria-disabled", String(!enabled));
+    workshopLink.title = enabled
+      ? "Öppna Underlagsverkstad"
+      : "Fyll i och spara underlag först";
+    workshopLink.tabIndex = enabled ? 0 : -1;
   }
 
   function formatFileSize(bytes) {
@@ -144,7 +192,9 @@
     saveButton.disabled = true;
     saveButton.textContent = "Sparar...";
     try {
-      await DiggApi.saveStepContext(formPayload(await fileSummaries()));
+      const payload = formPayload(await fileSummaries());
+      await DiggApi.saveStepContext(payload);
+      setWorkshopEnabled(contextHasContent(payload));
       showInfo("Underlaget är sparat för den här chatten.");
       return true;
     } catch (error) {
@@ -181,6 +231,7 @@
         field.value = application[key];
       }
     });
+    setWorkshopEnabled(contextHasContent(context));
   }
 
   async function loadContext() {
@@ -219,6 +270,16 @@
     guideLink.href = guideUrl();
     backLink.href = guideUrl();
     underlagLink.href = "steg-underlag.html?case=" + encodeURIComponent(caseId);
+    setWorkshopEnabled(false);
+  }
+
+  if (workshopLink) {
+    workshopLink.addEventListener("click", function (event) {
+      if (workshopLink.getAttribute("aria-disabled") === "true") {
+        event.preventDefault();
+        showInfo("Fyll i och spara underlag innan du öppnar Underlagsverkstad.");
+      }
+    });
   }
 
   fileInput.addEventListener("change", function () {

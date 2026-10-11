@@ -89,6 +89,7 @@ try {
  */
 function classify_question(string $question): array
 {
+    $mentionsEnaOrDigg = (bool) preg_match('/\bdigg\b|\bena\b/iu', $question);
     $mentionsSdk = (bool) preg_match(
         '/\bsdk\b|s[äa]ker digital kommunikation|o2o|organisation till organisation|funktionsadress|accesspunkt|meddelandesystem|deltagarorganisation|x\.?509|pem|certifikat/iu',
         $question
@@ -113,24 +114,33 @@ function classify_question(string $question): array
         '/anslutningsagent|systemkoppling|dry-run|poc|verktyg|specifik anslutningsguide|kommunens behov:|checklistpunkten|steget "/iu',
         $question
     );
+    $hasDomainSignal = $mentionsSdk || $mentionsMina || $mentionsData || $mentionsTool || $mentionsEnaOrDigg;
+    $hasDomainTaskIntent = (bool) preg_match(
+        '/anslut|ans[öo]k|avtal|integration|integrera|koppla|kommun|municipality|myndighet|offentlig|leverant[öo]r|k[äa]llsystem|m[åa]lsystem|underlag|api-dokumentation|f[äa]ltmapp|testdata|testfall|dry-run|qa\b|produktion|certifikat|o2o|funktionsadress|accesspunkt|meddelandesystem|adressbok|smp\b|kvittens|felkod|mottagare|skicka|ta emot|digital post|brevl[åa]d|f[öo]rmedlingsadressregister|recipient|message service|auktorisationssystem|payload|schema|endpoint|openapi|rap-lp|dcat|datadelning|grunddata/iu',
+        $question
+    );
+    $hasDomainExplanationIntent = (bool) preg_match(
+        '/(vad\s+([a-zåäö]+\s+){0,3}(är|betyder|innebär)\s+(sdk|digg|ena|mina meddelanden|digital post|openapi|rap-lp|o2o))|(what\s+(is|does)\s+(sdk|digg|ena|mina meddelanden|digital post|openapi|rap-lp|o2o))|(hur\s+fungerar\s+(sdk|digg|ena|mina meddelanden|digital post|openapi|rap-lp|o2o))|(how\s+does\s+(sdk|digg|ena|mina meddelanden|digital post|openapi|rap-lp|o2o)\s+work)|((sdk|digg|ena|mina meddelanden|digital post|openapi|rap-lp|o2o)\s+(betyder|innebär|mean|means|är))/iu',
+        $question
+    );
     $outOfScopeCitizenService = (bool) preg_match(
         '/bygglov|v[åa]rdcentral|boka tid|l[äa]kartid|tandv[åa]rd|pass\b|f[öo]rskoleplats|skolmat|soph[äa]mtning|bibliotek|parkeringstillst[åa]nd/iu',
         $question
     );
     $outOfScopeGeneral = (bool) preg_match(
-        '/huvudstad|frankrike|pizza|pizzadeg|recept|recipe|matlag|cooking|v[äa]der|weather|sport|fotboll|aktie|bitcoin|online-spel|spel\b|game\b|gaming|leaderboard|minecraft|film|musik|l[åa]t|s[åa]ng|dikt|poem|haiku|rim|sk[äa]mt|joke|[öo]vers[äa]tt|translate|software development kit|javascript|java script|python|npm|react|node\.?js|programmering|kodbibliotek|fix my car|repair my car|car\b|vehicle|engine|brake|tire|tyre|oil change|mechanic|bil(en)?\b|fordon|motor|d[äa]ck|broms|olja|verkstad|tv[äa]ttmaskin|washing machine|homework|l[äa]xa/iu',
+        '/huvudstad|frankrike|pizza|pizzadeg|recept|recipe|matlag|cooking|v[äa]der|weather|sport|fotboll|aktie|bitcoin|online-spel|spel\b|game\b|gaming|leaderboard|minecraft|film|musik|l[åa]t|s[åa]ng|dikt|poem|haiku|rim|sk[äa]mt|joke|[öo]vers[äa]tt|translate|software development kit|javascript|java script|python|npm|react|node\.?js|programmering|kodbibliotek|fix my car|repair my car|bilreparation|fordonsreparation|oil change|mechanic|hur fixar jag .*bil|how (do|can) i fix|tv[äa]ttmaskin|washing machine|homework|l[äa]xa/iu',
         $question
     );
     $citizenTransaction = (bool) preg_match(
         '/ans[öo]k|ans[öo]kan|ans[öo]kningar|ta emot|boka|best[äa]ll|f[åa]r jag|hur (f[åa]r|g[öo]r) jag/iu',
         $question
     );
-    $domainAnchor = $mentionsSdk || $mentionsMina || $mentionsData || $mentionsTool
-        || (bool) preg_match('/digg|anslut|leverant[öo]r|kommunikation|kommunens underlag|qa|testdata|integration/iu', $question);
+    $hasDomainIntent = $hasDomainTaskIntent || $hasDomainExplanationIntent || $mentionsTool;
 
-    if (($outOfScopeCitizenService && (!$domainAnchor || $citizenTransaction))
+    if (($outOfScopeCitizenService && (!$hasDomainIntent || $citizenTransaction))
         || $outOfScopeGeneral
-        || (!$domainAnchor && !$mentionsData)) {
+        || !$hasDomainSignal
+        || !$hasDomainIntent) {
         return [
             'in_scope' => false,
             'service' => 'out_of_scope',
@@ -172,7 +182,7 @@ function classify_question(string $question): array
 
 function out_of_scope_answer(string $question): string
 {
-    if (preg_match('/fix my car|repair my car|car\b|vehicle|engine|brake|tire|tyre|oil change|mechanic|bil(en)?\b|fordon|motor|d[äa]ck|broms|olja|verkstad/iu', $question)) {
+    if (preg_match('/fix my car|repair my car|bilreparation|fordonsreparation|oil change|mechanic|hur fixar jag .*bil|how (do|can) i fix/iu', $question)) {
         return implode("\n", [
             'Det ligger utanför mitt område.',
             '- Jag kan inte hjälpa till med bilreparation eller fordonsfrågor, även om frågan nämner SDK, DIGG, ENA eller Mina meddelanden.',

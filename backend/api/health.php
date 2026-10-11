@@ -12,6 +12,7 @@ $database = [
         'document_embeddings' => false,
         'guide_step_context' => false,
         'case_attachments' => false,
+        'reformat_jobs' => false,
     ],
 ];
 

@@ -11,22 +11,34 @@ const DiggApi = (function () {
     config.stepContextEndpoint || "backend/api/step_context.php";
   const CASE_ATTACHMENTS_ENDPOINT =
     config.caseAttachmentsEndpoint || "backend/api/case_attachments.php";
+  const STEP_CONTEXT_TIMEOUT_MS = 3500;
 
   function load() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) {
-      return { cases: [], messages: {} };
+      return normalizeStore({ cases: [], messages: {} });
     }
     try {
-      return JSON.parse(raw);
+      return normalizeStore(JSON.parse(raw));
     } catch (error) {
       console.warn("Kunde inte läsa tillfällig lagring", error);
-      return { cases: [], messages: {} };
+      return normalizeStore({ cases: [], messages: {} });
     }
   }
 
+  function normalizeStore(data) {
+    return {
+      cases: Array.isArray(data.cases) ? data.cases : [],
+      messages: data.messages && typeof data.messages === "object" ? data.messages : {},
+      stepContexts:
+        data.stepContexts && typeof data.stepContexts === "object"
+          ? data.stepContexts
+          : {},
+    };
+  }
+
   function save(data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizeStore(data)));
   }
 
   function nextId() {
@@ -62,6 +74,86 @@ const DiggApi = (function () {
     return data;
   }
 
+  async function fetchJsonWithTimeout(url, options, timeoutMs) {
+    const controller = new AbortController();
+    const timer = window.setTimeout(function () {
+      controller.abort();
+    }, timeoutMs);
+    try {
+      const response = await fetch(url, Object.assign({}, options || {}, {
+        signal: controller.signal,
+      }));
+      const data = await response.json().catch(function () {
+        return {};
+      });
+      return { response: response, data: data };
+    } finally {
+      window.clearTimeout(timer);
+    }
+  }
+
+  function stepContextKey(caseId, stepIndex, checkIndex) {
+    return [
+      String(caseId || ""),
+      String(Number(stepIndex) || 0),
+      String(Number(checkIndex) || 0),
+    ].join("::");
+  }
+
+  function normalizeStepContextPayload(payload) {
+    const now = new Date().toISOString();
+    return Object.assign({}, payload, {
+      case_id: String(payload.case_id || ""),
+      step_index: Number(payload.step_index) || 0,
+      check_index: Number(payload.check_index) || 0,
+      files: Array.isArray(payload.files) ? payload.files : [],
+      application:
+        payload.application && typeof payload.application === "object"
+          ? payload.application
+          : {},
+      updated_at: payload.updated_at || now,
+      created_at: payload.created_at || now,
+    });
+  }
+
+  function getLocalStepContext(caseId, stepIndex, checkIndex) {
+    const data = load();
+    return (
+      data.stepContexts[stepContextKey(caseId, stepIndex, checkIndex)] || null
+    );
+  }
+
+  function getLocalStepContexts(caseId) {
+    const data = load();
+    return Object.keys(data.stepContexts)
+      .map(function (key) {
+        return data.stepContexts[key];
+      })
+      .filter(function (context) {
+        return context && context.case_id === caseId;
+      })
+      .sort(function (left, right) {
+        return (
+          (Number(left.step_index) || 0) - (Number(right.step_index) || 0) ||
+          (Number(left.check_index) || 0) - (Number(right.check_index) || 0)
+        );
+      });
+  }
+
+  function saveLocalStepContext(payload) {
+    const data = load();
+    const normalized = normalizeStepContextPayload(payload);
+    data.stepContexts[
+      stepContextKey(
+        normalized.case_id,
+        normalized.step_index,
+        normalized.check_index
+      )
+    ] = normalized;
+    save(data);
+    return normalized;
+  }
+
   async function deleteRemoteCaseData(caseId) {
     try {
       await fetch(STEP_CONTEXT_ENDPOINT, {
@@ -82,6 +174,14 @@ const DiggApi = (function () {
     } catch (error) {
       console.warn("Kunde inte radera uppladdade filer i backend", error);
     }
+
+    const data = load();
+    Object.keys(data.stepContexts).forEach(function (key) {
+      if (data.stepContexts[key] && data.stepContexts[key].case_id === caseId) {
+        delete data.stepContexts[key];
+      }
+    });
+    save(data);
   }
 
   function escapeMarkdownLabel(value) {
@@ -302,42 +402,68 @@ const DiggApi = (function () {
         encodeURIComponent(stepIndex) +
         "&check_index=" +
         encodeURIComponent(checkIndex);
-      const response = await fetch(url);
-      const data = await response.json().catch(function () {
-        return {};
-      });
-      if (!response.ok) {
-        throw new Error(data.error || "Kunde inte hämta underlag.");
+      try {
+        const result = await fetchJsonWithTimeout(
+          url,
+          {},
+          STEP_CONTEXT_TIMEOUT_MS
+        );
+        if (!result.response.ok) {
+          throw new Error(result.data.error || "Kunde inte hämta underlag.");
+        }
+        return (
+          result.data.context ||
+          getLocalStepContext(caseId, stepIndex, checkIndex)
+        );
+      } catch (error) {
+        console.warn("Använder lokalt underlag eftersom backend inte svarade", error);
+        return getLocalStepContext(caseId, stepIndex, checkIndex);
       }
-      return data.context;
     },
 
     getStepContexts: async function (caseId) {
       const url =
         STEP_CONTEXT_ENDPOINT + "?case_id=" + encodeURIComponent(caseId);
-      const response = await fetch(url);
-      const data = await response.json().catch(function () {
-        return {};
-      });
-      if (!response.ok) {
-        throw new Error(data.error || "Kunde inte hämta sparat underlag.");
+      try {
+        const result = await fetchJsonWithTimeout(
+          url,
+          {},
+          STEP_CONTEXT_TIMEOUT_MS
+        );
+        if (!result.response.ok) {
+          throw new Error(result.data.error || "Kunde inte hämta sparat underlag.");
+        }
+        const remoteContexts = Array.isArray(result.data.contexts)
+          ? result.data.contexts
+          : [];
+        const localContexts = getLocalStepContexts(caseId);
+        return remoteContexts.length > 0 ? remoteContexts : localContexts;
+      } catch (error) {
+        console.warn("Använder lokalt underlag eftersom backend inte svarade", error);
+        return getLocalStepContexts(caseId);
       }
-      return data.contexts || [];
     },
 
     saveStepContext: async function (payload) {
-      const response = await fetch(STEP_CONTEXT_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = await response.json().catch(function () {
-        return {};
-      });
-      if (!response.ok) {
-        throw new Error(data.error || "Kunde inte spara underlag.");
+      const localContext = saveLocalStepContext(payload);
+      try {
+        const result = await fetchJsonWithTimeout(
+          STEP_CONTEXT_ENDPOINT,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          },
+          STEP_CONTEXT_TIMEOUT_MS
+        );
+        if (!result.response.ok) {
+          throw new Error(result.data.error || "Kunde inte spara underlag.");
+        }
+        return result.data;
+      } catch (error) {
+        console.warn("Underlag sparades lokalt eftersom backend inte svarade", error);
+        return { ok: true, local: true, context: localContext };
       }
-      return data;
     },
 
     saveCaseAttachment: async function (caseId, attachment, messageText) {

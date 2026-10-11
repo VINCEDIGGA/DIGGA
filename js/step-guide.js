@@ -91,6 +91,7 @@
   const nextStep = document.getElementById("next-step");
   const guideLink = document.getElementById("guide-link");
   const underlagLink = document.getElementById("underlag-link");
+  const workshopLink = document.getElementById("workshop-link");
 
   if (new URLSearchParams(window.location.search).has("reset")) {
     localStorage.removeItem(STORAGE_KEY);
@@ -110,6 +111,33 @@
     underlagLink.addEventListener("click", function (event) {
       event.preventDefault();
       window.location.href = underlagLink.href;
+    });
+  }
+
+  function workshopUrl() {
+    return "reformat-workspace.html?case=" + encodeURIComponent(caseId);
+  }
+
+  function setWorkshopEnabled(enabled) {
+    if (!workshopLink) {
+      return;
+    }
+    workshopLink.href = enabled && caseId ? workshopUrl() : "reformat-workspace.html";
+    workshopLink.classList.toggle("is-disabled", !enabled);
+    workshopLink.setAttribute("aria-disabled", String(!enabled));
+    workshopLink.title = enabled
+      ? "Öppna Underlagsverkstad"
+      : "Fyll i och spara underlag först";
+    workshopLink.tabIndex = enabled ? 0 : -1;
+  }
+
+  if (workshopLink) {
+    setWorkshopEnabled(false);
+    workshopLink.addEventListener("click", function (event) {
+      if (workshopLink.getAttribute("aria-disabled") === "true") {
+        event.preventDefault();
+        showInfo("Fyll i och spara underlag innan du öppnar Underlagsverkstad.");
+      }
     });
   }
 
@@ -185,6 +213,36 @@
   function contextTime(context) {
     const value = context.updated_at || context.created_at || "";
     return Date.parse(String(value).replace(" ", "T")) || 0;
+  }
+
+  function contextHasContent(context) {
+    if (!context) {
+      return false;
+    }
+    const textFields = [
+      context.organization_name,
+      context.organization_number,
+      context.contact_name,
+      context.contact_email,
+      context.contact_role,
+      context.short_description,
+      context.need_text,
+    ];
+    if (textFields.some(cleanText)) {
+      return true;
+    }
+    const application = context.application || {};
+    if (Object.keys(application).some(function (key) {
+      const value = application[key];
+      return value === true || cleanText(value);
+    })) {
+      return true;
+    }
+    return Array.isArray(context.files) && context.files.length > 0;
+  }
+
+  function hasSavedUnderlag() {
+    return savedStepContexts.some(contextHasContent);
   }
 
   function contextsWithNeed() {
@@ -263,8 +321,10 @@
     try {
       savedStepContexts = await DiggApi.getStepContexts(caseId);
       renderCaseContext();
+      setWorkshopEnabled(hasSavedUnderlag());
     } catch (error) {
       console.warn("Kunde inte läsa sparat underlag för guiden", error);
+      setWorkshopEnabled(false);
     }
   }
 
@@ -495,6 +555,10 @@
     summary.className = "phase-summary";
     summary.textContent = phase.summary;
 
+    const intro = document.createElement("div");
+    intro.className = "step-intro";
+    intro.append(kicker, title, summary);
+
     const checklistHeading = document.createElement("h3");
     checklistHeading.className = "detail-subheading";
     checklistHeading.textContent = "Klart innan nästa steg";
@@ -559,7 +623,7 @@
       checklist.appendChild(row);
     });
 
-    phaseDetail.append(kicker, title, summary, checklistHeading, checklist);
+    phaseDetail.append(intro, checklistHeading, checklist);
   }
 
   function renderReadiness() {
