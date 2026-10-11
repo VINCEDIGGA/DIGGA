@@ -112,6 +112,11 @@
       window.location.href = underlagLink.href;
     });
   }
+  const convertLink = document.getElementById("convert-link");
+  if (caseId && convertLink) {
+    convertLink.href =
+      "filkonvertering.html?case=" + encodeURIComponent(caseId);
+  }
 
   function loadCaseContext() {
     if (!caseId) {

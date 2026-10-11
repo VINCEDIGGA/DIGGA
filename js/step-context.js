@@ -219,6 +219,11 @@
     guideLink.href = guideUrl();
     backLink.href = guideUrl();
     underlagLink.href = "steg-underlag.html?case=" + encodeURIComponent(caseId);
+    const convertLink = document.getElementById("convert-link");
+    if (convertLink) {
+      convertLink.href =
+        "filkonvertering.html?case=" + encodeURIComponent(caseId);
+    }
   }
 
   fileInput.addEventListener("change", function () {
