@@ -779,3 +779,8 @@ body.underlag-page .underlag-accordion > .section-heading:focus-visible {
     font-size: 1.85rem;
   }
 }
+/* Flytta Tillbaka-knappen till vänster */
+.underlag-page .context-actions #back-link {
+    margin-right: auto;
+}
+
