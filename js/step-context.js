@@ -29,6 +29,12 @@
   const applicationFields = Array.prototype.slice.call(
     document.querySelectorAll("[data-application-field]")
   );
+  const extraSignerKeys = [
+    "signer2_name",
+    "signer2_email",
+    "signer3_name",
+    "signer3_email",
+  ];
 
   let selectedFiles = [];
   let storedFiles = [];
@@ -151,7 +157,7 @@
   }
 
   function applicationPayload() {
-    return applicationFields.reduce(function (payload, field) {
+    const payload = applicationFields.reduce(function (payload, field) {
       const key = field.getAttribute("data-application-field");
       if (!key) {
         return payload;
@@ -163,6 +169,12 @@
       }
       return payload;
     }, {});
+    if (payload.multiple_signers !== "ja") {
+      extraSignerKeys.forEach(function (key) {
+        payload[key] = "";
+      });
+    }
+    return payload;
   }
 
   function formPayload(files) {
@@ -230,7 +242,9 @@
       } else {
         field.value = application[key];
       }
+      field.dispatchEvent(new Event("change", { bubbles: true }));
     });
+    document.dispatchEvent(new CustomEvent("digga:context-loaded"));
     setWorkshopEnabled(contextHasContent(context));
   }
 
