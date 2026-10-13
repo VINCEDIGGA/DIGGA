@@ -91,6 +91,7 @@
   const nextStep = document.getElementById("next-step");
   const guideLink = document.getElementById("guide-link");
   const underlagLink = document.getElementById("underlag-link");
+  const convertLink = document.getElementById("convert-link");
   const workshopLink = document.getElementById("workshop-link");
 
   if (new URLSearchParams(window.location.search).has("reset")) {
@@ -112,6 +113,10 @@
       event.preventDefault();
       window.location.href = underlagLink.href;
     });
+  }
+  if (caseId && convertLink) {
+    convertLink.href =
+      "filkonvertering.html?case=" + encodeURIComponent(caseId);
   }
 
   function workshopUrl() {

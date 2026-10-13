@@ -14,7 +14,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/style.css?v=13" />
-    <link rel="stylesheet" href="../css/poc.css?v=31" />
+    <link rel="stylesheet" href="../css/poc.css?v=34" />
   </head>
   <body class="underlag-page">
     <div class="app">
@@ -38,6 +38,9 @@
             </a>
             <a class="nav-subitem nav-link active" id="underlag-link" href="steg-underlag.html">
               Underlag
+            </a>
+            <a class="nav-subitem nav-link" id="convert-link" href="filkonvertering.html">
+              Filkonvertering
             </a>
             <a
               class="nav-subitem nav-link is-disabled"
@@ -305,19 +308,19 @@
                     <option value="ja">Ja</option>
                   </select>
                 </label>
-                <label>
+                <label hidden>
                   <span>Underskrift 2, namn</span>
                   <input data-application-field="signer2_name" />
                 </label>
-                <label>
+                <label hidden>
                   <span>Underskrift 2, e-post</span>
                   <input data-application-field="signer2_email" type="email" />
                 </label>
-                <label>
+                <label hidden>
                   <span>Underskrift 3, namn</span>
                   <input data-application-field="signer3_name" />
                 </label>
-                <label>
+                <label hidden>
                   <span>Underskrift 3, e-post</span>
                   <input data-application-field="signer3_email" type="email" />
                 </label>
@@ -380,7 +383,7 @@
       };
     </script>
     <script src="../js/api.js?v=9"></script>
-    <script src="../js/step-context.js?v=5"></script>
+    <script src="../js/step-context.js?v=6"></script>
     <script src="../js/underlag.js?v=1"></script>
   </body>
 </html>

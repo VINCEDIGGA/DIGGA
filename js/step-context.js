@@ -8,6 +8,7 @@
 
   const guideLink = document.getElementById("guide-link");
   const underlagLink = document.getElementById("underlag-link");
+  const convertLink = document.getElementById("convert-link");
   const workshopLink = document.getElementById("workshop-link");
   const backLink = document.getElementById("back-link");
   const contextTitle = document.getElementById("context-title");
@@ -284,6 +285,9 @@
     guideLink.href = guideUrl();
     backLink.href = guideUrl();
     underlagLink.href = "steg-underlag.html?case=" + encodeURIComponent(caseId);
+    if (convertLink) {
+      convertLink.href = "filkonvertering.html?case=" + encodeURIComponent(caseId);
+    }
     setWorkshopEnabled(false);
   }
 
