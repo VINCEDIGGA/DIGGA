@@ -57,6 +57,17 @@ body {
   min-height: 0;
 }
 
+.sidebar-mobile-bar {
+  display: none;
+}
+
+.sidebar-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
 .sidebar .nav-item,
 .sidebar .nav-subitem,
 .sidebar .case-item-btn,
@@ -1060,5 +1071,107 @@ body {
 
   .chat-intro {
     font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 700px) {
+  body.chat-page .sidebar {
+    width: 100%;
+    max-height: none;
+    flex: 0 0 auto;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  body.chat-page .sidebar-mobile-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 3rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  body.chat-page .sidebar-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.25rem;
+    padding: 0.3rem 0.65rem;
+    border: 0;
+    border-radius: var(--radius);
+    background: transparent;
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+
+  body.chat-page .sidebar-toggle:hover,
+  body.chat-page .sidebar-toggle:focus-visible {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+  }
+
+  body.chat-page .sidebar-toggle:focus-visible {
+    outline: 3px dotted #f3f3f3;
+    outline-offset: 2px;
+  }
+
+  body.chat-page .sidebar-mobile-title {
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 800;
+  }
+
+  body.chat-page .sidebar-mobile-logo {
+    display: block;
+    width: 5.5rem;
+    margin-left: auto;
+  }
+
+  body.chat-page .sidebar-mobile-logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  body.chat-page .sidebar-panel {
+    display: none;
+    flex: none;
+    max-height: min(46vh, 20rem);
+    overflow: auto;
+    padding: 0.15rem 0.7rem 0.7rem;
+  }
+
+  body.chat-page .sidebar.is-open .sidebar-panel {
+    display: flex;
+  }
+
+  body.chat-page .sidebar .brand-block {
+    display: none;
+  }
+
+  body.chat-page .sidebar-panel .nav-item {
+    min-height: 2.35rem;
+    padding: 0.35rem 0.6rem;
+  }
+
+  body.chat-page .chat-panel {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  body.chat-page .chat {
+    min-height: 0;
+    justify-content: flex-end;
+  }
+
+  body.chat-page .chat-form,
+  body.chat-page .attach-bar.is-open {
+    flex-shrink: 0;
+  }
+
+  body.chat-page .chat-messages {
+    min-height: 0;
   }
 }

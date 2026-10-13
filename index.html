@@ -13,11 +13,39 @@
       href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/style.css?v=14" />
+    <link rel="stylesheet" href="css/style.css?v=15" />
   </head>
-  <body>
+  <body class="chat-page">
     <div class="app">
-      <aside class="sidebar">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-mobile-bar">
+          <button
+            type="button"
+            class="sidebar-toggle"
+            id="sidebar-toggle"
+            aria-expanded="false"
+            aria-controls="sidebar-panel"
+          >
+            <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M4 7h16M4 12h16M4 17h16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>Meny</span>
+          </button>
+          <span class="sidebar-mobile-title">Ena Agents</span>
+          <a class="sidebar-mobile-logo" href="index.html">
+            <img
+              src="images/DIGG-logo-color.svg"
+              alt="DIGG – Myndigheten för digital förvaltning, till startsidan"
+            />
+          </a>
+        </div>
+        <div class="sidebar-panel" id="sidebar-panel">
         <div class="brand-block">
           <a class="brand-logo-link" href="index.html">
             <img
@@ -69,6 +97,7 @@
 
         <div class="list-section">
           <ul class="case-list" id="case-list"></ul>
+        </div>
         </div>
       </aside>
 
@@ -140,6 +169,6 @@
 
     <script src="js/config.js?v=3"></script>
     <script src="js/api.js?v=9"></script>
-    <script src="js/app.js?v=14"></script>
+    <script src="js/app.js?v=15"></script>
   </body>
 </html>

@@ -791,9 +791,27 @@
   window.addEventListener("resize", closeMenus);
   window.addEventListener("scroll", closeMenus, true);
 
+  const sidebar = document.getElementById("sidebar");
+  const sidebarToggle = document.getElementById("sidebar-toggle");
+
+  function setSidebarOpen(open) {
+    if (!sidebar || !sidebarToggle) {
+      return;
+    }
+    sidebar.classList.toggle("is-open", open);
+    sidebarToggle.setAttribute("aria-expanded", String(open));
+  }
+
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener("click", function () {
+      setSidebarOpen(sidebarToggle.getAttribute("aria-expanded") !== "true");
+    });
+  }
+
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
       closeMenus();
+      setSidebarOpen(false);
     }
   });
 
