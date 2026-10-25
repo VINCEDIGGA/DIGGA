@@ -1,0 +1,93 @@
+SDK testklient
+Anslutning för deltagarorganisationer
+Anslutning för deltagarorganisationer
+SDK för accesspunktsoperatörer
+På denna sida hittar du en beskrivning av den testklient som används för SDK.
+Inledning
+SDK testklient är ett testverktyg för att verifiera förutsättningar för en deltagarorganisation att bli en godkänd aktör i SDK-federationen. SDK testklient utvecklas, testas och förvaltas som en gemensam tjänst/komponent för Säker digital kommunikation.
+Syftet med SDK testklient är att:
+Deltagarorganisationer enkelt och självständigt kan kvalitetssäkra sina ingående komponenter
+Deltagarorganisationer kan genomföra de anslutningstester som krävs vid anslutning till SDK-federationen
+SDK-federationsägare kan följa deltagarorganisationers anslutningstester
+SDK testklient erbjuds även som ett testverktyg för leverantörer som utvecklar SDK-anpassade lösningar för deltagarorganisationer i SDK testmiljö för leverantörer.
+Beskrivning av SDK testklient
+Testklienten simulerar de funktioner som behövs för anslutning till SDK och tillhandahåller ett grafiskt gränssnitt för att förenkla för deltagarorganisationer att verifiera meddelandeutbyte vid anslutning till SDK respektive leverantörer att verifiera sina SDK-lösningar.
+SDK testklient tillhandahålls av SDK-federationsägare och erbjuds till deltagarorganisationer inom SDK i SDK QA-miljö samt i SDK testmiljö (OPEN-TEST) för leverantörer av meddelandesystem.
+SDK testklientens delar
+SDK testklient består av följande delar:
+Meddelandeklient: Grafiskt gränssnitt för användare, funktioner för "brevlåda", säker inloggning, behörighetsstyrning, besvara meddelande, meddelandekvittens, meddelandekonversationer, mm.
+Meddelandetjänst: Paketerar meddelanden från meddelandeklienten, krypterar, signerar och skickar vidare till accesspunkten. Kontrollerar signatur på meddelanden från accesspunkten, dekrypterar, validerar innehållet och skickar vidare till meddelandeklienten.
+Konnektor: Brygga mellan specifik implementation av accesspunkt och det interna systemlandskapet i SDK.
+SDK testklient – användning
+För att kunna använda SDK testklient krävs en webbläsare och ett av SDK-federationsägare uppsatt konto för inloggning.
+Deltagarorganisationer i SDK QA-miljö
+För att få tillgång till och kunna använda SDK testklient i SDK QA-miljö behöver deltagarorganisationen:
+Använda en av Diggs godkända accesspunkt (AP) som är ansluten till Diggs OPEN-TEST miljö
+En egen meddelandetjänst (MT) som utöver grundläggande användningsfall också hanterar mer avancerade funktioner som funktionsbrevlåda, svarstidsövervakning och validering
+Ett testcertifikat för kryptering och signering av SDK-meddelanden
+Ansluta till SDK QA-miljö och erhålla inloggningsuppgifter till SDK testklient , se Anslutningsresa för deltagarorganisationer inom SDK
+En egen funktionsadress (“funktionsbrevlåda”) i SDK testklient som ligger under Digg som organisation
+Tjänsteleverantörer i miljön OPEN-TEST
+För att kunna använda SDK testklient i miljön OPEN-TEST behöver leverantören:
+Använda en accesspunkt (AP) som är ansluten till Diggs OPEN-TEST
+En egen meddelandetjänst (MT) som åtminstone har stöd för grundläggande användningsfall
+Ett testcertifikat för kryptering och signering av SDK-meddelanden
+Ansluta till miljön OPEN-TEST och erhålla inloggningsuppgifter till SDK testklient i OPEN-TEST för leverantörer, se Anslutningsresa för meddelandesystem
+En egen funktionsadress (funktionsbrevlåda) för leverantörer i SDK testklient i OPEN-TEST, vilken ligger under Digg som organisation
+Ovanstående möjliggör grundläggande anslutningstester samt systemtester. Specifikationer av meddelandena beskrivs i SDK Innehållsspecifikation för meddelande och Meddelandespecifikation – meddelandekvittens. SDK testklient stödjer dessa specifikationer. Testfallen för systemtester beskrivs närmare i SDK:s testfall för meddelandesystem.
+SDK testklient är integrerad mot SDK adressbok. Det innebär att man via testklienten kan söka i adressbokens aktuella testmiljö efter andra organisationer som finns upplagda i SDK QA-miljö respektive OPEN-TEST för leverantörer. Man kan även skicka meddelanden till andra organisationer som finns upplagda i SDK QA-miljö respektive OPEN-TEST för leverantörer.
+Stöd för deltagarorganisationer i SDK testklient
+Nedan är en beskrivning av grundfunktionalitet i SDK testklient. Användningsfallen utgår ifrån vad deltagarorganisationer kan utföra med stöd av testklienten. Den har motsvarande funktionalitet i miljön OPEN-TEST för leverantörer.
+Användningsfall: Logga in i respektive ut från SDK testklient
+Målgrupp: En behörig användare i en deltagarorganisation loggar in i testklienten.
+För att en användare skall få tillgång till testklient krävs att användaren fått behörighet och inloggningsuppgifter. Dessa tilldelas av SDK-federationsägare.
+Användningsfall: Söka adressinformation i SDK adressbok
+Målgrupp: En behörig användare i en deltagarorganisation söker efter anslutna deltagarorganisationers funktionsadresser i SDK adressbok.
+Testklienten integrerar med SDK adressbok för att få tillgång till adressuppgifter i SDK testbädd. Adressboken returnerar adressuppgifter för
+anslutna deltagarorganisationer i testbädden, inklusive adresserbara funktioner.
+Användningsfall: Ta emot meddelande skickat från SDK testklient
+Målgrupp: En behörig användare i en deltagarorganisation skickar meddelande från testklienten till en egen funktionsadress (funktionsbrevlåda) via SDK testbädd.
+En användare i en deltagarorganisation skapar och skickar ett meddelande i testklienten. Meddelandet adresseras
+till en funktionsadress hos den egna organisationen.
+I SDK testklient paketeras meddelanden enligt SDK:s meddelandeformat och schemavalidering sker enligt formatet. Detta möjliggör att mottagande part (i detta fall den egna organisationen) kan validera följsamhet gentemot SDK:s meddelandespecifikation och SDK regelverk för validering och kvittens.
+Användningsfall: Skicka meddelande från eget system
+Målgrupp: En behörig användare i en deltagarorganisation tar del av meddelande adresserat till deltagarorganisationens funktionsadress (funktionsbrevlåda) i testklienten.
+Ett meddelande skapas och skickas från den anslutna deltagarorganisationen till en funktionsadress i SDK testbädd.
+Deltagarorganisationen paketerar meddelande enligt SDK:s meddelandeformat.
+I testklienten valideras att meddelandet
+följer SDK:s meddelande-specifikation och SDK regelverk för validering och kvittens.
+En behörig användare i anslutande deltagarorganisation tar del av ett meddelande i testklienten.
+Användningsfall: Ta emot svar på meddelande
+Målgrupp: En behörig användare i en deltagarorganisation besvarar ett meddelande adresserat till deltagarorganisationens funktionsadress (funktionsbrevlåda) i testklienten.
+Ett svar på ett meddelande innebär i praktiken att ett nytt meddelande skickas som svarsmeddelande till
+ursprunglig avsändare.
+Ursprungligt meddelande och svarsmeddelande korreleras med gemensamt konversations-id.
+Användningsfall: Lista konversation
+Målgrupp: En behörig användare i en deltagarorganisation tar del av meddelandekonversationer adresserade till deltagarorganisationens funktionsbrevlåda.
+En användare kan följa meddelandekonversationer som denne deltagit i. Meddelanden i en meddelandekonversation delar ett och samma konversationsid.
+Användningsfall: Ta bort meddelande
+Målgrupp: En behörig användare i en deltagarorganisation tar bort meddelanden i deltagarorganisationens funktionsbrevlåda i testklienten.
+Det går att ta bort t.ex. äldre eller ej relevanta meddelanden i testklienten för varje funktionsbrevlåda. Detta kan deltagarorganisationens användare göra själv i testklienten.
+Användningsfall: Ange referens i meddelande
+Målgrupp: En behörig användare i en deltagarorganisation anger referens i ett meddelande som skall skickas från testklient eller från eget system.
+Referenser som angivits för meddelande, t.ex. specifikt ärendenummer, hanteras av mottagande deltagarorganisation för att knyta meddelandet till ett internt ärende.
+Två typer av referens-id kan anges: referens-id hos sändaren resp. referens-id hos mottagaren.
+Detta är en valbar parameter i SDK:s meddelandespecifikation samt i SDK testklient. Om den anges av sändande part måste mottagande part kunna visa referens-id i sitt system och ange referens-id i svarsmeddelande.
+Användningsfall: Markera sekretess i meddelande
+Målgrupp: En behörig användare i en deltagarorganisation markerar sekretess på ett meddelande som skall skickas från testklient eller från eget system.
+Möjlighet finns att markera sekretess för ett meddelande som sänds till en mottagare. Det är tänkt som en information till mottagaren om att sändaren anser att informationen kan omfattas av sekretess. Det är dock upp till mottagaren att göra motsvarande bedömning enligt sina regelverk.
+Detta är en valbar parameter i SDK:s meddelandespecifikation samt i SDK testklient. Om den anges av sändande part måste mottagande part kunna visa att sekretess markerats i sitt system.
+Användningsfall: Se meddelandestatus på ett meddelande
+Målgrupp: En behörig användare i en deltagarorganisation tar del av meddelandestatus.
+Funktioner som stöd för att se meddelandestatus utifrån var i processen meddelandet befinner sig (hämta, lämna, kvittera och validera meddelandet) och vilka eventuella valideringsfel som uppstått.
+Användningsfall: Se meddelandestatus på ett meddelande
+Målgrupp: En behörig användare i en deltagarorganisation tar del av meddelandestatus.
+Funktioner som stöd för att se meddelandestatus utifrån var i processen meddelandet befinner sig (hämta, lämna, kvittera och validera meddelandet) och vilka eventuella valideringsfel som uppstått.
+Användningsfall: Få kvittens som visar att ett SDK-meddelande gått fram till mottagarens funktionsbrevlåda eller ej
+Målgrupp: En behörig användare i en deltagarorganisation tar del av information från meddelandekvittens.
+SDK testklient har stöd för SDK:s regelverk för validering och kvittens samt omsändningsregler.
+Funktioner som ger stöd för att få information om ett meddelande har gått fram till annan mottagares funktionsbrevlåda eller ej efter överenskommet antal omsändningsförsök. Om inte, ges information om felorsak, t.ex. timeout på grund av att mottagarens system ej varit tillgängligt, eller information om felaktig meddelandevalidering som dock inte varit stoppande.
+Användningsfall: Se rådata för ett SDK-meddelande eller meddelandekvittens i funktionsbrevlåda
+Målgrupp: En behörig användare i en deltagarorganisation felsöker och tar del av rådata.
+Funktioner som stöd för att visa meddelandestrukturen av ett SDK-meddelande/meddelandekvittens när meddelandet skickas till accesspunkten/tas emot från accesspunkten.
+Rådatavyn visar meddelande-strukturen för XHE och MessageType (SDK nyttolast) med undantag för bilagor, signatur och certifikat som är bortmaskade i vyn mot användaren.

@@ -3,3 +3,10 @@ backend/api/local.secrets.php
 .env.*
 !.env.example
 outputs/
+study/
+**/__pycache__/
+*.pyc
+*.log
+backend/data/sdk/index_status.json
+backend/uploads/
+tests/results/

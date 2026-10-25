@@ -1,0 +1,92 @@
+[
+  {
+    "id": "C1",
+    "label": "Publikt självsignerat certifikat inom giltighetstiden",
+    "generated_fixture": "public_current",
+    "expected": {
+      "http": 200,
+      "valid": true,
+      "failed_rule": null
+    }
+  },
+  {
+    "id": "C2",
+    "label": "Publikt självsignerat certifikat med passerat slutdatum",
+    "generated_fixture": "public_expired",
+    "expected": {
+      "http": 200,
+      "valid": false,
+      "failed_rule": "certificate-dates"
+    }
+  },
+  {
+    "id": "C3",
+    "label": "Publikt certifikat med giltighetsstart i framtiden",
+    "generated_fixture": "public_future",
+    "expected": {
+      "http": 200,
+      "valid": false,
+      "failed_rule": "certificate-dates"
+    }
+  },
+  {
+    "id": "C4",
+    "label": "PEM-markeringar med skadat certifikatinnehåll",
+    "content": "-----BEGIN CERTIFICATE-----\nQUJDRA==\n-----END CERTIFICATE-----",
+    "expected": {
+      "http": 200,
+      "valid": false,
+      "failed_rule": "x509-parse"
+    }
+  },
+  {
+    "id": "C5",
+    "label": "Vanlig text utan PEM-markeringar",
+    "content": "Detta är inte ett certifikat.",
+    "expected": {
+      "http": 200,
+      "valid": false,
+      "failed_rule": "pem-public"
+    }
+  },
+  {
+    "id": "C6",
+    "label": "Ofarlig testtext med markering för privat nyckel",
+    "content": "-----BEGIN PRIVATE KEY-----\nDUMMY TEST MARKER ONLY\n-----END PRIVATE KEY-----",
+    "expected": {
+      "http": 200,
+      "valid": false,
+      "failed_rule": "public-only"
+    }
+  },
+  {
+    "id": "C7",
+    "label": "Ofarlig testtext med PFX-paketmarkering",
+    "content": "-----BEGIN PFX-----\nDUMMY TEST MARKER ONLY\n-----END PFX-----",
+    "expected": {
+      "http": 200,
+      "valid": false,
+      "failed_rule": "public-only"
+    }
+  },
+  {
+    "id": "C8",
+    "label": "Två publika certifikat i samma indata",
+    "generated_fixture": "public_duplicate",
+    "expected": {
+      "http": 200,
+      "valid": false,
+      "failed_rule": "pem-public"
+    }
+  },
+  {
+    "id": "C9",
+    "label": "Tom indata",
+    "content": "",
+    "expected": {
+      "http": 422,
+      "valid": null,
+      "failed_rule": null
+    }
+  }
+]

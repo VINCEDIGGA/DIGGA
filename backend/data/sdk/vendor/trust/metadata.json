@@ -1,0 +1,60 @@
+{
+  "name": "OPEN-TEST address-book HTTPS issuer chain",
+  "retrieved_at": "2026-10-16",
+  "scope": "Only sdk_addressbook.php fixed https://open-test.digg.se upstream host",
+  "purpose": "Provide the two missing issuer certificates from the server TLS chain while retaining peer, hostname and validity verification. This bundle is a complete public CA chain, not a leaf-certificate pin and not an SDK/O2O message certificate.",
+  "bundle_file": "open-test-ca.pem",
+  "bundle_sha256": "09139c0e85c684f4b37532b112dcdc3c73fd8c4e00729d25618c23c45c380a5e",
+  "certificates": [
+    {
+      "role": "trusted_root",
+      "subject": "C = FI, O = Telia Finland Oyj, CN = Telia Root CA v2",
+      "issuer": "C = FI, O = Telia Finland Oyj, CN = Telia Root CA v2",
+      "valid_from_utc": "Nov 29 11:55:54 2018 GMT",
+      "valid_to_utc": "Nov 29 11:55:54 2043 GMT",
+      "sha256_der": "242b69742fcb1e5b2abf98898b94572187544e5b4d9911786573621f6a74b82c",
+      "authoritative_source": "https://cps.trust.telia.com/teliarootcav2.cer",
+      "retrieved_at": "2026-10-16",
+      "download_tls_verified": true
+    },
+    {
+      "role": "cross_certificate",
+      "subject": "C = SE, O = Telia Company AB, CN = Telia RSA TLS Root CA v3",
+      "issuer": "C = FI, O = Telia Finland Oyj, CN = Telia Root CA v2",
+      "valid_from_utc": "Dec 19 08:43:55 2024 GMT",
+      "valid_to_utc": "Nov 28 10:00:00 2043 GMT",
+      "sha256_der": "5573dfb5c894b95b85d26f9c57591257561a09cd37726d13835ecac28a1e9c7c",
+      "authoritative_source": "https://cps.trust.telia.com/teliarsatlsrootcav3.cer",
+      "retrieved_at": "2026-10-16",
+      "download_tls_verified": true
+    },
+    {
+      "role": "intermediate",
+      "subject": "C = SE, O = Telia Company AB, CN = Telia RSA OV CA v4",
+      "issuer": "C = SE, O = Telia Company AB, CN = Telia RSA TLS Root CA v3",
+      "valid_from_utc": "Dec 19 09:44:50 2024 GMT",
+      "valid_to_utc": "May 23 10:00:00 2048 GMT",
+      "sha256_der": "dcc4ea67e1b46c2d00745046f3fbf3115a4e819b92aee7b92a0f8dba0796cf9a",
+      "authoritative_source": "https://cps.trust.telia.com/teliarsaovcav4.cer",
+      "retrieved_at": "2026-10-16",
+      "download_tls_verified": true
+    }
+  ],
+  "root_provenance": {
+    "source": "Mozilla CA root store distributed by certifi",
+    "project": "https://github.com/certifi/python-certifi",
+    "certifi_version": "2025.04.26",
+    "root_already_trusted": true,
+    "root_matches_authoritative_telia_der": true,
+    "verification": "OpenSSL verified current server leaf and both issuer signatures to the existing Mozilla-trusted root, with sslserver purpose and open-test.digg.se hostname. Root certificate from Telia matched the existing root byte for byte in DER format."
+  },
+  "runtime_policy": {
+    "tls_peer_verification": true,
+    "tls_hostname_verification": true,
+    "redirects_followed": false,
+    "https_only": true,
+    "private_material_included": false,
+    "leaf_certificate_included": false
+  },
+  "maintenance": "If the upstream CA hierarchy changes, obtain replacements from the authoritative CA and validate to a trusted root before refreshing this scoped bundle. Do not disable TLS verification."
+}

@@ -1,0 +1,140 @@
+Checklista för teknisk anslutning till SDK med helhetsleverantör
+Anslutning för deltagarorganisationer
+En förenklad bild av SDK anslutningsresa tänkt att underlätta för deltagarorganisationer med helhetsleverantör att förstå vad som behöver genomföras under anslutningen.
+Beskrivning av begrepp som används inom eller har beröringspunkter med Säker digital kommunikation, se SDK ordlista.
+Förberedande aktiviteter
+Aktiviteterna nedan kan med fördel hanteras parallellt
+|
+Miljö
+|
+Aktivitet
+|
+-
+|
+Upphandla leverantör
+Upphandla/avropa helhetsleverantör. ‘OnPrem’, ‘SaaS’ eller hybrid. Leverantören som upphandlas/avropas behöver vara ansluten till miljön OPEN-TEST och ha genomfört Diggs testfall med ett godkänt resultat. Det finns en kravkatalog som kan användas som grund vid upphandling (Upphandling av teknisk lösning via Addas DIS)
+|
+SDK QA
+|
+Anmäla anslutning
+Deltagarorganisationen kontaktar Digg med hjälp av det digitala formuläret Anmälan om att påbörja anslutning till SDK. Digg genomför granskning för att se om organisationen har rätt att ansluta till SDK QA-miljö. Vid ett godkännande återkommer Digg med anslutningsblankett via mejl.
+|
+-
+|
+Bestäm hur adressboken ska hanteras
+Utse organisationsadministratör, adressadministratör och användaradministratör
+Deltagarorganisationen bestämmer hur organisationens struktur ska byggas upp i SDK adressbok (Se Handledning för administratörer i SDK adressbok).
+|
+SDK QA/Produktion
+|
+Installera systemlösning
+Helhetsleverantören påbörjar installation och konfiguration av systemlösningen.
+Deltagarorganisationen bestämmer lämpliga deltagaridentiteter:
+QA (t.ex. '0203:sdk-qa.organisation.se')
+PROD (t.ex. ‘0203:sdk.organisation.se’)
+|
+SDK QA/Produktion
+|
+Begär CSR
+Deltagarorganisationen begär CSR från helhetsleverantören för både QA och produktionsmiljö. Certifikatet ägs av deltagarorganisationen. CSR-filen används när deltagarorganisationen ska anskaffa O2O-certifikat.
+Nyckellängden ska vara 3072 bitar eller mer.
+|
+SDK QA/Produktion
+|
+Förbered anslutningsdokumentation
+Deltagarorganisationen fyller i anslutningsblanketter så långt det går tillsammans med helhetsleverantören.
+Helhetsleverantören tillhandahåller tekniska uppgifter om er organisations accesspunkt som registrerats i Diggs SMP.
+- Anmälan om anslutning till SDK QA-miljö
+- Ansökan om federationsgodkännande och anslutning till SDK produktionsmiljö
+|
+Produktion
+|
+Säkerställ organisatorisk följsamhet till SDK:s regelverk
+Deltagarorganisationen intygar följsamhet till SDK:s regelverk genom ifyllande av ansökan om federationsgodkännande och anslutning till SDK produktionsmiljö.
+|
+-
+|
+Säkerställ förvaltning av certifikat
+Deltagarorganisationen säkerställer att det finns rutiner att förnya O2O-certifikat (certifikat är ofta giltigt 2 år).
+Anskaffa O2O-certifikat
+Förutsättning: Deltagarorganisationen har fått en CSR av helhetsleverantören.
+|
+Miljö
+|
+Aktiviteter
+|
+SDK QA
+|
+Anskaffa O2O-certifikat (test):
+Giltiga certifikatsutfärdare är angivna i regelverk för deltagarorganisationer inom SDK, bilaga för IT-säkerhet. Se även anslutningsinformation – certifikat.
+Certifikatet ska vara utfärdat mot deltagarorganisationen.
+Alternativ 1:
+Deltagarorganisationen anskaffar själv ett certifikat som kan användas som O2O-certifikat.
+Alternativ 2:
+Helhetsleverantören hjälper deltagarorganisationen att anskaffa ett O2O-certifikat.
+|
+Produktion
+|
+Anskaffa O2O-certifikat (skarpt):
+Giltiga certifikatsutfärdare är listade i regelverk för deltagarorganisationer SDK, bilaga för IT-säkerhet. Se även anslutningsinformation – certifikat.
+Certifikatet ska vara utfärdat mot deltagarorganisationen.
+Alternativ 1:
+Deltagarorganisationen anskaffar själv ett certifikat som kan användas som O2O-certifikat.
+Alternativ 2:
+Helhetsleverantören hjälper deltagarorganisationen att anskaffa ett O2O-certifikat.
+Anslut till SDK QA-miljö
+Förutsättningar: Deltagarorganisationen har anmält intresse för att ansluta till SDK med hjälp av digitala formuläret anmälan om att påbörja anslutning till SDK. Digg har återkopplat till deltagarorganisationen med ett godkännande för anslutning och skickar med anslutningsblankett.
+Deltagarorganisationen har anskaffat ett O2O-certifikat för SDK QA-miljö.
+| |
+Aktiviteter
+|
+1
+|
+Skicka in anmälan om anslutning till SDK QA-miljö
+Deltagarorganisationen skickar in blanketten till Digg. I blanketten anger deltagarorganisationen uppgifter för den som ska ges rollen användaradministratör i SDK:s adressbok. Användaradministratören tilldelar andra i deltagarorganisationen de roller med tillhörande behörigheter som finns för SDK:s adressbok – organisationsadministratör och adressadministratör.
+|
+2
+|
+Administrera SDK adressbok
+Deltagarorganisationens adressadministratör registrerar en eller flera funktionsadresser för test i SDK adressbok.
+|
+3
+|
+Certifikat
+Deltagarorganisationen anger sitt publika O2O-certifikat för registrering och publicering i Certifikatspubliceringstjänsten, vilket utförs av Digg. Deltagarorganisationens organisationsadministratör lämnar O2O-certifikatet i SDK:s adressbok.
+|
+4
+|
+Färdigställ teknisk anslutning
+Helhetsleverantören färdigställer installation och konfiguration av systemlösningen, samt kopplar funktionsadresser till funktionsbrevlådor.
+|
+5
+|
+Verksamhetslika tester
+Deltagarorganisationen genomför tester av tänkta verksamhetsflöden och godkänner leverantörens installation.
+Ansök om federationsgodkännande och anslut till SDK-produktionsmiljö.
+Förutsättningar:
+Deltagarorganisationen har anskaffat ett O2O-certifikat för SDK-produktionsmiljö.
+Deltagarorganisationen har verifierat informationsöverföringen i SDK QA-miljö.
+| |
+Aktiviteter
+|
+1
+|
+Skicka in ansökan om federationsgodkännande och anslutning till SDK produktionsmiljö
+Deltagarorganisationen säkerställer att den är införstådd med samtliga krav som ställs i regelverk för deltagarorganisationer inom SDK.
+|
+2
+|
+Administrera SDK adressbok
+Deltagarorganisationens administratör ser över uppgifter om organisationen, samt registrerar funktionsadresser i SDK adressbok.
+|
+3
+|
+Färdigställ teknisk anslutning
+Helhetsleverantören färdigställer installation och konfiguration av systemlösningen, samt kopplar funktionsadresser till funktionsbrevlådor
+|
+4
+|
+Validering
+Deltagarorganisationen säkerställer grundläggande verksamhetsflöden, samt kommunicerar med annan organisation inom SDK-federationen

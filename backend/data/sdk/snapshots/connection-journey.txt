@@ -1,0 +1,171 @@
+Anslutningsresa för deltagarorganisationer inom SDK
+Anslutning för deltagarorganisationer
+Version: 1.5.2
+Denna version gäller från och med 2025-12-01
+Informationen nedan beskriver resan för en deltagarorganisation vid anslutning till Säker digital kommunikation (SDK).
+1. Inledning
+För att ansluta till SDK behöver en ansökan göras hos SDK:s federationsägare (Digg). Detta dokument ger en översiktlig bild över vilka principer Digg arbetar efter, hur anslutningsprocessen går till samt vilka krav som ställs vid anslutning till SDK. Anslutningsresan för deltagarorganisationer ingår i federationsägarens gemensamma regelverk för deltagarorganisationer inom SDK.
+Vissa förutsättningar behöver beaktas vid införande av SDK innan anslutningsarbetet påbörjas. Detta dokument beskriver anslutningsresan för en deltagarorganisation. Ytterligare information för deltagarorganisationer finns här: Anslut som deltagarorganisation. Mer information om en deltagarorganisations förberedelser inför införande av SDK finns här: Vägledningar och rekommendationer inför anslutning till SDK.
+För att ansluta till SDK behöver deltagarorganisationen först genomgå anslutning till SDK:s kvalitetssäkringsmiljö (SDK-QA), en produktionslik testmiljö där deltagarorganisationen involverar verksamheten för att genomföra grundläggande verksamhetslika tester. Vid ansökan om anslutning till SDK produktionsmiljö utvärderar federationsägaren deltagarorganisationens förmåga att bli godkänd enligt SDK:s regelverk för deltagarorganisationer. Godkännandet är en förutsättning för anslutning till SDK:s produktionsmiljö där deltagarorganisationen kan börja nyttja SDK för utbyte av känslig information.
+Detta dokument riktar sig till deltagarorganisationens ansvariga för anslutningsarbetet men även till bl.a. systemtekniker och testare som kommer att utföra anslutningsarbetet och behöver ha en bra översyn över anslutningsprocessen.
+2. Vilka aktörer är involverade i anslutning till SDK?
+Vid anslutning av deltagarorganisation till SDK är det federationsägaren som bedömer kravuppfyllnad. Denna anslutningsresa fokuserar först och främst på samarbetet mellan federationsägare och deltagarorganisation och leder fram till ett slutligt godkännande till SDK. Processen ger också inblick i de aktiviteter som deltagarorganisationens accesspunktsoperatör och leverantör av meddelandesystem behöver utföra.
+Då en deltagarorganisation vill visa följsamhet för en ny meddelandetyp, måste deltagarorganisationen utföra det testprogram och följa de separata kriterier som tagits fram för meddelandetypen.
+I detta dokument beskrivs endast hur kravuppfyllnad för meddelandetyperna SDK-meddelande och meddelandekvittens verifieras.
+3. Förberedelser inför anslutning till SDK
+Anslutning till SDK görs via kontakt med federationsägare i tidigt skede för dialog om anslutningsförfarandet. Inför anslutning till SDK behöver deltagarorganisationen säkerställa att kraven i SDK:s regelverk för deltagarorganisationer inom SDK är uppfyllda. Detta innebär bl.a. att:
+Deltagarorganisationen har läst regelverk för deltagarorganisationer inom SDK samt beskrivningar och stödjande dokument.
+Deltagarorganisationen har valt en leverantör som är ansluten till OPEN-TEST och har anpassat meddelandesystemet till Diggs regelverk för meddelandesystem. En leverantör kan vara antingen intern inom sin organisation eller en eller flera leverantörer externt. Oavsett ska leverantören ha visat att den uppfyller kraven för meddelandesystem i OPEN-TEST.
+Deltagarorganisationen har anskaffat eller anslutit till en godkänd accesspunkt från en av Diggs godkända accesspunktsoperatörer för plattform för eDelivery. Deltagarorganisationen kan också använda en egen godkänd accesspunkt för plattform för eDelivery (se lista på digg.se och Anslutningsresa för accesspunktsoperatörer).
+Deltagarorganisationen har anskaffat ett publikt O2O-certifikat för att kryptera och signera meddelanden i meddelandetjänsten. Deltagarorganisationen lägger upp detta certifikat (som innehåller organisationens öppna nyckel) i SDK adressbok.
+4. Anslutningsresan - nödvändiga steg för anslutning till SDK QA-miljö
+Deltagarorganisationen behöver genomgå tester i SDK QA-miljö för att ha möjlighet att bli godkänd för SDK. Den anslutna organisationen kan både nå och nås från andra deltagarorganisationer inom respektive miljö för SDK.
+Anslutningsstegen beskrivs översiktligt nedan. För mer detaljerad information se SDK innehållsspecifikation Meddelande och instruktioner för anslutning till SDK.
+4.1 Påbörja av anslutning till SDK QA-miljö
+|
+Steg
+|
+Aktivitet
+|
+Hur
+|
+1
+|
+Deltagarorganisationen har säkerställt att accesspunktsoperatör har registrerat organisationen i Diggs metadatatjänst (SMP) i SDK QA-miljö. Deltagarorganisationen påbörjar anslutningsförfarandet genom att skicka in formulär: Anslutning av deltagarorganisationer till SDK.
+|
+Formulär - Anslutning av deltagarorganisationer till SDK
+|
+2
+|
+Federationsägaren genomför granskning för att se om organisationen har rätt att ansluta till SDK. Vid ett godkännande skickas ut anmälningsblankett till deltagarorganisationen via mejl.
+|
+Blanketten ”Anmälan om anslutning till SDK QA-miljö” skickas till deltagarorganisationen från sdk@digg.se
+|
+3
+|
+Deltagarorganisationen skickar in blankett för anmälan till SDK QA-miljö.
+|
+|
+4
+|
+Federationsägaren godkänner eller avslår ansökan
+|
+Vid avslag kan underlaget kompletteras med efterfrågad information.
+|
+5
+|
+Efter godkännande tilldelas deltagarorganisationen behörighet att logga in i SDK adressbok samt SDK testklient.
+|
+Denna information skickas av federationsägaren till deltagarorganisationen.
+|
+6
+|
+Deltagarorganisationen lägger upp funktionsadresser i SDK adressbok i SDK QA-miljön.
+|
+Se Handledning för administratörer SDK adressbok
+4.2 Utförande av tester i SDK QA-miljö
+|
+Steg
+|
+Aktivitet
+|
+Hur
+|
+7
+|
+Deltagarorganisationen genomför tester enligt gällande testfall för deltagarorganisationer och säkerställer lyckat resultat.
+|
+Testfallen beskrivs i Testfall för deltagarorganisation inför federationsgodkännande
+4.3 Godkännande av deltagarorganisation för anslutning till SDK-produktion
+|
+Steg
+|
+Aktivitet
+|
+Hur
+|
+8
+|
+Deltagarorganisationen ansöker om federationsgodkännande inför anslutning till SDK produktionsmiljö. I ansökan om federationsgodkännande deklarerar deltagarorganisationen följsamhet till samtliga villkor i SDK:s regelverk samt testfall. Anslutningsavtalet bifogas till Ansökan om federationsgodkännande. Två exemplar av anslutningsavtalet bifogas.
+|
+Se Anslutningsavtal för deltagarorganisationer angående Säker digital kommunikation (SDK)
+|
+9a
+|
+Federationsägare godkänner deltagarorganisationen.
+|
+Beslutsmeddelande och av federationsägare underskrivet anslutningsavtal.
+|
+9b
+|
+Federationsägaren avslår deltagarorganisationen.
+|
+Vid eventuellt avslag informeras deltagarorganisationen av federationsägaren om skäl till avslag. Deltagarorganisationen får möjlighet att åtgärda brister.
+4.4 Deltagarorganisation ansluten till SDK-produktionsmiljö
+|
+Steg
+|
+Aktivitet
+|
+Hur
+|
+10
+|
+Efter godkännande ges deltagarorganisationen åtkomst till SDK adressbok i produktionsmiljön där inloggning sker med stark autentisering.
+|
+|
+11
+|
+Deltagarorganisationen har säkerställt att accesspunktsoperatör har registrerat organisationen i SMP i SDK produktionsmiljö.
+|
+|
+12
+|
+Deltagarorganisationen uppdaterar SDK adressboken med sina metadata och sin O2O publika nyckel. Organisationsadministratören lägger till administratörer för produktion.
+|
+|
+13
+|
+Deltagarorganisationen validerar grundläggande verksamhetsflöden och kommunikation med utvalda organisationer inom SDK.
+|
+Skicka och ta emot meddelanden.
+Deltagarorganisationen registrerar sig för prenumeration på Diggs driftssida Driftsinformation. Deltagarorganisationen kan lägga ut detta på tredje part.
+Nu är deltagarorganisationen ansluten till SDK och kan skicka och ta emot meddelanden!
+5. Exempel på löpande förvaltning
+|
+Aktivitet
+|
+Hur
+|
+Deltagarorganisationen säkerställer att den i fortsättningen följer SDK:s regelverk och ramverk.
+|
+Se Regelverk för deltagarorganisationer inom SDK.
+Federationsägaren informerar deltagarorganisationen om uppdateringar och förändringar i regelverk enligt federationsägarens rutiner.
+|
+Deltagarorganisationen säkerställer att den i fortsättningen skapar och uppdaterar sina funktioner i SDK adressbok och kopplar funktionerna till verksamhetskoder.
+|
+Se Handledning för administratörer i SDK adressbok
+|
+Deltagarorganisationen ser till att den hanterar incidenter och support enligt gällande regelverk.
+|
+Se Regelverk för deltagarorganisationer inom SDK, samt Support, incident- och felhantering
+|
+Utvalda deltagarorganisationer och aktörer erbjuds att vid behov delta i vidareutveckling av SDK.
+|
+Detta kommer att hanteras med en eller flera referensgrupper.
+|
+Deltagarorganisationen informerar federationsägaren om förändringar, exempelvis uppdatering av kontaktpersoner, byte av meddelandesystem och/eller accesspunktsoperatör.
+|
+Anmälan om ändring eller avslut i SDK
+|
+Deltagarorganisationen är tillgänglig för uppföljning/revision av följsamhet till regelverket.
+|
+6. Avregistrering av deltagarorganisation
+Avregistrering av deltagarorganisation kan ske på två sätt:
+Deltagarorganisationen väljer att avsluta sin medverkan i SDK. Se nedan vad deltagarorganisationen måste göra för att avregistreras från SDK.
+Om deltagarorganisationen inte har följt SDK:s regelverk kan federationsägaren avregistrera deltagarorganisationen enligt regelverk för bristande efterlevnad, se Bilaga för bristande/bristfällig efterlevnad.
+När deltagarorganisationen väljer att avsluta sin medverkan i SDK har deltagarorganisationen ansvaret att genomföra följande uppgifter.
+Informera federationsägare om avregistrering i SDK.
+Avregistrering av metadata i SDK adressbok, SMP och CertPub.
+Informera federationsägare om deltagarorganisationen vill vara kvar i SDK QA-miljö. Om ej, behöver deltagarorganisationen avregistrera metadata i SDK adressbok och SMP i SDK QA-miljön.
+Efter avslutad avregistrering behöver deltagarorganisationen göra om ovanstående anslutningsresa om den vill bli godkänd till SDK vid en senare tidpunkt.

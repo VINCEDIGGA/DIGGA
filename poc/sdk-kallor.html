@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>DIGG-källor | Ena Agents</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=sdk1"><link rel="stylesheet" href="../css/poc.css?v=35"><link rel="stylesheet" href="../css/sdk-library.css?v=1">
+  <script src="../js/workshop-access.js?v=1" defer></script>
+  <script src="../js/sdk-library.js?v=2" defer></script>
+</head>
+<body class="source-page">
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand-block"><a class="brand-logo-link" href="../index.html" data-case-link><img class="brand-logo" src="../images/DIGG-logo-color.svg" alt="Digg, till startsidan"></a><span class="brand-title">Ena Agents</span></div>
+    <nav class="side-nav" aria-label="Navigation">
+      <a class="nav-item nav-link" href="../index.html" data-case-link>Fråga agenten</a>
+      <div class="nav-group">
+        <a class="nav-item nav-link" href="steg-for-steg.html" data-case-link>Guidad anslutning</a>
+        <a class="nav-subitem nav-link" href="steg-underlag.html" data-case-link>Underlag</a>
+        <a class="nav-subitem nav-link" href="reformat-workspace.html" data-case-link>Underlagsverkstad</a>
+      </div>
+      <a class="nav-item nav-link active" href="sdk-kallor.html" aria-current="page" data-case-link>DIGG-källor</a>
+    </nav>
+  </aside>
+  <main class="chat-panel guide-shell">
+    <header class="context-header underlag-hero source-hero">
+      <svg class="underlag-hero-shapes" viewBox="0 0 1000 160" preserveAspectRatio="none" aria-hidden="true"><polygon points="840,0 1000,0 1000,160 790,160" fill="#cd796d"/><polygon points="700,0 840,0 790,160" fill="#2f3c2d"/></svg>
+      <div class="underlag-hero-copy"><p class="eyebrow">Kunskap och stöd</p><h1>DIGG-källor</h1><p>Vägledningar, checklistor och exempel för nästa steg i din anslutning.</p></div>
+    </header>
+    <div class="source-workspace">
+      <div class="source-intro"><p id="source-status" role="status" aria-live="polite">Hämtar källor…</p><button type="button" class="source-button" id="export-sources" disabled>Ladda ned källförteckning</button></div>
+      <section class="source-filters" aria-label="Hitta en källa">
+        <label>Sök i materialet<input type="search" id="source-search" placeholder="Till exempel certifikat, test eller SMP"></label>
+        <label>Område<select id="source-category"><option value="all">Alla områden</option></select></label>
+      </section>
+      <div class="source-results-heading"><h2>Officiella vägledningar</h2><span id="source-result-count" aria-live="polite"></span></div>
+      <div class="source-grid" id="source-list"></div>
+      <p id="source-empty" hidden>Ingen källa matchar din sökning. Prova ett annat ord.</p>
+      <section class="source-assets" aria-labelledby="assets-title"><div class="source-results-heading"><h2 id="assets-title">Exempelfiler och specifikationer</h2></div><p>Öppna filerna i Underlagsverkstad för att förstå formatet och kontrollera ett exempel.</p><div class="asset-grid" id="asset-list"></div></section>
+      <p class="source-note">Källorna visar Diggs information vid senaste hämtning. Kontrollera den officiella sidan inför en ansökan. Förberedelser och lokala kontroller följs av Diggs ordinarie anslutningsprocess.</p>
+    </div>
+  </main>
+</div>
+</body>
+</html>

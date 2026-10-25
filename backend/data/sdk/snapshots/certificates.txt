@@ -1,0 +1,909 @@
+Anslutningsinformation certifikat
+Anslutning för leverantörer av meddelandetjänster
+Här finns information om vilka certifikat som används inom Säker digital kommunikation (SDK), hur de används och hanteras samt hur du införskaffar och får tillgång till dem.
+1. Certifikathantering inom SDK
+Certifikathantering är en grundläggande del av säker kommunikation och krävs för att system inom SDK ska kunna identifiera varandra, utbyta information på ett säkert sätt och upprätthålla tillit mellan parter.
+Informationen i detta dokument riktar sig till systemadministratörer och tekniskt ansvariga hos deltagarorganisationer, leverantörer av meddelandesystem och accesspunktsoperatörer.
+Syftet med sidan är att ge en samlad och begriplig bild av varför certifikat behövs inom SDK, hur certifikat används i olika kommunikationsflöden och vilket ansvar olika aktörer har.
+2. Roller och ansvar
+Certifikathantering inom SDK berör flera aktörer. Ansvar och praktiska uppgifter skiljer sig åt beroende på roll.
+2.1 Deltagarorganisationer
+Som deltagarorganisation behöver ni säkerställa att rätt certifikat finns på plats för att kunna skicka och ta emot meddelanden via SDK. I vissa fall hanteras certifikat av er leverantör, men i andra fall ansvarar organisationen själv för att certifikat anskaffas och hålls giltiga.
+Det är särskilt viktigt att förstå när organisationen själv behöver anskaffa certifikat, hur certifikat kopplas till organisationens identitet inom SDK, att certifikat har en begränsad giltighetstid och behöver förnyas, samt att felaktiga eller utgångna certifikat leder till att kommunikationen slutar fungera.
+2.2 Leverantörer av meddelandesystem
+Som leverantör ansvarar ni för att meddelandesystemet använder certifikat korrekt i kommunikationen med accesspunkter och SMP. Samma begränsningar vad gäller giltighet etc som för deltagarorganisationer gäller här.
+2.3 Accesspunktsoperatörer
+Som accesspunktsoperatör ansvarar ni för certifikat som används i kommunikationen mellan accesspunkter, i kommunikationen med SMP samt i kommunikationen med anslutna meddelandetjänster. Samma begränsningar vad gäller giltighet etc som för deltagarorganisationer gäller här.
+3. Varför certifikat behövs i SDK
+Certifikat används inom SDK för att möjliggöra säker och tillförlitlig kommunikation mellan system och organisationer.
+Certifikat används för att identifiera parter och för att skydda information genom kryptering och signering. Detta säkerställer att information inte kan läsas av obehöriga, att innehållet inte har ändrats och att mottagaren kan verifiera vem som har skickat informationen.
+Kryptering används när någon ska skicka information så att bara rätt mottagare kan läsa den. Då använder avsändaren mottagarens krypteringscertifikat för att skydda informationen.
+Signering används när avsändaren vill visa vem som skickar informationen och att innehållet inte har ändrats. Då använder avsändaren sitt signeringscertifikat för att signera, och mottagaren verifierar signaturen med avsändarens signeringscertifikat. Att certifikaten förnyas regelbundet av en leverantör är också en förutsättning för tilliten i systemet.
+4. Grundläggande begrepp
+Se även: Ordlista för Säker digital kommunikation
+Certifikat
+Ett certifikat är ett digitalt signerat dokument som används för att identifiera ett system eller en organisation.
+Certifikatutfärdare (CA, Certificate Authority)
+En betrodd part som utfärdar och signerar digitala certifikat. Certifikatutfärdare utgör grunden i den tillitskedja som beskrivs nedan under Rotcertifikat och tillit.
+PKI (Public Key Infrastructure)
+PKI är den infrastruktur som används för att skapa, utfärda och verifiera certifikat.
+Rotcertifikat och tillit
+Ett rotcertifikat fungerar som grund för tillit i en certifikatkedja. Det används för att verifiera utfärdande certifikat, som i sin tur utfärdar de certifikat som används av system och organisationer.
+Certifikat som används inom SDK måste kunna härledas till ett betrott rotcertifikat via en sådan kedja. Om ett certifikat inte kan härledas till ett betrott rotcertifikat kan kommunikationen inom SDK sluta fungera.
+Utfärdande certifikat (intermediärt certifikat)
+Ett certifikat som används av en certifikatutfärdare för att utfärda andra certifikat. Det är signerat av ett rotcertifikat och fungerar som en mellanliggande nivå i tillitskedjan mellan rotcertifikat och de certifikat som används av system och organisationer.
+O2O (organisation till organisation)
+O2O används som begrepp för de certifikat som används för kryptering och signering av nyttolasten mellan deltagarorganisationer inom SDK.
+Test- och produktionsmiljöer
+Inom SDK används separata certifikat för test- och produktionsmiljöer, eftersom testmiljöer inte ska innehålla produktionsdata .
+Trust store
+En ”trust store” innehåller en kedja av signeringar som pekar tillbaka till de rotcertifikat som används för att skapa tillit till det aktuella certifikatet. Här kan man med andra ord se vem som signerade först, vem som signerat certifikatet på den följande nivån, och så vidare.
+5. Certifikat i SDK:s kommunikationsflöden
+Tabellerna nedan ger en överblick över de certifikat som används inom SDK.
+Se Bilaga för IT-säkerhet till Regelverk för deltagarorganisationer inom SDK, avsnitt 3.1 för generella krav på krypteringsalgoritmer, säkerhetsprotokoll och certifikat.
+Samtliga certifikat finns att hämta som certifikatkedjor för samtliga miljöer på GitHub. Där finns även färdigpaketerade Truststores för OPEN-TEST och SDK-QA, se länk: sdk-docs/Certifikatskedjor at main · diggsweden/sdk-docs · GitHub Länk till annan webbplats.
+5.1 Accesspunkt till Accesspunkt
+5.1.1 Transportkryptering
+(Ansvarig: accesspunktsoperatör)
+Transportkryptering skyddar anslutningen mellan accesspunkter med TLS och ömsesidig autentisering (mTLS).
+Användning av HTTPS/mTLS säkerhetsprotokoll sker enligt Transportprofil AS4 | Digg Länk till annan webbplats..
+Krav:
+TLS ska baseras på tillit till certifikatutfärdare (CA), inte till enskilda certifikat.
+Kommunikation ska ske över port 443.
+Se Transportprofil AS4
+5.1.1.1 Miljö: OPEN-TEST
+Certifikaten baseras på följande rotcertifikat och intermediärt certifikat:
+SITHS
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+TEST SITHS e-id Root CA v2
+|
+Utfärdande CA (intermediär)
+|
+TEST SITHS e-id Function CA v1
+Läs mer om PKI-struktur och rotcertifikat – Identifieringstjänst SITHS: https://inera.atlassian.net/wiki/spaces/IAM/pages/289082989/PKI-struktur+och+rotcertifikat Länk till annan webbplats.
+5.1.1.2 Miljö: QA
+Certifikaten baseras på följande rotcertifikat och intermediärt certifikat:
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+TEST SITHS e-id Root CA v2
+|
+Utfärdande CA (intermediär)
+|
+TEST SITHS e-id Function CA v1
+Läs mer om PKI-struktur och rotcertifikat – Identifieringstjänst SITHS: https://inera.atlassian.net/wiki/spaces/IAM/pages/289082989/PKI-struktur+och+rotcertifikat Länk till annan webbplats.
+5.1.1.3 Miljö: PROD
+Certifikaten baseras på följande rotcertifikat och intermediärt certifikat:
+SITHS
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+SITHS e-id Root CA v2
+|
+Utfärdande CA (intermediär)
+|
+SITHS e-id Function CA v1
+Se Bilaga för IT-säkerhet (avsnitt 3.2.1)
+5.1.2 AS4-kryptering mellan accesspunkter
+(Ansvarig: Accesspunktsoperatör)
+AS4 används för att skydda meddelandeutbytet mellan accesspunkter, genom inbyggd signering och kryptering i protokollet.
+Följande certifikat från Digg (rotcertifikat och utfärdande certifikat) är giltiga för accesspunkter inom SDK-federationen.
+5.1.2.1 Miljö: OPEN-TEST
+Giltiga rot- och federationscertifikat för miljön:
+Rotcertifikat
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+Rot CA eDelivery Accesspunkt-TEST
+Detaljer
+|
+Fält
+|
+Värde
+|
+Filnamn
+|
+Rot CA eDelivery Accesspunkt-TEST.cer
+|
+Common Name
+|
+Rot CA eDelivery Accesspunkt-TEST
+|
+Organization
+|
+Myndigheten för digital förvaltning
+|
+Valid From
+|
+May 12, 2022
+|
+Valid to
+|
+May 12, 2042
+|
+Issuer
+|
+Rot CA eDelivery Accesspunkt-TEST, Myndigheten för digital förvaltning
+|
+Key Size
+|
+4096 bit
+|
+Serial Number
+|
+1499acb25e0f11891ea0794613b86fff
+Federationscertifikat
+|
+Typ
+|
+Certifikat
+|
+Utfärdande CA (intermediär)
+|
+Accesspunkt CA-OPEN-TEST
+Detaljer
+|
+Fält
+|
+Värde
+|
+Utfärdande CA (intermediär)
+|
+Accesspunkt CA-OPEN-TEST
+|
+Filnamn
+|
+Accesspunkt CA-OPEN-TEST.cer
+|
+Common Name
+|
+Accesspunkt CA-OPEN-TEST
+|
+Organization
+|
+Myndigheten för digital förvaltning
+|
+Valid From
+|
+May 12, 2022
+|
+Valid to
+|
+May 12, 2032
+|
+Issuer
+|
+Rot CA eDelivery Accesspunkt-TEST, Myndigheten för digital förvaltning
+|
+Key Size
+|
+3072 bit
+|
+Serial Number
+| 016b449b2d0d508c6b63df646fa819e9
+5.1.2.2 Miljö: QA
+Giltiga rot- och federationscertifikat för miljön:
+Rotcertifikat
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+Rot CA eDelivery Accesspunkt – QA
+Detaljer
+|
+Fält
+|
+Värde
+|
+Filnamn
+|
+Rot CA eDelivery Accesspunkt - QA.cer
+|
+Common Name
+|
+Rot CA eDelivery Accesspunkt – QA
+|
+Organization
+|
+Myndigheten för digital förvaltning
+|
+Organization Unit
+|
+eDelivery
+|
+Valid From
+|
+February 24, 2022
+|
+Valid to
+|
+February 24, 2032
+|
+Issuer
+|
+Rot CA eDelivery Accesspunkt - QA, Myndigheten för digital förvaltning
+|
+Key Size
+|
+3072 bit
+|
+Serial Number
+|
+282a0bbb06bae4b64467b5d32861c3a6
+Federadtionscertifikat
+|
+Typ
+|
+Certifikat
+|
+Utfärdande CA (intermediär)
+|
+Accesspunkt CA-SDK-QA
+Detaljer
+|
+Fält
+|
+Värde
+|
+Filnamn
+|
+Rot CA eDelivery Accesspunkt - QA.cer
+|
+Common Name
+|
+Accesspunkt CA-SDK-QA
+|
+Organization
+|
+Myndigheten för digital förvaltning
+|
+Organization Unit
+|
+eDelivery
+|
+Valid From
+|
+February 24, 2022
+|
+Valid to
+|
+February 24, 2042
+|
+Issuer
+|
+Rot CA eDelivery Accesspunkt - QA, Myndigheten för digital förvaltning
+|
+Key Size
+|
+3072 bit
+|
+Serial Number
+|
+bda729c4565779bd9578d736a0a3c86c
+5.1.2.3 Miljö: PROD
+Giltiga rot- och federationscertifikat för miljön:
+Rotcertifikat
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+Rot CA eDelivery Accesspunkt-PROD
+Detaljer
+|
+Fält
+|
+Värde
+|
+Filnamn
+|
+Rot CA eDelivery Accesspunkt-PROD.cer
+|
+Common Name
+|
+Rot CA eDelivery Accesspunkt-PROD
+|
+Organization
+|
+Myndigheten för digital förvaltning
+|
+Organization Unit
+|
+eDelivery
+|
+Valid From
+|
+March 7, 2022
+|
+Valid to
+|
+March 7, 2042
+|
+Issuer
+|
+Rot CA eDelivery Accesspunkt-PROD, Myndigheten för digital förvaltning
+|
+Key Size
+|
+4096 bit
+|
+Serial Number
+|
+49db3880ff7211df0c4fd30c5af9db7e
+Federationscertifikat
+|
+Typ
+|
+Certifikat
+|
+Utfärdande CA (intermediär)
+|
+Accesspunkt CA-SDK-PROD
+Detaljer
+|
+Fält
+|
+Värde
+|
+Filnamn
+|
+Accesspunkt CA-SDK-PROD.cer
+|
+Common Name
+|
+Accesspunkt CA-SDK-PROD
+|
+Organization
+|
+Myndigheten för digital förvaltning
+|
+Organization Unit
+|
+eDelivery
+|
+Valid From
+|
+March 7, 2022
+|
+Valid to
+|
+March 7, 2032
+|
+Issuer
+|
+Rot CA eDelivery Accesspunkt-PROD, Myndigheten för digital förvaltning
+|
+Key Size
+|
+3072 bit
+|
+Serial Number
+|
+7ca07e782bab057258949df49628c957
+5.2 Accesspunkt till SMP
+(Ansvarig: Accesspunktsoperatör)
+Kommunikation mellan accesspunkt och certifikatpubliceringstjänsten (SMP). Metadata som utbyts via SMP är signerad för att säkerställa äkthet och integritet.
+Se Transportprofil AS4.
+Följande rotcertifikat, utfärdade av Digg, är giltiga för signering av metadata:
+5.2.1 Miljö: OPEN-TEST
+Signeringscertifikat för miljön:
+Rotcertifikat
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+Rot CA eDelivery SMP-TEST
+Detaljer
+|
+Fält
+|
+Värde
+|
+Filnamn
+|
+Rot CA eDelivery SMP-TEST.cer
+|
+Common Name
+|
+Rot CA eDelivery SMP-TEST
+|
+Organization
+|
+Myndigheten för digital förvaltning
+|
+Valid From
+|
+May 12, 2022
+|
+Valid to
+|
+May 12, 2042
+|
+Issuer
+|
+Rot CA eDelivery SMP-TEST, Myndigheten för digital förvaltning
+|
+Key Size
+|
+4096 bit
+|
+Serial Number
+|
+b9d6a641277a458084bc8d34684b5557
+5.2.2 Miljö: QA
+Signeringscertifikat för miljön:
+Rotcertifikat
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+Rot CA eDelivery SMP-QA
+Detaljer
+|
+Fält
+|
+Värde
+|
+Filnamn
+|
+Rot CA eDelivery SMP-QA.cer
+|
+Common Name
+|
+Rot CA eDelivery SMP-QA
+|
+Organization
+|
+Myndigheten för digital förvaltning
+|
+Organization Unit
+|
+eDelivery
+|
+Valid From
+|
+February 24, 2022
+|
+Valid to
+|
+February 24, 2042
+|
+Issuer
+|
+Rot CA eDelivery SMP-QA, Myndigheten för digital förvaltning
+|
+Key Size
+|
+3072 bit
+|
+Serial Number
+|
+900edeffdd750b0d700b4273484046e3
+5.2.3 Miljö: PROD
+Signeringscertifikat för miljön:
+Rotcertifikat
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+Rot CA eDelivery SMP-PROD
+Detaljer
+|
+Fält
+|
+Värde
+|
+Filnamn
+|
+Rot CA eDelivery SMP-PROD.cer
+|
+Common Name
+|
+Rot CA eDelivery SMP-PROD
+|
+Organization
+|
+Myndigheten för digital förvaltning
+|
+Organization Unit
+|
+eDelivery
+|
+Valid From
+|
+March 7, 2022
+|
+Valid to
+|
+March 7, 2042
+|
+Issuer
+|
+Rot CA eDelivery SMP-PROD, Myndigheten för digital förvaltning
+|
+Key Size
+|
+4096 bit
+|
+Serial Number
+|
+fdf062a9ed90273a59f86e4c180ac216
+5.3 Meddelandetjänst till Certifikatpubliceringstjänst (SMP)
+(Ansvarig: Deltagarorganisation)
+Kommunikation mellan deltagarorganisationens meddelandetjänst och certifikatpubliceringstjänsten (SMP).
+Se Transportprofil AS4, samt Certifikatspublicering - REST-bindning till SMP.
+Följande rotcertifikat, utfärdade av Digg, är giltiga för signering av metadata:
+5.3.1 Miljö: OPEN-TEST
+Signeringscertifikat för miljön:
+Rotcertifikat
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+Rot CA eDelivery SMP-TEST
+Detaljer
+|
+Fält
+|
+Värde
+|
+Filnamn
+|
+Rot CA eDelivery SMP-TEST.cer
+|
+Common Name
+|
+Rot CA eDelivery SMP-TEST
+|
+Organization
+|
+Myndigheten för digital förvaltning
+|
+Valid From
+|
+May 12, 2022
+|
+Valid to
+|
+May 12, 2042
+|
+Issuer
+|
+Rot CA eDelivery SMP-TEST, Myndigheten för digital förvaltning
+|
+Key Size
+|
+4096 bit
+|
+Serial Number
+|
+b9d6a641277a458084bc8d34684b5557
+5.3.2 Miljö: QA
+Signeringscertifikat för miljön:
+Rotcertifikat
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+Rot CA eDelivery SMP-QA
+Detaljer
+|
+Fält
+|
+Värde
+|
+Filnamn
+|
+Rot CA eDelivery SMP-QA.cer
+|
+Common Name
+|
+Rot CA eDelivery SMP-QA
+|
+Organization
+|
+Myndigheten för digital förvaltning
+|
+Organization Unit
+|
+eDelivery
+|
+Valid From
+|
+February 24, 2022
+|
+Valid to
+|
+February 24, 2042
+|
+Issuer
+|
+Rot CA eDelivery SMP-QA, Myndigheten för digital förvaltning
+|
+Key Size
+|
+3072 bit
+|
+Serial Number
+|
+900edeffdd750b0d700b4273484046e3
+5.3.3 Miljö: PROD
+Signeringscertifikat för miljön:
+Rotcertifikat
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+Rot CA eDelivery SMP-PROD
+Detaljer
+|
+Fält
+|
+Värde
+|
+Filnamn
+|
+Rot CA eDelivery SMP-PROD
+|
+Common Name
+|
+Rot CA eDelivery SMP-PROD
+|
+Organization
+|
+Myndigheten för digital förvaltning
+|
+Organization Unit
+|
+eDelivery
+|
+Valid From
+|
+March 7, 2022
+|
+Valid to
+|
+March 7, 2042
+|
+Issuer
+|
+Rot CA eDelivery SMP-PROD, Myndigheten för digital förvaltning
+|
+Key Size
+|
+4096 bit
+|
+Serial Number
+|
+fdf062a9ed90273a59f86e4c180ac216
+5.4 Meddelandetjänst till Meddelandetjänst
+(Ansvarig: Deltagarorganisation)
+SDK O2O-kryptering och signering av SDK meddelande (nyttolast) mellan deltagar-organisationers meddelandetjänster.
+Se krav på certifikatshantering format och nyckellängd. Regelverk för deltagarorganisationer Länk till annan webbplats. samt Bilaga IT-säkerhet. Länk till annan webbplats.
+Följande certifikat (rotcertifikat och utfärdande certifikat) från tre leverantörer är godkända av Digg för funktionscertifikat som används för O2O-kryptering och signering:
+5.4.1 Miljö: OPEN-TEST
+Certifikaten baseras på följande intermediär och rot certifikat:
+SITHS
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+TEST SITHS e-id Root CA v2
+|
+Utfärdande CA (intermediär)
+|
+TEST SITHS e-id Function CA v1
+Läs mer om PKI-struktur och rotcertifikat – Identifieringstjänst SITHS: https://inera.atlassian.net/wiki/spaces/IAM/pages/289082989/PKI-struktur+och+rotcertifikat Länk till annan webbplats.
+EFOS
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+Swedish Public Sector Internal Root CA SAT v1
+|
+Utfärdande CA (intermediär)
+|
+Swedish Public Sector Function CA v3 SAT
+Referens: E-identitet för offentlig sektor – Repositor: https://repository.efos.se Länk till annan webbplats.
+ExpiTrust
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+ExpiTrust Test CA v8
+|
+Utfärdande CA (intermediär)
+|
+ExpiTrust Test CA v8
+Referens: ExpiTrust Test CA v8 – Expisoft AB: https://eid.expisoft.se Länk till annan webbplats.
+Key Size: 4096 bit
+5.4.2 Miljö: QA
+Certifikaten baseras på följande intermediär CA och rot CA:
+SITHS
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+TEST SITHS e-id Root CA v2
+|
+Utfärdande CA (intermediär)
+|
+TEST SITHS e-id Function CA v1
+Läs mer om PKI-struktur och rotcertifikat – Identifieringstjänst SITHS: https://inera.atlassian.net/wiki/spaces/IAM/pages/289082989/PKI-struktur+och+rotcertifikat Länk till annan webbplats.
+EFOS
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+Swedish Public Sector Internal Root CA SAT v1
+|
+Utfärdande CA (intermediär)
+|
+Swedish Public Sector Function CA v3 SAT
+Referens: E-identitet för offentlig sektor – Repositor: https://repository.efos.se Länk till annan webbplats.
+ExpiTrust
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+ExpiTrust Test CA v8
+|
+Utfärdande CA (intermediär)
+|
+ExpiTrust Test CA v8
+Referens: ExpiTrust Test CA v8 – Expisoft AB: https://eid.expisoft.se Länk till annan webbplats.
+Key Size: 4096 bit
+5.4.3 Miljö: PROD
+Certifikaten baseras på följande rotcertifikat och intermediära certifikat:
+SITHS
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+SITHS e-id Root CA v2
+|
+Utfärdande CA (intermediär)
+|
+SITHS e-id Function CA v1
+Läs mer om PKI-struktur och rotcertifikat – Identifieringstjänst SITHS: https://inera.atlassian.net/wiki/spaces/IAM/pages/289082989/PKI-struktur+och+rotcertifikat Länk till annan webbplats.
+EFOS
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+Swedish Public Sector Internal Root CA SAT v1
+|
+Utfärdande CA (intermediär)
+|
+Swedish Public Sector Function CA v3 SAT
+Referens: E-identitet för offentlig sektor – Repositor: https://repository.efos.se Länk till annan webbplats.
+ExpiTrust
+|
+Typ
+|
+Certifikat
+|
+Rotcertifikat
+|
+ExpiTrust EID CA v4
+|
+Utfärdande CA (intermediär)
+|
+ExpiTrust EID CA v4
+Referens: ExpiTrust EID CA v4 – Expisoft AB: https://eid.expisoft.se Länk till annan webbplats.
+Key Size: 4096 bit
+6. Anskaffning av certifikat
+(Ansvarig: Deltagarorganisation och accesspunktsoperatör. Se respektive avsnitt i sektion 5 för ansvar per användningsområde.)
+Certifikat som används inom SDK har en livscykel som omfattar anskaffning, användning, förnyelse och avveckling. Hur certifikat anskaffas och hanteras beror på vilken roll organisationen har inom SDK och hur anslutningen är utformad.
+6.1 SITHS funktionscertifikat
+Läs mer om SITHS funktionscertifikat: SITHS Funktionscertifikat - Användarguide - Identifieringstjänst SITHS - Confluence (atlassian.net). Länk till annan webbplats. SITHS funktionscertifikat kan anskaffas på två sätt: via egen anslutning och via ombud.
+6.1.1 Egen anslutning (direktanslutning)
+Organisationer med egen anslutning kan vara
+Regioner
+Kommuner
+Statliga myndigheter
+Tjänsteleverantörer som agerar som ombud
+Läs mer om att utfärda egna SITHS funktionscertifikat här Utfärda egna SITHS funktionscertifikat - Identifieringstjänst SITHS - Confluence (atlassian.net). Länk till annan webbplats.
+6.1.2 Via ombud (tredjepartsanslutning)
+En tredjepartanslutning till SITHS innebär att din organisation har tecknat avtal med en organisation som har en direktanslutning till SITHS, d.v.s är ombud för SITHS, och att din organisation ansluter via ombudet. Läs mer om anslutning via ombud på SITHS Identifieringstjänst - Inera. Länk till annan webbplats. En tredjepartanslutning innebär också att din organisation kan få hjälp av den verksamhet som ni ansluter er via för att ge ut funktionscertifikat. Regioner och kommuner kan efter eget beslut agera SITHS-ombud för en verksamhet.
+Om din organisation inte har möjlighet att själva bygga upp den organisation som krävs för att ansvara för en egen hantering av funktionscertifikat är en tredjepartanslutning via ombud det naturliga valet för att anskaffa ett SITHS funktionscertifikat. Organisationer kan vara:
+Kommuner
+Tjänsteleverantörer
+Skarpa funktionscertifikat kan beställas via alla ombud. Testfunktionscertifikat kan utfärdas av regionernas ombud och vissa privata ombud, dock ej av kommunförbund.
+Vid behov kan mer information om ombud fås via Kundservice Inera Frågor om beställning och tjänster - Inera Länk till annan webbplats..
+6.2 Expisoft servercertifikat
+Server/funktionscertifikat kan anskaffas av alla genom att beställa SDK Funktionscertifikat 4096 bits via Expisofts webbportal, här finner ni den: Expisoft AB – E-legitimation Länk till annan webbplats.
+6.3 EFOS funktionscertifikat
+Server/funktionscertifikat kan anskaffas av anslutna myndigheter. Läs mer om Efos här: E-identitet för offentlig sektor, EFOS - Försäkringskassan (forsakringskassan.se) Länk till annan webbplats..
+6.4 Diggs certifikat
+Certifikat utfärdade av Digg används i olika kommunikationsflöden inom SDK. Hur dessa certifikat erhålls och används skiljer sig åt beroende på användningsområde. Se avsnitt 5.1.2, 5.2 och 5.3 för information om när dessa certifikat används och vilken aktör som ansvarar.
+6.4.1 Certifikat som anskaffas från Digg
+För vissa användningsområden, exempelvis AS4-kryptering mellan accesspunkter (avsnitt 5.1.2), behöver accesspunktsoperatörer anskaffa certifikat från Digg.
+6.4.1.1 AS4-certifikat
+AS4-certifikat utfärdas av Digg och används för kryptering och signering i kommunikationen mellan accesspunkter.
+Certifikaten baseras på en certifikatsbegäran som accesspunktsoperatören lämnar till Digg.
+Certifikatsbegäran ska uppfylla följande krav:
+Format: PKCS#10 eller självsignerat certifikat i PEM-format
+Nyckellängd: minst 3072 bitar (RSA eller ECC)
+Följande certifikatsattribut ska anges i certifikatsbegäran:
+CN (Common Name) = Namnet på operatörens organisation
+(värdet ersätts av Digg med en egen identifierare)
+(Organization) = Namnet på operatörens organisation
+OU (Organizational Unit) = Namnet på accesspunktsoperatörsrollen (anges vid behov)
+C (Country) = Land där operatörens organisation är registrerad
+Certifikatsbegäran kan exempelvis genereras med hjälp av OpenSSL eller motsvarande verktyg.
+För att lämna in certifikatsbegäran till Digg ska gällande rutiner följas. Instruktioner för detta tillhandahålls av Digg i samband med anslutning och vid förnyelse av certifikat.
+6.4.1.2 Rotcertifikat som tillhandahålls av Digg
+För andra användningsområden, såsom verifiering av metadata i SMP (avsnitt 5.2 och 5.3), behöver aktörer inte anskaffa egna certifikat från Digg.
+Istället används rotcertifikat som utfärdats av Digg för att verifiera signaturer.
+Dessa rotcertifikat ska:
+laddas ned från Diggs distributionskanaler (se avsnitt 5 för mer information)
+installeras i organisationens trust store
+Rotcertifikaten används för att verifiera att metadata från SMP är korrekt signerad och inte har manipulerats.
+7. Sammanfattning
+Certifikat inom SDK ska hanteras på ett enhetligt sätt genom hela livscykeln och användas enligt den roll och den miljö som är aktuell. Genom att följa angivna certifikatkedjor och tillämpa rätt certifikat per användningsområde säkerställs korrekt validering och tillförlitlig kommunikation inom federationen.

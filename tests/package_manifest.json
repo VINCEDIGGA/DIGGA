@@ -1,0 +1,172 @@
+{
+  "format_version": 1,
+  "files": [
+    {
+      "path": "data/certificate_cases.json",
+      "bytes": 2238,
+      "sha256": "cd1cf3c3be11cc4d45a8ae0d5b70d9805ec9ae3e9e6784e638f0a5135ddeaa3c",
+      "meaning": "Portable certificate input specifications and expected API outcomes"
+    },
+    {
+      "path": "data/full_knowledge.txt",
+      "bytes": 1272006,
+      "sha256": "285420fd5eac554458aaaba47ce9f5b6a9ddc9a4f648d557d237ce53bad718aa",
+      "meaning": "Prepared knowledge resource; only introductory usage instructions removed, all retained knowledge and source blocks unchanged"
+    },
+    {
+      "path": "data/saved_answers/chatgpt.txt",
+      "bytes": 10469,
+      "sha256": "ebf0d1c663e0e66f044c458099243cd06c05c75a630e1ba5ba690f5307deef4d",
+      "meaning": "Unchanged externally collected comparison-service answer"
+    },
+    {
+      "path": "data/saved_answers/claude.txt",
+      "bytes": 9725,
+      "sha256": "2a5933a5612867a24c2e13023035d11091a9bd16fc504e5ce4ce00ac0ce3cf4e",
+      "meaning": "Unchanged externally collected comparison-service answer"
+    },
+    {
+      "path": "data/saved_answers/gemini.txt",
+      "bytes": 9952,
+      "sha256": "c7eb80306a1bf5b9881329e4efa68720881a9b36189379a38e48f49a3b7209cf",
+      "meaning": "Unchanged externally collected comparison-service answer"
+    },
+    {
+      "path": "data/saved_answers/prototype/Q1.json",
+      "bytes": 22036,
+      "sha256": "581744efdee07ebf8761274ba560f507abf80f4336a9bc399691620df5d333a9",
+      "meaning": "Saved user-visible prototype answer and source evidence"
+    },
+    {
+      "path": "data/saved_answers/prototype/Q2.json",
+      "bytes": 12017,
+      "sha256": "41689edd414e64dd7c0940bd31fb734201b39e50050dc4471790454ca0561157",
+      "meaning": "Saved user-visible prototype answer and source evidence"
+    },
+    {
+      "path": "data/saved_answers/prototype/Q3.json",
+      "bytes": 27585,
+      "sha256": "9f45859aa29d216fcfe7c42de5c07aa9eb239871aef2614c359c02725d21379d",
+      "meaning": "Saved user-visible prototype answer and source evidence"
+    },
+    {
+      "path": "data/saved_answers/prototype/Q4.json",
+      "bytes": 18054,
+      "sha256": "84d4f2a4d00d4fdef92cb6133006d5009275265d38b96286f2deb70cd438beaf",
+      "meaning": "Saved user-visible prototype answer and source evidence"
+    },
+    {
+      "path": "data/saved_answers/prototype/Q5.json",
+      "bytes": 751,
+      "sha256": "f97091c713981b5b7a9d7c55e479bad0ec0e58b929f6163dda0481fc11876cc0",
+      "meaning": "Saved user-visible prototype answer and source evidence"
+    },
+    {
+      "path": "data/saved_answers/prototype/Q6.json",
+      "bytes": 23802,
+      "sha256": "720ddb31323f91baa50274ba25bb7981cf26f9b9233fef109be9f74cd0cc6010",
+      "meaning": "Saved user-visible prototype answer and source evidence"
+    },
+    {
+      "path": "data/saved_answers/prototype/Q7.json",
+      "bytes": 5358,
+      "sha256": "a21eb28f4a08b5d588cb10cdaf7178008139fa345db6ac1fc807d9e02748c84b",
+      "meaning": "Saved user-visible prototype answer and source evidence"
+    },
+    {
+      "path": "data/saved_answers/prototype/Q8.json",
+      "bytes": 13220,
+      "sha256": "02796f099f94df2b1fe00dd63debee2a40d697e628332d0606729b12d26a8774",
+      "meaning": "Saved user-visible prototype answer and source evidence"
+    },
+    {
+      "path": "data/saved_answers/prototype/Q9.json",
+      "bytes": 16293,
+      "sha256": "abc7b3a1600a6911831274e67be8679a2503f3ec28cdab8b18e50ac4b49df200",
+      "meaning": "Saved user-visible prototype answer and source evidence"
+    },
+    {
+      "path": "data/saved_results/ai_scores.json",
+      "bytes": 9809,
+      "sha256": "acfed8738d2369425cc667d26b7b359843b34ef7251d8f00322a9943ecf26c3f",
+      "meaning": "Calibrated AI-assisted assessment of the saved final answers and comparison limits"
+    },
+    {
+      "path": "data/saved_results/certificate_results.json",
+      "bytes": 19352,
+      "sha256": "0205974c82933ac7c5b590a59ef0aaa064c8efd503bb114a6734ff1e961b73cd",
+      "meaning": "Publication copy of measured nine-case certificate results, with private identity metadata omitted"
+    },
+    {
+      "path": "data/shared_prompt.txt",
+      "bytes": 3038,
+      "sha256": "ee4d9757e17b8bcf54e86765adc737d8ac9fc1cb57bf0fc9164fd9630eba9899",
+      "meaning": "Unchanged common comparison prompt, including original filenames and access markers"
+    },
+    {
+      "path": "data/short_knowledge.txt",
+      "bytes": 37702,
+      "sha256": "c12b1b62052340ed223e3230cd822f6541f307a0228d3f48054f3050001018b2",
+      "meaning": "Prepared knowledge resource; only introductory usage instructions removed, all retained knowledge and source blocks unchanged"
+    },
+    {
+      "path": "questions/ai_questions.json",
+      "bytes": 1419,
+      "sha256": "96a0f650c5738e25d6d5623b05ea3da2c32f121750379e2263e03805d40c723d",
+      "meaning": "The nine exact question strings with IDs, without assessment hints or expected answers"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 17,
+      "sha256": "37b484db902b66118ca669553d1438cdb5bc8814d0eec3304938b13d305f47cf",
+      "meaning": "Optional certificate-runner dependency; the AI runner uses only the Python standard library"
+    },
+    {
+      "path": "scripts/run_ai_questions.py",
+      "bytes": 5336,
+      "sha256": "06cdb5121c494bdfc11b2b3053d15827d6ba08600e4fef44c53bd1ce94a4a032",
+      "meaning": "Portable stdlib client for the normal question-only chat API; no local configuration probes"
+    },
+    {
+      "path": "scripts/run_certificate_checks.py",
+      "bytes": 6493,
+      "sha256": "7bac3656ca5778fedacbbf1fdcb206f5c403d5f2ba6d0a8eb30b5207bf528c84",
+      "meaning": "Portable nine-case public-certificate API client with in-memory synthetic signing key"
+    }
+  ],
+  "original_resource_names": [
+    {
+      "path": "data/full_knowledge.txt",
+      "original_filename": "DIGGA-RAG-KUNSKAP-ALLT-2026-10-20.txt",
+      "original_sha256": "8767f6a4d6bb51671e040ae3be1e553def9b4cec0cbfd617155423aa126b6470",
+      "prepared_sha256": "285420fd5eac554458aaaba47ce9f5b6a9ddc9a4f648d557d237ce53bad718aa",
+      "preparation": "Removed only the non-knowledge usage preamble and example test instructions before the active-settings heading",
+      "removed_prefix_bytes": 4586,
+      "removed_prefix_sha256": "baeedc74613496646b15e700f50bac1b11c04282ef6181b2a24244a95927bdad",
+      "retained_suffix_bytes_unchanged": true
+    },
+    {
+      "path": "data/short_knowledge.txt",
+      "original_filename": "UNDERLAG_KORT_2026-10-24.txt",
+      "original_sha256": "2f30de823604d2f8f55dc3210dd04d77c408fec2f918f3ffbde06944caf130fc",
+      "prepared_sha256": "c12b1b62052340ed223e3230cd822f6541f307a0228d3f48054f3050001018b2",
+      "preparation": "Removed only the introductory usage wrapper before the source-ID inventory",
+      "removed_prefix_bytes": 705,
+      "removed_prefix_sha256": "eb25176ec9975f14e8eb6fc36c8e3c35fa7593b8b134ccd44f0a2b1434786bb6",
+      "retained_suffix_bytes_unchanged": true
+    },
+    {
+      "path": "data/shared_prompt.txt",
+      "original_filename": "TESTPROMPT_SAMMA_FOR_ALLA.txt",
+      "source_bytes_unchanged": true,
+      "sha256": "ee4d9757e17b8bcf54e86765adc737d8ac9fc1cb57bf0fc9164fd9630eba9899"
+    }
+  ],
+  "excluded_categories": [
+    "Credentials and local configuration",
+    "Raw diagnostic traces and environment probes",
+    "Study/quiz packs",
+    "Separate guide, README or start-here files"
+  ],
+  "historical_data_policy": "Knowledge resources omit introductory usage instructions only. All retained settings, source blocks and historical markers are unchanged. Shared prompt and externally saved answers are unchanged. Prepared versus original resource hashes are recorded."
+}

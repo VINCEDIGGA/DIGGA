@@ -1,0 +1,946 @@
+Rekommenderade testfall för deltagarorganisationer
+Denna sida beskriver rekommenderade testfall för deltagarorganisationer som vill genomföra egna verifieringstester av sitt meddelandesystem i SDK QA-miljö.
+Om testfallen
+Syftet med dessa testfall är att ge deltagarorganisationer möjlighet att självständigt verifiera sin anslutning till SDK QA-miljö.
+Testerna är rekommenderade och kompletterar de obligatoriska testfall som genomförs inför federationsgodkännande.
+Testfallen bygger på de funktionella tester som leverantörer av meddelandesystem genomför inför godkännande inom SDK. De kan användas för att verifiera installation och konfiguration av meddelandesystemet, genomföra egna kontroller efter uppgraderingar eller som stöd vid felsökning.
+Förutsättningar
+Deltagarorganisationens AP-operatör ska vara ansluten till SDK QA-miljö.
+Deltagarorganisationen ska vara konfigurerad som deltagare i SMP i SDK QA-miljö.
+Deltagarorganisationen ska ha skickat in SDK-anslutningsblankett.
+Deltagarorganisationen ska ha en användare med rollen användaradministratör, som tilldelar rollerna organisationsadministratör samt adressadministratör.
+Deltagarorganisationen ska ha registrerat funktionsadresser i SDK adressbok.
+Deltagarorganisationens användaradministratör ska ha tilldelat rollen testklientanvändare.
+Testmiljö och testdata
+Funktionsadresser
+I testfallen används funktionsadresser som avsändare eller mottagare av meddelanden. En funktionsadress är en adress som registrerats för en verksamhetsfunktion eller funktionsbrevlåda i SDK adressbok.
+Exempel:
+barnoungdom.0203:testkommun.se
+Funktionsadresser används både när deltagarorganisationen skickar meddelanden och när meddelanden tas emot under testerna.
+Deltagarorganisationen i SDK adressbok
+SDK federationsägare (Digg) ansvarar för att lägga upp deltagarorganisationen i SDK adressbok samt tilldela behörighet för deltagarorganisationen att redigera sin organisations uppgifter.
+För att kunna genomföra anslutningstester behöver vissa uppgifter konfigureras i SDK adressbok. Det finns även frivilliga fält där deltagarorganisationen själv kan välja hur informationen ska fyllas i för att möjliggöra verksamhetslika tester.
+Följande uppgifter ska finnas registrerade i SDK adressbok innan anslutningstesterna påbörjas.
+Deltagarorganisationens unika organisationsidentifierare i SDK.
+Exempel: "0203:testkommun.se".
+Namn
+Deltagarorganisationens formella namn.
+Exempel: "Testkommun".
+Beskrivning
+En beskrivning av deltagarorganisationen, kan redigeras av deltagarorganisationen.
+Exempel: "Testkommun är en...".
+Geografiska sökkoder
+Sökord som underlättar sökning efter organisationen i adressboken, kan redigeras av deltagarorganisationen. Exempel: “Värmlands län” och “Karlstad”.
+Funktionsadresser
+De funktionsadresser som ska användas vid testerna.
+Exempel: "barnoungdom.0203:testkommun.se"
+Funktionsnamn
+En beskrivning av verksamheten eller funktionen som funktionsadressen representerar.
+Exempel: "Barn- och ungdomsmottagningen Testkommun"
+Funktionsbeskrivning
+En beskrivning av verksamheten eller funktionen som funktionsadressen representerar.
+Exempel: "Barn- och ungdomsmottagningen handhar..."
+Federationsägaren i SDK adressbok i QA-miljö
+Federationsägaren (Digg) tillhandahåller ett antal testorganisationer och tillhörande funktionsadresser i SDK QA-miljö. Testorganisationerna används som motparter i de rekommenderade testfallen på denna sida.
+Funktionsadresserna används för att skicka och ta emot meddelanden under testerna.
+Organisationerna är utformade för att verifiera olika delar av deltagarorganisationens meddelandesystem. Vissa används för grundläggande meddelandeflöden medan andra används för att verifiera exempelvis felhantering, meddelandekvittenser eller andra specifika funktioner.
+Testorganisationer och funktionsadresser
+I detta avsnitt beskrivs de testorganisationer och funktionsadresser som används i testfallen.
+Digg testklient
+Digg testklient används i testfall som verifierar grundläggande kommunikation mellan deltagarorganisationens meddelandesystem och SDK.
+Organisationsidentifierare
+0203:sdk-testclient.sdk-qa.digg.se
+Organisationsbeskrivning
+SDK testklient utgör ett stöd för deltagarorganisationers verifieringstester i SDK QA-miljö.
+Alternativt namn
+Digg testklient
+Organisationen innehåller flera funktionsadresser som används för olika typer av tester. För varje funktionsadress anges funktionsnamn, funktionsadress och en kort beskrivning av dess användningsområde.
+Funktionsadresser
+Digg testklient funktionsadress
+Funktionsadress: sdk-testclient.0203:sdk-testclient.sdk-qa.digg.se
+Funktionsbeskrivning: Används för grundläggande meddelandeflöden och normal kommunikation med SDK testklient.
+Funktionsnamn#1
+Funktionsadress: sdk-testbed.notsupported
+Funktionsbeskrivning: Meddelandekvittens returnerar alltid REJECTED med orsakskod BV och detaljkod ‘Not-supported’ om bilaga är inkluderad.
+Funktionsnamn#2
+Funktionsadress: sdk-testbed.rejected
+Funktionsbeskrivning: Digg testklient testfall för hantering av REJECTED med maximalt innehåll.
+Meddelandekvittens returnerar alltid REJECTED med maximalt innehåll (samtliga valbara element används och elementen håller mycket information). (Stöds ej)
+Funktionsnamn#3
+Funktionsadress: sdk-testbed.timeout
+Funktionsbeskrivning: Digg testklient testfall för hantering av utebliven kvittens.
+Meddelandekvittens returneras ej (stöds ej).
+SDK testklient - Organisation#2 (ej kontaktbar)
+En organisation som är upplagd i SDK adressbok, men som är okontaktbar. Den EndpointURI som är kopplad till organisationen i SMP pekar på en felaktig URI.
+Organisationsidentifierare:
+0203:org002.sdk-testclient.sdk-qa.digg.se
+Funktionsadress:
+0203:org002.sdk-testclient.sdk-qa.digg.se
+Funktionsnamn:
+Digg testklient testfall för ej kontaktbar funktionsadress
+Funktionsbeskrivning: Funktionen är okontaktbar.
+SDK testklient - Organisation#3 (utgånget O2O-certifikat)
+En organisation som är upplagd i SDK adressbok, med ett publikt O2O-certifikat i SMP som har gått ut.
+Organisationsidentifierare:
+0203:org003.sdk-testclient.sdk-qa.digg.se
+Funktionsadresser:
+testfunktion.0203:org003.sdk-testclient.sdk-qa.digg.se
+Funktionsnamn:
+Digg testklient testfall för organisation med utgånget O2O-certifikat
+Funktionsbeskrivning:
+Organisationen har ett utgånget O2O-certifikat och är okontaktbar
+SDK testklient - Organisation#4 (utgånget AS4-certifikat)
+En organisation som är upplagd i SDK adressbok, med ett utgånget AS4-certifikat i accesspunkten. Den EndpointURI som är kopplad till organisationen i SMP pekar mot en testaccesspunkt med ett AS4-certifikat som är utgånget.
+Organisationsidentifierare:
+0203:org004.sdk-testclient.sdk-qa.digg.se
+Funktionsadresser: testfunktion.0203:org004.sdk-testclient.sdk-qa.digg.se
+Funktionsnamn: Digg testklient testfall för utgånget AS4-certifikat
+Funktionsbeskrivning: Testar skicka meddelande till organisation med felaktigt AS4-certifikat
+SDK testklient - Organisation#5 (utgånget TLS-certifikat)
+En organisation som är upplagd i SDK adressbok, med ett utgånget TLS-certifikat på transportlagernivå. Den EndpointURI som är kopplad till organisationen i SMP pekar mot en extern server (expired.badssl.com).
+Organisationsidentifierare: 0203:org005.sdk-testclient.sdk-qa.digg.se
+Funktionsadresser: testfunktion.0203:org005.sdk-testclient.sdk-qa.digg.se
+Funktionsnamn: Digg testklient testfall för organisation med utgånget TLS-certifikat
+Funktionsbeskrivning: Organisationens accesspunkt har ett utgånget TLS-certifikat.
+SDK testklient - Organisation#6 (felaktig CA i TLS-certifikat)
+En organisation som är upplagd i SDK adressbok, med ett TLS-certifikat med felaktig CA på transportlagernivå. Den EndpointURI som är kopplad till organisationen i SMP pekar mot en extern server (untrusted.badssl.com).
+Organisationsidentifierare: 0203:org006.sdk-testclient.sdk-qa.digg.se
+Funktionsadresser: testfunktion.0203:org006.sdk-testclient.sdk-qa.digg.se
+Funktionsnamn: Digg testklient testfall för organisation med utgånget TLS-certifikat
+Funktionsbeskrivning: Funktionen är okontaktbar.
+Testfunktionsadress för deltagarorganisationen
+För att kunna genomföra vissa anslutningstester skapas en särskild testfunktionsadress för deltagarorganisationen under federationsägarens organisation i SDK QA-miljö.
+Funktionsadressen används vid kommunikation med SDK testklient och registreras av federationsägaren i samband med anslutningen till SDK QA-miljö.
+Formatet på funktionsadressen är:
+sdk-testclient.<organisationsidentifierare>
+Exempel:
+sdk-testclient.0203:testkommun.se
+Denna funktionsadress används i de testfall där deltagarorganisationen ska skicka meddelanden till SDK testklient.
+SDK testklient
+SDK testklient erbjuds till deltagarorganisationer och leverantörer som utvecklar SDK-anpassade lösningar. Information om SDK testklienten och hur en deltagarorganisation/leverantör får tillgång till den finns på sidan SDK testklient.
+Genomförande av tester
+Verifieringstester genomförs av deltagarorganisationen för att verifiera dess anslutning till SDK QA-miljön. Testfallen verifierar endast grundläggande funktionalitet.
+Observera att testresultaten i SDK testklient sparas i sex månader. Under denna period är era testresultat tillgängliga för granskning inför godkännandeprocessen. Dröjer det mer än sex månader mellan testets genomförande och ansökan om federationsgodkännande behöver berörda tester göras om på nytt.
+Deltagarorganisationen kan kontakta sin leverantör för meddelandesystem eller federationsägaren om det finns behov för vidare felsökning som rör meddelande- eller verksamhetslager (anslutande system), t.ex. om meddelanden eller meddelandekvittenser som förväntas komma fram till SDK testklient inte visas i användargränssnittet för SDK testklient.
+Meddelandesystem, meddelandetjänst och meddelandeklient
+I testfallen används begreppen meddelandesystem, meddelandetjänst och meddelandeklient för att beskriva vilka delar av deltagarorganisationens lösning som verifieras. Nedan förklaras begreppen.
+Meddelandesystem
+Den samlade lösning som deltagarorganisationen använder för att skicka, ta emot och hantera SDK-meddelanden. Ett meddelandesystem består normalt av en meddelandetjänst och en meddelandeklient.
+Meddelandetjänst
+Den tekniska komponenten i meddelandesystemet som ansvarar för att skicka, ta emot, validera, signera och kryptera SDK-meddelanden samt hantera meddelandekvittenser.
+Meddelandeklient
+Det användargränssnitt eller verksamhetssystem i meddelandesystemet där användaren läser, skapar och hanterar SDK-meddelanden.
+Centrala begrepp i testfallen
+I testfallen används ett antal tekniska begrepp som kan vara bra att känna till. Begreppen förklaras översiktligt nedan för att underlätta genomförandet av testerna.
+AS4
+AS4 är det kommunikationsprotokoll som används av accesspunkter inom SDK för att skicka och ta emot meddelanden mellan organisationer.
+Protokollet innehåller funktioner för bland annat kryptering, signering och kvittenshantering som bidrar till en säker och tillförlitlig kommunikation.
+När en användare skickar ett meddelande från sin meddelandeklient överlämnas meddelandet till organisationens meddelandetjänst. Meddelandet skickas därefter via organisationens accesspunkt till mottagarens accesspunkt med hjälp av AS4.
+AS4 används bland annat för att:
+skicka meddelanden mellan organisationer
+skydda meddelandets innehåll genom kryptering under överföringen
+verifiera avsändaren genom digital signering
+säkerställa att meddelandet levereras till rätt mottagare
+utbyta tekniska kvittenser mellan accesspunkter
+O2O-certifikat (Organisation-to-Organisation-certifikat)
+Ett O2O-certifikat används för att identifiera organisationer och skydda kommunikationen mellan deltagare i SDK. Certifikatet används bland annat för kryptering och signering av meddelanden så att endast avsedd mottagare kan läsa innehållet och så att mottagaren kan verifiera vem som skickat meddelandet.
+Om ett O2O-certifikat är ogiltigt, har gått ut eller inte kan verifieras kan meddelanden inte skickas eller tas emot på ett korrekt sätt.
+AS4-certifikat
+Ett AS4-certifikat används av accesspunkter inom SDK för att etablera säkra anslutningar och skydda kommunikationen mellan organisationer. Certifikatet används för att identifiera accesspunkter och säkerställa att information skickas till rätt mottagare på ett säkert sätt.
+Om ett AS4-certifikat är ogiltigt eller har gått ut kan kommunikationen mellan accesspunkter inte genomföras. Detta kan leda till att meddelanden inte kan skickas eller tas emot.
+TLS-certifikat
+Ett TLS-certifikat används för att skydda anslutningen mellan två system och säkerställa att kommunikationen sker på ett säkert sätt.
+Om ett TLS-certifikat är ogiltigt eller har gått ut kan en säker anslutning inte upprättas, vilket kan leda till att meddelanden inte kan skickas eller tas emot.
+Certifikatutfärdare (CA)
+En certifikatutfärdare (Certificate Authority, CA) är en betrodd part som utfärdar och signerar certifikat. Om ett certifikat har utfärdats av en certifikatutfärdare som inte är betrodd kan en säker anslutning inte upprättas.
+Signering
+Signering innebär att ett meddelande förses med en digital signatur som gör det möjligt att verifiera vem som skickat meddelandet samt att innehållet inte har förändrats efter att det skickades.
+Kryptering
+Kryptering används för att skydda innehållet i ett meddelande så att endast avsedd mottagare kan läsa informationen.
+Kryptering är en viktig del av säkerheten i SDK och används vid överföring av meddelanden mellan organisationer.
+XHE
+XHE är den del av ett SDK-meddelandes kuvert som innehåller teknisk information om meddelandet.
+XHE kan liknas vid informationen på ett kuvert. Medan själva SDK-meddelandet innehåller den information som ska skickas mellan organisationerna, innehåller XHE de uppgifter som meddelandesystemen behöver för att kunna identifiera, dirigera och behandla meddelandet korrekt.
+XHE innehåller bland annat information om:
+avsändare
+mottagare
+meddelandetyp
+referenser till andra meddelanden
+annan teknisk metadata som behövs för kommunikationen
+XHE innehåller även information som används vid signering och kryptering av SDK-meddelanden.
+I vissa testfall används meddelanden där information i XHE medvetet är felaktig eller ofullständig. Syftet är att verifiera att meddelandesystemet upptäcker och hanterar sådana fel på ett korrekt sätt.
+Meddelandekvittens
+En meddelandekvittens är ett automatiskt svar från mottagande meddelandetjänst som visar om ett mottaget meddelande har accepterats eller avvisats.
+Meddelandekvittenser används för att bekräfta att ett meddelande har behandlats och förekommer i flera av testfallen på denna sida.
+ACCEPTED
+ACCEPTED är en status i en meddelandekvittens som visar att mottagande meddelandetjänst har tagit emot och accepterat meddelandet.
+REJECTED
+REJECTED är en status i en meddelandekvittens som visar att mottagande meddelandetjänst har tagit emot men avvisat meddelandet.
+En meddelandekvittens med status REJECTED innehåller normalt information om varför meddelandet avvisades.
+Timeout
+Timeout innebär att ett förväntat svar eller en förväntad meddelandekvittens inte tas emot inom angiven tid.
+I vissa testfall används timeout-scenarier för att verifiera att meddelandesystemet hanterar uteblivna svar på ett korrekt sätt.
+Integrationstester
+Integrationstester används för att verifiera att deltagarorganisationens meddelandesystem kan kommunicera med andra system inom SDK.
+Testerna fokuserar på de vanligaste meddelandeflödena och används för att säkerställa att meddelanden kan skickas, tas emot och hanteras korrekt mellan olika organisationer. De verifierar även att meddelandekvittenser kan tas emot och behandlas som förväntat.
+Genom att genomföra integrationstesterna kan deltagarorganisationen verifiera att meddelandesystemet fungerar korrekt tillsammans med andra aktörer i SDK.
+Testfall för meddelandetjänst
+Meddelandetjänsten ansvarar för att skicka, ta emot, validera, signera och kryptera SDK-meddelanden samt hantera meddelandekvittenser.
+Följande integrationstester används för att verifiera att deltagarorganisationens meddelandetjänst fungerar korrekt tillsammans med andra aktörer i SDK. Testerna fokuserar på att meddelanden och meddelandekvittenser kan skickas, tas emot och hanteras korrekt i kommunikationen med SDK testklient.
+TF 2.0.1 SDK testklient skickar meddelande till deltagarens meddelandesystem
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst kan ta emot ett inkommande SDK-meddelande, generera en meddelandekvittens och vidarebefordra meddelandet till meddelandeklienten.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok.
+Kontrollera att en meddelandekvittens skickas tillbaka till SDK testklient. Detta innebär att mottagande deltagarorganisations egen meddelandetjänst validerar meddelandet korrekt och genererar automatiskt en meddelandekvittens.
+Kontrollera att meddelandet levereras till den egna meddelandeklienten.
+Kontrollera att innehållet i det mottagna meddelandet överensstämmer med vad som angivits i SDK testklient.
+Kontrollera att SDK testklient har tagit emot en meddelandekvittens.
+Förväntat resultat
+Meddelandet tas emot av deltagarorganisationens meddelandetjänst.
+Meddelandet vidarebefordras till meddelandeklienten.
+Meddelandeinnehållet är korrekt.
+En meddelandekvittens genereras och skickas tillbaka till SDK testklient.
+Kommentar
+Testfallet är automatiserat i SDK testklient och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 2.0.1 Normalt meddelande (inga bilagor)”.
+TF 2.0.2 - Deltagarorganisationens meddelandesystem skickar meddelande till SDK testklient
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst kan skicka ett SDK-meddelande till SDK testklient samt ta emot en meddelandekvittens.
+Teststeg
+Skicka ett meddelande från en av deltagarorganisationens funktionsadresser till SDK testklient.
+Sätt ”Subject” (ämnesraden) i meddelandet till ”TF 2.0.2”.
+Kontrollera att SDK testklient tar emot meddelandet.
+Kontrollera att innehållet i det mottagna meddelandet överensstämmer med innehållet som skickades från den egna meddelandeklienten.
+Kontrollera att meddelandekvittensen når meddelandeklienten.
+Förväntat resultat
+SDK testklient tar emot meddelandet.
+Meddelandeinnehållet är korrekt.
+En meddelandekvittens genereras och tas emot av deltagarorganisationens meddelandesystem.
+Kommentar
+Testfallet ska genomföras manuellt och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 2.0.2 Ta emot i testklient – Normalt meddelande” i testklienten. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+Systemtester
+Systemtester används för att verifiera hur deltagarorganisationens meddelandesystem hanterar olika situationer och fel som kan uppstå vid kommunikation inom SDK.
+Testerna fokuserar på meddelandesystemets beteende vid exempelvis felaktiga meddelanden, avvisade meddelandekvittenser, uteblivna svar eller andra avvikande situationer.
+Genom att genomföra systemtesterna kan deltagarorganisationen verifiera att meddelandesystemet hanterar fel och avvikelser på ett robust och förutsägbart sätt.
+Testfall för meddelandetjänst
+Meddelandetjänsten ansvarar för att skicka, ta emot, validera, signera och kryptera SDK-meddelanden samt hantera meddelandekvittenser.
+Följande testfall verifierar hur deltagarorganisationens meddelandetjänst hanterar fel och avvikelser som kan uppstå vid kommunikation inom SDK QA-miljö, exempelvis avvisade meddelanden, uteblivna svar eller andra situationer som avviker från normal kommunikation.
+TF 2.1.1 – Meddelandetjänsten tar emot ett meddelande med minimalt innehåll från SDK testklient
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst kan ta emot och hantera ett inkommande SDK-meddelande som endast innehåller de obligatoriska uppgifter som krävs enligt Innehållsspecifikation – Meddelande.Länk till annan webbplats. Länk till annan webbplats.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok.
+Kontrollera att meddelandet tas emot av deltagarorganisationens meddelandetjänst.
+Kontrollera att en meddelandekvittens skickas tillbaka till SDK testklient. Detta visar att deltagarorganisationens meddelandetjänst har tagit emot och validerat meddelandet samt genererat en meddelandekvittens.
+Kontrollera att meddelandet levereras till den egna meddelandeklienten.
+Kontrollera att innehållet i det mottagna meddelandet överensstämmer med det meddelande som skickades från SDK testklient.
+Kontrollera i SDK testklient att meddelandekvittensen har tagits emot.
+Förväntat resultat
+Meddelandet tas emot av deltagarorganisationens meddelandetjänst.
+Meddelandet valideras utan fel.
+Meddelandet levereras till meddelandeklienten.
+Meddelandeinnehållet är korrekt.
+En meddelandekvittens genereras och skickas tillbaka till SDK testklient.
+Kommentar
+Ett minimalt meddelande innehåller endast de uppgifter som krävs för att ett SDK-meddelande ska vara giltigt. Testfallet verifierar att meddelandetjänsten kan hantera sådana meddelanden korrekt.
+Testfallet är automatiserat i SDK testklient och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 2.1.1 Inga frivilliga fält”.
+TF 2.1.2 - SDK testklient skickar ett maximalt meddelande till deltagarorganisationens meddelandesystem
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst kan hantera ett inkommande SDK-meddelande som innehåller flera bilagor där den totala storleken är strax under 30 MB vilket är den maximala tillåtna storleken för ett SDK-meddelande.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok. Meddelandet ska innehålla flera bilagor och ha en sammanlagd storlek strax under den maximala tillåtna storleken på 30 MB.
+Sätt "Subject" (ämnesraden) i meddelandet till "TF 2.1.2".
+Kontrollera att en meddelandekvittens skickas tillbaka till SDK testklient. Detta visar att deltagarorganisationens egen meddelandetjänst har validerat meddelandet korrekt och automatiskt genererat en meddelandekvittens.
+Kontrollera att meddelandet levereras till den egna meddelandeklienten.
+Kontrollera att innehållet i det mottagna meddelandet överensstämmer med innehållet i SDK testklient.
+Kontrollera att samtliga bilagor kan tas emot.
+Kontrollera att SDK testklient har tagit emot meddelandekvittensen.
+Förväntat resultat
+Meddelandet tas emot av deltagarorganisationens meddelandetjänst.
+Meddelandet vidarebefordras till meddelandeklienten.
+Samtliga bilagor tas emot korrekt.
+Meddelandeinnehållet är korrekt.
+En meddelandekvittens genereras och skickas tillbaka till SDK testklient.
+Kommentar
+Testfallet ska genomföras manuellt och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 2.1.2 Skicka från testklient – Stora bilagor, sammanlagd storlek strax under 30 MB”. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.1.3 – Meddelandetjänsten tar emot ett meddelande med maximalt innehåll från SDK testklient
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst kan hantera ett inkommande SDK-meddelande som innehåller både obligatoriska och frivilliga uppgifter enligt SDK krav.
+Meddelandet innehåller även flera små bilagor.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok.
+Kontrollera att en meddelandekvittens skickas tillbaka till SDK testklient. Detta visar att deltagarorganisationens meddelandetjänst har tagit emot och validerat meddelandet samt genererat en meddelandekvittens.
+Kontrollera att meddelandet levereras till den egna meddelandeklienten.
+Kontrollera att innehållet i det mottagna meddelandet överensstämmer med innehållet i SDK testklient.
+Kontrollera att samtliga bilagor kan tas emot.
+Kontrollera att SDK testklient har tagit emot meddelandekvittensen.
+Förväntat resultat
+Meddelandet tas emot av deltagarorganisationens meddelandetjänst.
+Meddelandet levereras till meddelandeklienten.
+Meddelandeinnehållet är korrekt.
+Samtliga bilagor tas emot korrekt.
+En meddelandekvittens genereras och skickas tillbaka till SDK testklient.
+Kommentar
+Ett meddelande med maximalt innehåll innehåller både de obligatoriska och de frivilliga uppgifter som kan förekomma i ett SDK-meddelande. Testfallet verifierar att meddelandetjänsten kan hantera sådana meddelanden korrekt.
+Testfallet är automatiserat i SDK testklient och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 2.1.3 Samtliga frivilliga fält”.
+TF 2.2.1 – Meddelandetjänsten tar emot ett meddelande med referens till ett okänt meddelande
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst accepterar ett inkommande SDK-meddelande även om det innehåller en referens till ett tidigare meddelande som inte finns.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok. Meddelandet innehåller en referens till ett tidigare meddelande som inte finns.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens med kvittenskoden ACCEPTED.
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationer inom SDK Länk till annan webbplats. Länk till annan webbplats.och Bilaga för IT-säkerhet inom SDKLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandet tas emot av deltagarorganisationens meddelandetjänst.
+Meddelandet accepteras trots att referensen avser ett meddelande som inte finns.
+En meddelandekvittens med kvittenskoden ACCEPTED genereras och skickas tillbaka till SDK testklient.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+I detta testfall innehåller meddelandet en referens till ett tidigare meddelande som inte finns. Syftet är att verifiera att meddelandetjänsten ändå accepterar meddelandet när övrigt innehåll är korrekt.
+Testfallet är automatiserat i SDK testklient och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 2.2.1 Okänd referens till meddelande”.
+TF 2.3.1 – Meddelandetjänsten hanterar ett utgående meddelande som överskrider storleksbegränsningen
+Syfte
+Verifiera att deltagarorganisationens meddelandesystem upptäcker och hanterar ett utgående SDK-meddelande som överskrider den maximalt tillåtna storleken på 30 MB.
+Teststeg
+Skicka ett SDK-meddelande från deltagarorganisationens meddelandeklient till SDK testklient. Meddelandet ska innehålla bilagor med en sammanlagd storlek som överstiger 30 MB.
+Kontrollera att meddelandet inte skickas vidare till mottagaren.
+Kontrollera att meddelandeklienten och/eller meddelandetjänsten visar information om att meddelandet inte kunde skickas.
+Kontrollera att användaren får information om varför meddelandet inte kunde skickas.
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet.
+Förväntat resultat
+Meddelandet identifieras som för stort för att skickas inom SDK.
+Meddelandet skickas inte vidare till mottagaren.
+Användaren informeras om att meddelandet inte kunde skickas.
+Orsaken till felet framgår för användaren.
+Loggning och spårbarhet uppfyller SDK krav. Se Regelverk för deltagarorganisationer inom SDKLänk till annan webbplats. Länk till annan webbplats..
+Kommentar
+Den maximalt tillåtna storleken för ett SDK-meddelande är 30 MB inklusive bilagor. Testfallet verifierar att meddelandesystemet förhindrar att meddelanden som överskrider denna gräns skickas.
+Testfallet ska genomföras manuellt och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet "TF 2.3.1 MT returnerar fel om bilagor i utgående meddelande överskrider storleksbegränsning" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.4.1 – Meddelandetjänsten hanterar ett inkommande meddelande med felaktigt format
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst upptäcker och avvisar ett inkommande SDK-meddelande som innehåller felaktigt formaterad information i meddelandestrukturen, exempelvis ett datum i fel format.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok. Meddelandet innehåller information med felaktigt format i meddelandestrukturen.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens med kvittenskoden REJECTED.
+Kontrollera att meddelandekvittensen innehåller:
+Kvittenskod: REJECTED
+Orsakskod: SV
+Detaljkod: structure
+Detaljtext som beskriver det upptäckta felet
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationer inom SDK Länk till annan webbplats. Länk till annan webbplats.och Bilaga för IT-säkerhet inom SDKLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandet identifieras som felaktigt.
+Meddelandet avvisas av deltagarorganisationens meddelandetjänst.
+En meddelandekvittens med kvittenskoden REJECTED genereras och skickas tillbaka till SDK testklient.
+Meddelandekvittensen innehåller information om varför meddelandet avvisades.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+I detta testfall innehåller meddelandet information med felaktigt format, exempelvis ett datum som inte följer det format som krävs enligt SDK specifikation. Testfallet verifierar att meddelandetjänsten upptäcker felet och avvisar meddelandet.
+Testfallet är automatiserat i SDK testklient och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet "TF 2.4.1 Felaktig datatyp i meddelandestrukturen".
+TF 2.4.2 – Meddelandetjänsten hanterar ett inkommande meddelande med felaktigt kodverk
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst upptäcker och avvisar ett inkommande SDK-meddelande som innehåller ett värde som använder ett kodverk som inte är tillåtet enligt SDK krav.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok. Meddelandet innehåller ett felaktigt kodverk för avsändaridentiteten.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens med kvittenskoden REJECTED.
+Kontrollera att meddelandekvittensen innehåller:
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: invariant
+Detaljtext som beskriver det upptäckta felet
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandet identifieras som felaktigt.
+Meddelandet avvisas av deltagarorganisationens meddelandetjänst.
+En meddelandekvittens med kvittenskoden REJECTED genereras och skickas tillbaka till SDK testklient.
+Meddelandekvittensen innehåller information om varför meddelandet avvisades.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+I detta testfall innehåller meddelandet ett värde som använder ett kodverk som inte är tillåtet enligt SDK specifikation. Testfallet verifierar att meddelandetjänsten upptäcker felet och avvisar meddelandet.
+Testfallet är automatiserat i SDK testklient och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet "TF 2.4.2 Felaktigt kodverk för elementet senderId".
+TF 2.4.3 – Meddelandetjänsten hanterar ett inkommande meddelande med felaktigt format i XHE
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst upptäcker och avvisar ett inkommande SDK-meddelande som innehåller felaktigt formaterad information i XHE, exempelvis ett datum i fel format.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok. Meddelandet innehåller information med felaktigt format i XHE.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens med kvittenskoden REJECTED.
+Kontrollera att meddelandekvittensen innehåller:
+Kvittenskod: REJECTED
+Orsakskod: SV
+Detaljkod: structure
+Detaljtext som beskriver det upptäckta felet
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats. och Bilaga för IT-säkerhet inom SDKLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandet identifieras som felaktigt.
+Meddelandet avvisas av deltagarorganisationens meddelandetjänst.
+En meddelandekvittens med kvittenskoden REJECTED genereras och skickas tillbaka till SDK testklient.
+Meddelandekvittensen innehåller information om varför meddelandet avvisades.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+I detta testfall innehåller XHE felaktigt formaterad information, exempelvis ett datum som inte följer det format som krävs enligt SDK specifikation. XHE kan liknas vid informationen på ett kuvert och används av meddelandesystemet för att identifiera, dirigera och behandla SDK-meddelandet korrekt.
+Testfallet är automatiserat i SDK testklient och motsvarar testfallet "TF 2.4.3 Felaktig datatyp i XHE".
+TF 2.4.4 – Meddelandetjänsten hanterar ett inkommande meddelande med identitet som redan använts
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst upptäcker och avvisar ett inkommande SDK-meddelande som har samma meddelandeidentitet som ett tidigare mottaget meddelande.
+Teststeg
+Skicka först ett meddelande till en av deltagarorganisationens funktionsadresser och kontrollera att meddelandet hanteras korrekt.
+Skicka därefter ett nytt meddelande till samma funktionsadress där meddelandeidentiteten är samma som i det tidigare meddelandet.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens med kvittenskoden REJECTED.
+Kontrollera att meddelandekvittensen innehåller:
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: multiple-matches
+Detaljtext som beskriver det upptäckta felet
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats. och Bilaga för IT-säkerhet inom SDKLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Det första meddelandet tas emot och hanteras korrekt.
+Det andra meddelandet identifieras som felaktigt eftersom meddelandeidentiteten redan har använts.
+Det andra meddelandet avvisas av deltagarorganisationens meddelandetjänst.
+En meddelandekvittens med kvittenskoden REJECTED genereras och skickas tillbaka.
+Meddelandekvittensen innehåller information om varför meddelandet avvisades.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+Varje SDK-meddelande ska ha en unik meddelandeidentitet. I detta testfall används samma meddelandeidentitet i två meddelanden för att verifiera att meddelandetjänsten upptäcker och avvisar dubbletter.
+Testfallet kräver normalt stöd från leverantören av meddelandesystemet eftersom det förutsätter att ett meddelande kan skickas med samma meddelandeidentitet som ett tidigare meddelande.
+SDK testklient saknar stöd för att genomföra detta testfall. Testfallet är därför främst relevant att genomföra som en del av interna utvecklings- eller verifieringstester tillsammans med leverantören av meddelandesystemet.
+Testfallet ska genomföras manuellt och motsvarar "TF 2.4.4 Skicka från testklient – Meddelandets identitet är ej unikt". Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.4.5 – Meddelandetjänsten hanterar ett inkommande meddelande med felaktig funktionsadress
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst upptäcker och avvisar ett inkommande SDK-meddelande som är adresserat till en funktionsadress som inte finns registrerad i SDK adressbok.
+Teststeg
+Skicka ett meddelande från SDK testklient till deltagarorganisationen där mottagande funktionsadress inte finns registrerad i SDK adressbok.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens med kvittenskoden REJECTED.
+Kontrollera att meddelandekvittensen innehåller:
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: not-found
+Detaljtext som beskriver det upptäckta felet
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandet identifieras som felaktigt eftersom mottagande funktionsadress inte finns registrerad i SDK adressbok.
+Meddelandet avvisas av deltagarorganisationens meddelandetjänst.
+En meddelandekvittens med kvittenskoden REJECTED genereras och skickas tillbaka till SDK testklient.
+Meddelandekvittensen innehåller information om varför meddelandet avvisades.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+I detta testfall är meddelandet adresserat till en funktionsadress som inte finns registrerad i SDK adressbok. Testfallet verifierar att meddelandetjänsten upptäcker felet och avvisar meddelandet.
+Testfallet är automatiserat i SDK testklient och motsvarar testfallet "TF 2.4.5 Felaktig funktionsadress".
+TF 2.4.6 – Meddelandetjänsten hanterar ett inkommande meddelande när meddelandeklienten inte är tillgänglig
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst hanterar ett inkommande SDK-meddelande korrekt när den inte kan leverera meddelandet vidare till meddelandeklienten.
+Teststeg
+Säkerställ att meddelandeklienten inte är tillgänglig för deltagarorganisationens meddelandetjänst.
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok och som är kopplad till den meddelandeklient som inte är tillgänglig.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens med kvittenskoden ACCEPTED.
+Kontrollera att meddelandet lagras eller buffras av meddelandetjänsten i väntan på att det kan levereras till meddelandeklienten.
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Återanslut meddelandeklienten till deltagarorganisationens meddelandetjänst.
+Kontrollera att det tidigare mottagna meddelandet levereras till meddelandeklienten.
+Kontrollera att meddelandet kan läsas och hanteras korrekt i meddelandeklienten.
+Förväntat resultat
+Meddelandet tas emot av deltagarorganisationens meddelandetjänst.
+En meddelandekvittens med kvittenskoden ACCEPTED genereras och skickas tillbaka.
+Meddelandet lagras eller buffras tillfälligt av meddelandetjänsten.
+Meddelandet går inte förlorat när meddelandeklienten inte är tillgänglig.
+Meddelandet levereras till meddelandeklienten när anslutningen återställs.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+I detta testfall simuleras en situation där meddelandeklienten tillfälligt inte kan ta emot meddelanden från meddelandetjänsten. Testfallet verifierar att meddelandetjänsten tar emot och behåller meddelandet tills det kan levereras.
+Testfallet ska genomföras manuellt och motsvarar "TF 2.4.6 MT hanterar inkommande meddelande korrekt om meddelandet inte kan dirigeras vidare till MK" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.4.8 – Meddelandetjänsten hanterar ett inkommande meddelande som överskrider storleksbegränsningen
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst upptäcker och avvisar ett inkommande SDK-meddelande som överskrider den maximalt tillåtna storleken på 30 MB.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok. Meddelandet ska överskrida den maximalt tillåtna storleken på 30 MB.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens med kvittenskoden REJECTED.
+Kontrollera att meddelandekvittensen innehåller:
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: too-long
+Detaljtext som beskriver det upptäckta felet
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandet identifieras som för stort för att hanteras inom SDK.
+Meddelandet avvisas av deltagarorganisationens meddelandetjänst.
+En meddelandekvittens med kvittenskoden REJECTED genereras och skickas tillbaka till SDK testklient.
+Meddelandekvittensen innehåller information om varför meddelandet avvisades.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+Den maximalt tillåtna storleken för ett SDK-meddelande är 30 MB inklusive bilagor. I detta testfall skickas ett meddelande som överskrider denna gräns för att verifiera att meddelandetjänsten upptäcker och avvisar meddelandet.
+SDK testklient har stöd för att skicka meddelanden med bilagor där den sammanlagda storleken överstiger 30 MB (upp till 35 MB).
+Testfallet motsvarar "TF 2.4.8 Skicka från testklient – Överskrider storleksbegränsning" i SDK testklient.
+Testfallet ska genomföras manuellt och motsvarar "TF 2.4.8 Skicka från testklient – Överskrider storleksbegränsning" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.4.9 – Meddelandetjänsten hanterar ett inkommande meddelande med motstridig avsändarinformation
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst upptäcker och avvisar ett inkommande SDK-meddelande där avsändarinformationen inte är konsekvent mellan olika delar av meddelandet.
+Teststeg
+Skicka ett SDK-meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok. Meddelandet innehåller olika avsändarinformation i XHE och AS4.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens med kvittenskoden REJECTED.
+Kontrollera att meddelandekvittensen innehåller:
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: security
+Detaljtext som beskriver det upptäckta felet
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandet identifieras som felaktigt.
+Meddelandet avvisas av deltagarorganisationens meddelandetjänst.
+En meddelandekvittens med kvittenskoden REJECTED genereras och skickas tillbaka till SDK testklient.
+Meddelandekvittensen innehåller information om varför meddelandet avvisades.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+I detta testfall innehåller meddelandet olika uppgifter om vem som är avsändare i XHE respektive AS4. Testfallet verifierar att meddelandetjänsten upptäcker denna avvikelse och avvisar meddelandet.
+Testfallet är automatiserat i SDK testklient och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 2.4.9 Mottaget meddelande har XHE med avsändare som ej överensstämmer med avsändare i AS4”.
+TF 2.5.1 – Meddelandetjänsten hanterar ett utgående meddelande när mottagarens accesspunkt inte är tillgänglig
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst hanterar ett utgående SDK-meddelande korrekt när mottagarens accesspunkt inte kan nås.
+Teststeg
+Skicka ett meddelande från deltagarorganisationens meddelandeklient till Organisation#2 i SDK adressbok.
+Kontrollera hur meddelandesystemet presenterar meddelandets status när meddelandet inte kan levereras till mottagarens accesspunkt.
+Kontrollera om meddelandesystemet genomför omsändningsförsök enligt den egna organisationens konfiguration.
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandet kan inte levereras eftersom mottagarens accesspunkt inte är tillgänglig.
+Meddelandesystemet hanterar situationen på ett kontrollerat sätt.
+Meddelandets status kan följas i meddelandesystemet.
+Eventuella omsändningsförsök hanteras enligt organisationens konfiguration.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+Organisation#2 används i detta testfall för att simulera en mottagare vars accesspunkt inte är tillgänglig. Testfallet verifierar att meddelandesystemet hanterar situationen korrekt och att användaren kan följa meddelandets status.
+Testfallet ska genomföras manuellt och motsvarar "TF 2.5.1 MT hanterar meddelandestatus korrekt om mottagande AP inte svarar" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.5.2 – Meddelandetjänsten hanterar ett utgående meddelande när den egna accesspunkten inte är tillgänglig
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst hanterar ett utgående SDK-meddelande korrekt när den inte kan kommunicera med den egna accesspunkten.
+Teststeg
+Säkerställ att anslutningen mellan deltagarorganisationens meddelandetjänst och accesspunkt är bruten.
+Skicka ett meddelande från deltagarorganisationens meddelandeklient via meddelandetjänsten.
+Kontrollera hur meddelandesystemet presenterar meddelandets status när meddelandet inte kan skickas vidare till accesspunkten.
+Kontrollera om meddelandesystemet genomför omsändningsförsök enligt den egna organisationens konfiguration.
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Återställ anslutningen mellan meddelandetjänsten och accesspunkten.
+Förväntat resultat
+Meddelandet kan inte skickas vidare till accesspunkten.
+Meddelandesystemet hanterar situationen på ett kontrollerat sätt.
+Meddelandets status kan följas i meddelandesystemet.
+Eventuella omsändningsförsök hanteras enligt organisationens konfiguration.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+I detta testfall simuleras en situation där deltagarorganisationens meddelandetjänst inte kan kommunicera med den egna accesspunkten. Testfallet verifierar att meddelandesystemet hanterar situationen korrekt och att användaren kan följa meddelandets status.
+Testfallet ska genomföras manuellt och motsvarar "TF 2.5.2 MT hanterar meddelandestatus korrekt om egen AP är onåbar" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.6.1 – Meddelandesystemet hanterar en REJECTED-kvittens när bilagans filtyp inte stöds
+Syfte
+Verifiera att deltagarorganisationens meddelandesystem hanterar en meddelandekvittens med kvittenskoden REJECTED när mottagaren avvisar ett meddelande eftersom bilagans filtyp inte stöds.
+Teststeg
+Skicka ett meddelande med en bilaga av filtypen .exe från deltagarorganisationens meddelandeklient via meddelandetjänsten till SDK testklients funktionsadress "sdk-testbed.notsupported".
+Kontrollera att SDK testklient returnerar en meddelandekvittens med kvittenskoden REJECTED.
+Kontrollera hur meddelandesystemet presenterar information om att meddelandet har avvisats.
+Kontrollera att orsaken till att meddelandet avvisades framgår för användaren.
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandet avvisas av SDK testklient eftersom bilagans filtyp inte stöds.
+En meddelandekvittens med kvittenskoden REJECTED tas emot av deltagarorganisationens meddelandesystem.
+Meddelandesystemet presenterar att meddelandet har avvisats.
+Orsaken till avvisningen framgår för användaren.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+I detta testfall används funktionsadressen "sdk-testbed.notsupported" som returnerar en meddelandekvittens med kvittenskoden REJECTED när en bilaga med en filtyp som inte stöds skickas. Testfallet verifierar att meddelandesystemet tar emot, hanterar och presenterar information om den mottagna meddelandekvittensen på ett korrekt sätt.
+Testfallet ska genomföras manuellt och motsvarar "TF 2.6.1 Skicka meddelandekvittens från Testklient – Reject (filtyp stöds ej)" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.6.2 – Meddelandesystemet hanterar en REJECTED-kvittens med omfattande felinformation
+Syfte
+Verifiera att deltagarorganisationens meddelandesystem kan ta emot och hantera en meddelandekvittens med kvittenskoden REJECTED som innehåller omfattande information om varför meddelandet har avvisats.
+Teststeg
+Skicka ett meddelande från deltagarorganisationens meddelandeklient via meddelandetjänsten till SDK testklients funktionsadress "sdk-testbed.rejected".
+Kontrollera att SDK testklient returnerar en meddelandekvittens med kvittenskoden REJECTED och omfattande felinformation.
+Kontrollera hur meddelandesystemet presenterar information om att meddelandet har avvisats.
+Kontrollera att den detaljerade felinformationen kan hanteras och visas eller följas upp på ett korrekt sätt.
+Kontrollera om meddelandesystemet presenterar eventuella omsändningsrutiner när meddelandet inte har accepterats.
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationer.Länk till annan webbplats. Länk till annan webbplats.
+Förväntat resultat
+En meddelandekvittens med kvittenskoden REJECTED tas emot av deltagarorganisationens meddelandesystem.
+Meddelandesystemet hanterar meddelandekvittensen utan fel.
+Meddelandesystemet presenterar att meddelandet har avvisats.
+Den detaljerade felinformationen kan visas eller följas upp.
+Eventuella omsändningsrutiner presenteras enligt organisationens konfiguration.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+I detta testfall returnerar SDK testklient en meddelandekvittens med kvittenskoden REJECTED och omfattande felinformation. Det innebär att meddelandekvittensen innehåller flera informationsfält som beskriver varför meddelandet har avvisats.
+Testfallet verifierar att meddelandesystemet kan ta emot, hantera och presentera en mer detaljerad meddelandekvittens på ett korrekt sätt.
+Testfallet ska genomföras manuellt och motsvarar "TF 2.6.2 Skicka meddelandekvittens från Testklient – Reject (Samtliga frivilliga element)" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.6.3 – Meddelandesystemet hanterar utebliven meddelandekvittens
+Syfte
+Verifiera att deltagarorganisationens meddelandesystem hanterar ett utgående SDK-meddelande korrekt när meddelandet har skickats, men ingen meddelandekvittens tas emot från mottagaren.
+Teststeg
+Skicka ett meddelande från deltagarorganisationens meddelandeklient via meddelandetjänsten till SDK testklients funktionsadress "sdk-testbed.timeout".
+Kontrollera hur meddelandesystemet presenterar meddelandets status när ingen meddelandekvittens tas emot.
+Kontrollera om meddelandesystemet presenterar eventuella omsändningsrutiner när meddelandet inte har kvitterats.
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandet skickas från deltagarorganisationens meddelandesystem.
+Ingen meddelandekvittens tas emot från SDK testklient.
+Meddelandesystemet hanterar den uteblivna meddelandekvittensen på ett kontrollerat sätt.
+Meddelandets status kan följas i meddelandesystemet.
+Eventuella omsändningsrutiner presenteras enligt organisationens konfiguration.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+I detta testfall används funktionsadressen "sdk-testbed.timeout", som inte returnerar någon meddelandekvittens. Testfallet verifierar att meddelandesystemet hanterar en situation där meddelandet har skickats men inte kvitterats av mottagaren.
+Testfallet ska genomföras manuellt och motsvarar "TF 2.6.3 Skicka ingen meddelandekvittens från Testklient" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.6.4 – Meddelandetjänsten hanterar ett inkommande meddelande när signaturen inte kan verifieras
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst avvisar ett inkommande SDK-meddelande när signaturen inte kan verifieras eftersom nödvändig certifikatinformation inte kan hämtas.
+Teststeg
+Konfigurera meddelandetjänsten så att certifikatspubliceringstjänsten inte kan nås.
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens med kvittenskoden REJECTED.
+Kontrollera att meddelandekvittensen innehåller:
+Kvittenskod: REJECTED
+Orsakskod: SIG
+Detaljkod: security
+Detaljtext som beskriver det upptäckta felet
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Återställ konfigurationen så att certifikatspubliceringstjänsten åter kan nås.
+Förväntat resultat
+Meddelandets signatur kan inte verifieras.
+Meddelandet avvisas av deltagarorganisationens meddelandetjänst.
+En meddelandekvittens med kvittenskoden REJECTED genereras och skickas tillbaka till SDK testklient.
+Meddelandekvittensen innehåller information om varför meddelandet avvisades.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+För att verifiera signaturen på ett inkommande SDK-meddelande behöver meddelandetjänsten kunna hämta certifikatinformation från certifikatspubliceringstjänsten. I detta testfall görs tjänsten otillgänglig för att verifiera att meddelandetjänsten upptäcker problemet och avvisar meddelandet på ett korrekt sätt.
+Testfallet kräver normalt stöd från leverantören av meddelandesystemet eftersom det förutsätter att konfigurationen för certifikathantering ändras tillfälligt.
+Testfallet ska genomföras manuellt och motsvarar "TF 2.6.4 Skicka från testklient – Normalt meddelande (men REJECTED förväntas, certpub onåbar hos mottagare)" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.6.5 – Meddelandetjänsten hanterar ett inkommande meddelande med felaktig signatur
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst upptäcker och avvisar ett inkommande SDK-meddelande vars signatur inte kan verifieras.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok. Meddelandet innehåller en felaktig signatur.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens med kvittenskoden REJECTED.
+Kontrollera att meddelandekvittensen innehåller:
+Kvittenskod: REJECTED
+Orsakskod: SIG
+Detaljkod: security
+Detaljtext som beskriver det upptäckta felet
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandets signatur kan inte verifieras.
+Meddelandet avvisas av deltagarorganisationens meddelandetjänst.
+En meddelandekvittens med kvittenskoden REJECTED genereras och skickas tillbaka till SDK testklient.
+Meddelandekvittensen innehåller information om varför meddelandet avvisades.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+Alla SDK-meddelanden signeras för att mottagaren ska kunna verifiera vem som skickat meddelandet och att innehållet inte har förändrats under transporten.
+I detta testfall innehåller meddelandet en felaktig signatur. Testfallet verifierar att meddelandetjänsten upptäcker felet och avvisar meddelandet.
+Testfallet är automatiserat i SDK testklient och motsvarar testfallet "TF 2.6.5 Felaktig signatur" i SDK testklient.
+TF 2.6.6 – Meddelandetjänsten hanterar ett inkommande meddelande som inte kan dekrypteras
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst hanterar ett inkommande SDK-meddelande korrekt när meddelandets innehåll inte kan dekrypteras.
+Teststeg
+Skicka ett meddelande till en av deltagarorganisationens funktionsadresser där den krypterade nyttolasten har förändrats så att mottagaren inte kan dekryptera meddelandet.
+Kontrollera att deltagarorganisationens meddelandetjänst inte genererar någon meddelandekvittens.
+Kontrollera att SDK testklient inte tar emot någon meddelandekvittens och att en timeout uppstår.
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandet kan inte dekrypteras av deltagarorganisationens meddelandetjänst.
+Ingen meddelandekvittens genereras.
+SDK testklient får ingen meddelandekvittens och timeout inträffar.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+I detta testfall har den krypterade nyttolasten förändrats efter krypteringen, vilket gör att mottagaren inte kan dekryptera meddelandet korrekt. Testfallet verifierar att meddelandetjänsten hanterar situationen på ett säkert sätt.
+Testfallet kräver normalt stöd från leverantören av meddelandesystemet eftersom det förutsätter att ett meddelande manipuleras efter kryptering för att skapa testsituationen.
+SDK testklient saknar stöd för att genomföra detta testfall. Testfallet är därför främst relevant att genomföra som en del av interna utvecklings- eller verifieringstester tillsammans med leverantören av meddelandesystemet.
+Testfallet ska genomföras manuellt och motsvarar "TF 2.6.6 Skicka från testklient – Felaktig kryptering" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.6.7 – Meddelandetjänsten hanterar ett inkommande meddelande som saknar kryptering
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst upptäcker och avvisar ett inkommande SDK-meddelande som inte är krypterat enligt SDK krav.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok. Meddelandet innehåller en okrypterad nyttolast.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens med kvittenskoden REJECTED.
+Kontrollera att meddelandekvittensen innehåller:
+Kvittenskod: REJECTED
+Orsakskod: BV eller SIG
+Detaljkod: security
+Detaljtext som beskriver det upptäckta felet
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandet identifieras som felaktigt eftersom det inte är krypterat.
+Meddelandet avvisas av deltagarorganisationens meddelandetjänst.
+En meddelandekvittens med kvittenskoden REJECTED genereras och skickas tillbaka till SDK testklient.
+Meddelandekvittensen innehåller information om varför meddelandet avvisades.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+SDK-meddelanden ska vara krypterade för att skydda informationen under transport mellan organisationer. I detta testfall skickas ett meddelande utan kryptering för att verifiera att meddelandetjänsten upptäcker felet och avvisar meddelandet.
+Testfallet är automatiserat i SDK testklient och motsvarar testfallet "TF 2.6.7 Felhantering av inkommande okrypterat meddelande" i SDK testklient.
+TF 2.7.1 – Meddelandesystemet hanterar ett utgående meddelande när mottagarens O2O-certifikat har gått ut
+Syfte
+Verifiera att deltagarorganisationens meddelandesystem hanterar ett utgående SDK-meddelande korrekt när mottagarens O2O-certifikat har gått ut och meddelandet därför inte kan skickas.
+Teststeg
+Skicka ett meddelande från deltagarorganisationens meddelandeklient via meddelandetjänsten till Organisation#3 i SDK adressbok.
+Kontrollera att meddelandesystemet upptäcker att mottagarens O2O-certifikat har gått ut.
+Kontrollera hur meddelandesystemet presenterar meddelandets status när meddelandet inte kan skickas.
+Kontrollera att användaren får information om varför meddelandet inte kunde skickas.
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationer.
+Förväntat resultat
+Meddelandesystemet upptäcker att mottagarens O2O-certifikat har gått ut.
+Meddelandet kan inte skickas.
+Meddelandets status kan följas i meddelandesystemet.
+Användaren får information om varför meddelandet inte kunde skickas.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+Organisation#3 används i detta testfall för att simulera en mottagare med ett utgånget O2O-certifikat. Testfallet verifierar att meddelandesystemet upptäcker problemet och hanterar situationen på ett kontrollerat sätt.
+Testfallet ska genomföras manuellt och motsvarar "TF 2.7.1 MT hanterar meddelandestatus korrekt om mottagaren använder utgånget O2O-certifikat" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.7.2 – Meddelandesystemet hanterar ett utgående meddelande när mottagarens AS4-certifikat har gått ut
+Syfte
+Verifiera att deltagarorganisationens meddelandesystem hanterar ett utgående SDK-meddelande korrekt när mottagarens AS4-certifikat har gått ut och meddelandet därför inte kan skickas.
+Teststeg
+Skicka ett meddelande från deltagarorganisationens meddelandeklient via meddelandetjänsten till Organisation #4 i SDK adressbok.
+Kontrollera att meddelandesystemet upptäcker att mottagarens AS4-certifikat har gått ut.
+Kontrollera hur meddelandesystemet presenterar meddelandets status när meddelandet inte kan skickas.
+Kontrollera att användaren får information om varför meddelandet inte kunde skickas.
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandesystemet upptäcker att mottagarens AS4-certifikat har gått ut.
+Meddelandet kan inte skickas.
+Meddelandets status kan följas i meddelandesystemet.
+Användaren får information om varför meddelandet inte kunde skickas.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+Organisation#4 används i detta testfall för att simulera en mottagare med ett utgånget AS4-certifikat. Testfallet verifierar att meddelandesystemet upptäcker problemet och hanterar situationen på ett kontrollerat sätt.
+Testfallet ska genomföras manuellt och motsvarar "TF 2.7.2 MT hanterar meddelandestatus korrekt om mottagaren använder felaktigt AS4-certifikat" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.7.3 – Meddelandesystemet hanterar ett utgående meddelande när mottagarens TLS-certifikat har gått ut
+Syfte
+Verifiera att deltagarorganisationens meddelandesystem hanterar ett utgående SDK-meddelande korrekt när mottagarens TLS-certifikat har gått ut och meddelandet därför inte kan skickas.
+Teststeg
+Skicka ett meddelande från deltagarorganisationens meddelandeklient via meddelandetjänsten till Organisation #5 i SDK adressbok.
+Kontrollera att meddelandesystemet upptäcker att mottagarens TLS-certifikat har gått ut.
+Kontrollera hur meddelandesystemet presenterar meddelandets status när meddelandet inte kan skickas.
+Kontrollera att användaren får information om varför meddelandet inte kunde skickas.
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationerLänk till annan webbplats. Länk till annan webbplats..
+Förväntat resultat
+Meddelandesystemet upptäcker att mottagarens TLS-certifikat har gått ut.
+Meddelandet kan inte skickas.
+Meddelandets status kan följas i meddelandesystemet.
+Användaren får information om varför meddelandet inte kunde skickas.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+Organisation #5 används i detta testfall för att simulera en mottagare med ett utgånget TLS-certifikat. Testfallet verifierar att meddelandesystemet upptäcker problemet och hanterar situationen på ett kontrollerat sätt.
+Testfallet ska genomföras manuellt och motsvarar "TF 2.7.3 MT hanterar meddelandestatus korrekt om mottagaren använder utgånget TLS-certifikat" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 2.7.4 – Meddelandesystemet hanterar ett utgående meddelande när mottagarens TLS-certifikat använder en ej betrodd certifikatutfärdare
+Syfte
+Verifiera att deltagarorganisationens meddelandesystem hanterar ett utgående SDK-meddelande korrekt när mottagarens TLS-certifikat har utfärdats av en certifikatutfärdare som inte är betrodd.
+Teststeg
+Skicka ett meddelande från deltagarorganisationens meddelandeklient via meddelandetjänsten till Organisation#6 i SDK adressbok.
+Kontrollera att meddelandesystemet upptäcker att mottagarens TLS-certifikat använder en ej betrodd certifikatutfärdare.
+Kontrollera hur meddelandesystemet presenterar meddelandets status när meddelandet inte kan skickas.
+Kontrollera att användaren får information om varför meddelandet inte kunde skickas.
+Kontrollera att loggarna stämmer och är följsamma till SDK krav på spårbarhet. Se Regelverk för deltagarorganisationer.
+Förväntat resultat
+Meddelandesystemet upptäcker att mottagarens TLS-certifikat inte kan betros.
+Meddelandet kan inte skickas.
+Meddelandets status kan följas i meddelandesystemet.
+Användaren får information om varför meddelandet inte kunde skickas.
+Loggning och spårbarhet uppfyller SDK krav.
+Kommentar
+Organisation#6 används i detta testfall för att simulera en mottagare vars TLS-certifikat har utfärdats av en certifikatutfärdare som inte är betrodd. Testfallet verifierar att meddelandesystemet upptäcker problemet och hanterar situationen på ett kontrollerat sätt.
+Testfallet ska genomföras manuellt och motsvarar "TF 2.7.4 MT hanterar meddelandestatus korrekt om mottagaren använder felaktig CA i TLS-certifikat" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+Testfall för meddelandeklient
+Meddelandeklienten är det system eller gränssnitt som används för att läsa, skapa och hantera SDK-meddelanden.
+Följande testfall används för att verifiera att deltagarorganisationens meddelandeklient fungerar korrekt tillsammans med meddelandetjänsten och kan hantera SDK-meddelanden på ett korrekt sätt. Testerna fokuserar bland annat på att meddelanden kan visas, skickas och tas emot samt att meddelandestatus och meddelandekvittenser presenteras på ett tydligt sätt för användaren.
+TF 3.0.1 - Meddelandeklienten tar emot meddelande från SDK testklient
+Syfte
+Verifiera att deltagarorganisationens meddelandeklient kan ta emot och presentera ett inkommande SDK-meddelande korrekt för användaren.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok.
+Sätt "Subject" (ämnesraden) i meddelandet till "TF 3.0.1".
+Kontrollera att meddelandet levereras till den egna meddelandeklienten.
+Kontrollera att innehållet överensstämmer med det som angivits i SDK testklient.
+Kontrollera att samtliga bilagor kan öppnas och läsas.
+Kontrollera att formateringen visas korrekt.
+Förväntat resultat
+Meddelandet visas i meddelandeklienten.
+Meddelandets innehåll är korrekt.
+Samtliga bilagor kan öppnas och läsas.
+Formateringen visas korrekt för användaren.
+Kommentar
+Testfallet ska genomföras manuellt och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 3.0.1. Användare har via egen MK tagit del av meddelande från SDK Testklient”.
+Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 3.0.2 - Meddelandeklienten skickar meddelande till SDK testklient
+Syfte
+Verifiera att användare av meddelandeklienten kan skapa och skicka ett SDK-meddelande till SDK testklient samt adressera mottagaren genom uppgifter hämtade från SDK adressbok.
+Teststeg
+Skapa ett nytt SDK-meddelande i meddelandeklienten.
+Välj deltagarorganisationens testfunktionsadress under federationsägarens organisation i SDK QA-miljö som mottagare från SDK adressbok (se avsnittet "Testfunktionsadress för deltagarorganisationen").
+Sätt "Subject" (ämnesraden) till "TF 3.0.2".
+Skicka meddelandet.
+Kontrollera att SDK testklient tar emot meddelandet.
+Kontrollera att innehållet i det mottagna meddelandet överensstämmer med innehållet som skickades från meddelandeklienten.
+Förväntat resultat
+Testfunktionsadressen kan väljas via SDK adressbok.
+Meddelandet skickas utan fel.
+SDK testklient tar emot meddelandet.
+Innehållet i det mottagna meddelandet överensstämmer med innehållet som skickades från meddelandeklienten.
+Kommentar
+Testfallet ska genomföras manuellt och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 3.0.2 Användare har via egen MK skickat meddelande till SDK Testklient”. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat” i testklienten.
+TF 3.1.1 – Meddelandeklienten hanterar ett inkommande meddelande med minimalt innehåll
+Syfte
+Verifiera att deltagarorganisationens meddelandeklient kan visa och hantera ett inkommande SDK-meddelande som endast innehåller de obligatoriska uppgifter som krävs enligt Innehållsspecifikation – Meddelande.Länk till annan webbplats. Länk till annan webbplats.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok.
+Kontrollera att meddelandet visas i deltagarorganisationens meddelandeklient.
+Kontrollera att meddelandets innehåll överensstämmer med det meddelande som skickades från SDK testklient.
+Kontrollera att användaren kan läsa och hantera meddelandet i meddelandeklienten.
+Förväntat resultat
+Meddelandet visas i meddelandeklienten.
+Meddelandets innehåll är korrekt.
+Samtliga obligatoriska uppgifter visas korrekt.
+Användaren kan läsa och hantera meddelandet utan problem.
+Kommentar
+Detta testfall verifierar att meddelandeklienten kan hantera ett SDK-meddelande som endast innehåller obligatoriska uppgifter och saknar frivilliga uppgifter.
+SDK testklient gör ingen skillnad mellan detta testfall och TF 2.1.1. Skillnaden är att TF 2.1.1 verifierar meddelandetjänstens hantering av meddelandet, medan detta testfall verifierar att meddelandet även kan visas och hanteras korrekt i meddelandeklienten.
+Testfallet ska genomföras manuellt och motsvarar "TF 3.1.1 Användare har via egen MK tagit del av minimalt meddelande från SDK Testklient" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 3.1.2 - Meddelandeklienten tar emot meddelande (maximal) från SDK testklient
+Syfte
+Verifiera att deltagarorganisationens meddelandeklient kan hantera ett inkommande SDK-meddelande med flera bilagor där den totala storleken är strax under den maximala tillåtna storleken på 30 MB.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok. Meddelandet ska innehålla flera bilagor och ha en sammanlagd storlek strax under den maximala tillåtna storleken på 30 MB.
+Sätt "Subject" (ämnesraden) i meddelandet till "TF 3.1.2".
+Kontrollera att meddelandet levereras till meddelandeklienten.
+Kontrollera att innehållet överensstämmer med det som angivits i SDK testklient.
+Kontrollera att samtliga bilagor kan öppnas och läsas.
+Förväntat resultat
+Meddelandet visas i meddelandeklienten.
+Meddelandets innehåll är korrekt.
+Samtliga bilagor kan öppnas och läsas.
+Meddelandeklienten kan hantera ett meddelande med en total storlek strax under 30 MB.
+Kommentar
+Testfallet ska genomföras manuellt och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 3.1.2. Användare har via egen MK tagit del av maximalt meddelande från SDK testklient”. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+SDK testklient gör ingen skillnad mellan TF 2.1.2 och TF 3.1.2. Skillnaden är att detta testfall även verifierar att deltagarorganisationens meddelandeklient kan hantera ett maximalt meddelandeinnehåll.
+TF 3.1.3 – Meddelandeklienten hanterar ett inkommande sekretessmarkerat meddelande
+Syfte
+Verifiera att deltagarorganisationens meddelandeklient kan visa och hantera ett inkommande SDK-meddelande som är sekretessmarkerat.
+Teststeg
+Skicka ett sekretessmarkerat meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok.
+Kontrollera att meddelandet visas i deltagarorganisationens meddelandeklient.
+Kontrollera att det tydligt framgår att meddelandet är sekretessmarkerat.
+Kontrollera att användaren kan läsa och hantera meddelandet i meddelandeklienten.
+Förväntat resultat
+Meddelandet visas i meddelandeklienten.
+Det framgår tydligt att meddelandet är sekretessmarkerat.
+Meddelandets innehåll kan läsas av behörig användare.
+Användaren kan hantera meddelandet utan problem.
+Kommentar
+Detta testfall verifierar att meddelandeklienten kan presentera sekretessmarkeringar på ett tydligt sätt för användaren.
+Testfallet ska genomföras manuellt och motsvarar "TF 3.1.3 Skicka från testklient till användare av MK – Omfattas av sekretess" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 3.2.1 – Meddelandeklienten besvarar ett mottaget meddelande i samma konversation
+Syfte
+Verifiera att deltagarorganisationens meddelandeklient kan besvara ett mottaget SDK-meddelande och att svaret kopplas till samma konversation som det ursprungliga meddelandet.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens för det mottagna meddelandet.
+Kontrollera att meddelandet visas i deltagarorganisationens meddelandeklient.
+Besvara det mottagna meddelandet från meddelandeklienten.
+Kontrollera att SDK testklient tar emot svaret.
+Kontrollera i SDK testklient att det ursprungliga meddelandet och svaret presenteras i samma konversation.
+Kontrollera att meddelandeklienten tar emot en meddelandekvittens för det skickade svaret.
+Förväntat resultat
+Meddelandet visas i meddelandeklienten.
+Användaren kan besvara meddelandet.
+SDK testklient tar emot svaret.
+Det ursprungliga meddelandet och svaret presenteras i samma konversation i SDK testklient.
+Meddelandeklienten tar emot en meddelandekvittens för det skickade svaret.
+Kommentar
+För att ett svar ska kopplas till rätt konversation används information från det ursprungliga meddelandet, bland annat conversationId. Testfallet verifierar att meddelandeklienten använder denna information korrekt när användaren besvarar meddelandet.
+Testfallet är automatiserat i SDK testklient. SDK testklient skickar det ursprungliga meddelandet, kontrollerar meddelandekvittensen för det mottagna meddelandet, kontrollerar att svaret tas emot, verifierar att det ursprungliga meddelandet och svaret har samma conversationId samt skickar en meddelandekvittens på svaret. Användaren behöver besvara det mottagna meddelandet från den egna meddelandeklienten.
+Testfallet är automatiserat i SDK testklient och motsvarar "TF 3.2.1 Användare har i samma konversation tagit emot och besvarat fråga" i SDK testklient.
+TF 3.2.2 – Meddelandeklienten tar emot ett svar i samma konversation
+Syfte
+Verifiera att deltagarorganisationens meddelandeklient kan ta emot ett svar på ett tidigare skickat SDK-meddelande och visa svaret i samma konversation som det ursprungliga meddelandet.
+Teststeg
+Skicka ett meddelande från deltagarorganisationens meddelandeklient till SDK testklient.
+Kontrollera att SDK testklient tar emot meddelandet.
+Besvara det mottagna meddelandet i SDK testklient.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens för det mottagna svaret.
+Kontrollera att svaret visas i deltagarorganisationens meddelandeklient.
+Kontrollera i meddelandeklienten att det ursprungliga meddelandet och det mottagna svaret presenteras i samma konversation.
+Kontrollera att SDK testklient har tagit emot en meddelandekvittens för det skickade svaret.
+Förväntat resultat
+SDK testklient tar emot det skickade meddelandet.
+SDK testklient kan besvara meddelandet.
+Svaret tas emot av deltagarorganisationens meddelandetjänst.
+Svaret visas i meddelandeklienten.
+Det ursprungliga meddelandet och svaret presenteras i samma konversation.
+SDK testklient tar emot en meddelandekvittens för det skickade svaret.
+Kommentar
+För att ett svar ska kopplas till rätt konversation används information från det ursprungliga meddelandet, bland annat conversationId. Testfallet verifierar att meddelandeklienten kan visa ett mottaget svar i samma konversation som det tidigare skickade meddelandet.
+Testfallet ska genomföras manuellt och motsvarar "TF 3.2.2 Användare har i samma konversation skickat fråga och tagit del av svar" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 3.2.3 – Meddelandeklienten hanterar ett svar på ett tidigare svar i samma konversation
+Syfte
+Verifiera att deltagarorganisationens meddelandeklient kan ta emot och hantera ett nytt meddelande i en befintlig konversation så att hela konversationen presenteras korrekt för användaren.
+Teststeg
+Skicka ett meddelande från meddelandeklienten till SDK testklient och säkerställ att ett svar har tagits emot så att det finns en befintlig konversation mellan deltagarorganisationen och SDK testklient.
+Skicka ett nytt meddelande från SDK testklient i samma konversation som de tidigare utväxlade meddelandena.
+Kontrollera att det nya meddelandet visas i deltagarorganisationens meddelandeklient.
+Kontrollera i SDK testklient att det ursprungliga meddelandet, svaret och det nya meddelandet presenteras i samma konversation.
+Kontrollera i meddelandeklienten att det ursprungliga meddelandet, svaret och det nya meddelandet presenteras i samma konversation.
+Förväntat resultat
+Det nya meddelandet tas emot av deltagarorganisationens meddelandesystem.
+Meddelandet visas i meddelandeklienten.
+Samtliga meddelanden presenteras i samma konversation i SDK testklient.
+Samtliga meddelanden presenteras i samma konversation i meddelandeklienten.
+Kommentar
+Testfallet verifierar att meddelandeklienten kan hantera en pågående konversation där flera meddelanden utväxlas mellan parterna. Samtliga meddelanden i konversationen ska presenteras tillsammans så att användaren kan följa hela dialogen.
+För att genomföra testfallet krävs att det redan finns en befintlig konversation mellan deltagarorganisationen och SDK testklient.
+Testfallet ska genomföras manuellt och motsvarar "TF 3.2.3 Användare har i samma konversation tagit emot svar på svaret" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 3.2.4 – Meddelandeklienten fortsätter en befintlig konversation
+Syfte
+Verifiera att deltagarorganisationens meddelandeklient kan fortsätta en befintlig konversation genom att skicka ett nytt meddelande som kopplas till samma konversation.
+Teststeg
+Utgå från den konversation som skapades i testfall TF 3.2.2.
+Skicka ett nytt meddelande från meddelandeklienten i samma konversation till SDK testklient.
+Kontrollera att SDK testklient tar emot meddelandet.
+Kontrollera i SDK testklient att det ursprungliga meddelandet, svaret och det nya meddelandet presenteras i samma konversation.
+Kontrollera i meddelandeklienten att det ursprungliga meddelandet, svaret och det nya meddelandet presenteras i samma konversation.
+Förväntat resultat
+Det nya meddelandet tas emot av SDK testklient.
+Det ursprungliga meddelandet, svaret och det nya meddelandet presenteras i samma konversation i SDK testklient.
+Det ursprungliga meddelandet, svaret och det nya meddelandet presenteras i samma konversation i meddelandeklienten.
+Kommentar
+Testfallet verifierar att meddelandeklienten kan fortsätta en befintlig konversation genom att skicka ytterligare ett meddelande. Meddelandet ska kopplas till samma konversation som tidigare utväxlade meddelanden.
+Testfallet förutsätter att TF 3.2.2 har genomförts och att konversationen från det testfallet används vidare.
+Testfallet ska genomföras manuellt och motsvarar "TF 3.2.4 Användare har i samma konversation skickat svar på svaret" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 3.3.1 – Meddelandeklienten kompletterar ett tidigare skickat meddelande
+Syfte
+Verifiera att deltagarorganisationens meddelandeklient kan komplettera ett tidigare skickat SDK-meddelande och att kompletteringen kopplas till samma konversation som det ursprungliga meddelandet.
+Teststeg
+Skicka ett meddelande från deltagarorganisationens meddelandeklient till SDK testklient.
+Kontrollera att SDK testklient tar emot meddelandet.
+Skicka en komplettering till det tidigare skickade meddelandet från meddelandeklienten.
+Kontrollera att SDK testklient tar emot kompletteringen.
+Kontrollera i SDK testklient att det ursprungliga meddelandet och kompletteringen presenteras i samma konversation.
+Kontrollera att meddelandeklienten tar emot en meddelandekvittens för den skickade kompletteringen.
+Förväntat resultat
+SDK testklient tar emot det ursprungliga meddelandet.
+SDK testklient tar emot kompletteringen.
+Det ursprungliga meddelandet och kompletteringen presenteras i samma konversation i SDK testklient.
+Meddelandeklienten tar emot en meddelandekvittens för den skickade kompletteringen.
+Kommentar
+För att en komplettering ska kopplas till rätt konversation används information från det ursprungliga meddelandet, bland annat conversationId. Testfallet verifierar att meddelandeklienten använder denna information korrekt när en komplettering skickas.
+Testfallet ska genomföras manuellt och motsvarar "TF 3.3.1 Användare har i samma konversation skickat komplettering på tidigare skickad fråga" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 3.3.2 – Meddelandeklienten tar emot en komplettering i samma konversation
+Syfte
+Verifiera att deltagarorganisationens meddelandeklient kan ta emot en komplettering till ett tidigare mottaget SDK-meddelande och visa kompletteringen i samma konversation som det ursprungliga meddelandet.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens för det mottagna meddelandet.
+Skicka en komplettering från SDK testklient genom att använda kompletteringsfunktionen på det tidigare skickade meddelandet.
+Kontrollera att deltagarorganisationens meddelandetjänst genererar en meddelandekvittens för den mottagna kompletteringen.
+Kontrollera att kompletteringen visas i deltagarorganisationens meddelandeklient.
+Kontrollera i meddelandeklienten att det ursprungliga meddelandet och kompletteringen presenteras i samma konversation.
+Kontrollera att SDK testklient har tagit emot en meddelandekvittens för den skickade kompletteringen.
+Förväntat resultat
+Det ursprungliga meddelandet tas emot av deltagarorganisationens meddelandesystem.
+Kompletteringen tas emot av deltagarorganisationens meddelandesystem.
+Kompletteringen visas i meddelandeklienten.
+Det ursprungliga meddelandet och kompletteringen presenteras i samma konversation i meddelandeklienten.
+SDK testklient tar emot en meddelandekvittens för kompletteringen.
+Kommentar
+För att en komplettering ska kopplas till rätt konversation används information från det ursprungliga meddelandet, bland annat conversationId. Testfallet verifierar att meddelandeklienten kan visa en mottagen komplettering i samma konversation som det tidigare mottagna meddelandet.
+Testfallet ska genomföras manuellt och motsvarar "TF 3.3.2 Användare har i samma konversation tagit emot komplettering på tidigare mottagen fråga" i SDK testklient. Markera därefter rutan ”Anslutningstestet har genomförts med godkänt resultat”.

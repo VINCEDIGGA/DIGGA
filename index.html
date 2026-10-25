@@ -14,6 +14,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css?v=15" />
+    <link rel="stylesheet" href="css/rag-evidence.css?v=1" />
   </head>
   <body class="chat-page">
     <div class="app">
@@ -89,6 +90,8 @@
             </svg>
             Pågående ärenden
           </button>
+          <a class="nav-item nav-link guide-link" href="poc/steg-for-steg.html">Guidad anslutning</a>
+          <a class="nav-item nav-link" id="sdk-sources-link" href="poc/sdk-kallor.html">DIGG-källor</a>
         </nav>
 
         <p class="notice" id="limit-notice" hidden>
@@ -107,6 +110,15 @@
           <div class="chat-center">
             <p class="chat-intro">Fråga om SDK, certifikat eller leverantörer</p>
           </div>
+          <details class="rag-example-prompts" id="rag-example-prompts" open>
+            <summary>Prova en fråga</summary>
+            <div class="rag-example-grid">
+              <button type="button" data-example-prompt="Vad behöver en kommun förbereda innan den ansluter till Säker digital kommunikation (SDK)? Visa källor.">Förberedelser för SDK</button>
+              <button type="button" data-example-prompt="Vilka sex QA-testfall ska en deltagarorganisation genomföra inför federationsgodkännande för SDK? Ange test-ID och källor.">De sex QA-testfallen</button>
+              <button type="button" data-example-prompt="Om vår deltagaridentitet finns i SMP, betyder det att våra funktionsadresser är publicerade och bemannade i SDK adressbok? Förklara med källor.">SMP och funktionsadresser</button>
+              <button type="button" data-example-prompt="Kräver DIGG att alla kommuner köper en särskild AI-tjänst för att få ansluta till SDK? Säg tydligt om du saknar källstöd för kravet.">Ett obekräftat krav</button>
+            </div>
+          </details>
           <form class="chat-form" id="chat-form">
             <label class="btn-attach" id="attach-btn" for="file-input">
               <span class="visually-hidden">Bifoga fil</span>
@@ -167,8 +179,9 @@
       </form>
     </dialog>
 
-    <script src="js/config.js?v=3"></script>
-    <script src="js/api.js?v=9"></script>
-    <script src="js/app.js?v=15"></script>
+    <script src="js/config.js?v=4"></script>
+    <script src="js/api.js?v=16"></script>
+    <script src="js/workshop-access.js?v=1"></script>
+  <script src="js/app.js?v=18"></script>
   </body>
 </html>

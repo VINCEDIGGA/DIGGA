@@ -1,0 +1,191 @@
+Testfall för deltagarorganisationer inom SDK
+Anslutning för deltagarorganisationer
+Denna sida innehåller testfall och instruktioner för hur testfallen ska genomföras inför federationsgodkännande för deltagarorganisationer inom SDK.
+Här specificeras de testfall som en deltagarorganisation inom SDK ska genomföra inför anslutning till SDK produktionsmiljö. Testfallen ligger som grund för anslutning till och agerande i SDK produktionsmiljö.
+Testfallen utförs i SDK QA-miljö och förutsätter att deltagarorganisationen följer de regler och specifikationer som finns för miljön.
+Observera att dessa är en delmängd av de obligatoriska funktionella tester som leverantörer av meddelandesystem genomfört för att kunna användas inom SDK. Delmängden av testerna är de vi anser vara relevanta vid deltagares installation och konfiguration. Ni som deltagarorganisation har även möjlighet att genomföra samtliga testfall avsedda för leverantören av meddelandesystem. Detta är inget krav utan en möjlighet om behov finns. För rekommenderade verifieringstester, se Rekommenderade testfall för deltagarorganisationer.
+Om testerna
+Vissa av testfallen är automatiserade i SDK-testklienten under fliken "Nytt anslutningstest" och ska utföras där. Vilka specifika testfall detta gäller framgår under rubriken "Kommentar" för respektive testfall.
+Samtliga manuella testfall ska markeras som genomförda i SDK testklient under fliken "Nytt anslutningstest".
+Förutsättningar
+Deltagarorganisationens AP-operatör ska vara ansluten till SDK-QA.
+Deltagarorganisationen ska vara konfigurerad som deltagare i SMP i QA-miljön.
+Deltagarorganisationen ska ha skickat in SDK-anslutningsblankett.
+Deltagarorganisationen ska ha en användare med rollen användaradministratör, som tilldelar rollerna organisationsadministratör samt adressadministratör.
+Deltagarorganisationen ska ha registrerat funktionsadresser i SDK Adressbok.
+Deltagarorganisationens användaradministratör ska ha tilldelat rollen testklientanvändare.
+Testmiljö och testdata
+Funktionsadresser
+I testfallen används funktionsadresser som avsändare eller mottagare av meddelanden. En funktionsadress är en adress som registrerats för en verksamhetsfunktion eller funktionsbrevlåda i SDK adressbok.
+Exempel:
+barnoungdom.0203:testkommun.se
+Funktionsadresser används både när deltagarorganisationen skickar meddelanden och när meddelanden tas emot under testerna.
+Deltagarorganisationen i SDK adressbok
+SDK federationsägare (Digg) ansvarar för att lägga upp deltagarorganisationen i SDK adressbok samt tilldela behörighet för deltagarorganisationen att redigera sin organisations uppgifter.
+För att kunna genomföra anslutningstester behöver vissa uppgifter konfigureras i SDK adressbok. Det finns även frivilliga fält där deltagarorganisationen själv kan välja hur informationen ska fyllas i för att möjliggöra verksamhetslika tester.
+Följande uppgifter ska finnas registrerade i SDK adressbok innan anslutningstesterna påbörjas.
+Identifierare
+Deltagarorganisationens unika organisationsidentifierare i SDK.
+Exempel: "0203:testkommun.se".
+Namn
+Deltagarorganisationens formella namn.
+Exempel: "Testkommun".
+Beskrivning
+En beskrivning av deltagarorganisationen, kan redigeras av deltagarorganisationen.
+Exempel: "Testkommun är en...".
+Geografiska sökkoder
+Sökord som underlättar sökning efter organisationen i adressboken, kan redigeras av deltagarorganisationen. Exempel: “Värmlands län” och “Karlstad”.
+Funktionsadresser
+De funktionsadresser som ska användas vid testerna.
+Exempel: "barnoungdom.0203:testkommun.se"
+Funktionsnamn
+En beskrivning av verksamheten eller funktionen som funktionsadressen representerar.
+Exempel: "Barn- och ungdomsmottagningen Testkommun"
+Funktionsbeskrivning
+En beskrivning av verksamheten eller funktionen som funktionsadressen representerar.
+Exempel: "Barn- och ungdomsmottagningen handhar..."
+Federationsägaren i SDK adressbok i QA-miljö
+Federationsägaren (Digg) ansvarar för en organisation som finns registrerad i SDK adressbok. Organisationen används vid de testfall som deltagarorganisationen ska genomföra inför federationsgodkännande.
+Följande uppgifter används när meddelanden skickas till eller tas emot från SDK testklient under anslutningstesterna.
+Organisationsidentifierare
+Organisationens unika identifierare i SDK adressbok.
+0203:sdk-testclient.sdk-qa.digg.se
+Organisationsbeskrivning
+SDK testklient utgör ett stöd för deltagarorganisationers anslutningstester i SDK-QA. Testerna behöver genomföras för att kunna ansöka om federationsgodkännande för SDK.
+Alternativt namn
+Digg testklient
+Funktionsnamn
+Federationsägare i SDK QA-miljö
+Funktionsbeskrivning
+Funktionsadress används för att skicka och ta emot meddelanden i Diggs testklient i SDK-QA.
+Funktionsadress
+sdk-testclient.0203:sdk-testclient.sdk-qa.digg.se
+Testfunktionsadress för deltagarorganisationen
+För att kunna genomföra vissa anslutningstester skapas en särskild testfunktionsadress för deltagarorganisationen under federationsägarens organisation i SDK-QA.
+Funktionsadressen används vid kommunikation med SDK testklient och registreras av federationsägaren i samband med anslutningen till SDK-QA.
+Formatet på funktionsadressen är: sdk-testclient.<organisationsidentifierare>
+Exempel: sdk-testclient.0203:testkommun.se
+Denna funktionsadress används i de testfall där deltagarorganisationen ska skicka meddelanden till SDK testklient.
+SDK testklient
+SDK testklient erbjuds till deltagarorganisationer och leverantörer som utvecklar SDK-anpassade lösningar. Information om SDK testklienten och hur en deltagarorganisation/leverantör får tillgång till den finns på sidan SDK testklient.
+Genomförande av tester
+Verifieringstester genomförs av deltagarorganisationen för att verifiera dess anslutning till SDK QA-miljön. Testfallen verifierar endast grundläggande funktionalitet.
+Observera att testresultaten i SDK testklient sparas i sex månader. Under denna period är era testresultat tillgängliga för granskning inför godkännandeprocessen. Dröjer det mer än sex månader mellan testets genomförande och ansökan om federationsgodkännande behöver berörda tester göras om på nytt.
+Deltagarorganisationen kan kontakta sin leverantör för meddelandesystem eller federationsägaren om det finns behov för vidare felsökning som rör meddelande- eller verksamhetslager (anslutande system), t.ex. om meddelanden eller meddelandekvittenser som förväntas komma fram till SDK testklient inte visas i användargränssnittet för SDK testklient.
+Meddelandesystem, meddelandetjänst och meddelandeklient
+I testfallen används begreppen meddelandesystem, meddelandetjänst och meddelandeklient för att beskriva vilka delar av deltagarorganisationens lösning som verifieras. Nedan förklaras begreppen.
+Meddelandesystem
+Den samlade lösning som deltagarorganisationen använder för att skicka, ta emot och hantera SDK-meddelanden. Ett meddelandesystem består normalt av en meddelandetjänst och en meddelandeklient.
+Meddelandetjänst
+Den tekniska komponenten i meddelandesystemet som ansvarar för att skicka, ta emot, validera, signera och kryptera SDK-meddelanden samt hantera meddelandekvittenser.
+Meddelandeklient
+Det användargränssnitt eller verksamhetssystem i meddelandesystemet där användaren läser, skapar och hanterar SDK-meddelanden.
+Testfall för meddelandetjänst
+Meddelandetjänsten ansvarar för att skicka, ta emot, signera och kryptera SDK-meddelanden.
+Följande testfall verifierar att deltagarorganisationens meddelandetjänst fungerar korrekt i SDK-QA.
+TF 2.0.1 SDK testklient skickar meddelande till deltagarens meddelandesystem
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst kan ta emot ett inkommande SDK-meddelande, generera en meddelandekvittens och vidarebefordra meddelandet till meddelandeklienten.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok.
+Kontrollera att en meddelandekvittens skickas tillbaka till SDK testklient. Detta innebär att mottagande deltagarorganisations egen meddelandetjänst validerar meddelandet korrekt och genererar automatiskt en meddelandekvittens.
+Kontrollera att meddelandet levereras till den egna meddelandeklienten.
+Kontrollera att innehållet i det mottagna meddelandet stämmer överens med vad som angivits i SDK testklient.
+Kontrollera att SDK testklient tagit emot en meddelandekvittens.
+Förväntat resultat
+Meddelandet tas emot av deltagarorganisationens meddelandetjänst.
+Meddelandet vidarebefordras till meddelandeklienten.
+Meddelandeinnehållet är korrekt.
+En meddelandekvittens genereras och skickas tillbaka till SDK testklient.
+Kommentar
+Testfallet är automatiserat i SDK testklient och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 2.0.1 Normalt meddelande (inga bilagor)”.
+TF 2.0.2 - Deltagarorganisationens meddelandesystem skickar meddelande till SDK testklient
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst kan skicka ett SDK-meddelande till SDK testklient samt ta emot en meddelandekvittens.
+Teststeg
+Skicka ett meddelande från en av deltagarorganisationens funktionsadresser till SDK testklient.
+Sätt ”Subject” (ämnesraden) i meddelandet till ”TF 2.0.2”.
+Kontrollera att SDK testklient tar emot meddelandet.
+Kontrollera att innehållet i det mottagna meddelandet stämmer överens med innehållet som skickades från den egna meddelandeklienten.
+Kontrollera att meddelandekvittensen når meddelandeklienten.
+Förväntat resultat
+SDK testklient tar emot meddelandet.
+Meddelandeinnehållet är korrekt.
+En meddelandekvittens genereras och tas emot av deltagarorganisationens meddelandesystem.
+Kommentar
+Testfallet ska genomföras manuellt och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 2.0.2 Ta emot i testklient – Normalt meddelande” i testklienten. Glöm inte att markera rutan ”Anslutningstestet har genomförts med godkänt resultat ”.
+TF 2.1.2 - SDK testklient skickar ett maximalt meddelande till deltagarorganisationens meddelandesystem
+Syfte
+Verifiera att deltagarorganisationens meddelandetjänst kan hantera ett inkommande SDK-meddelande som innehåller flera bilagor där den totala storleken är strax under 30 MB vilket är den maximala tillåtna storleken för ett SDK-meddelande.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok. Meddelandet ska innehålla flera bilagor och ha en sammanlagd storlek strax under den maximala tillåtna storleken på 30 MB.
+Sätt "Subject" (ämnesraden) i meddelandet till "TF 2.1.2".
+Kontrollera att en meddelandekvittens skickas tillbaka till SDK testklient. Detta visar att deltagarorganisationens egen meddelandetjänst har validerat meddelandet korrekt och automatiskt genererat en meddelandekvittens.
+Kontrollera att meddelandet levereras till den egna meddelandeklienten.
+Kontrollera att innehållet i det mottagna meddelandet överensstämmer med innehållet i SDK testklient.
+Kontrollera att samtliga bilagor kan tas emot.
+Kontrollera att SDK testklient har tagit emot meddelandekvittensen.
+Förväntat resultat
+Meddelandet tas emot av deltagarorganisationens meddelandetjänst.
+Meddelandet vidarebefordras till meddelandeklienten.
+Samtliga bilagor tas emot korrekt.
+Meddelandeinnehållet är korrekt.
+En meddelandekvittens genereras och skickas tillbaka till SDK testklient.
+Kommentar
+Testfallet ska genomföras manuellt och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 2.1.2 Skicka från testklient – Stora bilagor, sammanlagd storlek strax under 30 MB”. Glöm inte att markera rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+Testfall för meddelandeklient (verksamhetslagret)
+Meddelandeklienten är det system eller gränssnitt som används för att läsa, skapa och hantera SDK-meddelanden.
+Följande testfall verifierar att deltagarorganisationens meddelandeklient fungerar korrekt i SDK-QA.
+TF 3.0.1 - Meddelandeklienten tar emot meddelande från SDK testklient
+Syfte
+Verifiera att deltagarorganisationens meddelandeklient kan ta emot och presentera ett inkommande SDK-meddelande korrekt för användaren.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok.
+Sätt "Subject" (ämnesraden) i meddelandet till "TF 3.0.1".
+Kontrollera att meddelandet levereras till den egna meddelandeklienten.
+Kontrollera att innehållet överensstämmer med det som angivits i SDK testklient.
+Kontrollera att samtliga bilagor kan öppnas och läsas.
+Kontrollera att formateringen visas korrekt.
+Förväntat resultat
+Meddelandet visas i meddelandeklienten.
+Meddelandets innehåll är korrekt.
+Samtliga bilagor kan öppnas och läsas.
+Formateringen visas korrekt för användaren.
+Kommentar
+Testfallet ska genomföras manuellt och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 3.0.1. Användare har via egen MK tagit del av meddelande från SDK Testklient”.
+Glöm inte att markera rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+TF 3.0.2 - Meddelandeklienten skickar meddelande till SDK testklient
+Syfte
+Verifiera att användare av meddelandeklienten kan skapa och skicka ett SDK-meddelande till SDK testklient samt adressera mottagaren genom uppgifter hämtade från SDK adressbok.
+Teststeg
+Skapa ett nytt SDK-meddelande i meddelandeklienten.
+Välj deltagarorganisationens testfunktionsadress under federationsägarens organisation i SDK-QA som mottagare från SDK adressbok (se avsnittet "Testfunktionsadress för deltagarorganisationen").
+Sätt "Subject" (ämnesraden) till "TF 3.0.2".
+Skicka meddelandet.
+Kontrollera att SDK testklient tar emot meddelandet.
+Kontrollera att innehållet i det mottagna meddelandet överensstämmer med innehållet som skickades från meddelandeklienten.
+Förväntat resultat
+Testfunktionsadressen kan väljas via SDK adressbok.
+Meddelandet skickas utan fel.
+SDK testklient tar emot meddelandet.
+Innehållet i det mottagna meddelandet överensstämmer med innehållet som skickades från meddelandeklienten.
+Kommentar
+Testfallet ska genomföras manuellt och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 3.0.2 Användare har via egen MK skickat meddelande till SDK Testklient”. Glöm inte att markera rutan ”Anslutningstestet har genomförts med godkänt resultat ” i testklienten.
+TF 3.1.2 - Meddelandeklienten tar emot meddelande (maximal) från SDK testklient
+Syfte
+Verifiera att deltagarorganisationens meddelandeklient kan hantera ett inkommande SDK-meddelande med flera bilagor där den totala storleken är strax under den maximala tillåtna storleken på 30 MB.
+Teststeg
+Skicka ett meddelande från SDK testklient till en av deltagarorganisationens funktionsadresser som är registrerad i SDK adressbok. Meddelandet ska innehålla flera bilagor och ha en sammanlagd storlek strax under den maximala tillåtna storleken på 30 MB.
+Sätt "Subject" (ämnesraden) i meddelandet till "TF 3.1.2".
+Kontrollera att meddelandet levereras till meddelandeklienten.
+Kontrollera att innehållet överensstämmer med det som angivits i SDK testklient.
+Kontrollera att samtliga bilagor kan öppnas och läsas.
+Förväntat resultat
+Meddelandet visas i meddelandeklienten.
+Meddelandets innehåll är korrekt.
+Samtliga bilagor kan öppnas och läsas.
+Meddelandeklienten kan hantera ett meddelande med en total storlek strax under 30 MB.
+Kommentar
+Testfallet ska genomföras manuellt och finns i testfallslistan i menyn ”Nytt anslutningstest” med namnet ”TF 3.1.2. Användare har via egen MK tagit del av maximalt meddelande från SDK testklient”. Glöm inte att markera rutan ”Anslutningstestet har genomförts med godkänt resultat”.
+Glöm inte att registrera testfallet som genomfört i SDK testklient under fliken ”Nytt anslutningstest”.
+SDK testklient gör ingen skillnad mellan TF 2.1.2 och TF 3.1.2. Skillnaden är att detta testfall även verifierar att deltagarorganisationens meddelandeklient kan hantera ett maximalt meddelandeinnehåll.

@@ -1,0 +1,431 @@
+Käll-ID i urvalet:
+REF:002
+REF:003
+REF:008
+SDK:certificate-renewal:2
+SDK:certificates:1
+SDK:certificates:2
+SDK:connection-instructions:5
+SDK:digital-post:1
+SDK:glossary:7
+SDK:participant-rules:1
+SDK:preparation:2
+SDK:preparation:3
+SDK:preparation:5
+SDK:preparation:6
+
+REFERENSDOKUMENT REF:002
+==============================================================================
+
+Titel: Teknisk beskrivning av digital post
+Tjänst: Mina meddelanden
+Källa: https://www.digg.se/digitala-tjanster/digital-post/digital-post-for-dig-som-brevladeoperator/teknisk-beskrivning-av-digital-post
+Ursprung: Importerad referens – läs ursprung och titel
+SHA-256 för innehållet: 57b176f1d9d5692fe026ba55789dfc4b7d27ab9ebff4bf391c0cd69bcdd0faa2
+
+INNEHÅLL (oförkortat):
+Digital post-infrastrukturen, även kallad Mina meddelanden, omfattar tjänster hos förmedlare, Digg och brevlådeoperatörer. Avsändaren ansvarar för att skapa försändelser enligt tekniskt tjänstekontrakt, signera och försegla korrekt, kontrollera mottagarens digitala brevlåda via Recipient och skicka till rätt brevlåda. Centrala tjänster är Recipient, Message, Authority och Service.
+
+
+==============================================================================
+
+REFERENSDOKUMENT REF:003
+==============================================================================
+
+Titel: Tjänstekontrakt och API-specifikationer
+Tjänst: Mina meddelanden
+Källa: https://www.digg.se/digitala-tjanster/digital-post/digital-post-for-dig-som-offentlig-aktor/teknisk-beskrivning-av-digital-post/tjanstespecifikation/tjanstekontrakt---api-specifikationer
+Ursprung: Importerad referens – läs ursprung och titel
+SHA-256 för innehållet: 6fd14397795bc24eb2b0420c9b86eb008e505674ab40be2a76b0a891f5cfcf84
+
+INNEHÅLL (oförkortat):
+Tekniska tjänstekontrakt är en central del av underlaget för anslutning till Mina meddelanden. De riktar sig till teknisk personal hos offentliga aktörer och leverantörer och beskriver meddelandeflöden, kvittenser, händelsehantering och felkoder. Fullständiga API-specifikationer finns uppdelade efter roll.
+
+
+==============================================================================
+
+REFERENSDOKUMENT REF:008
+==============================================================================
+
+Titel: SDK certifikat och O2O-underlag
+Tjänst: SDK
+Källa: local://sdk/certifikat-o2o-underlag
+Ursprung: Lokalt dokument/guide/sammanfattning
+SHA-256 för innehållet: 6ccdb81ed121bc42edb85059683b2b0eb83b2da8846e1f6048e888c4a87009f3
+
+INNEHÅLL (oförkortat):
+Vid SDK-frågor om certifikat bör svaret börja enkelt: fråga leverantören vem som praktiskt skapar, installerar och förvaltar certifikat, vilken testmiljö som används, vilket format som krävs och hur byte eller förnyelse görs. Kommunen bör spara ansvarig kontakt, certifikatägare, miljö, giltighetstid, filnamn, format, teststatus och vem som godkänt inför QA eller produktion. Tekniska detaljer ska förklaras först efter den praktiska ansvarsfördelningen.
+
+
+==============================================================================
+
+SDK-TEXTDEL SDK:certificate-renewal:2
+==============================================================================
+
+Titel: Instruktion för förnyelse av O2O-certifikat
+Tjänst: SDK
+Källa: https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/redan-ansluten-deltagarorganisation/instruktion-for-fornyelse-av-o2o-certifikat
+Ursprung: KÄLLTEXT: sparad officiell källkopia
+SHA-256 för innehållet: 48c4f2d353e6fcedbbc8382debe6ecea45192dc89abab29c0b2b9639025df50d
+
+INNEHÅLL (oförkortat):
+Instruktion för förnyelse av O2O-certifikat
+Tjänst: SDK | Roll: organisationsadministratör | Miljö: QA/produktion | Version: ej angiven | Källkontroll: 2026-10-15
+SDK adressbok är utformad för att fungera långsiktigt och kunna bemöta framtida förändringar som ställer krav på dess funktionalitet. Ett sådant krav skulle exempelvis kunna vara att Digg i rollen som federationsägare inför en ändring i regelverket som skulle betyda att ni som deltagarorganisation ges möjlighet att använda olika certifikat för kryptering och signering av SDK-meddelanden. Om sådan ändring införs behöver ni kunna lämna båda dessa certifikat till oss, och samtidigt informera oss om vilket certifikat ni vill nyttja för kryptering respektive signering. Det är av denna anledning som adressboken har separata fält för kryptering och signering, även om nuvarande regelverk reglererar att samma certifikat ska användas för båda ändamål.
+3. Notifiera oss på Digg
+När ni lagt upp det publika certifikatet i adressboken notifierar ni oss på Digg. Det gör ni enklast genom att skicka ett mejl till sdk@digg.se. I mejlet informerar ni oss att ni lagt upp publikt certifikat i adressboken och anger vilken miljö som avses. Vi kommer därefter överens om en tidpunkt för när förnyelsen ska genomföras.
+Vid överenskommen tidpunkt publicerar Digg ert publika O2O-certifikat i Certifikatspubliceringstjänsten i SMP i aktuell miljö, och ni installerar den privata nyckeln i er meddelandetjänst. När detta är genomfört är certifikatet förnyat.
+3.2 Stöd från leverantör av meddelandesystem
+Om ni som deltagarorganisation önskar att er leverantör av meddelandesystem tar hand om installationen av den privata nyckeln i er meddelandetjänst, behöver ni meddela oss på Digg om detta.
+Bekräftelsen behöver inkomma från er ansvariga kontaktperson gentemot Digg för den aktuella miljön.
+Det innebär att er leverantör planerar och genomför förnyelsen av ert O2O-certifikat tillsammans med Digg.
+
+
+==============================================================================
+
+SDK-TEXTDEL SDK:certificates:1
+==============================================================================
+
+Titel: Anslutningsinformation certifikat
+Tjänst: SDK
+Källa: https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat
+Ursprung: KÄLLTEXT: sparad officiell källkopia
+SHA-256 för innehållet: 9b26ae430bfa1157c9d19d3d298465af2ae284f6b15d0c4df10a88fe01d5de6d
+
+INNEHÅLL (oförkortat):
+Anslutningsinformation certifikat
+Tjänst: SDK | Roll: tekniskt ansvarig | Miljö: alla | Version: ej angiven | Källkontroll: 2026-10-15
+Anslutningsinformation certifikat
+Anslutning för leverantörer av meddelandetjänster
+Här finns information om vilka certifikat som används inom Säker digital kommunikation (SDK), hur de används och hanteras samt hur du införskaffar och får tillgång till dem.
+1. Certifikathantering inom SDK
+Certifikathantering är en grundläggande del av säker kommunikation och krävs för att system inom SDK ska kunna identifiera varandra, utbyta information på ett säkert sätt och upprätthålla tillit mellan parter.
+Informationen i detta dokument riktar sig till systemadministratörer och tekniskt ansvariga hos deltagarorganisationer, leverantörer av meddelandesystem och accesspunktsoperatörer.
+Syftet med sidan är att ge en samlad och begriplig bild av varför certifikat behövs inom SDK, hur certifikat används i olika kommunikationsflöden och vilket ansvar olika aktörer har.
+2. Roller och ansvar
+Certifikathantering inom SDK berör flera aktörer. Ansvar och praktiska uppgifter skiljer sig åt beroende på roll.
+2.1 Deltagarorganisationer
+Som deltagarorganisation behöver ni säkerställa att rätt certifikat finns på plats för att kunna skicka och ta emot meddelanden via SDK. I vissa fall hanteras certifikat av er leverantör, men i andra fall ansvarar organisationen själv för att certifikat anskaffas och hålls giltiga.
+Det är särskilt viktigt att förstå när organisationen själv behöver anskaffa certifikat, hur certifikat kopplas till organisationens identitet inom SDK, att certifikat har en begränsad giltighetstid och behöver förnyas, samt att felaktiga eller utgångna certifikat leder till att kommunikationen slutar fungera.
+2.2 Leverantörer av meddelandesystem
+Som leverantör ansvarar ni för att meddelandesystemet använder certifikat korrekt i kommunikationen med accesspunkter och SMP. Samma begränsningar vad gäller giltighet etc som för deltagarorganisationer gäller här.
+2.3 Accesspunktsoperatörer
+Som accesspunktsoperatör ansvarar ni för certifikat som används i kommunikationen mellan accesspunkter, i kommunikationen med SMP samt i kommunikationen med anslutna meddelandetjänster. Samma begränsningar vad gäller giltighet etc som för deltagarorganisationer gäller här.
+3. Varför certifikat behövs i SDK
+Certifikat används inom SDK för att möjliggöra säker och tillförlitlig kommunikation mellan system och organisationer.
+
+
+==============================================================================
+
+SDK-TEXTDEL SDK:certificates:2
+==============================================================================
+
+Titel: Anslutningsinformation certifikat
+Tjänst: SDK
+Källa: https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat
+Ursprung: KÄLLTEXT: sparad officiell källkopia
+SHA-256 för innehållet: 1a4f14ae7dde4675ba2a5b31cfe19a8c6c709dcea70ce9eb8a59f30b082ff7fc
+
+INNEHÅLL (oförkortat):
+Anslutningsinformation certifikat
+Tjänst: SDK | Roll: tekniskt ansvarig | Miljö: alla | Version: ej angiven | Källkontroll: 2026-10-15
+Certifikat används för att identifiera parter och för att skydda information genom kryptering och signering. Detta säkerställer att information inte kan läsas av obehöriga, att innehållet inte har ändrats och att mottagaren kan verifiera vem som har skickat informationen.
+Kryptering används när någon ska skicka information så att bara rätt mottagare kan läsa den. Då använder avsändaren mottagarens krypteringscertifikat för att skydda informationen.
+Signering används när avsändaren vill visa vem som skickar informationen och att innehållet inte har ändrats. Då använder avsändaren sitt signeringscertifikat för att signera, och mottagaren verifierar signaturen med avsändarens signeringscertifikat. Att certifikaten förnyas regelbundet av en leverantör är också en förutsättning för tilliten i systemet.
+4. Grundläggande begrepp
+Se även: Ordlista för Säker digital kommunikation
+Certifikat
+Ett certifikat är ett digitalt signerat dokument som används för att identifiera ett system eller en organisation.
+Certifikatutfärdare (CA, Certificate Authority)
+En betrodd part som utfärdar och signerar digitala certifikat. Certifikatutfärdare utgör grunden i den tillitskedja som beskrivs nedan under Rotcertifikat och tillit.
+PKI (Public Key Infrastructure)
+PKI är den infrastruktur som används för att skapa, utfärda och verifiera certifikat.
+Rotcertifikat och tillit
+Ett rotcertifikat fungerar som grund för tillit i en certifikatkedja. Det används för att verifiera utfärdande certifikat, som i sin tur utfärdar de certifikat som används av system och organisationer.
+Certifikat som används inom SDK måste kunna härledas till ett betrott rotcertifikat via en sådan kedja. Om ett certifikat inte kan härledas till ett betrott rotcertifikat kan kommunikationen inom SDK sluta fungera.
+Utfärdande certifikat (intermediärt certifikat)
+Ett certifikat som används av en certifikatutfärdare för att utfärda andra certifikat. Det är signerat av ett rotcertifikat och fungerar som en mellanliggande nivå i tillitskedjan mellan rotcertifikat och de certifikat som används av system och organisationer.
+O2O (organisation till organisation)
+O2O används som begrepp för de certifikat som används för kryptering och signering av nyttolasten mellan deltagarorganisationer inom SDK.
+Test- och produktionsmiljöer
+Inom SDK används separata certifikat för test- och produktionsmiljöer, eftersom testmiljöer inte ska innehålla produktionsdata .
+Trust store
+
+
+==============================================================================
+
+SDK-TEXTDEL SDK:connection-instructions:5
+==============================================================================
+
+Titel: Instruktioner för anslutning till SDK
+Tjänst: SDK
+Källa: https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/instruktioner-for-anslutning-till-sdk
+Ursprung: KÄLLTEXT: sparad officiell källkopia
+SHA-256 för innehållet: 8f8abe3f5ff0d2faca378a03a4aaf7b928ccd753e8a698ed7bd2a33c72937d94
+
+INNEHÅLL (oförkortat):
+Instruktioner för anslutning till SDK
+Tjänst: SDK | Roll: deltagarorganisation | Miljö: QA/produktion | Version: ej angiven | Källkontroll: 2026-10-15
+När ovanstående genomförts kommunicerar vi till er kontaktperson för anslutningen samt till er användaradministratör för SDK adressbok och SDK testklient.
+Till er(a) kontaktperson(er) informerar vi att:
+ni är godkända att ansluta till SDK QA-miljö,
+ni behöver lämna ert publika O2O-certifikat för SDK-QA-miljön till oss, så vi kan publicera det i Certifikatspubliceringstjänsten i SMP ( sista steget innan anslutningen är komplett), samt
+vi ger instruktioner till er användaradministratör av SDK adressbok och SDK testklient. Med hjälp av dessa instruktioner ges tillgång till adressboken.
+Till er användaradministratör skickar vi:
+information att ni är godkända för anslutning till SDK-QA-miljö,
+instruktioner om hur ni får tillgång till SDK adressbok, samt
+instruktion om hur ni meddelar Digg ert publika O2O-certifikat så vi kan publicera det i Certifikatspubliceringstjänsten i SMP.
+3. Certifikat
+Ni som deltagarorganisation behöver lämna ert publika O2O-certifikat för publicering i Certifikatspubliceringstjänsten i SDK-QA-miljö, vilket utförs av oss på Digg. För att garantera riktighet lämnas O2O-certifikat i SDK adressbok av er organisationsadministratör. Er användaradministratör tilldelar rollen organisationsadministratör som i sin tur lägger upp certifikatet.
+Specifikt lämnar er organisationsadministratör ert publika O2O-certifikat genom att logga in i användargränssnittet i adressboken och går till avsnittet ”Mina organisationer” i vänstermenyn, väljer organisation och trycker på ”Redigera”. Längst ned finns ett fält med rubriken ”Deltagarorganisationens publika O2O-certifikat”, med två textfält namngivna ”Krypteringscertifikat” och ”Signeringscertifikat”. Eftersom SDK regelverk i nuläget reglerar att samma certifikat ska användas för både kryptering och signering av SDK-meddelanden lämnar ni samma publika certifikat i båda fälten.
+När det är utfört behöver ni notifiera oss på Digg att certifikatet finns upplagt. Notifiering sker per mejl till sdk@digg.se. Vi hämtar certifikatet från adressboken och publicerar det i Certifikatspubliceringstjänsten i SMP.
+När ovan är utfört kontaktar vi ansvarig kontaktperson för anslutningen hos er samt er användaradministratör.
+Till er(a) kontaktperson(er) informerar vi att:
+vi på Digg publicerat ert publika O2O-certifikat och att anslutningen till SDK-QA-miljö därmed är komplett
+ni som nästa steg i processen behöver genomföra testfall enligt Testfall deltagarorganisation för federationsgodkännande SDK
+
+
+==============================================================================
+
+SDK-TEXTDEL SDK:digital-post:1
+==============================================================================
+
+Titel: Anslut till Mina meddelanden
+Tjänst: Mina meddelanden
+Källa: https://www.digg.se/digitala-tjanster/digital-post/digital-post-for-dig-som-offentlig-aktor/anslut
+Ursprung: KÄLLTEXT: sparad officiell källkopia
+SHA-256 för innehållet: b8b68484e4f73db04354094d18361acfd5fec3464019f0acfddefcdd645f357b
+
+INNEHÅLL (oförkortat):
+Anslut till Mina meddelanden
+Tjänst: Mina meddelanden | Roll: offentlig aktör | Miljö: test/produktion | Version: ej angiven | Källkontroll: 2026-10-15
+Anslut till Mina meddelanden och Auktorisationssystem för digital post – offentlig aktör
+Att ansluta till infrastrukturen Mina meddelanden och Auktorisationssystem för digital post är enkelt om du följer vår steg-för-steg-process. Här hittar du en beskrivning av varje steg för dig som offentlig aktör.
+Klicka på understruken rubrik för mer information.
+Förberedelser
+För att börja skicka post digitalt behöver du och din organisation ta del av förberedande information.
+Gör en ansökan
+Här beskriver vi hur du gör en ansökan till Digg. Här kan du också fylla i ansökningsformulär.
+Teckna avtal
+För att få skicka digital post via infrastrukturen Mina meddelanden behöver du ha tecknat avtal med Digg, både för infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.
+Genomför tekniska tester
+Innan du kan börja skicka digital post behöver du genomföra tekniska tester.
+Efter anslutning
+Om era inlämnade uppgifter ändras behöver du informera Digg. Kanske vill ni också prenumerera på vår driftinformation?
+Frågor?
+Frågor och svar om anslutning till Mina meddelanden och Auktorisationssystem för digital post
+Du kan också kontakta oss via e-postadressen: info@digg.se
+
+
+==============================================================================
+
+SDK-TEXTDEL SDK:glossary:7
+==============================================================================
+
+Titel: Ordlista för Säker digital kommunikation
+Tjänst: SDK
+Källa: https://www.digg.se/saker-digital-kommunikation/vad-ar-saker-digital-kommunikation/ordlista-for-saker-digital-kommunikation
+Ursprung: KÄLLTEXT: sparad officiell källkopia
+SHA-256 för innehållet: cd10224123086b725ce014272756a91d316cdbe03842d8f0936a0cea6358448c
+
+INNEHÅLL (oförkortat):
+Ordlista för Säker digital kommunikation
+Tjänst: SDK | Roll: alla | Miljö: alla | Version: ej angiven | Källkontroll: 2026-10-15
+Meddelandeklient
+Förkortas MK.
+Meddelandeklienten är gränssnitt mot användare. Meddelandeklienten hanterar funktioner som säker inloggning, behörighetsstyrning, meddelandehantering (skapa, skicka, ta emot och besvara meddelanden). En meddelandeklient kan realiseras som en fristående klient eller ett anpassat verksamhetssystem. Komponenterna kan antigen utvecklas av organisationen själv eller upphandlas från en leverantör.
+Meddelandesystem
+Meddelandesystem är ett samlingsbegrepp för meddelandeklient (MK) och meddelandetjänst (MT).
+Meddelandetjänst
+Förkortas MT
+Meddelandetjänsten hanterar paketering av meddelanden samt kryptering. Meddelandetjänsten utgör ett eget säkerhetslager som är oberoende av accesspunktens säkerhetsfunktioner.
+Meddelandetjänst ansvarar för att leverera meddelandet till rätt meddelandeklient
+Meddelandetyp
+Meddelandetyp (dokumenttyp) är det meddelandeformat som skickas i SDK. Där definieras vilka uppgifter som ska ingå i ett meddelande. I nuvarande version av SDK finns två meddelandetyper som är möjliga att skicka; SDK-meddelande och kvittensmeddelande.
+Metadata
+Samlingsbegrepp för tjänstemetadata och administrativa metadata.
+Miljöer
+SDK federationsägare (Digg) tillhandahåller tre miljöer inom SDK:
+OPEN-TEST för tester av leverantörer av meddelandesystem och accesspunktsoperatörer (testmiljö)
+SDK QA-miljö för tester av deltagarorganisationer (testmiljö)
+SDK produktionsmiljö för deltagarorganisationer och accesspunkter, som används för att förbereda och skicka skarpa SDK-meddelanden.
+Miljöspecifikation
+Definition av de ingående komponenterna i en av SDKs test- och produktionsmiljöer.
+N
+Nyttolast - för meddelande
+Här avses meddelande som paketeras och transporteras via SDK. I dagsläget kan ett SDK-meddelande innehålla vad som helst (fritext) förutom exekverbara filer, och detsamma gäller bilagor.
+O
+O2O/E2E-certifikat (engelska: Organization Validation (OV)-certifikat, också benämnt som SDK funktionscertifikat eller Serverlegitimation/Organisationslegitimation. I eDelivery benämnt Participant Certificate.)
+Ett certifikat som följer X.509-standarden, men är utfärdat till en organisation med validering av organisationens och firmatecknarens behörighet. En ytterligare verifikationsnivå används för Extended Validation (EV)-certifikat, där organisationen också verifieras mot bolagsregistret och andra källor, till exempel årsredovisning.
+OPEN-TEST
+Miljön OPEN-TEST tillhandahålls av SDK-federationsägare för att leverantörer ska kunna testa sina programvaror för meddelandesystem och för testning av accesspunkter.
+
+
+==============================================================================
+
+SDK-TEXTDEL SDK:participant-rules:1
+==============================================================================
+
+Titel: Regelverk för deltagarorganisationer inom SDK
+Tjänst: SDK
+Källa: https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslutningsavtal-regelverk-samt-bilagor/regelverk-for-deltagarorganisationer-inom-sdk
+Ursprung: KÄLLTEXT: sparad officiell källkopia
+SHA-256 för innehållet: adceb365a3c19d50310a574d9d7febf2d1799252015aa09eea15708a752f6b0e
+
+INNEHÅLL (oförkortat):
+Regelverk för deltagarorganisationer inom SDK
+Tjänst: SDK | Roll: deltagarorganisation | Miljö: alla | Version: 1.7 | Källkontroll: 2026-10-15
+Regelverk för deltagarorganisationer inom SDK
+Anslutning för deltagarorganisationer
+Version: 1.7
+Denna version gäller från och med 2025-12-17
+Säkerhetskrav och regler som gäller för samtliga deltagarorganisationer i SDK-federationen.
+För att säkerställa att deltagarorganisationer ska kunna utbyta information inom SDK-federationen behövs gemensamma regler som gäller för alla deltagarorganisationer. Detta regelverk ersätter tidigare Regelverk för anslutning till Säker digital kommunikation - Informationssäkerhet, samt tillhörande bilagor som tidigare publicerats av Inera AB.
+Innan läsning av regelverket påbörjas, bör man ha läst beskrivningen Vad är SDK.
+Regelverket är en del av Anslutningsavtal för deltagarorganisationer angående Säker digital kommunikation (SDK). Här nedan finns styrande bilagor till regelverket med fördjupande beskrivningar, se lista nedan. . Observera att detta dokument gäller för offentliga aktörer. För privata aktörer gäller ett särskilt dokument, se Anslutningsavtal för deltagarorganisationer angående Säker Digital Kommunikation - privata aktörer.
+Regelverket med styrande regler för leverantörer av meddelandesystem, inklusive tekniska specifikationer, finns samlat på sidan Regelverk för meddelandesystem.
+Regelverket med styrande regler för leverantörer av accesspunkter, inklusive tekniska specifikationer, finns samlade på sidan Anslutningsavtal för accesspunktsoperatörer.
+Styrande bilagor till regelverket:
+Bilaga för tillgänglighet inom SDK
+Bilaga för IT- säkerhet inom SDK
+Bilaga för personuppgiftsbehandling inom SDK
+Bilaga om brister i uppföljning och regelefterlevnad angående SDK
+Bilaga om deltagarmodell för SDK
+Bilaga om meddelandetyper i SDK
+Bilaga om livscykelhantering för SDK
+1. Deltagarorganisationens åtaganden
+Deltagarorganisationen ska hålla sig uppdaterad om och följa de ändringar i regelverket som federationsägaren (Digg) vidtar i enlighet med rutiner för releasehantering, se Bilaga för livscykelhantering inom SDK.
+Deltagarorganisationen ansvarar för sina meddelandesystem.
+Deltagarorganisationen ansvarar för den information och de meddelanden som deltagarorganisationen och dess underorganisationer skickar inom SDK vad gäller tillämplig dataskyddslagstiftning, sekretess och övriga eventuella regleringar på området.
+
+
+==============================================================================
+
+SDK-TEXTDEL SDK:preparation:2
+==============================================================================
+
+Titel: Förberedelser inför anslutning till SDK
+Tjänst: SDK
+Källa: https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/vagledningar-och-rekommendationer-infor-anslutning-till-sdk/forberedelser-infor-anslutning-till-sdk
+Ursprung: KÄLLTEXT: sparad officiell källkopia
+SHA-256 för innehållet: 6be64f6f5b566a79d42882154fdd465a54d827e8a363aef16c07956e920b7829
+
+INNEHÅLL (oförkortat):
+Förberedelser inför anslutning till SDK
+Tjänst: SDK | Roll: deltagarorganisation | Miljö: alla | Version: 1.5 | Källkontroll: 2026-10-15
+Därefter är det viktigt att genomföra ett förarbete som fokuserar på vilka verksamheter och informationsutbyten som är aktuella, tekniska vägval och informationssäkerhet. Med förarbetet som underlag kan man sedan planera och resurssätta arbetet och fatta nödvändiga beslut innan man ansluter till SDK. Därefter är det dags att upphandla och få den tekniska lösningen och anslutningarna på plats. Parallellt behöver man förbereda hur organisationens funktionsadresser ska synliggöras för andra organisationer genom SDK adressbok.
+Vid behov av upphandling
+På Kammarkollegiets webbplats för ramavtal (avropa.se Länk till annan webbplats.) kan ni avropa alla delar för SDK, exempelvis stöd i samband med förberedande utredningar, utveckling av verksamhet samt tekniska lösningar.
+Adda erbjuder ett DIS (dynamiskt inköpssystem) för teknisk anslutning till Säker digital kommunikation (www.adda.se Länk till annan webbplats.). Kommuner, regioner och statliga myndigheter kan ta del av upphandlingsstödet.
+Förstå och initiera
+SDK är ett arbete som kan komma att påverka stora delar av organisationens verksamhet och ett införande bör förankras centralt. Det är bra att involvera aktuella verksamheter för införande och IT-avdelning (eller liknande) så att de kan arbeta tillsammans med införandet.
+I det här skedet är det bra att skaffa sig en förståelse för hur SDK är uppbyggt i form av infrastruktur centralt och lokalt där organisationen behöver sätta upp ett antal tekniska komponenter. Vidare behöver ni bedriva ett arbete tillsammans med de verksamheter som har behov av att skicka känslig information. Slutligen, beroende på hur långt ni har kommit i arbetet med systematisk informationssäkerhet/ ledningssystem för informationssäkerhet (LIS) kan ni behöva göra ett förarbete även inom det området.
+Verksamheten behöver förstå hur SDK kan användas och vilken insats som krävs från de för att få allt på plats. IT-avdelning/digitaliseringsansvariga behöver förstå hur SDK fungerar så att de kan börja fundera på vilken teknisk lösning som passar bäst för organisationen, dvs. vilket program som ska användas för att skicka och ta emot SDK-meddelanden.
+Aktiviteter:
+Börja diskutera frågan i centrala forum.
+Gå igenom grundläggande informationsmaterial om SDK beroende på roll och diskutera vad det kan tänkas innebära inom respektive verksamhet.
+Initiera ett förarbete kring förutsättningar för SDK.
+Mål med detta steg:
+En första förståelse för vad SDK är och vad det kan komma att innebära för organisationen i form av möjligheter och insatser.
+
+
+==============================================================================
+
+SDK-TEXTDEL SDK:preparation:3
+==============================================================================
+
+Titel: Förberedelser inför anslutning till SDK
+Tjänst: SDK
+Källa: https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/vagledningar-och-rekommendationer-infor-anslutning-till-sdk/forberedelser-infor-anslutning-till-sdk
+Ursprung: KÄLLTEXT: sparad officiell källkopia
+SHA-256 för innehållet: 6a367804d814f7746f3164935b12b0eeb7b8675ec21efb51ac3c076b5a9b9b8e
+
+INNEHÅLL (oförkortat):
+Förberedelser inför anslutning till SDK
+Tjänst: SDK | Roll: deltagarorganisation | Miljö: alla | Version: 1.5 | Källkontroll: 2026-10-15
+Ledning, verksamhet, IT och informationssäkerhet är involverade.
+Ett förarbete är resurssatt och initierat.
+Förarbete inför SDK anslutning
+Inför arbetet med att ansluta till SDK finns det tre huvudområden att adressera:
+Verksamhetsbehov
+Tekniska krav och vägval
+Val av meddelandeklient/verksamhetssystem för att skicka SDK-meddelanden
+Informationssäkerhetskrav
+Verksamhetsbehov
+Med SDK kan man utbyta känslig information inom organisationen och med andra anslutna offentliga aktörer. Organisationen behöver genomföra en kartläggning för att hitta lämpliga informationsutbyten för att använda SDK. En sådan kartläggning kan ske på många olika sätt. Har man färdiga processkartor kan man utgå från dessa. Ett annat sätt kan vara att inventera verksamheternas arbetssätt tillsammans med personer med god kännedom om verksamhetens dagliga arbete och ta reda på:
+Vilka informationsutbyten med andra offentliga aktörer gör vi analogt idag? (brev, fax, telefonsamtal, anonymiserade mail o.s.v.)
+Vilka är våra motparter i dessa informationsutbyten?
+Hur vanligt förekommande är de?
+Vilka vinster skulle vi göra på att hantera dessa informationsutbyten digitalt?
+Det är även viktigt att veta hur många olika motparter det finns i ett informationsutbyte. Om det är många parter med olika huvudmän inblandade kan det vara en god idé att vänta lite med just det informationsutbytet.
+Det är generellt rekommenderat att man arbetar aktivt med nyttorealisering i samband med digitalisering. I ett tidigt skede är det därför lämpligt att identifiera vilka nyttor man främst eftersträvar med SDK så att man har det med sig i det fortsatta arbetet. Digg har praktiskt material kring hur man kan arbeta med nyttokalkyler och nyttorealisering:
+Diggs vägledning om nyttorealisering Länk till annan webbplats.
+Tekniska och informationssäkerhetsrelaterade krav
+Här handlar det främst om att sätta sig in i de krav som ställs för att ansluta till SDK. Det görs lämpligen genom att gå igenom kraven i SDK:s regelverk. I förhållande till kraven behöver man bedöma nuläget i organisationen, samt identifiera eventuella behov av åtgärder. Om organisationen väljer att upphandla en färdig teknisk lösning är det kraven på informationssäkerhet som blir det viktigaste att fokusera på. Övriga tekniska krav och specifikationer kommer i huvudsak att hanteras av den leverantör man upphandlar för anslutning till SDK.
+
+
+==============================================================================
+
+SDK-TEXTDEL SDK:preparation:5
+==============================================================================
+
+Titel: Förberedelser inför anslutning till SDK
+Tjänst: SDK
+Källa: https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/vagledningar-och-rekommendationer-infor-anslutning-till-sdk/forberedelser-infor-anslutning-till-sdk
+Ursprung: KÄLLTEXT: sparad officiell källkopia
+SHA-256 för innehållet: a4618930bb79918cd62bd7b1391231f67112af1c179e7503e0a129a011290a12
+
+INNEHÅLL (oförkortat):
+Förberedelser inför anslutning till SDK
+Tjänst: SDK | Roll: deltagarorganisation | Miljö: alla | Version: 1.5 | Källkontroll: 2026-10-15
+Meddelandesystem (meddelandetjänst/ meddelandeklient)
+En organisation som vill ansluta till SDK behöver själv utveckla eller anlita en leverantör som tillhandahåller system för meddelandetjänst och meddelandeklient. En leverantör kan erbjuda olika lösningar. Det kan vara mjukvara och kringtjänster för utveckling och anpassning av meddelandetjänst och/eller meddelandeklient. Alternativt kan en leverantör erbjuda meddelandetjänst och/eller meddelandeklient som en funktion i den produkt som leverantören tillhandahåller, t ex ett verksamhetssystem. Meddelandetjänsten ansvarar för att styra meddelandet till rätt meddelandeklient, ungefär som en växel som tar emot och skickar meddelandet mellan meddelandeklienten och accesspunkten. Eftersom funktionen för SDK kan nyttjas av olika meddelandeklienter, dvs. det program som användaren använder för att skicka/ta emot meddelanden, behöver man besluta om vilket/vilka program man vill använda. Här handlar det om att identifiera de behov man har i ett första skede:
+Finns det någon klient man redan använder som erbjuder SDK-funktionen?
+Vill man integrera funktionen i något av de verksamhetssystem man använder idag?
+Vill man upphandla en ny klient med SDK-funktionalitet?
+Det är viktigt att tänka över sin strategi både på kortare och längre sikt. Om man inte har stora egna resurser kan det vara bra att börja med SDK genom att upphandla en separat klient för SDK-meddelanden, och på några års sikt arbeta för att få in funktionen i de viktigaste verksamhetssystemen.
+För en mindre organisation kan det underlätta att börja SDK-resan genom att upphandla en helhet från samma leverantör, dvs. ett paket med meddelandeklient, meddelandetjänst och accesspunkt. Det kan också vara lämpligt när en organisation har många olika verksamhetssystem och en separat klient kan användas inom hela organisationen.
+Aktiviteter:
+Utvärdera hur väl organisationen lever upp till de informationssäkerhetskrav som specificeras i regelverk för deltagarorganisationer inom SDK och IT-säkerhetsbilaga. Identifiera eventuella luckor och behov av åtgärder.
+Bedöm vad de olika tekniska lösningarna för att ansluta till SDK innebär för organisationen. Vill vi agera accesspunktsoperatör själva eller upphandla det för SDK? Vill vi försöka upphandla allt i ett helhetspaket, inklusive meddelandeklient?
+Om ni själva vill vara accesspunktsoperatör ska ni följa Diggs regler och rutiner för accesspunktsoperatörer samt anslutningsresa för accesspunktsoperatörer.
+
+
+==============================================================================
+
+SDK-TEXTDEL SDK:preparation:6
+==============================================================================
+
+Titel: Förberedelser inför anslutning till SDK
+Tjänst: SDK
+Källa: https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/vagledningar-och-rekommendationer-infor-anslutning-till-sdk/forberedelser-infor-anslutning-till-sdk
+Ursprung: KÄLLTEXT: sparad officiell källkopia
+SHA-256 för innehållet: b16e15740b49a600e47b0c925df9fce38b4a0c92ef7e144ce808695faf9845d1
+
+INNEHÅLL (oförkortat):
+Förberedelser inför anslutning till SDK
+Tjänst: SDK | Roll: deltagarorganisation | Miljö: alla | Version: 1.5 | Källkontroll: 2026-10-15
+Utvärdera vilka möjligheter som finns på marknaden avseende meddelandeklient för att skicka meddelande och vad som skulle passa bra för er organisation. Ska det vara en fristående klient eller integrerat i verksamhetssystem?
+Identifiera verksamhetsbehoven i er organisation.
+Identifiera era önskade nyttor med att införa SDK.
+Undersök möjlighet till samarbete och erfarenhetsutbyte kring SDK med organisationer som redan har anslutit sig eller påbörjat sin anslutning.
+Mål med detta steg:
+Underlag för det kommande SDK-arbetet:
+Lever vi upp till informationssäkerhetskraven eller finns det behov av åtgärder?
+Hur vill vi upphandla olika tekniska lösningar?
+Vilken typ av meddelandeklient är intressant för oss att börja med?
+Hur ska de tekniska komponenterna förvaltas?
+Behöver vår IT-miljö anpassas?
+Hur ska vi hantera stark autentisering, behörighetshantering och behörighetskatalog?
+Vilka kostnader och nyttor medför införande av SDK på kort och lång sikt?
+Vilken/vilka verksamheter och informationsutbyten är lämpliga att börja med?
+Fatta beslut om införande av SDK
+Ett centralt beslut är inom vilken verksamhet man vill påbörja införandet av SDK. Om organisationen har fått förfrågan att skicka/ta emot meddelanden via SDK från andra organisationer kan det vara en utgångspunkt för ert val. Ett annat sätt kan vara att välja en verksamhet som har ett tydligt behov och ett stort intresse av att skicka digital information. Slutligen kan ni också använda er av SDK-piloternas rapporter och välja någon av de informationsutbyten som genomförts. Vi rekommenderar er att börja testa i en verksamhet och lära av det, men det finns inget formellt hinder för att börja med flera verksamheter samtidigt. Eftersom SDK inte är en specifik meddelandeklient utan kan byggas in som en funktion i olika system, exempelvis i ett verksamhetssystem, bör man fatta ett inriktningsbeslut om man vill upphandla en separat meddelandeklient med SDK-funktionalitet eller om man vill satsa på att ha funktionen integrerad i aktuella verksamhetssystem. SDK är en organisationsfederation, dvs. det är en hel organisation som ansluter sig. Därmed kan inte en egen anslutning av enstaka nämnder eller stadsdelar göras. Organisationen behöver ta ställning till vilka delar av verksamheten som ska använda SDK.
+Aktiviteter
+Fatta beslut om att använda SDK i organisationen och inom vilken verksamhet det ska införas först.
+Initiera arbetet, säkerställa att det finns resurser och kompetenser när det gäller projektledning och samordning, IT/digitalisering, informationssäkerhet och aktuell verksamhet.
+
+
+==============================================================================
+
+SLUT PÅ GEMENSAMT TESTUNDERLAG 2026-10-24.

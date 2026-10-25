@@ -14,7 +14,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/style.css?v=13" />
-    <link rel="stylesheet" href="../css/poc.css?v=34" />
+    <link rel="stylesheet" href="../css/poc.css?v=35" />
+    <link rel="stylesheet" href="../css/sdk-onboarding.css?v=1" />
+    <link rel="stylesheet" href="../css/organization-lookup.css?v=1" />
   </head>
   <body class="underlag-page">
     <div class="app">
@@ -39,9 +41,6 @@
             <a class="nav-subitem nav-link active" id="underlag-link" href="steg-underlag.html">
               Underlag
             </a>
-            <a class="nav-subitem nav-link" id="convert-link" href="filkonvertering.html">
-              Filkonvertering
-            </a>
             <a
               class="nav-subitem nav-link is-disabled"
               id="workshop-link"
@@ -52,6 +51,7 @@
               Underlagsverkstad
             </a>
           </div>
+          <a class="nav-item nav-link" id="sdk-sources-link" href="sdk-kallor.html">SDK-källor</a>
         </nav>
       </aside>
 
@@ -122,10 +122,26 @@
                 </div>
               </div>
               <div class="context-grid">
-                <label>
-                  <span>Organisationsnamn</span>
-                  <input id="organization-name" autocomplete="organization" />
-                </label>
+                <div class="organization-lookup">
+                  <label for="organization-name"><span>Organisationsnamn</span></label>
+                  <div class="organization-lookup-control">
+                    <input id="organization-name" autocomplete="off" maxlength="255" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="organization-suggestions" aria-describedby="organization-lookup-help organization-lookup-status" />
+                    <ul id="organization-suggestions" class="organization-suggestions" role="listbox" aria-label="Organisationer i OPEN-TEST" hidden></ul>
+                  </div>
+                  <p id="organization-lookup-help" class="organization-lookup-help">Skriv minst två tecken för förslag från SDK OPEN-TEST (testdata). Välj en träff för att fylla i namn och organisationsnummer, eller skriv själv.</p>
+                  <p id="organization-lookup-status" class="organization-lookup-status" role="status" aria-live="polite"></p>
+                  <button type="button" id="organization-lookup-replace" class="btn-secondary organization-lookup-replace" hidden></button>
+                  <p id="organization-lookup-source" class="organization-lookup-source"></p>
+                  <input type="hidden" data-application-field="sdk_directory_id" />
+                  <input type="hidden" data-application-field="sdk_directory_name" />
+                  <input type="hidden" data-application-field="sdk_directory_number" />
+                  <input type="hidden" data-application-field="sdk_directory_participant_identifier" />
+                  <input type="hidden" data-application-field="sdk_directory_source_url" />
+                  <input type="hidden" data-application-field="sdk_directory_fetched_at" />
+                  <input type="hidden" data-application-field="sdk_directory_cached" />
+                  <input type="hidden" data-application-field="sdk_directory_stale" />
+                  <input type="hidden" data-application-field="sdk_directory_environment" />
+                </div>
                 <label>
                   <span>Organisationsnummer</span>
                   <input id="organization-number" inputmode="numeric" />
@@ -382,8 +398,11 @@
         stepContextEndpoint: "../backend/api/step_context.php",
       };
     </script>
-    <script src="../js/api.js?v=9"></script>
-    <script src="../js/step-context.js?v=6"></script>
+    <script src="../js/api.js?v=16"></script>
+    <script src="../js/workshop-access.js?v=1"></script>
+    <script src="../js/sdk-onboarding.js?v=2"></script>
+    <script src="../js/step-context.js?v=9"></script>
     <script src="../js/underlag.js?v=1"></script>
+    <script src="../js/organization-lookup.js?v=1"></script>
   </body>
 </html>

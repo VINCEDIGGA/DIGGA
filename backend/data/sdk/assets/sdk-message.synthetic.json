@@ -1,0 +1,38 @@
+{
+  "data": {
+    "type": "messages",
+    "attributes": {
+      "messageId": "4ceeb6f1-f078-47a9-94cc-1efb03aedbec",
+      "conversationId": "4ceeb6f1-f078-47a9-94cc-1efb03aedbec",
+      "creationDateTime": "2026-10-15T08:00:00.000Z",
+      "confidentiality": false,
+      "label": "Syntetiskt SDK-utkast från DIGGA",
+      "sender": "0203:testkommun.se",
+      "recipient": "0203:annan-testkommun.se",
+      "senderAttention": {
+        "subOrganization": {
+          "root": "urn:riv:infrastructure:messaging:functionalAddress",
+          "extension": "barnoungdom.0203:testkommun.se",
+          "label": "Syntetisk avsändarfunktion"
+        }
+      },
+      "recipientAttention": {
+        "subOrganization": {
+          "root": "urn:riv:infrastructure:messaging:functionalAddress",
+          "extension": "barnoungdom.0203:annan-testkommun.se",
+          "label": "Syntetisk mottagarfunktion"
+        }
+      },
+      "digitalDocument": [
+        {
+          "documentId": "SDK-Meddelande",
+          "documentName": "Syntetiskt underlag",
+          "index": "1",
+          "contentTextBody": [
+            "Exempel utan verkliga personuppgifter. Ingen sändning sker."
+          ]
+        }
+      ]
+    }
+  }
+}

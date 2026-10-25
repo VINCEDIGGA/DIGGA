@@ -1,0 +1,69 @@
+SDK API MT/MK Implementationsguide
+Anslutning för leverantörer av meddelandesystem
+Här hittar du information om hur man impelmenterar SDK API MT/MK
+Förberedelser
+Digg har tagit fram en rekommendation för API MT-MK för Säker digital kommunikation. API:et är primärt framtaget för att standardisera informationsöverföring mellan meddelandetjänst (MT) och meddelandeklient/verksamhetssystem (MK). SDK API (REST API) är beskrivet (kontrakt) enligt specifikationen openAPI (version 3.1.x) och är utformat enligt/inspirerat av JSON:API, se open API specifikation för API MT/MK.
+Leverantör av meddelandeklient behöver ansöka och ansluta till miljön OPEN-TEST för att få tillgång till testklientens verifieringstjänst för SDK API.
+Verifieringstjänsten stödjer idag anslutning av API-konsumenter (Meddelandeklienter)
+För information om anslutning till OPEN-TEST samt verifiering av MK mot SDK API och SDK tekniska specifikationer se Checklista för verifiering av meddelandeklient för SDK API MT/MK.
+Följande specifikationer tillämpas av verifieringstjänsten:
+API specifikationer
+Testklient och Adressbok
+Vid ansökan till miljön kommer leverantör av meddelandeklient tilldelas en funktionsadress som möjliggöra meddelandeutbyte i Testklientens webbgränssnitt och verifieringstjänsten.
+Observera att leverantörer som endast ansluter som Meddelandeklient/API-konsument (saknar egen accesspunkts anslutning till miljön) INTE registrera egna funktionsadresser i adressboken.
+Anslutningsinformation SDK API MT/MK
+Avsnittet innehåller beskrivningar över nödvändig konfiguration och anpassning av API konsument för att kunna använda Testklientens SDK API MT/MK.
+Autentiseringsinformation
+Följande information används som underlag vid konfigurering av anslutande Meddelandeklient (API konsument).
+URL till SDK API MT/MK (API-producent):
+OPEN-TEST: https://open-test.digg.se/sdk-api/v1/
+Access Token URL
+OPEN-TEST: https://iam.digg.se/auth/realms/open-test-ab-tc/protocol/openid-connect/token Länk till annan webbplats.
+Grant type: Client Credentials
+Client ID: Tilldelas efter ansökan till miljön
+Client Secret: Tilldelas efter ansökan till miljön
+Användning av SDK API MT/MK
+Följande avsnitt beskriver anpassningar som är nödvändiga för att kunna använda Verifieringstjänsten i Testklient.
+Skicka meddelande (operationId: sendMessage)
+Anslutna API-konsument (Meddelandeklient) använder miljöns deltagaridentitet när meddelanden skickas. När meddelanden skickas via Testklient måsta ”recipient” och ”sender” använda följande värden:
+{ "data": { "type": "messages", "attributes": { "confidentiality": "false", "label": "Testmeddelande", "recipient": "..mottagande deltagar-id..", "sender": "0203:sdk-testclient.open-test.digg.se",
+Exempel
+Sender:
+OPEN-TEST
+0203:sdk-testclient.open-test.digg.se
+Recipient:
+Ingen anpassning nödvändig. Ange önskad mottagare av meddelandet som hämtas från adressboken.
+Attribut: SenderAttention.extension:
+Representerar ansluten API konsumenten (Meddelandeklient) funktionsbrevlåda i Testklienten.
+Skall sättas till tilldelad funktionsadress (tilldelas av Digg efter godkänd ansökan).
+"senderAttention": { "subOrganization": { "root": "urn:riv:infrastructure:messaging:functionalAddress", "extension": "sdk-testclient.0203:sdk-testclient.open-test.digg.se", "label": "SDK Testklient" },
+Exempel
+Hämta meddelande baserat på filter (operationId: getMessageByFilter)
+Vid anrop SKA alltid filtreras baserat på tilldelad funktionsbrevlåda (nuvarande version av Verifieringstjänsten saknar behörighetsstyrning per client och funktionsbrevlåda).
+Exempel:
+GET {{baseUrl}}/sdk/messages?filter[senderAttention.subOrganization.extension]=sdk-testclient.0203:acme.se
+Hämta meddelande baserat på id (operationId: getMessageById)
+Vid anrop SKA alltid meddelande-id inkluderas i anropet.
+Exempel:
+GET {{baseUrl}}/sdk/messages/0be3bc2a-17f7-4978-a737-3610c40b1ea5
+Radera meddelande baserat på id (operationId: deleteMessageById)
+Ingen anpassning nödvändig.
+Begränsningar i implementation av SDK API MT/MK i miljöer
+Validering av meddelandeinnehåll (POST)
+Testklientens API producent validerar meddelandeinnehåll asynkront. Ex. ett anrop som innehåller en ogiltig funktionsadress accepteras (200) men kommer efter bearbetning flaggas som felaktigt med status ”MESSAGE_EXCHANGE_ERROR”.
+Hantering av digitalDocument
+SDK API implementation i OPEN-TEST avviker från specifikation enligt följande:
+Ett meddelande kan endast innehålla en (1) bifogad fil (digitalDocument.contentFiles)
+Om ett meddelande innehåller flera textmeddelanden slås dessa samman till en (1) digitalDocument.contentTextBody. Varje textmeddelande separeras med en radbrytning.
+Exempel SDK API - “Textmeddelande
+"digitalDocument": [ { "documentName": "Document or issue containing information", "documentId": "Identifier", "index": "1", "contentTextBody": [ "Hello", "world", "!" ], "contentFiles": [ { "fileName": "hal.jpeg", "contentType": "image/jpeg", "content": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBhMSERQUEhQVFBUVFxgXFBUWFBQXFBUUFxYYFBUUFxQXHCYf } ] }],
+Exempel SDK Innehållsspecifikation - “Textmeddelande“ (ContentText)
+Textmeddelande enligt SDK Innehållsspecifikation
+<documents> ... <ContentText> <characterSequence>Hello</characterSequence> </ContextText> <ContentText> <characterSequence>world</characterSequence> </ContextText> <ContentText> <characterSequence>!</characterSequence> </ContextText></documents>
+Resultat efter bearbetning av Testclient - Meddelandetjänst
+Exempel SDK Innehållsspecifikation - “bearbetning”
+Textmeddelande“ (ContentText) slås samman med radbrytning
+<documents> ... <ContentText> <characterSequence>Hello\nworld\n!</characterSequence> </ContextText></documents>
+Exempel SDK API - “bearbetning
+Textmeddelande“ (contentTextBody) slås samman med radbrytning
+"digitalDocument": [ { "documentName": "Document or issue containing information", "documentId": "Identifier", "index": "1", "contentTextBody": [ "Hello", "world", "!" ], "contentFiles": [ { "fileName": "hal.jpeg", "contentType": "image/jpeg", "content": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBhMSERQUEhQVFBUVFxgXFBUWFBQXFBUUFxYYFBUUFxQXHCYf } ] }],

@@ -1,0 +1,380 @@
+{
+  "id": "Q3",
+  "question": "Vår leverantör säger att de kan hjälpa oss att ansluta till SDK. Vad behöver kommunen göra själv och vad kan leverantören göra åt oss?",
+  "http_status": 200,
+  "seconds": 16.38,
+  "response": {
+    "mode": "evidence_checked",
+    "answer": "Kommunen som deltagarorganisation ansvarar själv för att följa DIGG:s definierade anslutningsprocess och regelverk för SDK, även när en leverantör hjälper till.\n\nKommunen ansvarar för att säkerställa att information och meddelanden som skickas inom SDK uppfyller krav på dataskydd, sekretess och andra regleringar, oavsett leverantörens roll.\n\nKommunen måste själv ange korrekt organisationsidentitet och övrig information som DIGG efterfrågar vid anslutning, även om leverantören tillhandahåller tekniska uppgifter.\n\nKommunen ansvarar för att kravställa leverantören vid utkontraktering, exempelvis genom att upprätta personuppgiftsbiträdesavtal och säkerställa hantering av sekretessuppgifter enligt lagkrav.",
+    "claims": [
+      {
+        "text": "Kommunen som deltagarorganisation ansvarar själv för att följa DIGG:s definierade anslutningsprocess och regelverk för SDK, även när en leverantör hjälper till.",
+        "evidence": [
+          {
+            "chunk_id": "sdk-35",
+            "source_id": "participant-rules",
+            "title": "Regelverk för deltagarorganisationer inom SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslutningsavtal-regelverk-samt-bilagor/regelverk-for-deltagarorganisationer-inom-sdk",
+            "quote": "Deltagarorganisationen ska följa den av federationsägarens definierade anslutningsprocessen för anslutning till SDK.",
+            "origin": "official_snapshot",
+            "quote_id": "q-20c9aaf59b34f0795b2cc478",
+            "version": "1.7",
+            "last_checked": "2026-10-15",
+            "environment": "alla",
+            "role": "deltagarorganisation",
+            "service": "SDK",
+            "context": {
+              "context_version": 1,
+              "matched": true,
+              "origin": "official_snapshot",
+              "environment": "alla",
+              "role": "deltagarorganisation",
+              "service": "SDK",
+              "quote_offset_bytes": 910,
+              "quote_end_offset_bytes": 1029,
+              "quote_line_start": 7,
+              "quote_line_end": 7,
+              "excerpt_line_start": 6,
+              "excerpt_line_end": 13,
+              "excerpt": "2. Anslutningsprocess och godkännande\r\nDeltagarorganisationen ska följa den av federationsägarens definierade anslutningsprocessen för anslutning till SDK. Se Anslutningsresa för deltagarorganisationer inom SDK.\r\nDeltagarorganisationen ska välja en leverantör av meddelandesystem (MT/MK) som har uppfyllt regelverket för meddelandesystem.\r\nDeltagarorganisationer ska ansluta till SDK-federationen under de förutsättningar och på sätt som bestäms av deltagarmodell för SDK.\r\nDeltagarorganisationen ska ange sin organisationsidentitet samt övrig information som federationsägaren efterfrågar vid anslutning till SDK. Läs mer om anslutningsresa för deltagarorganisationer. Deltagarorganisationen ansvarar för att informationen är korrekt.\r\nDeltagarorganisationen ska vid behov, vid väsentliga förändringar som påverkar dess anslutning såsom byte av accesspunktsoperatör och eller leverantör av meddelandesystem, inkomma med en skriftlig förändringsbegäran.\r\nEn deltagarorganisation som vill ha dispens från något eller några krav i regelverket ska skriftligt ansöka om dispens hos federationsägaren.\r\n",
+              "section_headings": [
+                {
+                  "text": "2. Anslutningsprocess och godkännande",
+                  "line": 6
+                }
+              ],
+              "certificate_kind": "unknown",
+              "request_type": "unknown",
+              "actor": "deltagarorganisation",
+              "actors": [
+                "deltagarorganisation"
+              ],
+              "occurrence_count": 1,
+              "occurrences": [
+                {
+                  "quote_offset_bytes": 910,
+                  "quote_end_offset_bytes": 1029,
+                  "quote_line_start": 7,
+                  "quote_line_end": 7,
+                  "excerpt_line_start": 6,
+                  "excerpt_line_end": 13,
+                  "excerpt": "2. Anslutningsprocess och godkännande\r\nDeltagarorganisationen ska följa den av federationsägarens definierade anslutningsprocessen för anslutning till SDK. Se Anslutningsresa för deltagarorganisationer inom SDK.\r\nDeltagarorganisationen ska välja en leverantör av meddelandesystem (MT/MK) som har uppfyllt regelverket för meddelandesystem.\r\nDeltagarorganisationer ska ansluta till SDK-federationen under de förutsättningar och på sätt som bestäms av deltagarmodell för SDK.\r\nDeltagarorganisationen ska ange sin organisationsidentitet samt övrig information som federationsägaren efterfrågar vid anslutning till SDK. Läs mer om anslutningsresa för deltagarorganisationer. Deltagarorganisationen ansvarar för att informationen är korrekt.\r\nDeltagarorganisationen ska vid behov, vid väsentliga förändringar som påverkar dess anslutning såsom byte av accesspunktsoperatör och eller leverantör av meddelandesystem, inkomma med en skriftlig förändringsbegäran.\r\nEn deltagarorganisation som vill ha dispens från något eller några krav i regelverket ska skriftligt ansöka om dispens hos federationsägaren.\r\n",
+                  "section_headings": [
+                    {
+                      "text": "2. Anslutningsprocess och godkännande",
+                      "line": 6
+                    }
+                  ],
+                  "certificate_kind": "unknown",
+                  "request_type": "unknown",
+                  "actor": "deltagarorganisation",
+                  "actors": [
+                    "deltagarorganisation"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "chunk_id": "sdk-34",
+            "source_id": "participant-rules",
+            "title": "Regelverk för deltagarorganisationer inom SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslutningsavtal-regelverk-samt-bilagor/regelverk-for-deltagarorganisationer-inom-sdk",
+            "quote": "För att säkerställa att deltagarorganisationer ska kunna utbyta information inom SDK-federationen behövs gemensamma regler som gäller för alla deltagarorganisationer.",
+            "origin": "official_snapshot",
+            "quote_id": "q-b70cc895c2bf200f4420ddf8",
+            "version": "1.7",
+            "last_checked": "2026-10-15",
+            "environment": "alla",
+            "role": "deltagarorganisation",
+            "service": "SDK",
+            "context": {
+              "context_version": 1,
+              "matched": true,
+              "origin": "official_snapshot",
+              "environment": "alla",
+              "role": "deltagarorganisation",
+              "service": "SDK",
+              "quote_offset_bytes": 393,
+              "quote_end_offset_bytes": 565,
+              "quote_line_start": 8,
+              "quote_line_end": 8,
+              "excerpt_line_start": 1,
+              "excerpt_line_end": 12,
+              "excerpt": "Regelverk för deltagarorganisationer inom SDK\nTjänst: SDK | Roll: deltagarorganisation | Miljö: alla | Version: 1.7 | Källkontroll: 2026-10-15\nRegelverk för deltagarorganisationer inom SDK\r\nAnslutning för deltagarorganisationer\r\nVersion: 1.7\r\nDenna version gäller från och med 2025-12-17\r\nSäkerhetskrav och regler som gäller för samtliga deltagarorganisationer i SDK-federationen.\r\nFör att säkerställa att deltagarorganisationer ska kunna utbyta information inom SDK-federationen behövs gemensamma regler som gäller för alla deltagarorganisationer. Detta regelverk ersätter tidigare Regelverk för anslutning till Säker digital kommunikation - Informationssäkerhet, samt tillhörande bilagor som tidigare publicerats av Inera AB.\r\nInnan läsning av regelverket påbörjas, bör man ha läst beskrivningen Vad är SDK.\r\nRegelverket är en del av Anslutningsavtal för deltagarorganisationer angående Säker digital kommunikation (SDK). Här nedan finns styrande bilagor till regelverket med fördjupande beskrivningar, se lista nedan. . Observera att detta dokument gäller för offentliga aktörer. För privata aktörer gäller ett särskilt dokument, se Anslutningsavtal för deltagarorganisationer angående Säker Digital Kommunikation - privata aktörer.\r\nRegelverket med styrande regler för leverantörer av meddelandesystem, inklusive tekniska specifikationer, finns samlat på sidan Regelverk för meddelandesystem.\r\nRegelverket med styrande regler för leverantörer av accesspunkter, inklusive tekniska specifikationer, finns samlade på sidan Anslutningsavtal för acc",
+              "section_headings": [],
+              "certificate_kind": "unknown",
+              "request_type": "unknown",
+              "actor": "deltagarorganisation",
+              "actors": [
+                "deltagarorganisation"
+              ],
+              "occurrence_count": 1,
+              "occurrences": [
+                {
+                  "quote_offset_bytes": 393,
+                  "quote_end_offset_bytes": 565,
+                  "quote_line_start": 8,
+                  "quote_line_end": 8,
+                  "excerpt_line_start": 1,
+                  "excerpt_line_end": 12,
+                  "excerpt": "Regelverk för deltagarorganisationer inom SDK\nTjänst: SDK | Roll: deltagarorganisation | Miljö: alla | Version: 1.7 | Källkontroll: 2026-10-15\nRegelverk för deltagarorganisationer inom SDK\r\nAnslutning för deltagarorganisationer\r\nVersion: 1.7\r\nDenna version gäller från och med 2025-12-17\r\nSäkerhetskrav och regler som gäller för samtliga deltagarorganisationer i SDK-federationen.\r\nFör att säkerställa att deltagarorganisationer ska kunna utbyta information inom SDK-federationen behövs gemensamma regler som gäller för alla deltagarorganisationer. Detta regelverk ersätter tidigare Regelverk för anslutning till Säker digital kommunikation - Informationssäkerhet, samt tillhörande bilagor som tidigare publicerats av Inera AB.\r\nInnan läsning av regelverket påbörjas, bör man ha läst beskrivningen Vad är SDK.\r\nRegelverket är en del av Anslutningsavtal för deltagarorganisationer angående Säker digital kommunikation (SDK). Här nedan finns styrande bilagor till regelverket med fördjupande beskrivningar, se lista nedan. . Observera att detta dokument gäller för offentliga aktörer. För privata aktörer gäller ett särskilt dokument, se Anslutningsavtal för deltagarorganisationer angående Säker Digital Kommunikation - privata aktörer.\r\nRegelverket med styrande regler för leverantörer av meddelandesystem, inklusive tekniska specifikationer, finns samlat på sidan Regelverk för meddelandesystem.\r\nRegelverket med styrande regler för leverantörer av accesspunkter, inklusive tekniska specifikationer, finns samlade på sidan Anslutningsavtal för acc",
+                  "section_headings": [],
+                  "certificate_kind": "unknown",
+                  "request_type": "unknown",
+                  "actor": "deltagarorganisation",
+                  "actors": [
+                    "deltagarorganisation"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "summary",
+        "support_check": "model_supported",
+        "id": "claim-1"
+      },
+      {
+        "text": "Kommunen ansvarar för att säkerställa att information och meddelanden som skickas inom SDK uppfyller krav på dataskydd, sekretess och andra regleringar, oavsett leverantörens roll.",
+        "evidence": [
+          {
+            "chunk_id": "sdk-34",
+            "source_id": "participant-rules",
+            "title": "Regelverk för deltagarorganisationer inom SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslutningsavtal-regelverk-samt-bilagor/regelverk-for-deltagarorganisationer-inom-sdk",
+            "quote": "Deltagarorganisationen ansvarar för den information och de meddelanden som deltagarorganisationen och dess underorganisationer skickar inom SDK vad gäller tillämplig dataskyddslagstiftning, sekretess och övriga eventuella regleringar på området.",
+            "origin": "official_snapshot",
+            "quote_id": "q-c9cec1e9639f5adaa3ccca20",
+            "version": "1.7",
+            "last_checked": "2026-10-15",
+            "environment": "alla",
+            "role": "deltagarorganisation",
+            "service": "SDK",
+            "context": {
+              "context_version": 1,
+              "matched": true,
+              "origin": "official_snapshot",
+              "environment": "alla",
+              "role": "deltagarorganisation",
+              "service": "SDK",
+              "quote_offset_bytes": 2276,
+              "quote_end_offset_bytes": 2527,
+              "quote_line_start": 24,
+              "quote_line_end": 24,
+              "excerpt_line_start": 21,
+              "excerpt_line_end": 24,
+              "excerpt": "1. Deltagarorganisationens åtaganden\r\nDeltagarorganisationen ska hålla sig uppdaterad om och följa de ändringar i regelverket som federationsägaren (Digg) vidtar i enlighet med rutiner för releasehantering, se Bilaga för livscykelhantering inom SDK.\r\nDeltagarorganisationen ansvarar för sina meddelandesystem.\r\nDeltagarorganisationen ansvarar för den information och de meddelanden som deltagarorganisationen och dess underorganisationer skickar inom SDK vad gäller tillämplig dataskyddslagstiftning, sekretess och övriga eventuella regleringar på området.",
+              "section_headings": [
+                {
+                  "text": "1. Deltagarorganisationens åtaganden",
+                  "line": 21
+                }
+              ],
+              "certificate_kind": "unknown",
+              "request_type": "unknown",
+              "actor": "mixed",
+              "actors": [
+                "deltagarorganisation",
+                "Digg"
+              ],
+              "occurrence_count": 1,
+              "occurrences": [
+                {
+                  "quote_offset_bytes": 2276,
+                  "quote_end_offset_bytes": 2527,
+                  "quote_line_start": 24,
+                  "quote_line_end": 24,
+                  "excerpt_line_start": 21,
+                  "excerpt_line_end": 24,
+                  "excerpt": "1. Deltagarorganisationens åtaganden\r\nDeltagarorganisationen ska hålla sig uppdaterad om och följa de ändringar i regelverket som federationsägaren (Digg) vidtar i enlighet med rutiner för releasehantering, se Bilaga för livscykelhantering inom SDK.\r\nDeltagarorganisationen ansvarar för sina meddelandesystem.\r\nDeltagarorganisationen ansvarar för den information och de meddelanden som deltagarorganisationen och dess underorganisationer skickar inom SDK vad gäller tillämplig dataskyddslagstiftning, sekretess och övriga eventuella regleringar på området.",
+                  "section_headings": [
+                    {
+                      "text": "1. Deltagarorganisationens åtaganden",
+                      "line": 21
+                    }
+                  ],
+                  "certificate_kind": "unknown",
+                  "request_type": "unknown",
+                  "actor": "mixed",
+                  "actors": [
+                    "deltagarorganisation",
+                    "Digg"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "summary",
+        "support_check": "model_supported",
+        "id": "claim-2"
+      },
+      {
+        "text": "Kommunen måste själv ange korrekt organisationsidentitet och övrig information som DIGG efterfrågar vid anslutning, även om leverantören tillhandahåller tekniska uppgifter.",
+        "evidence": [
+          {
+            "chunk_id": "sdk-35",
+            "source_id": "participant-rules",
+            "title": "Regelverk för deltagarorganisationer inom SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslutningsavtal-regelverk-samt-bilagor/regelverk-for-deltagarorganisationer-inom-sdk",
+            "quote": "Deltagarorganisationen ska ange sin organisationsidentitet samt övrig information som federationsägaren efterfrågar vid anslutning till SDK. Läs mer om anslutningsresa för deltagarorganisationer. Deltagarorganisationen ansvarar för att informationen är korrekt.",
+            "origin": "official_snapshot",
+            "quote_id": "q-d3aef179ae8588d6591eded9",
+            "version": "1.7",
+            "last_checked": "2026-10-15",
+            "environment": "alla",
+            "role": "deltagarorganisation",
+            "service": "SDK",
+            "context": {
+              "context_version": 1,
+              "matched": true,
+              "origin": "official_snapshot",
+              "environment": "alla",
+              "role": "deltagarorganisation",
+              "service": "SDK",
+              "quote_offset_bytes": 1358,
+              "quote_end_offset_bytes": 1626,
+              "quote_line_start": 10,
+              "quote_line_end": 10,
+              "excerpt_line_start": 6,
+              "excerpt_line_end": 13,
+              "excerpt": "2. Anslutningsprocess och godkännande\r\nDeltagarorganisationen ska följa den av federationsägarens definierade anslutningsprocessen för anslutning till SDK. Se Anslutningsresa för deltagarorganisationer inom SDK.\r\nDeltagarorganisationen ska välja en leverantör av meddelandesystem (MT/MK) som har uppfyllt regelverket för meddelandesystem.\r\nDeltagarorganisationer ska ansluta till SDK-federationen under de förutsättningar och på sätt som bestäms av deltagarmodell för SDK.\r\nDeltagarorganisationen ska ange sin organisationsidentitet samt övrig information som federationsägaren efterfrågar vid anslutning till SDK. Läs mer om anslutningsresa för deltagarorganisationer. Deltagarorganisationen ansvarar för att informationen är korrekt.\r\nDeltagarorganisationen ska vid behov, vid väsentliga förändringar som påverkar dess anslutning såsom byte av accesspunktsoperatör och eller leverantör av meddelandesystem, inkomma med en skriftlig förändringsbegäran.\r\nEn deltagarorganisation som vill ha dispens från något eller några krav i regelverket ska skriftligt ansöka om dispens hos federationsägaren.\r\n",
+              "section_headings": [
+                {
+                  "text": "2. Anslutningsprocess och godkännande",
+                  "line": 6
+                }
+              ],
+              "certificate_kind": "unknown",
+              "request_type": "unknown",
+              "actor": "mixed",
+              "actors": [
+                "deltagarorganisation",
+                "leverantör"
+              ],
+              "occurrence_count": 1,
+              "occurrences": [
+                {
+                  "quote_offset_bytes": 1358,
+                  "quote_end_offset_bytes": 1626,
+                  "quote_line_start": 10,
+                  "quote_line_end": 10,
+                  "excerpt_line_start": 6,
+                  "excerpt_line_end": 13,
+                  "excerpt": "2. Anslutningsprocess och godkännande\r\nDeltagarorganisationen ska följa den av federationsägarens definierade anslutningsprocessen för anslutning till SDK. Se Anslutningsresa för deltagarorganisationer inom SDK.\r\nDeltagarorganisationen ska välja en leverantör av meddelandesystem (MT/MK) som har uppfyllt regelverket för meddelandesystem.\r\nDeltagarorganisationer ska ansluta till SDK-federationen under de förutsättningar och på sätt som bestäms av deltagarmodell för SDK.\r\nDeltagarorganisationen ska ange sin organisationsidentitet samt övrig information som federationsägaren efterfrågar vid anslutning till SDK. Läs mer om anslutningsresa för deltagarorganisationer. Deltagarorganisationen ansvarar för att informationen är korrekt.\r\nDeltagarorganisationen ska vid behov, vid väsentliga förändringar som påverkar dess anslutning såsom byte av accesspunktsoperatör och eller leverantör av meddelandesystem, inkomma med en skriftlig förändringsbegäran.\r\nEn deltagarorganisation som vill ha dispens från något eller några krav i regelverket ska skriftligt ansöka om dispens hos federationsägaren.\r\n",
+                  "section_headings": [
+                    {
+                      "text": "2. Anslutningsprocess och godkännande",
+                      "line": 6
+                    }
+                  ],
+                  "certificate_kind": "unknown",
+                  "request_type": "unknown",
+                  "actor": "mixed",
+                  "actors": [
+                    "deltagarorganisation",
+                    "leverantör"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "summary",
+        "support_check": "model_supported",
+        "id": "claim-3"
+      },
+      {
+        "text": "Kommunen ansvarar för att kravställa leverantören vid utkontraktering, exempelvis genom att upprätta personuppgiftsbiträdesavtal och säkerställa hantering av sekretessuppgifter enligt lagkrav.",
+        "evidence": [
+          {
+            "chunk_id": "sdk-35",
+            "source_id": "participant-rules",
+            "title": "Regelverk för deltagarorganisationer inom SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslutningsavtal-regelverk-samt-bilagor/regelverk-for-deltagarorganisationer-inom-sdk",
+            "quote": "Det gäller bland annat kravställning vid utkontraktering hos extern leverantör som påverkar efterlevande av dataskyddsförordningens samtliga krav på en personuppgiftsansvarig, så som upprättande av personuppgiftsbiträdesavtal och att säkerställa att sekretessuppgifter hanteras i enlighet med författningskraven.",
+            "origin": "official_snapshot",
+            "quote_id": "q-c77094a8684ad4a870c9d7ad",
+            "version": "1.7",
+            "last_checked": "2026-10-15",
+            "environment": "alla",
+            "role": "deltagarorganisation",
+            "service": "SDK",
+            "context": {
+              "context_version": 1,
+              "matched": true,
+              "origin": "official_snapshot",
+              "environment": "alla",
+              "role": "deltagarorganisation",
+              "service": "SDK",
+              "quote_offset_bytes": 341,
+              "quote_end_offset_bytes": 665,
+              "quote_line_start": 3,
+              "quote_line_end": 3,
+              "excerpt_line_start": 1,
+              "excerpt_line_end": 6,
+              "excerpt": "Regelverk för deltagarorganisationer inom SDK\nTjänst: SDK | Roll: deltagarorganisation | Miljö: alla | Version: 1.7 | Källkontroll: 2026-10-15\nDeltagarorganisationen ansvarar för att hålla sig uppdaterad om övriga rättsliga krav som ställs på organisationen i samband med användandet av SDK utöver vad som framgår av punkt 1.3. Det gäller bland annat kravställning vid utkontraktering hos extern leverantör som påverkar efterlevande av dataskyddsförordningens samtliga krav på en personuppgiftsansvarig, så som upprättande av personuppgiftsbiträdesavtal och att säkerställa att sekretessuppgifter hanteras i enlighet med författningskraven.\r\nDeltagarorganisationen ansvarar för egen anslutning till aktuella SDK miljöer.\r\nMottagande deltagarorganisation ska skyndsamt meddela sändande deltagarorganisation vid felaktigt inkommet meddelande.\r\n",
+              "section_headings": [],
+              "certificate_kind": "unknown",
+              "request_type": "unknown",
+              "actor": "mixed",
+              "actors": [
+                "deltagarorganisation",
+                "leverantör"
+              ],
+              "occurrence_count": 1,
+              "occurrences": [
+                {
+                  "quote_offset_bytes": 341,
+                  "quote_end_offset_bytes": 665,
+                  "quote_line_start": 3,
+                  "quote_line_end": 3,
+                  "excerpt_line_start": 1,
+                  "excerpt_line_end": 6,
+                  "excerpt": "Regelverk för deltagarorganisationer inom SDK\nTjänst: SDK | Roll: deltagarorganisation | Miljö: alla | Version: 1.7 | Källkontroll: 2026-10-15\nDeltagarorganisationen ansvarar för att hålla sig uppdaterad om övriga rättsliga krav som ställs på organisationen i samband med användandet av SDK utöver vad som framgår av punkt 1.3. Det gäller bland annat kravställning vid utkontraktering hos extern leverantör som påverkar efterlevande av dataskyddsförordningens samtliga krav på en personuppgiftsansvarig, så som upprättande av personuppgiftsbiträdesavtal och att säkerställa att sekretessuppgifter hanteras i enlighet med författningskraven.\r\nDeltagarorganisationen ansvarar för egen anslutning till aktuella SDK miljöer.\r\nMottagande deltagarorganisation ska skyndsamt meddela sändande deltagarorganisation vid felaktigt inkommet meddelande.\r\n",
+                  "section_headings": [],
+                  "certificate_kind": "unknown",
+                  "request_type": "unknown",
+                  "actor": "mixed",
+                  "actors": [
+                    "deltagarorganisation",
+                    "leverantör"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "summary",
+        "support_check": "model_supported",
+        "id": "claim-4"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Regelverk för deltagarorganisationer inom SDK",
+        "service": "SDK",
+        "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslutningsavtal-regelverk-samt-bilagor/regelverk-for-deltagarorganisationer-inom-sdk"
+      }
+    ],
+    "verification": {
+      "status": "partial",
+      "checked_claims": 4,
+      "omitted_claims": 2,
+      "semantic_check": "passed",
+      "model": "mistral-large-2512",
+      "answer_attempts": 1,
+      "repair_status": "not_needed",
+      "coverage_check": "required_question_facets_heuristic",
+      "missing_facets": [],
+      "rejection_reasons": {
+        "semantic_support": 2
+      },
+      "notice": "Källutdragen har matchats och svarets stöd har granskats med automatiska kontroller. Kontrollerna kan missa fel; läs beläggen vid viktiga beslut."
+    },
+    "missing_information": [
+      "Underlaget räcker inte för alla delar av frågan. Kontrollera de återstående detaljerna med ansvarig aktör eller i den aktuella tjänstens underlag."
+    ]
+  }
+}

@@ -1,0 +1,255 @@
+Ordlista för Säker digital kommunikation
+Ordlistan innehåller beskrivning av begrepp som används inom Säker digital kommunikation (SDK) och plattform för eDelivery.
+A
+Accesspunkt (AP)
+Accesspunkt är en teknisk komponent som en deltagarorganisation använder för att kommunicera med andra deltagarorganisationer inom SDK via plattform för eDelivery.
+Accesspunktsoperatör (AP-operatör, APO, engelska Service Provider eller Service Provider Admin)
+Accesspunktsoperatören är en avtalspart gentemot SDK-federationen och tillhandahåller en accesspunkt för att förmedla meddelanden inom plattformen eDelivery enligt de SDK-specifika anpassningarna. Accesspunktsoperatörsrollen ansvarar för accesspunktsfunktionen och administrerar metadata i gemensam komponent Service Metadata Publisher (SMP). För vidare information, se SDK för accesspunktsoperatörer.
+Administratör
+Administratörsroll och central förvaltare för SDK adressbok, testklienter och Service Metadata Publisher (SMP).
+Ansvarar bl.a. för:
+Anslutning och godkännande av AP-operatörer till SDK-miljöer.
+Utfärdande av funktionscertifikat till AP-operatörer.
+Tilldelning av behörigheter i SMP.
+Tilldelning av behörigheter i certifikatspubliceringstjänst.
+Anslutning av accesspunkt.
+Administrativ metadata
+Ett samlingsbegrepp för information som är nödvändig för att lokalisera och adressera ett meddelande till en organisation och dess verksamhetsfunktion (funktionsbrevlåda) exempelvis organisationsnamn, namn och beskrivning av funktionsbrevlåda, geografiska koder, struktur koder och sökord (sökkod).
+Adressadministratör
+Administratörsroll i SDK adressbok. Adressadministratör administrerar SDK adressbok för verksamheten. Har rätt att administrera funktionsadresser för tilldelade funktionsadresser.
+Anslutningsavtal
+För anslutning av en deltagarorganisation och accesspunkter till federationen för SDK träffar federationsägaren och den anslutande organisationen ett anslutningsavtal. Anslutningsavtalet består av ett huvuddokument samt regelverk
+Användaradministratör
+Administratörsroll i SDK adressbok. Deltagarorganisationens huvudadministratör som tilldelar behörigheter för adressboksadministratörer. Användaradministratör kan skapa och administrera deltagarorganisationens användare. Användarna kan tilldelas rollerna organisationsadministratör, adressadministratör, och användaradministratör.
+Användare
+Användare är en roll i en deltagarorganisation (exempelvis handläggare) som via en meddelandeklient skickar eller tar emot SDK-meddelanden i SDK produktionsmiljö.
+Asynkron kommunikation
+Kommunikationsmönster där sändaren av ett meddelande inte väntar på svar från mottagande system. Det mottagande systemet kan ha en annan kanal för att meddela sändaren om att att ett mottaget meddelande är hanterat.
+AS4
+AS4 är en profilering av standarden OASIS ebMS 3.0, som används för kuvertering och paketering av meddelanden och hantering av meddelandeflöden i eDelivery (och därmed också i SDK).
+C
+Certifikat
+Ett dokument definierat enligt X.509-standarden, som innehåller en publik nyckel för certifikatets ägare, vilken också anges i certifikatet tillsammans med den tidpunkt då certifikatet går ut. Används vid signering och kryptering av meddelanden. SDK har tre typer av certifikat: O2O-certifikat, som används för krypteringen av innehållet i XHE-kuvertet, dvs den information som skall utbytas mellan meddelandetjänsterna. O2O-certifikat utfärdas av en av flera kommersiella aktörer. AS4-certifikat, som används för att kryptera och signera innehållet i AS4-kuvertet för meddelandeutbyte mellan accesspunkter. AS4-certifikat utfärdas av Digg. TLS-certifikat, som används för kryptering av dataöverföringen mellan accesspunkter. I dagsläget utfärdas TLS-certifikaten av Inera (SITHS).
+Certifikatspubliceringstjänst (Certpub)
+Komponent i Diggs anpassning av plattformen för eDelivery. Certifikatspubliceringstjänsten innehåller deltagarorganisationers publika certifikat som används för att hantera kryptering och signering av meddelanden. Den är samlokaliserad med SMP, som är en del av eDelivery.
+D
+Deltagare (engelska: Participant)
+En organisation som agerar i SDK-federationen. Deltagarorganisationer ska ha skrivit under Anslutningavtal för deltagarorganisationer angående SDK. För introduktion rörande deltagarorganisationer, se Regelverk för deltagarorganisationer inom SDK Länk till annan webbplats..
+Deltagarcertifikat
+Kallas också O2O-certifikat. O2O står för organisation till organisation och innebär säker meddelandeöverföring mellan deltagarorganisationers meddelandetjänster som kommunicerar via SDK genom kryptering av meddelanden och signering av kuvert.
+Deltagarorganisation
+Deltagarorganisation avser den organisation som har anslutit till eller har för avsikt att ansluta sig till SDK i syfte att överföra digitala meddelanden till andra deltagarorganisationer.
+Domännamnsystemet - Domain Name System (DNS)
+Ett distribuerat system för att förenkla adressering av datorer på IP-nätverk Länk till annan webbplats. som till exempel Internet Länk till annan webbplats.. Det kopplar ihop domännamn (av typen Example Domain Länk till annan webbplats.) med IP-adresser Länk till annan webbplats. (av typen 192.0.2.26), som används för den egentliga kommunikationen.
+I sammanhanget Säker digital kommunikation används DNS även för att lokalisera specifika tekniska resurser.
+Domibus
+Namnet på den referensprogramvara som tillhandahålls av EU-kommissionen för AS4-kommunikation.
+Dynamic discovery
+“Dynamic discovery“ avser tillämpning av AS4 Dynamic Sender och Dynamic Recivier där kommunicerande parters metadata hämtas från Metadatatjänsten (SMP).
+E
+eDelivery
+Ett byggblock framtaget av EU-kommissionens finansieringsprogram Connecting Europe Facility (CEF).
+eDelivery syftar till att utgöra ett generellt byggblock för säker och robust överföring av dokument och data över internet mellan offentliga och privata organisationer samt medborgare. Informationsöverföring med eDelivery sker på ett standardiserat, säkert, tillförlitligt och tryggt sätt och följer en s.k. fyrhörnsmodell.
+I Sverige ansvarar Myndigheten för digital förvaltning, Digg, för plattformen för eDelivery.
+eDelivery transportinfrastruktur
+eDelivery transportinfrastruktur avser att meddelanden skickas mellan olika accesspunkter som följer eDelivery-standarden. SDK-federationen använder denna plattform för meddelandeutbyte.
+E-identitet för offentlig sektor (EFOS)
+Tjänst hos Försäkringskassan för utgivning av e-legitimationer för myndigheter.
+Se vidare: E-identitet för offentlig sektor, EFOS Länk till annan webbplats.
+Electronic Registered Delivery Service (ERDS)
+En tjänst som möjliggör att digitalt överföra data mellan olika parter och tillhandahålla digitala bevis på att meddelanden sänts och tagits emot samt skyddar överförd data från dataförlust och förvanskning (dataintegritet) samt insyn (konfidentialitet).
+Se vidare eIDAS-förordningen.
+Endpoint (förkortas EP, på svenska: Ändpunkt)
+Den URI som används för att identifiera den anslutning som deltagarorganisationen använder. Anges av accesspunktsoperatören under registreringsprocessen av deltagarorganisationen.
+F
+Federation
+En organiserad sammanslutning av självständiga och kända aktörer som samverkar och på säkra och tillitsfulla sätt utbyter data och meddelanden enligt ett visst syfte med hjälp av federationens transportinfrastruktur och dess miljöer inom ramen för plattformen och dess ramverk.
+Federationsdeklaration
+Federationsdeklarationen användes tidigare för att definiera hur SDK-federationen använder eDelivery plattformen. Numera ersatt av SDK-federationens anpassningar mot plattform för eDelivery Länk till annan webbplats..
+Federationsadministratör (engelska: Federation admin)
+Federationsadministratören utför administrativa uppgifter inom federationen på uppdrag av federationsägaren.
+Federationsgodkännande
+Federationsgodkännande för deltagarorganisation innebär att denne har utfört tester för federationsgodkännande och är införstådd med samtliga krav som ställs på deltagarorganisation utifrån SDK regelverk för deltagarorganisationer. För att ansöka om federationsgodkännande skickar deltagarorganisationen till Digg en ansökan om federationsgodkännande och anslutning till SDK produktionsmiljö.
+Ett godkännandebeslut för accesspunktsoperatörer innebär att accesspunktsoperatören är följsam till plattform för eDelivery och dess regelverk (plattformsgodkänd) och är federationsgodkänd för att kunna leverera tjänster till deltagarorganisationer.
+Federationsgodkännande för meddelandetypsförvaltare innebär att den meddelandetyp som meddelandetypsförvaltaren är ansvarig för har godkänts av federationen, inklusive de villkor och metoder enligt vilka meddelandetypen görs tillgänglig.
+SDK-federationen godkänner endast deltagarorganisationer, accesspunktsoperatörer (ofta förkortat APO), och meddelandetypsförvaltare.
+Federationskomponent
+En komponent som tillhör federationen. Se även Komponent och SDK gemensam komponent.
+Federationsoperatör
+En organisation som federationsägaren kan delegera arbetsuppgifter och områden till. Ingen annan organisation agerar i denna roll idag.
+Federationsägare
+SDK federationsägare (Digg) ansvarar för SDK-federationen. Federationsägaren ansvarar bl a för anslutning och godkännande av organisationer till SDK federationen och för tilldelning av behörigheter inom SDK inkl. SDK adressbok och SDK testklient.
+Funktionscertifikat
+En elektronisk identitetshandling som beskriver en maskin/server eller en it-funktion. Behörig personal (beställare, mottagare och utfärdare) ansvarar för certifikatets riktighet och att obehöriga inte får åtkomst till det.
+G
+Gemensamma komponenter
+SDK gemensamma komponenter tillhandahålls som en del i tjänsten Säker digital kommunikation av SDK-federationsägare. De utgörs bl a av SDK adressbok och SDK testklient.
+Godkännande av organisation SDK-federationen (SDK-godkänd)
+Ett SDK-godkännande innebär att deltagarorganisationen, accesspunktsoperatören och meddelandetypsförvaltaren kan agera i SDK-federationens QA- och produktionsmiljö.
+H
+HSA-ID
+HSA-ID är en unik identifierare för de objekt som finns i HSA-katalogen Länk till annan webbplats.. Det utgörs av tjänstekoder för att inte exponera personnummer/organisationsnummer. HSA-katalogen är den databas som samlar information om alla personer och verksamheter inom sjukvården i Sverige. Informationen som finns i HSA används bland annat som behörighetsgrundande information vid inloggning i olika IT-system.
+Händelsedata
+Händelsedata (transportdata) är information som ska loggas i olika komponenter. Denna logginformation är beskriven i regelverk för deltagarorganisationer inom SDK, se bilaga för IT-säkerhet inom SDK.
+I
+Identifierings-tjänst SITHS
+Säkerhetslösning med utfärdande av elektroniska identitetshandlingar inom landsting, kommun och privata vårdgivare. SITHS gör det möjligt för användare att identifiera sig med stark autentisering vid inloggning i e-tjänster. SITHS kan också användas för kryptering av information när e-tjänster, system eller servrar kommunicerar med varandra (funktionscertifikat).
+Se vidare Identifieringstjänst SITHS Länk till annan webbplats.
+Infrastrukturen för Säker Digital Kommunikation (SDK)
+Infrastrukturen för SDK avser SDK:s gemensamma komponenter, regelverk och specifikationer som tillhandahålls för anslutning till och kommunikation inom SDK.
+K
+Kodverksapplikation
+Kodverksapplikationen ska ses som en del av SDK adressbok. I kodverksapplikationen finns verksamhetskoder och geografiska koder som deltagarorganisationerna kan använda för att mer precist beskriva sina funktionsadresser.
+Kodverksregister
+Stödtjänst för hantering av kodverk i SDK adressbok.
+En komponent i SDK adressbok är kodverk som används för att stödja strukturerad sökning av funktionsadresser i adressboken. Funktionsadresser som skapas i SDK adressbok kan tilldelas en eller flera koder i ett kodverk. Kodverk som finns tillgängliga i SDK adressbok finns registrerade i SDK kodverksregister, vilket är den applikation som kodverken hämtas ifrån.
+Kodverken är baserade på publikt tillgängliga databaser över adresser, vårdkategorier, etc.
+Komponent
+En fristående och modulär beståndsdel av ett (informations-)system med väl definierade egenskaper, funktioner, datamängder och gränssnitt.
+Ett exempel är en förmedlingskomponent (accesspunkt) som förmedlar data och meddelanden enligt standardiserade protokoll på ett asynkront, säkert och tillförlitligt sätt.
+Konnektor
+Anpassningskomponent (adapter) som förenklar integration mellan accesspunkt, meddelandetjänst och meddelandeklient/verksamhetssystem. Produkter kan erbjuda ramverk som möjliggör framtagande av konnektorer.
+Exempel
+Autentisering och auktorisering
+Validering (t.ex. schema, schematron)
+Integration mot underliggande komponenter
+Kundkännedom
+Med kundkännedom förstås en försäkran om att en aktör inom SDK är den som aktören utger sig för att vara och att uppgifter erhållna från aktören vid anslutning, deltagande och träffande av avtal är korrekta.
+Kuverteringsprofil
+En anvisning med regler för tillämpning av ett standardiserat format för kuvertering av data och meddelanden.
+Exempel på detta är XHE, SBDH och ASIC. SDK använder XHE för kuverteringen av meddelanden mellan meddelandesystem.
+Kvittens - Transportkvittens
+En mottagen transportkvittens innebär att mottagande deltagarorganisations accesspunktsoperatörs Accesspunkt har mottagit meddelandet och kommer att leverera meddelandet till mottagarens meddelandetjänst (MT).
+Transportkvittens (Signal Message) är en del av standarden ebMS3.0 och AS4 som tillämpas av komponenten Accesspunkt.
+Kvittens - Meddelandekvittens
+Meddelandekvittens skickas som ett svarsmeddelande när ett meddelande mottagits enligt Meddelandespecifikation - Meddelandekvittens.
+Komponenten Meddelandetjänst(MT) är ansvarig för att hantera meddelandekvittens.
+Mottagen (ACCEPTED)
+En mottagen meddelandekvittens (ACCEPTED) innebär att meddelande är mottaget och tillgängligt hos mottagande deltagarorganisation. Meddelandet är dekrypterat, validerat och kommer levereras till avsedd funktionsbrevlåda.
+Avvisad (REJECTED)
+En mottagen meddelandekvittens (REJECTED) innebär att meddelandet är avvisat och kan inte levereras till avsedd funktionsbrevlåda.
+L
+Leverantör av meddelandetjänster
+Avser den organisation som tillhandahåller digitala tjänster i relation till SDK, t ex ett anslutande meddelandesystem (meddelandetjänst och meddelandeklient) samt accesspunkter.
+Leverantör av meddelandeklient
+Avser den organisation som tillhandahåller Meddelandeklienter till deltagarorganisationen. Aktören ansluter meddelandeklient till deltagarens meddelandetjänst.
+Lokala komponenter
+Lokala komponenter utgör de komponenter som en deltagarorganisation använder för att etablera sin förmåga att ansluta till och överföra meddelanden via SDK, d v s accesspunkt, meddelandetjänst samt meddelandeklient.
+Lokaliseringstjänst (SML)
+Den tjänst som med hjälp av DNS gör det möjligt att lokalisera tjänster i SDK. Se Service Metadata Locator.
+M
+Meddelandeklient
+Förkortas MK.
+Meddelandeklienten är gränssnitt mot användare. Meddelandeklienten hanterar funktioner som säker inloggning, behörighetsstyrning, meddelandehantering (skapa, skicka, ta emot och besvara meddelanden). En meddelandeklient kan realiseras som en fristående klient eller ett anpassat verksamhetssystem. Komponenterna kan antigen utvecklas av organisationen själv eller upphandlas från en leverantör.
+Meddelandesystem
+Meddelandesystem är ett samlingsbegrepp för meddelandeklient (MK) och meddelandetjänst (MT).
+Meddelandetjänst
+Förkortas MT
+Meddelandetjänsten hanterar paketering av meddelanden samt kryptering. Meddelandetjänsten utgör ett eget säkerhetslager som är oberoende av accesspunktens säkerhetsfunktioner.
+Meddelandetjänst ansvarar för att leverera meddelandet till rätt meddelandeklient
+Meddelandetyp
+Meddelandetyp (dokumenttyp) är det meddelandeformat som skickas i SDK. Där definieras vilka uppgifter som ska ingå i ett meddelande. I nuvarande version av SDK finns två meddelandetyper som är möjliga att skicka; SDK-meddelande och kvittensmeddelande.
+Metadata
+Samlingsbegrepp för tjänstemetadata och administrativa metadata.
+Miljöer
+SDK federationsägare (Digg) tillhandahåller tre miljöer inom SDK:
+OPEN-TEST för tester av leverantörer av meddelandesystem och accesspunktsoperatörer (testmiljö)
+SDK QA-miljö för tester av deltagarorganisationer (testmiljö)
+SDK produktionsmiljö för deltagarorganisationer och accesspunkter, som används för att förbereda och skicka skarpa SDK-meddelanden.
+Miljöspecifikation
+Definition av de ingående komponenterna i en av SDKs test- och produktionsmiljöer.
+N
+Nyttolast - för meddelande
+Här avses meddelande som paketeras och transporteras via SDK. I dagsläget kan ett SDK-meddelande innehålla vad som helst (fritext) förutom exekverbara filer, och detsamma gäller bilagor.
+O
+O2O/E2E-certifikat (engelska: Organization Validation (OV)-certifikat, också benämnt som SDK funktionscertifikat eller Serverlegitimation/Organisationslegitimation. I eDelivery benämnt Participant Certificate.)
+Ett certifikat som följer X.509-standarden, men är utfärdat till en organisation med validering av organisationens och firmatecknarens behörighet. En ytterligare verifikationsnivå används för Extended Validation (EV)-certifikat, där organisationen också verifieras mot bolagsregistret och andra källor, till exempel årsredovisning.
+OPEN-TEST
+Miljön OPEN-TEST tillhandahålls av SDK-federationsägare för att leverantörer ska kunna testa sina programvaror för meddelandesystem och för testning av accesspunkter.
+Organisationsadministratör
+Administratörsroll i SDK adressbok. Verksamheten organisationsadministratör som kan hantera beskrivning av organisationen samt vilka kodverk som organisationen ska använda. Rollen kan även hantera underorganisationer samt importera och exportera funktionsadresser.
+Organisation-till-organisation-kryptering och signering (O2O)
+O2O står för organisation till organisation och innebär säker meddelandeöverföring mellan deltagarorganisationers meddelandetjänster som kommunicerar via SDK genom kryptering av meddelanden och signering av kuvert. Som regel genom användning av ett O2O-certifikat.
+Ostrukturerad information
+Ostrukturerad information innebär att informationsmängden inte är bestämd eller följer en specificerad struktur såsom dokument med löpande text, video och ljud.
+P
+Plattformsansvarig
+Plattformsansvarig äger plattform för eDelivery och ansvarar för styrning, ledning, utveckling, förvaltning och drift av plattformen. Digg är plattformsansvarig för den nationella eDelivery-plattformen.
+Plattform för eDelivery
+En mjukvarubaserad, centralstyrd och utvecklingsbar yta som erbjuder möjligheter för digital samverkan mellan sammanslutningar av deltagare, leverantörer och ansvariga för samverkansområden inom ramen för federationer.
+Plattformen erbjuder ett transportlager av meddelanden.
+R
+Ramverk för plattform för eDelivery
+Ramverk för plattform för eDelivery består av bl.a. regelverk för accesspunktsoperatörer, komponentspecifikationer, tekniska specifikationer, transportmodeller samt beskrivningar och rutiner för accesspunktsoperatörer.
+REST
+Representational State Transfer, en metod för att överföra en tjänstebegäran och tjänstens svar som meddelanden i http-protokollet. SDK använder inte REST utan en alternativ metod, SOAP, som AS4 är baserat på, för att representera tjänster och tjänstebegäran.
+S
+SDK Adressbok
+Gemensam komponent inom Säker digital kommunikation som tillhandahålls av Digg. SDK adressbok är en tjänst som möjliggör för anslutna organisationer att registrera organisatoriska adressuppgifter för att identifiera anslutna organisationer och hitta mottagare för överföring av digitala meddelanden via SDK.
+Gemensam adresskälla som möjliggör verksamhetsadressering inom SDK. Används primärt för att ange funktionsadresser inom organisation med beskrivningar och attribut att söka och filtrera på.
+Läs mer om SDK adressbok
+Läs handledning för SDK adressbok
+SDK testklient
+Gemensam komponent inom Säker digital kommunikation som tillhandahålls av SDK-federationsägare.
+SDK testklient är ett testverktyg som deltagarorganisationer använder för att verifiera att de uppfyller tekniska specifikationer och IT-säkerhetskrav för tjänsten Säker digital kommunikation som en del i anslutningsprocessen till SDK.
+Läs mer om SDK testklient
+SDK produktionsmiljö (SDK-PROD)
+SDK produktionsmiljö är en driftsmiljö som tillhandahålls av Digg som SDK-federationsägare. SDK produktionsmiljö stödjer hantering av uppgifter klassade upp till, och innefattande, konsekvensnivån allvarlig enligt Myndigheten för civilt försvar (MCF):s modell för klassificering av information. Testdata får inte förekomma i SDK produktionsmiljö.
+SDK:s ramverk för accesspunktsoperatörer
+SDK:s ramverk för accesspunktsoperatörer innehåller regelverk, beskrivningar, rutiner, erfarenheter och information om förberedelser för anslutning till federationen.
+SDKs regelverk för accesspunktsoperatörer
+SDK regelverk för accesspunktsoperatörer består av styrande regelverk, framför allt texten i det avtal som ingåtts mellan Digg och accesspunktsoperatören, samt tillhörande bilagor, inklusive de testfall som måste utföras för godkännande.
+SDK:s ramverk för deltagarorganisationer
+SDK:s ramverk innehåller regelverk, beskrivningar, rutiner, erfarenheter och information om förberedelser för anslutning till federationen.
+SDKs ramverk för meddelandesystem
+SDK ramverk innehåller regelverk för meddelandesystem, tekniska specifikationer, stöd för leverantörer samt stödjande beskrivningar och rutiner.
+SDKs regelverk för deltagarorganisationer
+SDK regelverk för deltagarorganisationer består av styrande regelverk, framför allt texten i det avtal som ingåtts mellan Digg och deltagarorganisationen, samt tillhörande bilagor.
+SDK:s regelverk för meddelandesystem
+SDK regelverk för meddelandesystem består av styrande regler för leverantör av meddelandesystem, tekniska specifikationer samt övriga styrande bilagor.
+SDK QA-miljö
+SDK QA-miljö är en testmiljö som tillhandahålls av Digg som SDK-federationsägare. Syftet med SDK QA-miljö är att vara ett stöd för deltagarorganisationers behov av anpassningar av lokala komponenter samt genomföra anslutningstester till SDK federationen. I SDK QA-miljö får endast testdata förekomma.
+Service Group
+Det metadataelement i kommunikationen mellan APO och SMP som innehåller tjänstemetadata, dvs beskriver vad en ändpunkt eller accesspunkt kan göra i XML-format. En del av de data som utbyts under uppslagningen av metadata i SMP.
+Service Provider
+Den engelska benämningen på en accesspunktsoperatör inom SDK-federationen. ”Service Provider Admin” är en förkortning som kan översättas med accesspunktsadministratör.
+Service Metadata Locator (SML)
+En anvisningstjänst som anvisar till tjänster som hanterar andra tjänsters metadata. Adresseringen i SML utförs med DNS. Gemensam komponent i plattform för eDelivery. SML möjliggör att accesspunkter dynamiskt kan hitta mottagande organisations metadatatjänst enbart baserat på mottagande parts organisationsidentitet samt vetskap om vilket typ av meddelandeutbyte som ska göras (i detta fall SDK meddelandeutbyte).
+SML kan ses som ett försystem som hjälper till att registrera och lokalisera organisationer som ska delta i ett meddelandeutbyte.
+Service Metadata Publisher (SMP)
+SMP är en tjänst som innehåller metadata om en deltagarorganisation. Med hjälp av metadata kan korrekt adressering genomföras av meddelande till mottagarens accesspunkt. SMP är en gemensam komponent i plattform för eDelivery.
+Specifikation
+Ett dokument som beskriver en tjänst, en komponent eller ett systems egenskaper.
+Exempel:
+Accesspunktsspecifikation; en komponentspecifikation som specificerar en accesspunkt.
+Miljöspecifikation av de principer, regler, rutiner som alla parter behöver följa för att kunna agera inom en federations miljö.
+Tjänstespecifikation; en specifikation av en tjänst som erbjuder funktioner och data via API eller GUI inom en federations miljö.
+Strukturerad information
+Strukturerad information innebär att informationsmängden följer en specificerad struktur enligt ett fördefinierat schema.
+Synkron kommunikation
+Kommunikationsmönster där sändaren av ett meddelande väntar på svar från mottagaren. Innan svaret mottagits går sändaren inte vidare i sin exekvering.
+Systemadministratör (engelska System adminstrator eller System admin)
+Ansvarig för den dagliga tekniska hanteringen av en funktion och den uppfyllande plattformen.
+T
+Testklientanvändare
+Administratörsroll i SDK adressbok. Person i en deltagarorganisation som utför grundläggande verksamhetslika anslutningstester vid anslutning till SDK federationen, skickar och tar emot meddelanden i testklienten i miljöerna OPEN-TEST och SDK QA.
+Tjänstemetadata
+Ett samlingsbegrepp för information som är nödvändig för att adressera och överföra information mellan accesspunkter t.ex. deltagar-id (ParticipantIdentifier), meddelandetyper (DocumentIdentifier), teknisk adress (EndpointURI), signerings- och krypteringscertifikat innehållande accesspunktens publika nyckel, et.c.
+TLS (Transport Level Security)
+SDK använder mTLS, Mutual TLS, för att autenticiera ändpunkterna i en kommunikationskanal och kryptera trafiken mellan dem.
+Transportinfrastruktur
+En digital infrastruktur som erbjuds av en federation till dess deltagare och som möjliggör samverkan och utbyten av data och meddelanden mellan deltagare i olika miljöer enligt olika transportmodeller med hjälp av tjänster.
+Transportmodell
+Principer, regler, rutiner och specifikationer som styr hur utbyte av data och meddelanden sker i en miljö.
+Transportprofil
+En anvisning med regler för tillämpning av ett standardiserat transportprotokoll för kommunikation av data och meddelanden.
+Exempel på transportprofil är AS4.
+U
+Underorganisation
+Deltagarorganisation kan ansluta underorganisation som ingår i samma koncern, till exempel en stadsdelsnämnd eller ett helägt kommunalt bolag. För att deltagarorganisationen ska kunna säkerställa att kraven i avtalet kommer att uppfyllas av underorganisationen behöver deltagarorganisationen ha ett bestämmande inflytande över den underorganisation som ska anslutas. Underliggande organisationer använder samma organisationsidentitet som huvudorganisationen. Det innebär i praktiken att de använder samma accesspunkt och meddelandetjänst.
+X
+X.509
+Format som används för att strukturera data i ett certifikat i den krypterings- och signerings modell som används i SDK.
+Ä
+Ändpunkt (engelska: Endpoint, förkortas EP)
+Den URI som används för att identifiera den anslutning som deltagarorganisationen använder. Anges av accesspunktsoperatören under registreringsprocessen av deltagarorganisationen.

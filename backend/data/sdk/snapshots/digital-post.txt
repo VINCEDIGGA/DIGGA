@@ -1,0 +1,16 @@
+Anslut till Mina meddelanden och Auktorisationssystem för digital post – offentlig aktör
+Att ansluta till infrastrukturen Mina meddelanden och Auktorisationssystem för digital post är enkelt om du följer vår steg-för-steg-process. Här hittar du en beskrivning av varje steg för dig som offentlig aktör.
+Klicka på understruken rubrik för mer information.
+Förberedelser
+För att börja skicka post digitalt behöver du och din organisation ta del av förberedande information.
+Gör en ansökan
+Här beskriver vi hur du gör en ansökan till Digg. Här kan du också fylla i ansökningsformulär.
+Teckna avtal
+För att få skicka digital post via infrastrukturen Mina meddelanden behöver du ha tecknat avtal med Digg, både för infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.
+Genomför tekniska tester
+Innan du kan börja skicka digital post behöver du genomföra tekniska tester.
+Efter anslutning
+Om era inlämnade uppgifter ändras behöver du informera Digg. Kanske vill ni också prenumerera på vår driftinformation?
+Frågor?
+Frågor och svar om anslutning till Mina meddelanden och Auktorisationssystem för digital post
+Du kan också kontakta oss via e-postadressen: info@digg.se

@@ -1,0 +1,119 @@
+Regelverk för deltagarorganisationer inom SDK
+Anslutning för deltagarorganisationer
+Version: 1.7
+Denna version gäller från och med 2025-12-17
+Säkerhetskrav och regler som gäller för samtliga deltagarorganisationer i SDK-federationen.
+För att säkerställa att deltagarorganisationer ska kunna utbyta information inom SDK-federationen behövs gemensamma regler som gäller för alla deltagarorganisationer. Detta regelverk ersätter tidigare Regelverk för anslutning till Säker digital kommunikation - Informationssäkerhet, samt tillhörande bilagor som tidigare publicerats av Inera AB.
+Innan läsning av regelverket påbörjas, bör man ha läst beskrivningen Vad är SDK.
+Regelverket är en del av Anslutningsavtal för deltagarorganisationer angående Säker digital kommunikation (SDK). Här nedan finns styrande bilagor till regelverket med fördjupande beskrivningar, se lista nedan. . Observera att detta dokument gäller för offentliga aktörer. För privata aktörer gäller ett särskilt dokument, se Anslutningsavtal för deltagarorganisationer angående Säker Digital Kommunikation - privata aktörer.
+Regelverket med styrande regler för leverantörer av meddelandesystem, inklusive tekniska specifikationer, finns samlat på sidan Regelverk för meddelandesystem.
+Regelverket med styrande regler för leverantörer av accesspunkter, inklusive tekniska specifikationer, finns samlade på sidan Anslutningsavtal för accesspunktsoperatörer.
+Styrande bilagor till regelverket:
+Bilaga för tillgänglighet inom SDK
+Bilaga för IT- säkerhet inom SDK
+Bilaga för personuppgiftsbehandling inom SDK
+Bilaga om brister i uppföljning och regelefterlevnad angående SDK
+Bilaga om deltagarmodell för SDK
+Bilaga om meddelandetyper i SDK
+Bilaga om livscykelhantering för SDK
+1. Deltagarorganisationens åtaganden
+Deltagarorganisationen ska hålla sig uppdaterad om och följa de ändringar i regelverket som federationsägaren (Digg) vidtar i enlighet med rutiner för releasehantering, se Bilaga för livscykelhantering inom SDK.
+Deltagarorganisationen ansvarar för sina meddelandesystem.
+Deltagarorganisationen ansvarar för den information och de meddelanden som deltagarorganisationen och dess underorganisationer skickar inom SDK vad gäller tillämplig dataskyddslagstiftning, sekretess och övriga eventuella regleringar på området.
+Deltagarorganisationen ansvarar för att hålla sig uppdaterad om övriga rättsliga krav som ställs på organisationen i samband med användandet av SDK utöver vad som framgår av punkt 1.3. Det gäller bland annat kravställning vid utkontraktering hos extern leverantör som påverkar efterlevande av dataskyddsförordningens samtliga krav på en personuppgiftsansvarig, så som upprättande av personuppgiftsbiträdesavtal och att säkerställa att sekretessuppgifter hanteras i enlighet med författningskraven.
+Deltagarorganisationen ansvarar för egen anslutning till aktuella SDK miljöer.
+Mottagande deltagarorganisation ska skyndsamt meddela sändande deltagarorganisation vid felaktigt inkommet meddelande.
+2. Anslutningsprocess och godkännande
+Deltagarorganisationen ska följa den av federationsägarens definierade anslutningsprocessen för anslutning till SDK. Se Anslutningsresa för deltagarorganisationer inom SDK.
+Deltagarorganisationen ska välja en leverantör av meddelandesystem (MT/MK) som har uppfyllt regelverket för meddelandesystem.
+Deltagarorganisationer ska ansluta till SDK-federationen under de förutsättningar och på sätt som bestäms av deltagarmodell för SDK.
+Deltagarorganisationen ska ange sin organisationsidentitet samt övrig information som federationsägaren efterfrågar vid anslutning till SDK. Läs mer om anslutningsresa för deltagarorganisationer. Deltagarorganisationen ansvarar för att informationen är korrekt.
+Deltagarorganisationen ska vid behov, vid väsentliga förändringar som påverkar dess anslutning såsom byte av accesspunktsoperatör och eller leverantör av meddelandesystem, inkomma med en skriftlig förändringsbegäran.
+En deltagarorganisation som vill ha dispens från något eller några krav i regelverket ska skriftligt ansöka om dispens hos federationsägaren.
+3. Avregistrering
+Deltagarorganisationen ska följa federationsägarens avregistreringsrutin, se Anslutningsresa för deltagarorganisationer, bilaga.
+En deltagarorganisation som vill avsluta sin anslutning till SDK ska avregistrera samtliga uppgifter i metadata- och adressregister och frånträda avtalet med SDK-federationsägare. Spårbarhetsinformation ska fortsatt hållas tillgänglig i enlighet med kraven i avsnitt 6.1 i detta dokument. I de fall deltagarorganisationen inte avregistrerar sina uppgifter kommer SDK-federationsägare att göra detta tidigast när alla delar i anslutningen formellt avslutas.
+4. Informationssäkerhet
+Deltagarorganisationen ska följa nedanstående krav som gäller informationssäkerhet.
+Nivån på informationssäkerhet inom SDK är dimensionerad för att tillgodose skyddsnivå allvarlig enligt informationsklassningsmodell som tillhandahålls i Myndigheten för civilt försvars (MCF:S) metodstöd för systematiskt informationssäkerhetsarbete. Det innebär att SDK uppfyller den säkerhetsnivå som krävs för att utbyta sekretessbelagd information som kan innehålla integritetskänsliga och känsliga personuppgifter.
+1. SDK ska användas för att utbyta information som inte omfattas av gällande säkerhetsskyddslagstiftning.
+2. Deltagarorganisationen ska själv bedöma om SDK har tillräcklig nivå av säkerhet för att utbyta information med tilltänkta mottagare.
+3. För att undvika risk för felaktig adressering ska deltagarorganisationen inte återanvända funktionsadresser som tidigare använts i annat syfte.
+4.Deltagarorganisationen ska iaktta försiktighet vid adressering av meddelanden. Vid osäkerhet om mottagande deltagarorganisations funktionsadress bör sändande deltagarorganisation kontrollera adressen hos mottagande organisation innan personuppgifter överförs. Se vidare FAQ Informationssäkerhet Länk till annan webbplats..
+5. Deltagarorganisationen ska för de delar av verksamheten som berörs av anslutning till SDK bedriva ett systematiskt och riskbaserat informationssäkerhetsarbete med utgångspunkt i standarden ISO/IEC 27000-serien eller motsvarande, för de delar av verksamheten som berörs genom anslutning till SDK.
+Det innebär minst att deltagarorganisationen ska:
+Tillse att information som utbyts via SDK är identifierad och att informationsklassning har genomförts.
+Regelbundet analysera risker förknippade med anslutningen. Riskanalysen ska inkludera en åtgärdsplan som följs upp årligen.
+Vidta ändamålsenliga och proportionella organisatoriska och tekniska åtgärder för att hantera risker. Åtgärderna ska säkerställa en nivå av säkerhet som är lämplig i förhållande till risken.
+Tillse att lämpliga åtgärder vidtas för att förebygga och minimera konsekvenser av incidenter. Åtgärderna ska syfta till att säkerställa kontinuitet.
+Dokumentera och revidera det systematiska informationssäkerhetsarbetet årligen.
+6. Deltagarorganisationen ska under anslutning till SDK vidmakthålla korrekt och uppdaterat administrativ metadata i SDK gemensamma tjänster för överföring av meddelanden via SDK. Administrativ metadata anses vara metadata som används för att hantera och underhålla data nödvändig för informationsöverföring mellan deltagare.
+I SDK adressbok registrerar deltagarorganisation olika typer av administrativ metadata nödvändig för verksamhetsadressering och säkerhet.
+Exempel:
+Organisationsinformation
+Funktionsadress information
+Publik nyckel för O2O-certifikat
+7. Deltagarorganisationen ska vid förändring av organisationsuppgifter, utan oskäligt dröjsmål, genomföra uppdatering via de administrationsgränssnitt och andra förfaranden som tillhandahålls för SDK-federationen och plattformen för eDelivery.
+5. IT-säkerhet
+Deltagarorganisationen ska följa de krav som finns beskriven i bilaga för IT-säkerhet inom SDK.
+6. Spårbarhet
+Deltagarorganisation ska säkerställa att alla meddelandeöverföringar via dess lokala komponenter loggas samt att logginformationen bevaras i minst 12 månader.
+Deltagarorganisation ska säkerställa att loggar kan tas fram i läsbar form under hela denna tid, såvida inte krav på gallring påkallas från integritetssynpunkt eller har stöd i lag eller annan författning. Information om vad loggarna ska innehålla finns beskrivet i Bilaga för IT-säkerhet inom SDK.
+En deltagarorganisation ska vid förfrågan från annan deltagarorganisation vara behjälplig med att ta fram och lämna ut relevant logginformation. Detta under förutsättning att den part som efterfrågat uppgifterna har ett berättigat intresse av dessa och att deltagarorganisationen inte enligt lag eller annan författning är förhindrad att lämna ut sådana uppgifter. Vid tveksamhet kan deltagarorganisationen rådgöra med federationsägaren.
+7. Tillgänglighet
+Deltagarorganisationen ska definiera sin egen tillgänglighet i sina lokala komponenter och ska löpande bevaka att tillgänglighetskraven efterlevs enligt gällande nivåer beskrivna i Bilaga för tillgänglighet inom SDK.
+8. Informationsutbyte
+En deltagarorganisation ska acceptera meddelandeöverföring från alla anslutna deltagarorganisationer inom SDK.
+Deltagarorganisationen ska endast utbyta information som är kopplad till sin verksamhet, vilket innebär att exempelvis reklam eller spam inte är tillåtet.
+Deltagarorganisationen ska enbart skicka och ta emot godkända meddelandetyper. Se Bilaga om meddelandetyper för SDK.
+9. Accesspunkt
+Följande punkter innehåller regler för deltagarorganisationen och dennes förhållande till accesspunktsoperatör.
+Deltagarorganisationen ska vara ansluten till en accesspunkt från en av Diggs godkända accesspunktsoperatörer.
+Deltagarorganisationen ska upprätta ett avtal vid anlitande av en extern accesspunktsoperatör. Detta avtal ska reglera att accesspunktsoperatör agerar på uppdrag av deltagarorganisationen.
+En deltagarorganisation ska meddela federationsägaren om en accesspunktsoperatör inte uppfyller sina åtaganden.
+Eventuella krav om strängare servicenivåer än vad som framgår av Bilaga för tillgänglighet i SDK ska framgå av serviceavtal med accesspunktsoperatör.
+Deltagarorganisationen ska säkerställa att accesspunktsoperatör registrerar följande tjänstemetadata i plattformstjänster:
+Deltagaridentitet i eDelivery transportinfrastruktur
+Meddelandetyper och version
+Accesspunktsoperatörs publika certifikatsuppgifter (organisationsnamn och accesspunktsidentitet)
+10. Meddelandesystem
+Test av deltagarorganisationens meddelandesystem inför federationsgodkännande ska dokumenteras.
+Deltagarorganisationen ska endast anlita leverantörer av meddelandesystem som kan garantera tillräckliga säkerhetsåtgärder enligt gällande lagstiftning om dataskydd och sekretess. Se Bilaga för personuppgiftsbehandling inom SDK.
+11. Certifikat
+Deltagarorganisationen ska vid var tid ha ett giltigt O2O-certifikat.
+12. Incidenter, felhantering och support
+Deltagarorganisationen ska följa supportprocessen för SDK, se sidan kontakt för support, incident- och felhantering.
+Deltagarorganisationen eller av tredje part utsedd aktör ska prenumerera på federationsägarens driftsida för att få information om planerade och oplanerade driftsstörningar som påverkar SDK:s gemensamma komponenter.
+Deltagarorganisationen ska stödja övriga anslutna aktörer i SDK vid felhantering och support enligt gällande avtal mellan berörda aktörer. Detta gäller även att stödja sin egen accesspunktsoperatör.
+Deltagarorganisationen ska bedöma och anmäla incidenter enligt lagar och förordningar, samt ska följa federationsägarens regler och rutiner för incidenthantering. Läs mer på sidan kontakt för support, incident- och felhantering.
+13. SDK adressbok
+SDK adressbok är den adressbok som deltagarorganisationen förbinder sig att använda i SDK.
+Deltagarorganisationen ska tillse att det finns behörig(a) administratör(er) som kan uppdatera adressinformation i SDK adressbok.
+Deltagarorganisationen ska tillhandahålla och vidmakthålla korrekt adressinformation för överföring av meddelanden. Informationen som krävs för registrering av deltagarorganisation i SDK adressbok ska inkludera: Organisationsidentifierare, dvs deltagaridentitet i eDelivery transportinfrastruktur. Namn på organisation och organisationsnummer. Administratörsuppgifter, se Bilagan om personuppgiftsbehandling inom SDK.
+Deltagarorganisationen ska endast hämta adressinformation om andra deltagare och funktionsadresser från SDK adressbok.
+Deltagarorganisation ska vid användning av lokal läskopia av adressbok uppdatera den lokala kopian enligt givna intervaller. Se mer information i Bilaga för IT-säkerhet inom SDK.
+14. Identifiering av organisationer
+I enlighet med Diggs regelverk för organisationsidentifierare ska varje organisation identifieras enligt standard ISO6523 för global identifiering av avsändare och mottagare.
+Organisationsidentifieraren ska vara unik inom federationen och per miljö, och säkert kunna knytas till organisationen. Inom standarden tillåts följande typer (ICD) för SDK:
+ISO6523:0203 – eDelivery Network Participant identifier. Se
+https://www.iso.org/obp/ui/#iso:std:iso-iec:6523:-1:ed-2:v1:en Länk till annan webbplats.
+15. Åtkomst till deltagarorganisationens meddelandesystem
+Deltagarorganisationen ska tillse att endast behöriga användare i deltagarorganisationen har åtkomst till anslutande meddelandesystem (meddelandetjänst, meddelandeklient) för att skydda informationen som överförs. I första hand ska en e-legitimation användas som är godkänd enligt Diggs kvalitetsmärke Svensk e-legitimation (minst LoA3).
+Alternativt ska deltagarorganisationen ha en autentiseringsmetod för åtkomst till eget meddelandesystem som följer tillitsramverk för Svensk e-legitimation LoA3 (Technical Specifications for the Swedish eID Framework Länk till annan webbplats.) eller eIDAS nivå väsentlig, (se eIDAS-förordningen). Detta innebär att minst följande krav ska vara uppfyllda:
+Användare ska kontrolleras mot offentligt register, såsom folkbokföringsregistret, innan eller i samband med att e-identitet skapas.
+Vid utlämnande av e-identiteter ska kontroll av fysisk legitimationshandling ske.
+Deltagarorganisationen ska ha rutiner för att granska sina användarbehörigheter för åtkomst. Obehöriga eller användare som inte längre behöver åtkomst ska tas bort. Ändringar av behörigheter ska dokumenteras.
+Användarens e-identitet ska vara unik och bestående över tid.
+Användarens åtkomst ska vara personlig och knuten till den enskilda användaren och får inte delas med andra.
+Användarens åtkomst ska ske med stark autentisering och uppfylla minst två av nedanstående krav (faktorer):
+Med någonting som användaren vet, t.ex. användarnamn/lösenord eller pinkod.
+Med någonting som användaren har, t.ex. smart kort, fysisk enhet (OTP-dosa), USB-token eller mobila certifikat med säker lagring av den privata nyckeln. SMS-kod ska ej användas.
+Med hjälp av användaren själv (biometri), t.ex. fingeravtryck eller avläsning av iris. Biometri ska dock endast användas som PIN-kodsersättning.
+16. Uppföljning av deltagarorganisation
+SDK-federationsägare har rätt att granska och göra revision av anslutna deltagarorganisationer i SDK. Det kan ske slumpmässigt eller vid misstanke om överträdelse av SDK:s ramverk för deltagarorganisationer. Deltagarorganisationen förbinder sig att förse federationsägaren med efterfrågad dokumentation.
+17. Livscykelhantering
+Deltagarorganisationer och accesspunktsoperatörer, samt SDK-federationsägare, ska följa livscykelhantering enligt Livscykelhantering inom SDK.
+18. Efterlevnad
+Om en deltagarorganisation uppmärksammar brister i egen eller annan deltagarorganisations efterlevnad av SDK:s regelverk ska deltagarorganisationen informera SDK federationsägare och den deltagarorganisation som brister i efterlevnad. Kontaktuppgifter för deltagarorganisationer och accesspunktsoperatörer kan erhållas från federationsägaren.
+SDK federationsägare har rätt att begära in ett nytt intyg om följsamhet till SDK regelverk vid granskning eller revision av anslutna parter eller vid misstanke om att deltagarorganisationen brister i efterlevnad av SDK:s regelverk. Det kan även ske vid regelbundna intervaller som är beslutade inom SDK-federationen.
+Om deltagarorganisationen inte följer SDK:s regelverk kan deltagarorganisationen varnas eller i särskilda fall stängas av från SDK. Se Bilaga om brister i uppföljning och regelefterlevnad angående SDK.

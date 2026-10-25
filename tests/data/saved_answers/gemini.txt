@@ -1,0 +1,192 @@
+GEMINI ORIGINALSVAR
+
+Status: genomfört
+Datum och tid: 24/10/26
+Exakt modellnamn som visas i tjänsten: Gemini 3
+Tjänst och eventuell abonnemangsnivå:
+Underlag: HELA
+Filnamn: DIGGA-RAG-KUNSKAP-ALLT-2026-10-20.txt
+Filuppladdning accepterad: ja
+Slutmarkör återgiven: ja
+Visade tjänsten en varning om filens storlek eller avkortning:
+Webbsökning: av 
+Minne eller personliga instruktioner: av
+Temperatur: ej visad, om tjänsten inte uttryckligen visar ett värde
+Försök nummer: 1
+
+ORIGINALSVAR
+## FILÅTKOMST
+
+* **Filnamn:** `DIGGA-RAG-KUNSKAP-ALLT-2026-10-20.txt`
+* **Slutmarkör:** `==============================================================================` (Filen är komplett och inte avkortad.)
+
+---
+
+### Q1. Vi är en liten kommun och vill börja använda SDK. Vad behöver vi göra först?
+
+* **SVAR:**
+* Börja med ett förarbete som fokuserar på verksamhetens behov, informationsutbyten, tekniska vägval och informationssäkerhet.
+* Involvera ledning, verksamhet, IT och informationssäkerhet.
+* Säkerställ att er accesspunktsoperatör har registrerat er i Diggs metadatatjänst (SMP) i QA-miljön.
+* Skicka in formuläret för anslutning av deltagarorganisationer till Digg för att påbörja anslutningen.
+
+
+* **KÄLLSTÖD:**
+* *Källa:* `SDK:preparation` — "Därefter är det viktigt att genomföra ett förarbete som fokuserar på vilka verksamheter och informationsutbyten som är aktuella, tekniska vägval och informationssäkerhet. Ledning, verksamhet, IT och informationssäkerhet är involverade."
+
+
+* *Källa:* `SDK:connection-journey` — "Deltagarorganisationen har säkerställt att accesspunktsoperatör har registrerat organisationen i Diggs metadatatjänst (SMP) i SDK QA-miljö. Deltagarorganisationen påbörjar anslutningsförfarandet genom att skicka in formulär: Anslutning av deltagarorganisationer till SDK."
+
+
+
+
+* **BEGRÄNSNING:** Materialet anger inte exakt hur lång tid det tar eller vilka specifika interna leverantörer som måste upphandlas.
+
+---
+
+### Q2. Vi har hört att vi behöver ett O2O-certifikat för SDK. Vad är det och varför behöver vi det?
+
+* **SVAR:**
+* O2O står för organisation till organisation och avser de certifikat som används för kryptering och signering av meddelanden (nyttolasten) mellan deltagarorganisationers meddelandetjänster.
+* Certifikaten används för att skydda information genom kryptering så att endast rätt mottagare kan läsa den, samt för att signera information så att mottagaren kan verifiera avsändaren och säkerställa att innehållet inte ändrats.
+
+
+* **KÄLLSTÖD:**
+* *Källa:* `SDK:certificates` — "O2O (organisation till organisation) O2O används som begrepp för de certifikat som används för kryptering och signering av nyttolasten mellan deltagarorganisationer inom SDK."
+
+
+* *Källa:* `SDK:certificates` — "Certifikat används för att identifiera parter och för att skydda information genom kryptering och signering. Detta säkerställer att information inte kan läsas av obehöriga, att innehållet inte har ändrats och att mottagaren kan verifiera vem som har skickat informationen."
+
+
+
+
+* **BEGRÄNSNING:** Materialet beskriver inte detaljer kring enskilda interna tekniska nyckelgenereringar utanför de angivna certifikatutfärdarna.
+
+---
+
+### Q3. Vår leverantör säger att de kan hjälpa oss att ansluta till SDK. Vad behöver kommunen göra själv och vad kan leverantören göra åt oss?
+
+* **SVAR:**
+* Kommunen äger det yttersta ansvaret för beslut, styrning, egna funktionsadresser, regelverksföljsamhet och att teckna anslutningsavtal med Digg.
+* Leverantören kan tillhandahålla och förvalta system för meddelandetjänst och meddelandeklient, samt efter överenskommelse med Digg hjälpa till med installation av den privata nyckeln i meddelandetjänsten.
+
+
+* **KÄLLSTÖD:**
+* *Källa:* `SDK:preparation` — "En organisation som vill ansluta till SDK behöver själv utveckla eller anlita en leverantör som tillhandahåller system för meddelandetjänst och meddelandeklient."
+
+
+* *Källa:* `SDK:certificate-renewal` — "Om ni som deltagarorganisation önskar att er leverantör av meddelandesystem tar hand om installationen av den privata nyckeln i er meddelandetjänst, behöver ni meddela oss på Digg om detta."
+
+
+
+
+* **BEGRÄNSNING:** Materialet specificerar inte exakta kommersiella avtalsvillkor mellan kommun och leverantör.
+
+---
+
+### Q4. Vår nuvarande systemleverantör stödjer inte SDK. Vad kan vi göra då?
+
+* **SVAR:**
+* Kommunen kan anlita en extern leverantör som tillhandahåller godkända system för meddelandetjänst och meddelandeklient.
+* Alternativt kan kommunen i egen regi utveckla eller anpassa de IT-stöd och komponenter som krävs för anslutningen.
+* Kommunen behöver även säkerställa tillgång till en godkänd accesspunkt från en av Diggs godkända accesspunktsoperatörer.
+
+
+* **KÄLLSTÖD:**
+* *Källa:* `SDK:preparation` — "En organisation som vill ansluta till SDK behöver själv utveckla eller anlita en leverantör som tillhandahåller system för meddelandetjänst och meddelandeklient."
+
+
+* *Källa:* `SDK:connection-journey` — "Deltagarorganisationen har anskaffat eller anslutit till en godkänd accesspunkt från en av Diggs godkända accesspunktsoperatörer för plattform för eDelivery."
+
+
+
+
+* **BEGRÄNSNING:** Materialet ger inga rekommendationer om specifika externa upphandlingssummor eller enskilda kommersiella leverantörers priser.
+
+---
+
+### Q5. En invånare har skickat in en bygglovsansökan till kommunen. Hur lång tid har kommunen på sig att fatta beslut om bygglovet?
+
+* **SVAR:**
+* Frågan ligger utanför området. Materialet behandlar Säker digital kommunikation (SDK) samt Mina meddelanden, och tar inte upp handläggningstider för bygglov eller invånartjänster.
+
+
+* **KÄLLSTÖD:**
+* *Källa:* `DIGGA-RAG-KUNSKAP-ALLT-2026-10-20.txt` — "Om användaren frågar om en invånartjänst som bygglov, vårdcentral eller tidsbokning utan tydlig anslutnings- eller integrationsfråga: säg att det ligger utanför området och förklara vilken typ av anslutningsfråga du kan hjälpa med."
+
+
+
+
+* **BEGRÄNSNING:** Inget källstöd finns i materialet eftersom bygglov handläggs utanför SDK- och Mina meddelanden-infrastrukturen.
+
+---
+
+### Q6. Vad är Mina meddelanden och varför skulle en kommun använda det?
+
+* **SVAR:**
+* Mina meddelanden (infrastrukturen för digital post) är en gemensam digital post-infrastruktur som används av offentliga aktörer för att skicka digital post till invånare.
+
+
+* Det har en egen ansöknings-, avtals- och testprocess skild från SDK.
+
+
+
+
+* **KÄLLSTÖD:**
+* *Källa:* `SDK:digital-post` — "Mina meddelanden gäller digital post och har en egen ansöknings-, avtals- och testprocess. Blanda inte digital post till invånare med SDK:s informationsutbyte mellan organisationer."
+
+
+
+
+* **BEGRÄNSNING:** Materialet i denna fil innehåller inte detaljerade verksamhetsmål för Mina meddelanden utöver dess grundläggande definition för digital post till invånare.
+
+---
+
+### Q7. Kan kommunen skicka digital post genom Mina meddelanden till alla invånare, eller finns det personer som inte kan ta emot den?
+
+* **SVAR:**
+* Det saknas uppgifter i källmaterialet för att besvara om alla invånare kan ta emot digital post eller om det finns personer som saknar förmågan.
+
+
+* **KÄLLSTÖD:**
+* (Inget källstöd finns tillgängligt i filen för denna specifika detalj om invånarnas individuella mottagarstatus.)
+
+
+* **BEGRÄNSNING:** Materialet saknar fullständig information om vilka specifika medborgargrupper som är anslutna till eller exkluderade från digital post-infrastrukturen.
+
+---
+
+### Q8. Vi har fått ett O2O-certifikat men det verkar vara i fel format. Vad ska vi göra?
+
+* **SVAR:**
+* Börja med att fråga leverantören vem som praktiskt skapar, installerar och förvaltar certifikatet, vilken testmiljö som används, vilket format som krävs och hur förnyelse görs.
+* Kontrollera att rätt miljö och gällande regelverk för certifikat följs.
+
+
+* **KÄLLSTÖD:**
+* *Källa:* `REF:008` — "Vid SDK-frågor om certifikat bör svaret börja enkelt: fråga leverantören vem som praktiskt skapar, installerar och förvaltar certifikat, vilken testmiljö som används, vilket format som krävs och hur byte eller förnyelse görs."
+
+
+
+
+* **BEGRÄNSNING:** Materialet innehåller inte en generell felsökningsguide för specifika felaktiga filformat eller kryptografiska kodfel i certifikatet.
+
+---
+
+### Q9. Vi är en liten kommun och vår systemleverantör hjälper oss att ansluta till SDK. Vem ansvarar för O2O-certifikatet – kommunen eller leverantören?
+
+* **SVAR:**
+* Deltagarorganisationen ansvarar för att rätt certifikat finns på plats, men det kan i praktiken hanteras och installeras av leverantören om detta har avtalats.
+* Organisationsadministratören ansvarar för att lämna den publika delen av O2O-certifikatet i SDK adressbok.
+
+
+* **KÄLLSTÖD:**
+* *Källa:* `SDK:certificates` — "Som deltagarorganisation behöver ni säkerställa att rätt certifikat finns på plats för att kunna skicka och ta emot meddelanden via SDK. I vissa fall hanteras certifikat av er leverantör, men i andra fall ansvarar organisationen själv för att certifikat anskaffas och hålls giltiga."
+
+
+* *Källa:* `SDK:connection-instructions` — "För att garantera riktighet lämnas O2O-certifikat i SDK adressbok av er organisationsadministratör. Er användaradministratör tilldelar rollen organisationsadministratör som i sin tur lägger upp certifikatet."
+
+
+
+
+* **BEGRÄNSNING:** Materialet reglerar inte interna civilrättsliga ansvarsfördelningar eller vite mellan kommunen och den upphandlade leverantören vid en eventuell certifikatincident.

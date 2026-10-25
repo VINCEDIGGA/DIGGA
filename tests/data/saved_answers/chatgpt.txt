@@ -1,0 +1,182 @@
+CHATGPT ORIGINALSVAR
+
+Status: genomfört
+Datum och tid: 24/10/2026
+Exakt modellnamn som visas i tjänsten: Ej visade
+Tjänst och eventuell abonnemangsnivå:
+Underlag: KORT
+Filnamn: UNDERLAG_KORT_2026-10-24.txt
+Filuppladdning accepterad: ja
+Slutmarkör återgiven: nej
+Visade tjänsten en varning om filens storlek eller avkortning:
+Webbsökning: av
+Minne eller personliga instruktioner: av
+Temperatur: 0
+Försök nummer: 1
+
+ORIGINALSVAR
+# FILÅTKOMST
+
+Jag använder kunskapsfilen **UNDERLAG_KORT_2026-10-24.txt**. Den sista icke-tomma raden är:
+
+> **SLUT PÅ GEMENSAMT TESTUNDERLAG 2026-10-24.**
+
+Slutmärket finns alltså och filen går att läsa. UNDERLAG_KORT_2026-10-24
+
+## Q1. Vi är en liten kommun och vill börja använda SDK. Vad behöver vi göra först?
+
+**SVAR:**
+- Börja med ett förarbete och förankra SDK centralt i kommunen.
+- Identifiera vilka verksamheter och informationsutbyten som har behov av SDK.
+- Involvera verksamhet, IT/digitalisering och informationssäkerhet.
+- Bedöm tekniska vägval och informationssäkerhetskrav innan ni upphandlar eller bygger lösningen. UNDERLAG_KORT_2026-10-24
+
+**KÄLLSTÖD:**  
+**SDK:preparation:2:**  
+> ”Därefter är det viktigt att genomföra ett förarbete som fokuserar på vilka verksamheter och informationsutbyten som är aktuella, tekniska vägval och informationssäkerhet.”
+
+**SDK:preparation:3:**  
+> ”Inför arbetet med att ansluta till SDK finns det tre huvudområden att adressera: Verksamhetsbehov Tekniska krav och vägval Val av meddelandeklient/verksamhetssystem för att skicka SDK-meddelanden Informationssäkerhetskrav” UNDERLAG_KORT_2026-10-24
+
+**BEGRÄNSNING:** Materialet avgör inte vilken verksamhet just er kommun bör börja med eller vilken teknisk lösning ni ska välja.
+
+---
+
+## Q2. Vi har hört att vi behöver ett O2O-certifikat för SDK. Vad är det och varför behöver vi det?
+
+**SVAR:**
+- O2O betyder organisation till organisation och används för certifikat för kryptering och signering av nyttolasten mellan deltagarorganisationer.
+- Certifikat används för att identifiera parter.
+- Kryptering skyddar informationen från obehöriga.
+- Signering gör att mottagaren kan verifiera avsändaren och att innehållet inte ändrats. UNDERLAG_KORT_2026-10-24
+
+**KÄLLSTÖD:**  
+**SDK:certificates:2:**  
+> ”Certifikat används för att identifiera parter och för att skydda information genom kryptering och signering. Detta säkerställer att information inte kan läsas av obehöriga, att innehållet inte har ändrats och att mottagaren kan verifiera vem som har skickat informationen.”
+
+**SDK:certificates:2:**  
+> ”O2O används som begrepp för de certifikat som används för kryptering och signering av nyttolasten mellan deltagarorganisationer inom SDK.”
+
+**BEGRÄNSNING:** Materialet beskriver funktionen och vissa certifikatkrav, men räcker inte ensamt för att välja ett specifikt certifikat åt kommunen.
+
+---
+
+## Q3. Vår leverantör säger att de kan hjälpa oss att ansluta till SDK. Vad behöver kommunen göra själv och vad kan leverantören göra åt oss?
+
+**SVAR:**
+- Kommunen är deltagarorganisation och ansvarar för sina meddelandesystem samt informationen och meddelandena den skickar.
+- Kommunen måste säkerställa att rätt certifikat finns på plats.
+- En leverantör kan tillhandahålla meddelandetjänst och meddelandeklient samt hantera tekniska delar.
+- Att en leverantör hjälper till flyttar alltså inte bort kommunens övergripande ansvar. UNDERLAG_KORT_2026-10-24
+
+**KÄLLSTÖD:**  
+**SDK:participant-rules:1:**  
+> ”Deltagarorganisationen ansvarar för sina meddelandesystem. Deltagarorganisationen ansvarar för den information och de meddelanden som deltagarorganisationen och dess underorganisationer skickar inom SDK”
+
+**SDK:certificates:1:**  
+> ”Som deltagarorganisation behöver ni säkerställa att rätt certifikat finns på plats för att kunna skicka och ta emot meddelanden via SDK. I vissa fall hanteras certifikat av er leverantör” UNDERLAG_KORT_2026-10-24
+
+**BEGRÄNSNING:** Exakt ansvarsfördelning med just er leverantör framgår inte; den behöver fastställas för er lösning och ert avtal.
+
+---
+
+## Q4. Vi är en liten kommun och vår nuvarande systemleverantör stödjer inte SDK. Vad kan vi göra då?
+
+**SVAR:**
+- Ni behöver inte vara bundna till att SDK byggs in i ert nuvarande verksamhetssystem.
+- Ni kan anlita en annan leverantör som tillhandahåller meddelandetjänst och meddelandeklient.
+- Ett alternativ är att upphandla en separat klient med SDK-funktionalitet.
+- För en mindre organisation anges en helhetslösning med meddelandeklient, meddelandetjänst och accesspunkt från samma leverantör som ett möjligt sätt att förenkla starten. UNDERLAG_KORT_2026-10-24
+
+**KÄLLSTÖD:**  
+**SDK:preparation:5:**  
+> ”En organisation som vill ansluta till SDK behöver själv utveckla eller anlita en leverantör som tillhandahåller system för meddelandetjänst och meddelandeklient.”
+
+**SDK:preparation:5:**  
+> ”För en mindre organisation kan det underlätta att börja SDK-resan genom att upphandla en helhet från samma leverantör, dvs. ett paket med meddelandeklient, meddelandetjänst och accesspunkt.”
+
+**BEGRÄNSNING:** Materialet pekar ut möjliga lösningar men avgör inte vilken leverantör eller upphandling som passar kommunen bäst.
+
+---
+
+## Q5. En invånare har skickat in en bygglovsansökan till kommunen. Hur lång tid har kommunen på sig att fatta beslut om bygglovet?
+
+**SVAR:**
+- Frågan kan **inte besvaras utifrån kunskapsfilen**.
+- Underlaget innehåller inget källstöd om tidsfrister för beslut om bygglov.
+
+**KÄLLSTÖD:** Saknas i materialet.
+
+**BEGRÄNSNING:** Jag fyller inte i tidsfristen med extern kunskap eftersom svaret ska baseras enbart på det bifogade underlaget.
+
+---
+
+## Q6. Vad är Mina meddelanden och varför skulle en kommun använda det?
+
+**SVAR:**
+- Mina meddelanden är infrastrukturen för digital post.
+- Infrastrukturen omfattar tjänster hos förmedlare, Digg och brevlådeoperatörer.
+- För en kommun är den relevant när kommunen vill skicka post digitalt.
+- För att få skicka digital post krävs enligt underlaget bland annat avtal med Digg och tekniska tester. UNDERLAG_KORT_2026-10-24 UNDERLAG_KORT_2026-10-24
+
+**KÄLLSTÖD:**  
+**REF:002:**  
+> ”Digital post-infrastrukturen, även kallad Mina meddelanden, omfattar tjänster hos förmedlare, Digg och brevlådeoperatörer.”
+
+**SDK:digital-post:1:**  
+> ”För att få skicka digital post via infrastrukturen Mina meddelanden behöver du ha tecknat avtal med Digg, både för infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.”
+
+**BEGRÄNSNING:** Materialet beskriver infrastrukturen och anslutningen men ger inte ett komplett underlag för att bedöma verksamhetsnyttan för just er kommun.
+
+---
+
+## Q7. Kan kommunen skicka digital post genom Mina meddelanden till alla invånare, eller finns det personer som inte kan ta emot den?
+
+**SVAR:**
+- Underlaget säger att avsändaren ska kontrollera mottagarens digitala brevlåda via tjänsten Recipient innan försändelsen skickas.
+- Det ger stöd för att mottagarkontroll ingår i processen.
+- Materialet räcker däremot **inte för att fastställa exakt vilka personer som kan eller inte kan ta emot digital post**. UNDERLAG_KORT_2026-10-24
+
+**KÄLLSTÖD:**  
+**REF:002:**  
+> ”Avsändaren ansvarar för att skapa försändelser enligt tekniskt tjänstekontrakt, signera och försegla korrekt, kontrollera mottagarens digitala brevlåda via Recipient och skicka till rätt brevlåda.”
+
+**BEGRÄNSNING:** Underlaget anger inte vilka grupper av invånare som saknar möjlighet att ta emot digital post. Därför går det inte att säga ”alla” eller ange undantagsgrupper från just denna fil.
+
+---
+
+## Q8. Vi har fått ett O2O-certifikat men det verkar vara i fel format. Vad ska vi göra?
+
+**SVAR:**
+- Börja med att fråga leverantören vilket format som krävs och vem som praktiskt skapar, installerar och förvaltar certifikatet.
+- Säkerställ också vilken miljö certifikatet gäller.
+- Försök inte avgöra att certifikatet faktiskt är fel enbart utifrån antagandet i frågan.
+- Underlaget räcker inte för att diagnostisera ett certifikat som inte har granskats.
+
+**KÄLLSTÖD:**  
+**REF:008** *(lokal guide, inte officiell källtext)*:  
+> ”Vid SDK-frågor om certifikat bör svaret börja enkelt: fråga leverantören vem som praktiskt skapar, installerar och förvaltar certifikat, vilken testmiljö som används, vilket format som krävs och hur byte eller förnyelse görs.”
+
+**SDK:certificates:1:**  
+> ”Som deltagarorganisation behöver ni säkerställa att rätt certifikat finns på plats för att kunna skicka och ta emot meddelanden via SDK.” UNDERLAG_KORT_2026-10-24
+
+**BEGRÄNSNING:** REF:008 är uttryckligen ett lokalt dokument/guide. Underlaget ger inte tillräckligt officiellt stöd för att diagnostisera det aktuella filformatet utan att se certifikatet och den aktuella tekniska kontexten.
+
+---
+
+## Q9. Vi är en liten kommun och vår systemleverantör hjälper oss att ansluta till SDK. Vem ansvarar för O2O-certifikatet – kommunen eller leverantören?
+
+**SVAR:**
+- Kommunen som deltagarorganisation måste säkerställa att rätt certifikat finns på plats.
+- Det praktiska arbetet kan i vissa fall skötas av leverantören.
+- Leverantören kan exempelvis installera den privata nyckeln om deltagarorganisationen vill det och meddelar Digg.
+- Ansvar och praktiska uppgifter är alltså inte alltid samma sak. UNDERLAG_KORT_2026-10-24
+
+**KÄLLSTÖD:**  
+**SDK:certificates:1:**  
+> ”Som deltagarorganisation behöver ni säkerställa att rätt certifikat finns på plats för att kunna skicka och ta emot meddelanden via SDK. I vissa fall hanteras certifikat av er leverantör, men i andra fall ansvarar organisationen själv”
+
+**SDK:certificate-renewal:2:**  
+> ”Om ni som deltagarorganisation önskar att er leverantör av meddelandesystem tar hand om installationen av den privata nyckeln i er meddelandetjänst, behöver ni meddela oss på Digg om detta.” UNDERLAG_KORT_2026-10-24
+
+**BEGRÄNSNING:** Underlaget fastställer inte den exakta praktiska ansvarsfördelningen i ert specifika leverantörsavtal.

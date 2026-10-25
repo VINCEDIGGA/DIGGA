@@ -1,0 +1,5 @@
+# Apache 2.4. Internal includes still work; these files must not be served directly.
+# Keep this dotfile when uploading. The host must allow AuthConfig overrides.
+<FilesMatch "(?i)^(?:local\.secrets(?:\.example)?\.php|config\.php|.*\.(?:sql(?:\.gz)?|log)|\.env(?:\..*)?|\.git.*|\.ht.*)$">
+    Require all denied
+</FilesMatch>

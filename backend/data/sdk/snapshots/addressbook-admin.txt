@@ -1,0 +1,9 @@
+Handledning för administratörer i SDK adressbok
+Anslutning för deltagarorganisationer
+Handledningen är framtagen för de personer som har till uppgift att administrera SDK Adressbok i de anslutna organisationerna. I den förklaras hur varje ansluten organisation arbetar med SDK adressbok på bästa sätt.
+Fokus ligger på vilka ställningstaganden organisationerna behöver göra innan arbetet påbörjas med att skapa en adresstruktur, samt instruerande material som underlättar den praktiska administrationen i adressboken.
+Adressboken är nationell och gör det möjligt för en organisation att hitta och skicka meddelande till en annan offentlig aktör på ett säkert sätt. Det är varje organisations eget ansvar att lägga upp och koppla de funktionsadresser de vill göra tillgängliga i den nationella adressboken.
+Organisationens adressboksadministratörer ansvarar för att registrera och uppdatera egna funktionsadresser i adressbokens användargränssnitt. För att bli behörig användare och/eller administratör av SDK Adressbok krävs att organisationen är ansluten till tjänsten Säker digital kommunikation (SDK) och att ni anmält vilka personer som ska vara behöriga administratörer.
+Handledningen är skriven så att alla organisationer som är anslutna till SDK kan använda den. I slutet finns separata kapitel för respektive typ av organisation (kommun, region, myndighet och privat utförare) där vi har inkluderat exempel och rekommendationer som är specifika för respektive kategori.
+Mer information om hur SDK Adressbok används och administreras hittar du i filen nedan.
+Läs eller ladda ner Handledning för administratörer i SDK Adressbok pdf, 1.8 MB.

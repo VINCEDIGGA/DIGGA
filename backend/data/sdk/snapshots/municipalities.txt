@@ -1,0 +1,1609 @@
+Anslutna kommuner
+I tabellen nedan kan du se vilka kommuner som anslutit till SDK eller är i färd med att ansluta.
+Just nu!
+178 kommuner är anslutna till produktionsmiljön
+214 kommuner är anslutna till QA-miljön
+21 kommuner har påbörjat anslutning till SDK
+Tabell över anslutna kommuner
+Rött - organisationen har påbörjat anslutningsresan
+Gult - organisationen har anslutit till QA-miljön
+Grönt - organisationen har anslutit till produktionsmiljön och kan skicka SDK-meddelanden.
+De kommuner som ännu ej anslutit till SDK finns inte med på listan.
+Det går att sortera listan genom att klicka på rubrikerna.
+|
+Kommun
+|
+Påbörjad anslutning
+|
+Ansluten till QA-miljö
+|
+Ansluten till produktionsmiljö
+|
+Alingsås kommun
+|
+|
+x
+|
+x
+|
+Alvesta kommun
+|
+|
+x
+|
+x
+|
+Aneby kommun
+|
+|
+x
+|
+x
+|
+Arboga kommun
+|
+|
+x
+|
+|
+Arvidsjaur kommun
+|
+x
+|
+|
+|
+Arvika kommun
+|
+|
+x
+|
+x
+|
+Avesta kommun
+|
+x
+|
+|
+|
+Bengtsfors kommun
+|
+|
+x
+|
+x
+|
+Bergs kommun
+|
+|
+x
+|
+|
+Bjurholms kommun
+|
+x
+|
+|
+|
+Bodens kommun
+|
+|
+x
+|
+|
+Bollnäs kommun
+| |
+x
+|
+x
+|
+Borgholms kommun
+| |
+x
+|
+x
+|
+Borlänge kommun
+|
+|
+x
+|
+x
+|
+Borås stad
+|
+|
+x
+|
+x
+|
+Boxholms kommun
+|
+|
+x
+|
+x
+|
+Bromölla kommun
+|
+|
+x
+|
+|
+Burlövs kommun
+|
+|
+x
+|
+|
+Danderyds kommun
+|
+|
+x
+|
+|
+Degerfors kommun
+|
+|
+x
+|
+x
+|
+Eda kommun
+|
+|
+x
+|
+x
+|
+Ekerö kommun
+|
+|
+x
+|
+|
+Eksjö kommun
+|
+|
+x
+|
+x
+|
+Emmaboda kommun
+|
+|
+x
+|
+x
+|
+Enköpings kommun
+|
+|
+x
+|
+x
+|
+Eskilstuna kommun
+|
+|
+x
+|
+x
+|
+Eslövs kommun
+|
+|
+x
+|
+|
+Essunga kommun
+|
+x
+|
+|
+|
+Falkenbergs kommun
+|
+|
+x
+|
+x
+|
+Falköpings kommun
+|
+|
+x
+|
+x
+|
+Falu kommun
+|
+|
+x
+|
+x
+|
+Filipstads kommun
+|
+|
+x
+|
+x
+|
+Finspångs kommun
+| |
+x
+|
+x
+|
+Flens kommun
+|
+|
+x
+|
+x
+|
+Forshaga kommun
+|
+|
+x
+|
+|
+Färgelanda kommun
+|
+|
+x
+|
+x
+|
+Gnesta kommun
+| |
+x
+|
+x
+|
+Gotlands kommun
+|
+|
+x
+|
+x
+|
+Grums kommun
+|
+|
+x
+|
+x
+|
+Grästorps kommun
+|
+x
+|
+|
+|
+Gullspångs kommun
+|
+|
+x
+|
+x
+|
+Gävle kommun
+|
+|
+x
+|
+x
+|
+Göteborgs stad
+| |
+x
+|
+x
+|
+Götene kommun
+|
+x
+|
+|
+|
+Habo kommun
+|
+|
+x
+|
+x
+|
+Hagfors kommun
+|
+|
+x
+|
+x
+|
+Halmstads kommun
+|
+|
+x
+|
+x
+|
+Hammarö kommun
+|
+|
+x
+|
+x
+|
+Haninge kommun
+|
+|
+x
+|
+x
+|
+Heby kommun
+|
+|
+x
+|
+x
+|
+Hedemora kommun
+|
+|
+x
+|
+x
+|
+Helsingborgs stad
+| |
+x
+|
+x
+|
+Herrljunga kommun
+|
+|
+x
+|
+x
+|
+Hjo kommun
+|
+|
+x
+|
+x
+|
+Hofors kommun
+|
+|
+x
+|
+x
+|
+Huddinge kommun
+|
+|
+x
+|
+x
+|
+Hudiksvalls kommun
+|
+|
+x
+|
+x
+|
+Hultsfreds kommun
+|
+|
+x
+|
+x
+|
+Hylte kommun
+|
+|
+x
+|
+x
+|
+Håbo kommun
+|
+|
+x
+|
+x
+|
+Härnösands kommun
+|
+|
+x
+|
+x
+|
+Härryda kommun
+|
+x
+|
+|
+|
+Hässleholms kommun
+|
+|
+x
+|
+x
+|
+Högsby kommun
+|
+|
+x
+|
+x
+|
+Hörby kommun
+|
+|
+x
+|
+|
+Höörs kommun
+|
+|
+x
+|
+x
+|
+Järfälla kommun
+|
+|
+x
+|
+x
+|
+Jönköpings kommun
+|
+|
+x
+|
+x
+|
+Kalix kommun
+|
+|
+x
+|
+x
+|
+Kalmar kommun
+|
+|
+x
+|
+x
+|
+Karlsborgs kommun
+|
+|
+x
+|
+x
+|
+Karlskoga kommun
+|
+|
+x
+|
+x
+|
+Karlstads kommun
+|
+|
+x
+|
+x
+|
+Katrineholms kommun
+|
+|
+x
+|
+x
+|
+Kils kommun
+|
+|
+x
+|
+x
+|
+Kiruna kommun
+|
+|
+x
+|
+|
+Knivsta kommun
+|
+|
+x
+|
+|
+Kramfors kommun
+|
+|
+x
+|
+x
+|
+Kristianstad kommun
+|
+|
+x
+|
+x
+|
+Kristinehamns kommun
+|
+|
+x
+|
+x
+|
+Krokoms kommun
+|
+|
+x
+|
+|
+Kumla kommun
+|
+|
+x
+|
+x
+|
+Kungsbacka kommun
+|
+|
+x
+|
+x
+|
+Kungsörs kommun
+|
+x
+|
+|
+|
+Kungälvs kommun
+|
+|
+x
+|
+x
+|
+Kävlinge kommun
+|
+|
+x
+|
+x
+|
+Köpings kommun
+|
+|
+x
+|
+x
+|
+Landskrona stad
+|
+|
+x
+|
+x
+|
+Laholms kommun
+|
+|
+x
+|
+x
+|
+Lekebergs kommun
+|
+x
+|
+|
+|
+Lerums kommun
+|
+|
+x
+|
+x
+|
+Lessebo kommun
+|
+|
+x
+|
+|
+Lidingö stad
+|
+|
+x
+|
+x
+|
+Lidköpings kommun
+|
+|
+x
+|
+x
+|
+Lindesbergs kommun
+|
+x
+|
+|
+|
+Linköpings kommun
+|
+|
+x
+|
+x
+|
+Lilla Edets kommun
+|
+|
+x
+|
+x
+|
+Ljungby kommun
+|
+|
+x
+|
+x
+|
+Ljusdals kommun
+|
+|
+x
+|
+x
+|
+Lomma kommun
+|
+|
+x
+|
+x
+|
+Ludvika kommun
+|
+|
+x
+|
+x
+|
+Luleå kommun
+|
+x
+|
+|
+|
+Lunds kommun
+|
+|
+x
+|
+x
+|
+Lycksele kommun
+|
+|
+x
+|
+x
+|
+Lysekils kommun
+|
+|
+x
+|
+x
+|
+Malmö stad
+|
+|
+x
+|
+x
+|
+Mariestads kommun
+|
+|
+x
+|
+x
+|
+Markaryds kommun
+|
+|
+x
+|
+|
+Marks kommun
+|
+x
+|
+|
+|
+Melleruds kommun
+|
+|
+x
+|
+|
+Mjölby kommun
+|
+|
+x
+|
+|
+Mora kommun
+|
+|
+x
+|
+x
+|
+Motala kommun
+|
+|
+x
+|
+x
+|
+Mullsjö kommun
+|
+x
+|
+|
+|
+Munkedals kommun
+|
+|
+x
+|
+x
+|
+Munkfors kommun
+|
+x
+|
+|
+|
+Mölndals stad
+|
+|
+x
+|
+x
+|
+Mönsterås kommun
+|
+|
+x
+|
+x
+|
+Mörbylånga kommun
+|
+|
+x
+|
+x
+|
+Nacka kommun
+|
+|
+x
+|
+x
+|
+Norbergs kommun
+|
+|
+x
+|
+|
+Nordanstigs kommun
+|
+|
+x
+|
+x
+|
+Nordmalings kommun
+|
+|
+x
+|
+x
+|
+Norrköping kommun
+|
+x
+|
+|
+|
+Norrtälje kommun
+|
+|
+x
+|
+x
+|
+Nybro kommun
+|
+|
+x
+|
+x
+|
+Nykvarns kommun
+|
+|
+x
+|
+x
+|
+Nyköpings kommun
+|
+|
+x
+|
+x
+|
+Nässjö kommun
+|
+|
+x
+|
+x
+|
+Ockelbo kommun
+|
+|
+x
+|
+x
+|
+Orsa kommun
+|
+|
+x
+|
+x
+|
+Osby kommun
+|
+|
+x
+|
+|
+Oskarshamn kommun
+|
+|
+x
+|
+x
+|
+Ovanåkers kommun
+|
+|
+x
+|
+x
+|
+Oxelösunds kommun
+|
+|
+x
+|
+x
+|
+Partille kommun
+|
+|
+x
+|
+x
+|
+Piteå kommun
+|
+x
+|
+|
+|
+Ragunda kommun
+|
+|
+x
+|
+x
+|
+Robertsfors kommun
+|
+|
+x
+|
+x
+|
+Sandvikens kommun
+|
+|
+x
+|
+x
+|
+Sigtuna kommun
+|
+|
+x
+|
+|
+Simrishamns kommun
+|
+|
+x
+|
+x
+|
+Sjöbo kommun
+|
+|
+x
+|
+|
+Skara kommun
+|
+|
+x
+|
+x
+|
+Skellefteå kommun
+|
+|
+x
+|
+x
+|
+Skinnskattebergs kommun
+|
+|
+x
+|
+x
+|
+Skurups kommun
+|
+|
+x
+|
+x
+|
+Skövde kommun
+|
+|
+x
+|
+x
+|
+Smedjebackens kommun
+|
+x
+|
+|
+|
+Sollefteå kommun
+|
+|
+x
+|
+x
+|
+Sollentuna kommun
+|
+|
+x
+|
+x
+|
+Solna stad
+|
+|
+x
+|
+x
+|
+Sotenäs kommun
+|
+|
+x
+|
+x
+|
+Staffanstorps kommun
+|
+|
+x
+|
+x
+|
+Stenungsunds kommun
+|
+|
+x
+|
+x
+|
+Stockholms stad
+|
+|
+x
+|
+x
+|
+Storfors kommun
+|
+|
+x
+|
+x
+|
+Storumans kommun
+|
+|
+x
+|
+x
+|
+Strängnäs kommun
+|
+|
+x
+|
+x
+|
+Strömstads kommun
+|
+|
+x
+|
+x
+|
+Strömsunds kommun
+|
+|
+x
+|
+|
+Sundbybergs stad
+|
+|
+x
+|
+x
+|
+Sundsvalls kommun
+|
+|
+x
+|
+x
+|
+Sunne kommun
+|
+|
+x
+|
+x
+|
+Surahammars kommun
+|
+|
+x
+|
+x
+|
+Svedala kommun
+|
+x
+|
+|
+|
+Svenljunga kommun
+|
+|
+x
+|
+x
+|
+Säffle kommun
+|
+|
+x
+|
+x
+|
+Säters kommun
+|
+|
+x
+|
+x
+|
+Sävsjö kommun
+|
+|
+x
+|
+x
+|
+Söderhamns kommun
+|
+|
+x
+|
+x
+|
+Söderköpings kommun
+|
+|
+x
+|
+|
+Södertälje kommun
+|
+|
+x
+|
+x
+|
+Tanums kommun
+|
+|
+x
+|
+|
+Tibro kommun
+|
+|
+x
+|
+x
+|
+Tidaholms kommun
+|
+|
+x
+|
+x
+|
+Tierps kommun
+|
+|
+x
+|
+|
+Timrå kommun
+|
+|
+x
+|
+x
+|
+Tjörns kommun
+|
+|
+x
+|
+x
+|
+Tomelilla kommun
+|
+|
+x
+|
+x
+|
+Torsby kommun
+|
+|
+x
+|
+x
+|
+Torsås kommun
+|
+|
+x
+|
+x
+|
+Tranemo kommun
+|
+|
+x
+|
+|
+Tranås kommun
+|
+|
+x
+|
+x
+|
+Trelleborgs kommun
+|
+|
+x
+|
+|
+Trollhättans stad
+|
+|
+x
+|
+x
+|
+Trosa kommun
+|
+|
+x
+|
+x
+|
+Tyresö kommun
+|
+|
+x
+|
+x
+|
+Täby kommun
+|
+|
+x
+|
+|
+Töreboda kommun
+|
+|
+x
+|
+x
+|
+Uddevalla kommun
+|
+|
+x
+|
+x
+|
+Ulricehamns kommun
+|
+|
+x
+|
+x
+|
+Umeå kommun
+|
+|
+x
+|
+x
+|
+Upplands-bro kommun
+|
+|
+x
+|
+x
+|
+Upplands Väsby kommun
+|
+|
+x
+|
+x
+|
+Uppsala kommun
+|
+|
+x
+|
+x
+|
+Vadstena kommun
+|
+|
+x
+|
+x
+|
+Valdemarsviks kommun
+|
+|
+x
+|
+|
+Vallentuna Kommun
+|
+x
+|
+|
+|
+Vansbro kommun
+|
+|
+x
+|
+|
+Vara kommun
+|
+|
+x
+|
+x
+|
+Varbergs kommun
+|
+|
+x
+|
+x
+|
+Vaxholms stad
+|
+|
+x
+|
+|
+Vellinge kommun
+|
+|
+x
+|
+x
+|
+Vetlanda kommun
+|
+|
+x
+|
+x
+|
+Vilhelmina kommun
+|
+|
+x
+|
+|
+Vimmerby kommun
+|
+|
+x
+|
+x
+|
+Vårgårda kommun
+|
+|
+x
+|
+x
+|
+Vänersborgs kommun
+|
+|
+x
+|
+x
+|
+Vännäs kommun
+|
+|
+x
+|
+|
+Värmdö kommun
+|
+|
+x
+|
+x
+|
+Värnamo kommun
+|
+|
+x
+|
+x
+|
+Västerviks kommun
+|
+|
+x
+|
+x
+|
+Västerås stad
+|
+|
+x
+|
+x
+|
+Växjö kommun
+|
+|
+x
+|
+x
+|
+Ydre kommun
+|
+|
+x
+|
+x
+|
+Ystads kommun
+|
+|
+x
+|
+x
+|
+Åmåls kommun
+|
+|
+x
+|
+x
+|
+Ånge kommun
+|
+|
+x
+|
+x
+|
+Årjängs kommun
+|
+|
+x
+|
+x
+|
+Åsele kommun
+|
+|
+x
+|
+x
+|
+Åtvidabergs kommun
+|
+|
+x
+|
+x
+|
+Älmhults kommun
+|
+|
+x
+|
+x
+|
+Älvdalens kommun
+|
+|
+x
+|
+x
+|
+Älvkarleby kommun
+|
+|
+x
+|
+|
+Älvsbyns kommun
+|
+|
+x
+|
+|
+Ängelholms kommun
+|
+|
+x
+|
+x
+|
+Ödeshögs kommun
+|
+|
+x
+|
+x
+|
+Örebro kommun
+|
+|
+x
+|
+x
+|
+Örnsköldsviks kommun
+|
+|
+x
+|
+x
+|
+Östersunds kommun
+|
+x
+|
+|
+|
+Österåkers kommun
+|
+|
+x
+|
+x
+|
+Östhammars Kommun
+|
+|
+x
+|
+x
+|
+Östra Göinge kommun
+|
+|
+x
+|
+|
+Överkalix kommun
+|
+x
+|
+|
+Karta över anslutna kommuner
+Kartan nedan visar vilka kommuner som är anslutna till SDK.
+Röd- organisationen har påbörjat anslutningsresan
+Gult- organisationen har anslutit till QA-miljön
+Grönt - organisationen har anslutit till produktionsmiljön och kan skicka SDK-meddelanden.
+Vitt - organisationen har ej påbörjat anslutning till SDK
+Karta från SCB. Uppdaterad 9 september 2026.

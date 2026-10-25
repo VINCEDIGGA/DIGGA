@@ -1,0 +1,26 @@
+.sdk-section { border-top: 4px solid var(--accent, #2f3c2d); }
+.sdk-section [hidden] { display: none !important; }
+.sdk-section > #sdk-specific { padding: 0 1rem 1rem; }
+.sdk-intro, .sdk-source, .sdk-section small { color: var(--muted, #566054); line-height: 1.5; }
+.sdk-section small { display: block; font-size: .82rem; font-weight: 400; }
+.sdk-group, .sdk-test { padding: 1rem 0; border-top: 1px solid var(--line, #d6d9d3); }
+.sdk-group > summary, .sdk-test > summary { cursor: pointer; font-weight: 700; line-height: 1.5; padding: .2rem 0; }
+.sdk-group .context-grid { margin-top: 1rem; }
+.sdk-checklist { display: grid; gap: .6rem; padding: .5rem 0; }
+.sdk-check { display: flex !important; align-items: start; gap: .65rem; font-weight: 400 !important; }
+.sdk-check input { flex: 0 0 1.1rem; width: 1.1rem !important; height: 1.1rem; margin-top: .25rem; accent-color: var(--accent, #2f3c2d); }
+.sdk-actions { display: flex; flex-wrap: wrap; gap: .7rem; padding-top: 1.2rem; }
+.sdk-status:empty { display: none; }
+.sdk-status { font-size: .86rem; color: var(--muted, #566054); }
+.sdk-readiness { background: #f2f4ed; border: 1px solid var(--line, #d6d9d3); border-radius: var(--radius, 8px); padding: 1rem; margin: 1rem 0; }
+.sdk-readiness p { margin: .4rem 0 .7rem; line-height: 1.5; }
+.sdk-readiness summary { cursor: pointer; }
+.sdk-source { font-size: .84rem; margin-top: .8rem; }
+.sdk-source a, .sdk-phase-resources a { color: var(--accent, #2f3c2d); text-decoration: underline; text-underline-offset: 3px; }
+.sdk-test-status { font-size: .85rem; padding: .4rem .6rem; background: #f2f4ed; border-radius: 5px; }
+.sdk-guide-selector { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center; margin-bottom: 1.2rem; }
+.sdk-guide-selector select { font: inherit; border: 1px solid var(--line, #d6d9d3); border-radius: 6px; padding: .6rem; max-width: 100%; }
+.sdk-phase-resources { margin-top: 1.3rem; padding-top: .9rem; border-top: 1px solid var(--line, #d6d9d3); }
+.sdk-phase-resources ul { display: grid; gap: .55rem; padding-left: 1.2rem; }
+.sdk-guide-note { color: var(--muted, #566054); font-size: .85rem; line-height: 1.5; }
+@media (max-width: 640px) { .sdk-actions > * { width: 100%; text-align: center; } .sdk-section .context-grid { grid-template-columns: 1fr; } }

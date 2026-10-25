@@ -1,0 +1,277 @@
+{
+  "id": "Q6",
+  "question": "Vad är Mina meddelanden och varför skulle en kommun använda det?",
+  "http_status": 200,
+  "seconds": 13.11,
+  "response": {
+    "mode": "evidence_checked",
+    "answer": "Kommunen behöver genomgå en ansöknings-, avtals- och testprocess hos Digg för att få skicka digital post via Mina meddelanden.\n\nAnslutningen till Mina meddelanden kräver att kommunen tecknar avtal med Digg för både infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.\n\nKommunen måste genomföra tekniska tester innan den kan börja skicka digital post via infrastrukturen.",
+    "claims": [
+      {
+        "text": "Kommunen behöver genomgå en ansöknings-, avtals- och testprocess hos Digg för att få skicka digital post via Mina meddelanden.",
+        "evidence": [
+          {
+            "chunk_id": "source-93c650df21b5391158db-22f19c66958060f976",
+            "source_id": "source-93c650df21b5391158db",
+            "title": "Anslut till Mina meddelanden",
+            "source_url": "https://www.digg.se/digitala-tjanster/digital-post/digital-post-for-dig-som-offentlig-aktor/anslut",
+            "quote": "Verifierade huvudpunkter:\n- Mina meddelanden gäller digital post och har en egen ansöknings-, avtals- och testprocess.",
+            "origin": "imported_source",
+            "quote_id": "q-8080c993db6c3754d24b7b77",
+            "version": "",
+            "last_checked": "",
+            "environment": "",
+            "role": "",
+            "service": "Mina meddelanden",
+            "context": {
+              "context_version": 1,
+              "matched": true,
+              "origin": "imported_source",
+              "environment": "",
+              "role": "",
+              "service": "Mina meddelanden",
+              "quote_offset_bytes": 156,
+              "quote_end_offset_bytes": 276,
+              "quote_line_start": 3,
+              "quote_line_end": 4,
+              "excerpt_line_start": 1,
+              "excerpt_line_end": 18,
+              "excerpt": "Anslut till Mina meddelanden\nTjänst: Mina meddelanden | Roll: offentlig aktör | Miljö: test/produktion | Version: ej angiven | Källkontroll: 2026-10-15\nVerifierade huvudpunkter:\n- Mina meddelanden gäller digital post och har en egen ansöknings-, avtals- och testprocess.\n- Blanda inte digital post till invånare med SDK:s informationsutbyte mellan organisationer.\n\nOfficiellt sidinnehåll:\nAnslut till Mina meddelanden och Auktorisationssystem för digital post – offentlig aktör\r\nAtt ansluta till infrastrukturen Mina meddelanden och Auktorisationssystem för digital post är enkelt om du följer vår steg-för-steg-process. Här hittar du en beskrivning av varje steg för dig som offentlig aktör.\r\nKlicka på understruken rubrik för mer information.\r\nFörberedelser\r\nFör att börja skicka post digitalt behöver du och din organisation ta del av förberedande information.\r\nGör en ansökan\r\nHär beskriver vi hur du gör en ansökan till Digg. Här kan du också fylla i ansökningsformulär.\r\nTeckna avtal\r\nFör att få skicka digital post via infrastrukturen Mina meddelanden behöver du ha tecknat avtal med Digg, både för infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.\r\nGenomför tekniska tester\r\nInnan du kan börja skicka digital post behöver du genomföra t",
+              "section_headings": [],
+              "certificate_kind": "unknown",
+              "request_type": "unknown",
+              "actor": "unknown",
+              "actors": [],
+              "occurrence_count": 1,
+              "occurrences": [
+                {
+                  "quote_offset_bytes": 156,
+                  "quote_end_offset_bytes": 276,
+                  "quote_line_start": 3,
+                  "quote_line_end": 4,
+                  "excerpt_line_start": 1,
+                  "excerpt_line_end": 18,
+                  "excerpt": "Anslut till Mina meddelanden\nTjänst: Mina meddelanden | Roll: offentlig aktör | Miljö: test/produktion | Version: ej angiven | Källkontroll: 2026-10-15\nVerifierade huvudpunkter:\n- Mina meddelanden gäller digital post och har en egen ansöknings-, avtals- och testprocess.\n- Blanda inte digital post till invånare med SDK:s informationsutbyte mellan organisationer.\n\nOfficiellt sidinnehåll:\nAnslut till Mina meddelanden och Auktorisationssystem för digital post – offentlig aktör\r\nAtt ansluta till infrastrukturen Mina meddelanden och Auktorisationssystem för digital post är enkelt om du följer vår steg-för-steg-process. Här hittar du en beskrivning av varje steg för dig som offentlig aktör.\r\nKlicka på understruken rubrik för mer information.\r\nFörberedelser\r\nFör att börja skicka post digitalt behöver du och din organisation ta del av förberedande information.\r\nGör en ansökan\r\nHär beskriver vi hur du gör en ansökan till Digg. Här kan du också fylla i ansökningsformulär.\r\nTeckna avtal\r\nFör att få skicka digital post via infrastrukturen Mina meddelanden behöver du ha tecknat avtal med Digg, både för infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.\r\nGenomför tekniska tester\r\nInnan du kan börja skicka digital post behöver du genomföra t",
+                  "section_headings": [],
+                  "certificate_kind": "unknown",
+                  "request_type": "unknown",
+                  "actor": "unknown",
+                  "actors": []
+                }
+              ]
+            }
+          },
+          {
+            "chunk_id": "source-93c650df21b5391158db-22f19c66958060f976",
+            "source_id": "source-93c650df21b5391158db",
+            "title": "Anslut till Mina meddelanden",
+            "source_url": "https://www.digg.se/digitala-tjanster/digital-post/digital-post-for-dig-som-offentlig-aktor/anslut",
+            "quote": "För att få skicka digital post via infrastrukturen Mina meddelanden behöver du ha tecknat avtal med Digg, både för infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.",
+            "origin": "imported_source",
+            "quote_id": "q-0999fc63d097624cbc2eeb2a",
+            "version": "",
+            "last_checked": "",
+            "environment": "",
+            "role": "",
+            "service": "Mina meddelanden",
+            "context": {
+              "context_version": 1,
+              "matched": true,
+              "origin": "imported_source",
+              "environment": "",
+              "role": "",
+              "service": "Mina meddelanden",
+              "quote_offset_bytes": 1027,
+              "quote_end_offset_bytes": 1223,
+              "quote_line_start": 16,
+              "quote_line_end": 16,
+              "excerpt_line_start": 1,
+              "excerpt_line_end": 23,
+              "excerpt": "Anslut till Mina meddelanden\nTjänst: Mina meddelanden | Roll: offentlig aktör | Miljö: test/produktion | Version: ej angiven | Källkontroll: 2026-10-15\nVerifierade huvudpunkter:\n- Mina meddelanden gäller digital post och har en egen ansöknings-, avtals- och testprocess.\n- Blanda inte digital post till invånare med SDK:s informationsutbyte mellan organisationer.\n\nOfficiellt sidinnehåll:\nAnslut till Mina meddelanden och Auktorisationssystem för digital post – offentlig aktör\r\nAtt ansluta till infrastrukturen Mina meddelanden och Auktorisationssystem för digital post är enkelt om du följer vår steg-för-steg-process. Här hittar du en beskrivning av varje steg för dig som offentlig aktör.\r\nKlicka på understruken rubrik för mer information.\r\nFörberedelser\r\nFör att börja skicka post digitalt behöver du och din organisation ta del av förberedande information.\r\nGör en ansökan\r\nHär beskriver vi hur du gör en ansökan till Digg. Här kan du också fylla i ansökningsformulär.\r\nTeckna avtal\r\nFör att få skicka digital post via infrastrukturen Mina meddelanden behöver du ha tecknat avtal med Digg, både för infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.\r\nGenomför tekniska tester\r\nInnan du kan börja skicka digital post behöver du genomföra tekniska tester.\r\nEfter anslutning\r\nOm era inlämnade uppgifter ändras behöver du informera Digg. Kanske vill ni också prenumerera på vår driftinformation?\r\nFrågor?\r\nFrågor och svar om anslutning till Mina meddelanden och Auktorisationssystem för digital post\r\nDu kan också kontakta oss via e-postadressen: info@digg.se",
+              "section_headings": [],
+              "certificate_kind": "unknown",
+              "request_type": "unknown",
+              "actor": "Digg",
+              "actors": [
+                "Digg"
+              ],
+              "occurrence_count": 1,
+              "occurrences": [
+                {
+                  "quote_offset_bytes": 1027,
+                  "quote_end_offset_bytes": 1223,
+                  "quote_line_start": 16,
+                  "quote_line_end": 16,
+                  "excerpt_line_start": 1,
+                  "excerpt_line_end": 23,
+                  "excerpt": "Anslut till Mina meddelanden\nTjänst: Mina meddelanden | Roll: offentlig aktör | Miljö: test/produktion | Version: ej angiven | Källkontroll: 2026-10-15\nVerifierade huvudpunkter:\n- Mina meddelanden gäller digital post och har en egen ansöknings-, avtals- och testprocess.\n- Blanda inte digital post till invånare med SDK:s informationsutbyte mellan organisationer.\n\nOfficiellt sidinnehåll:\nAnslut till Mina meddelanden och Auktorisationssystem för digital post – offentlig aktör\r\nAtt ansluta till infrastrukturen Mina meddelanden och Auktorisationssystem för digital post är enkelt om du följer vår steg-för-steg-process. Här hittar du en beskrivning av varje steg för dig som offentlig aktör.\r\nKlicka på understruken rubrik för mer information.\r\nFörberedelser\r\nFör att börja skicka post digitalt behöver du och din organisation ta del av förberedande information.\r\nGör en ansökan\r\nHär beskriver vi hur du gör en ansökan till Digg. Här kan du också fylla i ansökningsformulär.\r\nTeckna avtal\r\nFör att få skicka digital post via infrastrukturen Mina meddelanden behöver du ha tecknat avtal med Digg, både för infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.\r\nGenomför tekniska tester\r\nInnan du kan börja skicka digital post behöver du genomföra tekniska tester.\r\nEfter anslutning\r\nOm era inlämnade uppgifter ändras behöver du informera Digg. Kanske vill ni också prenumerera på vår driftinformation?\r\nFrågor?\r\nFrågor och svar om anslutning till Mina meddelanden och Auktorisationssystem för digital post\r\nDu kan också kontakta oss via e-postadressen: info@digg.se",
+                  "section_headings": [],
+                  "certificate_kind": "unknown",
+                  "request_type": "unknown",
+                  "actor": "Digg",
+                  "actors": [
+                    "Digg"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "summary",
+        "support_check": "model_supported",
+        "id": "claim-1"
+      },
+      {
+        "text": "Anslutningen till Mina meddelanden kräver att kommunen tecknar avtal med Digg för både infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.",
+        "evidence": [
+          {
+            "chunk_id": "source-93c650df21b5391158db-22f19c66958060f976",
+            "source_id": "source-93c650df21b5391158db",
+            "title": "Anslut till Mina meddelanden",
+            "source_url": "https://www.digg.se/digitala-tjanster/digital-post/digital-post-for-dig-som-offentlig-aktor/anslut",
+            "quote": "Teckna avtal\r\nFör att få skicka digital post via infrastrukturen Mina meddelanden behöver du ha tecknat avtal med Digg, både för infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.",
+            "origin": "imported_source",
+            "quote_id": "q-ca2a11400ec9e94254a190e5",
+            "version": "",
+            "last_checked": "",
+            "environment": "",
+            "role": "",
+            "service": "Mina meddelanden",
+            "context": {
+              "context_version": 1,
+              "matched": true,
+              "origin": "imported_source",
+              "environment": "",
+              "role": "",
+              "service": "Mina meddelanden",
+              "quote_offset_bytes": 1013,
+              "quote_end_offset_bytes": 1223,
+              "quote_line_start": 15,
+              "quote_line_end": 16,
+              "excerpt_line_start": 1,
+              "excerpt_line_end": 23,
+              "excerpt": "Anslut till Mina meddelanden\nTjänst: Mina meddelanden | Roll: offentlig aktör | Miljö: test/produktion | Version: ej angiven | Källkontroll: 2026-10-15\nVerifierade huvudpunkter:\n- Mina meddelanden gäller digital post och har en egen ansöknings-, avtals- och testprocess.\n- Blanda inte digital post till invånare med SDK:s informationsutbyte mellan organisationer.\n\nOfficiellt sidinnehåll:\nAnslut till Mina meddelanden och Auktorisationssystem för digital post – offentlig aktör\r\nAtt ansluta till infrastrukturen Mina meddelanden och Auktorisationssystem för digital post är enkelt om du följer vår steg-för-steg-process. Här hittar du en beskrivning av varje steg för dig som offentlig aktör.\r\nKlicka på understruken rubrik för mer information.\r\nFörberedelser\r\nFör att börja skicka post digitalt behöver du och din organisation ta del av förberedande information.\r\nGör en ansökan\r\nHär beskriver vi hur du gör en ansökan till Digg. Här kan du också fylla i ansökningsformulär.\r\nTeckna avtal\r\nFör att få skicka digital post via infrastrukturen Mina meddelanden behöver du ha tecknat avtal med Digg, både för infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.\r\nGenomför tekniska tester\r\nInnan du kan börja skicka digital post behöver du genomföra tekniska tester.\r\nEfter anslutning\r\nOm era inlämnade uppgifter ändras behöver du informera Digg. Kanske vill ni också prenumerera på vår driftinformation?\r\nFrågor?\r\nFrågor och svar om anslutning till Mina meddelanden och Auktorisationssystem för digital post\r\nDu kan också kontakta oss via e-postadressen: info@digg.se",
+              "section_headings": [],
+              "certificate_kind": "unknown",
+              "request_type": "unknown",
+              "actor": "Digg",
+              "actors": [
+                "Digg"
+              ],
+              "occurrence_count": 1,
+              "occurrences": [
+                {
+                  "quote_offset_bytes": 1013,
+                  "quote_end_offset_bytes": 1223,
+                  "quote_line_start": 15,
+                  "quote_line_end": 16,
+                  "excerpt_line_start": 1,
+                  "excerpt_line_end": 23,
+                  "excerpt": "Anslut till Mina meddelanden\nTjänst: Mina meddelanden | Roll: offentlig aktör | Miljö: test/produktion | Version: ej angiven | Källkontroll: 2026-10-15\nVerifierade huvudpunkter:\n- Mina meddelanden gäller digital post och har en egen ansöknings-, avtals- och testprocess.\n- Blanda inte digital post till invånare med SDK:s informationsutbyte mellan organisationer.\n\nOfficiellt sidinnehåll:\nAnslut till Mina meddelanden och Auktorisationssystem för digital post – offentlig aktör\r\nAtt ansluta till infrastrukturen Mina meddelanden och Auktorisationssystem för digital post är enkelt om du följer vår steg-för-steg-process. Här hittar du en beskrivning av varje steg för dig som offentlig aktör.\r\nKlicka på understruken rubrik för mer information.\r\nFörberedelser\r\nFör att börja skicka post digitalt behöver du och din organisation ta del av förberedande information.\r\nGör en ansökan\r\nHär beskriver vi hur du gör en ansökan till Digg. Här kan du också fylla i ansökningsformulär.\r\nTeckna avtal\r\nFör att få skicka digital post via infrastrukturen Mina meddelanden behöver du ha tecknat avtal med Digg, både för infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.\r\nGenomför tekniska tester\r\nInnan du kan börja skicka digital post behöver du genomföra tekniska tester.\r\nEfter anslutning\r\nOm era inlämnade uppgifter ändras behöver du informera Digg. Kanske vill ni också prenumerera på vår driftinformation?\r\nFrågor?\r\nFrågor och svar om anslutning till Mina meddelanden och Auktorisationssystem för digital post\r\nDu kan också kontakta oss via e-postadressen: info@digg.se",
+                  "section_headings": [],
+                  "certificate_kind": "unknown",
+                  "request_type": "unknown",
+                  "actor": "Digg",
+                  "actors": [
+                    "Digg"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "summary",
+        "support_check": "model_supported",
+        "id": "claim-2"
+      },
+      {
+        "text": "Kommunen måste genomföra tekniska tester innan den kan börja skicka digital post via infrastrukturen.",
+        "evidence": [
+          {
+            "chunk_id": "source-93c650df21b5391158db-22f19c66958060f976",
+            "source_id": "source-93c650df21b5391158db",
+            "title": "Anslut till Mina meddelanden",
+            "source_url": "https://www.digg.se/digitala-tjanster/digital-post/digital-post-for-dig-som-offentlig-aktor/anslut",
+            "quote": "Genomför tekniska tester\r\nInnan du kan börja skicka digital post behöver du genomföra tekniska tester.",
+            "origin": "imported_source",
+            "quote_id": "q-52e1bf3fd1a4494be2a888a8",
+            "version": "",
+            "last_checked": "",
+            "environment": "",
+            "role": "",
+            "service": "Mina meddelanden",
+            "context": {
+              "context_version": 1,
+              "matched": true,
+              "origin": "imported_source",
+              "environment": "",
+              "role": "",
+              "service": "Mina meddelanden",
+              "quote_offset_bytes": 1225,
+              "quote_end_offset_bytes": 1331,
+              "quote_line_start": 17,
+              "quote_line_end": 18,
+              "excerpt_line_start": 4,
+              "excerpt_line_end": 23,
+              "excerpt": "a meddelanden gäller digital post och har en egen ansöknings-, avtals- och testprocess.\n- Blanda inte digital post till invånare med SDK:s informationsutbyte mellan organisationer.\n\nOfficiellt sidinnehåll:\nAnslut till Mina meddelanden och Auktorisationssystem för digital post – offentlig aktör\r\nAtt ansluta till infrastrukturen Mina meddelanden och Auktorisationssystem för digital post är enkelt om du följer vår steg-för-steg-process. Här hittar du en beskrivning av varje steg för dig som offentlig aktör.\r\nKlicka på understruken rubrik för mer information.\r\nFörberedelser\r\nFör att börja skicka post digitalt behöver du och din organisation ta del av förberedande information.\r\nGör en ansökan\r\nHär beskriver vi hur du gör en ansökan till Digg. Här kan du också fylla i ansökningsformulär.\r\nTeckna avtal\r\nFör att få skicka digital post via infrastrukturen Mina meddelanden behöver du ha tecknat avtal med Digg, både för infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.\r\nGenomför tekniska tester\r\nInnan du kan börja skicka digital post behöver du genomföra tekniska tester.\r\nEfter anslutning\r\nOm era inlämnade uppgifter ändras behöver du informera Digg. Kanske vill ni också prenumerera på vår driftinformation?\r\nFrågor?\r\nFrågor och svar om anslutning till Mina meddelanden och Auktorisationssystem för digital post\r\nDu kan också kontakta oss via e-postadressen: info@digg.se",
+              "section_headings": [],
+              "certificate_kind": "unknown",
+              "request_type": "unknown",
+              "actor": "Digg",
+              "actors": [
+                "Digg"
+              ],
+              "occurrence_count": 1,
+              "occurrences": [
+                {
+                  "quote_offset_bytes": 1225,
+                  "quote_end_offset_bytes": 1331,
+                  "quote_line_start": 17,
+                  "quote_line_end": 18,
+                  "excerpt_line_start": 4,
+                  "excerpt_line_end": 23,
+                  "excerpt": "a meddelanden gäller digital post och har en egen ansöknings-, avtals- och testprocess.\n- Blanda inte digital post till invånare med SDK:s informationsutbyte mellan organisationer.\n\nOfficiellt sidinnehåll:\nAnslut till Mina meddelanden och Auktorisationssystem för digital post – offentlig aktör\r\nAtt ansluta till infrastrukturen Mina meddelanden och Auktorisationssystem för digital post är enkelt om du följer vår steg-för-steg-process. Här hittar du en beskrivning av varje steg för dig som offentlig aktör.\r\nKlicka på understruken rubrik för mer information.\r\nFörberedelser\r\nFör att börja skicka post digitalt behöver du och din organisation ta del av förberedande information.\r\nGör en ansökan\r\nHär beskriver vi hur du gör en ansökan till Digg. Här kan du också fylla i ansökningsformulär.\r\nTeckna avtal\r\nFör att få skicka digital post via infrastrukturen Mina meddelanden behöver du ha tecknat avtal med Digg, både för infrastrukturen Mina meddelanden och Auktorisationssystem för digital post.\r\nGenomför tekniska tester\r\nInnan du kan börja skicka digital post behöver du genomföra tekniska tester.\r\nEfter anslutning\r\nOm era inlämnade uppgifter ändras behöver du informera Digg. Kanske vill ni också prenumerera på vår driftinformation?\r\nFrågor?\r\nFrågor och svar om anslutning till Mina meddelanden och Auktorisationssystem för digital post\r\nDu kan också kontakta oss via e-postadressen: info@digg.se",
+                  "section_headings": [],
+                  "certificate_kind": "unknown",
+                  "request_type": "unknown",
+                  "actor": "Digg",
+                  "actors": [
+                    "Digg"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "summary",
+        "support_check": "model_supported",
+        "id": "claim-3"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Anslut till Mina meddelanden",
+        "service": "Mina meddelanden",
+        "source_url": "https://www.digg.se/digitala-tjanster/digital-post/digital-post-for-dig-som-offentlig-aktor/anslut"
+      }
+    ],
+    "verification": {
+      "status": "partial",
+      "checked_claims": 3,
+      "omitted_claims": 3,
+      "semantic_check": "passed",
+      "model": "mistral-large-2512",
+      "answer_attempts": 1,
+      "repair_status": "not_needed",
+      "coverage_check": "required_question_facets_heuristic",
+      "missing_facets": [],
+      "rejection_reasons": {
+        "semantic_support": 3
+      },
+      "notice": "Källutdragen har matchats och svarets stöd har granskats med automatiska kontroller. Kontrollerna kan missa fel; läs beläggen vid viktiga beslut."
+    },
+    "missing_information": [
+      "Några föreslagna uppgifter kunde inte styrkas och har tagits bort. Endast de källstödda delarna visas."
+    ]
+  }
+}

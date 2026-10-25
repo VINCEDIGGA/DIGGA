@@ -1,0 +1,178 @@
+{
+  "id": "Q4",
+  "question": "Vi är en liten kommun och vår nuvarande systemleverantör stödjer inte SDK. Vad kan vi göra då?",
+  "http_status": 200,
+  "seconds": 14.06,
+  "response": {
+    "mode": "evidence_checked",
+    "answer": "En organisation som vill ansluta till SDK kan upphandla en separat meddelandeklient för SDK-meddelanden om den nuvarande leverantören inte stöder SDK, och på längre sikt arbeta för att integrera funktionen i befintliga verksamhetssystem.\n\nEn deltagarorganisation kan använda en eller flera valfria leverantörer för att tillhandahålla IT-lösningar som accesspunkt, meddelandetjänst och meddelandeklient, så länge regelverk och specifikationer följs.",
+    "claims": [
+      {
+        "text": "En organisation som vill ansluta till SDK kan upphandla en separat meddelandeklient för SDK-meddelanden om den nuvarande leverantören inte stöder SDK, och på längre sikt arbeta för att integrera funktionen i befintliga verksamhetssystem.",
+        "evidence": [
+          {
+            "chunk_id": "sdk-6",
+            "source_id": "preparation",
+            "title": "Förberedelser inför anslutning till SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/vagledningar-och-rekommendationer-infor-anslutning-till-sdk/forberedelser-infor-anslutning-till-sdk",
+            "quote": "Det är viktigt att tänka över sin strategi både på kortare och längre sikt. Om man inte har stora egna resurser kan det vara bra att börja med SDK genom att upphandla en separat klient för SDK-meddelanden, och på några års sikt arbeta för att få in funktionen i de viktigaste verksamhetssystemen.\r\nFör en mindre organisation kan det underlätta att börja SDK-resan genom att upphandla en helhet från samma leverantör, dvs. ett paket med meddelandeklient, meddelandetjänst och accesspunkt. Det kan också vara lämpligt när en organisation har många olika verksamhetssystem och en separat klient kan användas inom hela organisationen.",
+            "origin": "official_snapshot",
+            "quote_id": "q-3435341f6893b03f61462e81",
+            "version": "1.5",
+            "last_checked": "2026-10-15",
+            "environment": "alla",
+            "role": "deltagarorganisation",
+            "service": "SDK",
+            "context": {
+              "context_version": 1,
+              "matched": true,
+              "origin": "official_snapshot",
+              "environment": "alla",
+              "role": "deltagarorganisation",
+              "service": "SDK",
+              "quote_offset_bytes": 1404,
+              "quote_end_offset_bytes": 2058,
+              "quote_line_start": 8,
+              "quote_line_end": 9,
+              "excerpt_line_start": 4,
+              "excerpt_line_end": 13,
+              "excerpt": "r kan erbjuda olika lösningar. Det kan vara mjukvara och kringtjänster för utveckling och anpassning av meddelandetjänst och/eller meddelandeklient. Alternativt kan en leverantör erbjuda meddelandetjänst och/eller meddelandeklient som en funktion i den produkt som leverantören tillhandahåller, t ex ett verksamhetssystem. Meddelandetjänsten ansvarar för att styra meddelandet till rätt meddelandeklient, ungefär som en växel som tar emot och skickar meddelandet mellan meddelandeklienten och accesspunkten. Eftersom funktionen för SDK kan nyttjas av olika meddelandeklienter, dvs. det program som användaren använder för att skicka/ta emot meddelanden, behöver man besluta om vilket/vilka program man vill använda. Här handlar det om att identifiera de behov man har i ett första skede:\r\nFinns det någon klient man redan använder som erbjuder SDK-funktionen?\r\nVill man integrera funktionen i något av de verksamhetssystem man använder idag?\r\nVill man upphandla en ny klient med SDK-funktionalitet?\r\nDet är viktigt att tänka över sin strategi både på kortare och längre sikt. Om man inte har stora egna resurser kan det vara bra att börja med SDK genom att upphandla en separat klient för SDK-meddelanden, och på några års sikt arbeta för att få in funktionen i de viktigaste verksamhetssystemen.\r\nFör en mindre organisation kan det underlätta att börja SDK-resan genom att upphandla en helhet från samma leverantör, dvs. ett paket med meddelandeklient, meddelandetjänst och accesspunkt. Det kan också vara lämpligt när en organisation har många olika verksamhetssystem och en separat klient kan användas inom hela organisationen.\r\nAktiviteter:\r\nUtvärdera hur väl organisationen lever upp till de informationssäkerhetskrav som specificeras i regelverk för deltagarorganisationer inom SDK och IT-säkerhetsbilaga. Identifiera eventuella luckor och behov av åtgärder.\r\nBedöm vad de olika tekniska lösningarna för att ansluta till SDK innebär för organisationen. Vill vi agera accesspunktsoperatör själva eller upphandla det för SDK? Vill vi försöka upphandla allt i ett helhetspaket, inklusive meddelandeklient?\r\nOm ni själva vill vara accesspunktsoperatör ska ni följa Diggs regler och rutiner för accesspunktsoperatörer samt anslutningsresa för accesspunktsoperatörer.",
+              "section_headings": [],
+              "certificate_kind": "unknown",
+              "request_type": "unknown",
+              "actor": "mixed",
+              "actors": [
+                "deltagarorganisation",
+                "leverantör"
+              ],
+              "occurrence_count": 1,
+              "occurrences": [
+                {
+                  "quote_offset_bytes": 1404,
+                  "quote_end_offset_bytes": 2058,
+                  "quote_line_start": 8,
+                  "quote_line_end": 9,
+                  "excerpt_line_start": 4,
+                  "excerpt_line_end": 13,
+                  "excerpt": "r kan erbjuda olika lösningar. Det kan vara mjukvara och kringtjänster för utveckling och anpassning av meddelandetjänst och/eller meddelandeklient. Alternativt kan en leverantör erbjuda meddelandetjänst och/eller meddelandeklient som en funktion i den produkt som leverantören tillhandahåller, t ex ett verksamhetssystem. Meddelandetjänsten ansvarar för att styra meddelandet till rätt meddelandeklient, ungefär som en växel som tar emot och skickar meddelandet mellan meddelandeklienten och accesspunkten. Eftersom funktionen för SDK kan nyttjas av olika meddelandeklienter, dvs. det program som användaren använder för att skicka/ta emot meddelanden, behöver man besluta om vilket/vilka program man vill använda. Här handlar det om att identifiera de behov man har i ett första skede:\r\nFinns det någon klient man redan använder som erbjuder SDK-funktionen?\r\nVill man integrera funktionen i något av de verksamhetssystem man använder idag?\r\nVill man upphandla en ny klient med SDK-funktionalitet?\r\nDet är viktigt att tänka över sin strategi både på kortare och längre sikt. Om man inte har stora egna resurser kan det vara bra att börja med SDK genom att upphandla en separat klient för SDK-meddelanden, och på några års sikt arbeta för att få in funktionen i de viktigaste verksamhetssystemen.\r\nFör en mindre organisation kan det underlätta att börja SDK-resan genom att upphandla en helhet från samma leverantör, dvs. ett paket med meddelandeklient, meddelandetjänst och accesspunkt. Det kan också vara lämpligt när en organisation har många olika verksamhetssystem och en separat klient kan användas inom hela organisationen.\r\nAktiviteter:\r\nUtvärdera hur väl organisationen lever upp till de informationssäkerhetskrav som specificeras i regelverk för deltagarorganisationer inom SDK och IT-säkerhetsbilaga. Identifiera eventuella luckor och behov av åtgärder.\r\nBedöm vad de olika tekniska lösningarna för att ansluta till SDK innebär för organisationen. Vill vi agera accesspunktsoperatör själva eller upphandla det för SDK? Vill vi försöka upphandla allt i ett helhetspaket, inklusive meddelandeklient?\r\nOm ni själva vill vara accesspunktsoperatör ska ni följa Diggs regler och rutiner för accesspunktsoperatörer samt anslutningsresa för accesspunktsoperatörer.",
+                  "section_headings": [],
+                  "certificate_kind": "unknown",
+                  "request_type": "unknown",
+                  "actor": "mixed",
+                  "actors": [
+                    "deltagarorganisation",
+                    "leverantör"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "summary",
+        "support_check": "model_supported",
+        "id": "claim-1"
+      },
+      {
+        "text": "En deltagarorganisation kan använda en eller flera valfria leverantörer för att tillhandahålla IT-lösningar som accesspunkt, meddelandetjänst och meddelandeklient, så länge regelverk och specifikationer följs.",
+        "evidence": [
+          {
+            "chunk_id": "sdk-93",
+            "source_id": "faq",
+            "title": "Frågor och svar om SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/fragor-och-svar-om-sdk",
+            "quote": "Kortfattat kan man säga att en deltagarorganisation kan använda en eller flera valfria leverantörer som levererar, tillhandahåller och förvaltar IT-lösningar som t.ex. Accesspunkt (AP), Meddelandetjänst (MT) och Meddelandeklient(er) (MK) under förutsättning att regelverk och specifikationer följs.",
+            "origin": "official_snapshot",
+            "quote_id": "q-27032b47ff818b698a25f713",
+            "version": "",
+            "last_checked": "2026-10-15",
+            "environment": "alla",
+            "role": "deltagarorganisation",
+            "service": "SDK",
+            "context": {
+              "context_version": 1,
+              "matched": true,
+              "origin": "official_snapshot",
+              "environment": "alla",
+              "role": "deltagarorganisation",
+              "service": "SDK",
+              "quote_offset_bytes": 1247,
+              "quote_end_offset_bytes": 1555,
+              "quote_line_start": 12,
+              "quote_line_end": 12,
+              "excerpt_line_start": 3,
+              "excerpt_line_end": 26,
+              "excerpt": " därefter publicerar deltagaren i Diggs SMP.\r\nHur får organisationen tag i Accesspunktsidentitet som ska inkluderas i anslutningsblanketten?\r\nDen får de av organisationens accesspunktsoperatör (som kan vara deltagarorganisationen själv).\r\nHur och till vem skickar vi vårt publika O2O-certifikat till SDK-federationen?\r\nDeltagarorganisationens organisationsadministratör i SDK Adressbok registrerar O2O certifikatets publika nyckel. Läser mer om hur administration sker Handledning för administratörer i SDK adressbok.\r\nTekniska detaljer se Anslutningsinformation - certifikat\r\nFinns det krav på att ha en AP/Meddelandetjänst per kommun/organisation?\r\nSDK Regelverk för deltagarorganisationer och SDK Anslutningsavtal reglerar inte direkt hur en deltagarorganisation organiserar sin IT-drift, leverantörer eller mjukvara (t.ex. MT, MK). En förutsättning är dock att regelverk och specifikationer följs:\r\nFör mer om organisationens ansvar, se SDK Anslutningsavtal avsnitt ”Överlåta rätt eller ansvar”\r\nKortfattat kan man säga att en deltagarorganisation kan använda en eller flera valfria leverantörer som levererar, tillhandahåller och förvaltar IT-lösningar som t.ex. Accesspunkt (AP), Meddelandetjänst (MT) och Meddelandeklient(er) (MK) under förutsättning att regelverk och specifikationer följs.\r\nKan man få beskrivet lite närmare vad det innebär att meddelandetjänstens krav på svarstid är relativt lång (15 min.)?\r\nSvartidskravet sträcker sig från att mottagande accesspunkt lägger upp meddelandet för mottagande meddelandetjänst att “hämta”, tills att samma accesspunkt tagit emot meddelandekvittens att skicka tillbaka.\r\nMotivering för kravet om 15 minuter är att tillåta buffring av meddelanden mellan accesspunkt och meddelandetjänst.\r\nHänsyn behöver också tas till schema- och schematronvalidering på större meddelanden med bilagor.\r\nFAQ Informationssäkerhet\r\nVad behöver man som organisation tänka på inom informationssäkerhetsarbetet?\r\nPå våra informationssidor hittar du dokumentation om SDK Informationssäkerhet.\r\nSe även:\r\nAnslutningsavtal för deltagarorganisationer angående SDK\r\nRegelverk för deltagarorganisationer inom SDK\r\nBilaga om personuppgiftsbehandling inom SDK\r\nBilaga om tillgänglighet inom SDK\r\nBilaga om IT-säkerhet inom SDK\r\nVi har begränsade resurser för arbete med i",
+              "section_headings": [],
+              "certificate_kind": "O2O",
+              "request_type": "certificate",
+              "actor": "mixed",
+              "actors": [
+                "accesspunktsoperatör",
+                "deltagarorganisation",
+                "organisationsadministratör",
+                "leverantör",
+                "Digg"
+              ],
+              "occurrence_count": 1,
+              "occurrences": [
+                {
+                  "quote_offset_bytes": 1247,
+                  "quote_end_offset_bytes": 1555,
+                  "quote_line_start": 12,
+                  "quote_line_end": 12,
+                  "excerpt_line_start": 3,
+                  "excerpt_line_end": 26,
+                  "excerpt": " därefter publicerar deltagaren i Diggs SMP.\r\nHur får organisationen tag i Accesspunktsidentitet som ska inkluderas i anslutningsblanketten?\r\nDen får de av organisationens accesspunktsoperatör (som kan vara deltagarorganisationen själv).\r\nHur och till vem skickar vi vårt publika O2O-certifikat till SDK-federationen?\r\nDeltagarorganisationens organisationsadministratör i SDK Adressbok registrerar O2O certifikatets publika nyckel. Läser mer om hur administration sker Handledning för administratörer i SDK adressbok.\r\nTekniska detaljer se Anslutningsinformation - certifikat\r\nFinns det krav på att ha en AP/Meddelandetjänst per kommun/organisation?\r\nSDK Regelverk för deltagarorganisationer och SDK Anslutningsavtal reglerar inte direkt hur en deltagarorganisation organiserar sin IT-drift, leverantörer eller mjukvara (t.ex. MT, MK). En förutsättning är dock att regelverk och specifikationer följs:\r\nFör mer om organisationens ansvar, se SDK Anslutningsavtal avsnitt ”Överlåta rätt eller ansvar”\r\nKortfattat kan man säga att en deltagarorganisation kan använda en eller flera valfria leverantörer som levererar, tillhandahåller och förvaltar IT-lösningar som t.ex. Accesspunkt (AP), Meddelandetjänst (MT) och Meddelandeklient(er) (MK) under förutsättning att regelverk och specifikationer följs.\r\nKan man få beskrivet lite närmare vad det innebär att meddelandetjänstens krav på svarstid är relativt lång (15 min.)?\r\nSvartidskravet sträcker sig från att mottagande accesspunkt lägger upp meddelandet för mottagande meddelandetjänst att “hämta”, tills att samma accesspunkt tagit emot meddelandekvittens att skicka tillbaka.\r\nMotivering för kravet om 15 minuter är att tillåta buffring av meddelanden mellan accesspunkt och meddelandetjänst.\r\nHänsyn behöver också tas till schema- och schematronvalidering på större meddelanden med bilagor.\r\nFAQ Informationssäkerhet\r\nVad behöver man som organisation tänka på inom informationssäkerhetsarbetet?\r\nPå våra informationssidor hittar du dokumentation om SDK Informationssäkerhet.\r\nSe även:\r\nAnslutningsavtal för deltagarorganisationer angående SDK\r\nRegelverk för deltagarorganisationer inom SDK\r\nBilaga om personuppgiftsbehandling inom SDK\r\nBilaga om tillgänglighet inom SDK\r\nBilaga om IT-säkerhet inom SDK\r\nVi har begränsade resurser för arbete med i",
+                  "section_headings": [],
+                  "certificate_kind": "O2O",
+                  "request_type": "certificate",
+                  "actor": "mixed",
+                  "actors": [
+                    "accesspunktsoperatör",
+                    "deltagarorganisation",
+                    "organisationsadministratör",
+                    "leverantör",
+                    "Digg"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "summary",
+        "support_check": "model_supported",
+        "id": "claim-2"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Förberedelser inför anslutning till SDK",
+        "service": "SDK",
+        "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/vagledningar-och-rekommendationer-infor-anslutning-till-sdk/forberedelser-infor-anslutning-till-sdk"
+      },
+      {
+        "title": "Frågor och svar om SDK",
+        "service": "SDK",
+        "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/fragor-och-svar-om-sdk"
+      }
+    ],
+    "verification": {
+      "status": "partial",
+      "checked_claims": 2,
+      "omitted_claims": 3,
+      "semantic_check": "passed",
+      "model": "mistral-large-2512",
+      "answer_attempts": 1,
+      "repair_status": "not_needed",
+      "coverage_check": "required_question_facets_heuristic",
+      "missing_facets": [],
+      "rejection_reasons": {
+        "semantic_support": 3
+      },
+      "notice": "Källutdragen har matchats och svarets stöd har granskats med automatiska kontroller. Kontrollerna kan missa fel; läs beläggen vid viktiga beslut."
+    },
+    "missing_information": [
+      "Underlaget räcker inte för alla delar av frågan. Kontrollera de återstående detaljerna med ansvarig aktör eller i den aktuella tjänstens underlag."
+    ]
+  }
+}

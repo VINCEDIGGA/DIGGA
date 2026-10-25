@@ -1,0 +1,3 @@
+Exempel för SDK-meddelande
+Här hittar du SDK schema, schematron och exempel för SDK-meddelanden.
+Här finner du informationen på Github Länk till annan webbplats.

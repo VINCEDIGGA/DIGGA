@@ -1,0 +1,391 @@
+{
+  "assessment": "AI-assisted review of saved answers; no automatic quality score produced by the runner",
+  "question_count": 9,
+  "maximum_score": 63,
+  "dimensions": {
+    "fakta": {
+      "maximum_per_question": 2,
+      "meaning": "Supported correctness and completeness"
+    },
+    "kallstod": {
+      "maximum_per_question": 2,
+      "meaning": "Exact relevant quotations support the material answer"
+    },
+    "granser_roller": {
+      "maximum_per_question": 2,
+      "meaning": "Handles missing information, responsibility and environments correctly"
+    },
+    "enkel_svenska": {
+      "maximum_per_question": 1,
+      "meaning": "Clear, usable simple Swedish"
+    }
+  },
+  "resources": {
+    "same_files_and_questions_offered_to_comparison_services": true,
+    "choice_of_knowledge_file": "Each AI could choose which offered knowledge file to use",
+    "reported_selection": {
+      "Gemini": "full_knowledge.txt",
+      "ChatGPT": "short_knowledge.txt",
+      "Claude": "short_knowledge.txt"
+    },
+    "internal_file_processing_independently_verified": false,
+    "prototype": "Normal application retrieval over the same knowledge basis, with one question per request"
+  },
+  "limits": [
+    "The actual chosen contexts and workflows differed despite equal offered resources.",
+    "Comparison services received all questions together; the prototype received one at a time.",
+    "Exact external model identities and settings were not independently verified.",
+    "One saved run and known questions do not establish a general ranking.",
+    "Q1 is prepared guidance and Q5 is a scope guard rather than newly generated answers.",
+    "A two-point difference between prototype and ChatGPT is within ordinary assessment variation.",
+    "Source matches do not alone prove that each conclusion is supported."
+  ],
+  "systems": {
+    "Gemini": {
+      "total": 52,
+      "maximum": 63,
+      "dimension_totals": {
+        "fakta": 17,
+        "kallstod": 10,
+        "granser_roller": 16,
+        "enkel_svenska": 9
+      },
+      "questions": [
+        {
+          "fakta": 2,
+          "kallstod": 0,
+          "granser_roller": 1,
+          "enkel_svenska": 1,
+          "id": "Q1",
+          "summa": 4
+        },
+        {
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q2",
+          "summa": 7
+        },
+        {
+          "fakta": 2,
+          "kallstod": 1,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q3",
+          "summa": 6
+        },
+        {
+          "fakta": 1,
+          "kallstod": 1,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q4",
+          "summa": 5
+        },
+        {
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q5",
+          "summa": 7
+        },
+        {
+          "fakta": 2,
+          "kallstod": 0,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q6",
+          "summa": 5
+        },
+        {
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q7",
+          "summa": 7
+        },
+        {
+          "fakta": 2,
+          "kallstod": 1,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q8",
+          "summa": 6
+        },
+        {
+          "fakta": 2,
+          "kallstod": 1,
+          "granser_roller": 1,
+          "enkel_svenska": 1,
+          "id": "Q9",
+          "summa": 5
+        }
+      ]
+    },
+    "Claude": {
+      "total": 51,
+      "maximum": 63,
+      "dimension_totals": {
+        "fakta": 15,
+        "kallstod": 13,
+        "granser_roller": 14,
+        "enkel_svenska": 9
+      },
+      "questions": [
+        {
+          "fakta": 2,
+          "kallstod": 1,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q1",
+          "summa": 6
+        },
+        {
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 1,
+          "enkel_svenska": 1,
+          "id": "Q2",
+          "summa": 6
+        },
+        {
+          "fakta": 1,
+          "kallstod": 1,
+          "granser_roller": 1,
+          "enkel_svenska": 1,
+          "id": "Q3",
+          "summa": 4
+        },
+        {
+          "fakta": 2,
+          "kallstod": 1,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q4",
+          "summa": 6
+        },
+        {
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q5",
+          "summa": 7
+        },
+        {
+          "fakta": 1,
+          "kallstod": 1,
+          "granser_roller": 1,
+          "enkel_svenska": 1,
+          "id": "Q6",
+          "summa": 4
+        },
+        {
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q7",
+          "summa": 7
+        },
+        {
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q8",
+          "summa": 7
+        },
+        {
+          "fakta": 1,
+          "kallstod": 1,
+          "granser_roller": 1,
+          "enkel_svenska": 1,
+          "id": "Q9",
+          "summa": 4
+        }
+      ]
+    },
+    "ChatGPT": {
+      "total": 57,
+      "maximum": 63,
+      "dimension_totals": {
+        "fakta": 18,
+        "kallstod": 13,
+        "granser_roller": 17,
+        "enkel_svenska": 9
+      },
+      "questions": [
+        {
+          "fakta": 2,
+          "kallstod": 1,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q1",
+          "summa": 6
+        },
+        {
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q2",
+          "summa": 7
+        },
+        {
+          "fakta": 2,
+          "kallstod": 1,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q3",
+          "summa": 6
+        },
+        {
+          "fakta": 2,
+          "kallstod": 1,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q4",
+          "summa": 6
+        },
+        {
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q5",
+          "summa": 7
+        },
+        {
+          "fakta": 2,
+          "kallstod": 1,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q6",
+          "summa": 6
+        },
+        {
+          "fakta": 2,
+          "kallstod": 1,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q7",
+          "summa": 6
+        },
+        {
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "id": "Q8",
+          "summa": 7
+        },
+        {
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 1,
+          "enkel_svenska": 1,
+          "id": "Q9",
+          "summa": 6
+        }
+      ]
+    },
+    "Prototypen": {
+      "total": 59,
+      "maximum": 63,
+      "dimension_totals": {
+        "fakta": 16,
+        "kallstod": 17,
+        "granser_roller": 17,
+        "enkel_svenska": 9
+      },
+      "questions": [
+        {
+          "id": "Q1",
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "summa": 7
+        },
+        {
+          "id": "Q2",
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "summa": 7
+        },
+        {
+          "id": "Q3",
+          "fakta": 1,
+          "kallstod": 1,
+          "granser_roller": 1,
+          "enkel_svenska": 1,
+          "summa": 4
+        },
+        {
+          "id": "Q4",
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "summa": 7
+        },
+        {
+          "id": "Q5",
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "summa": 7
+        },
+        {
+          "id": "Q6",
+          "fakta": 1,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "summa": 6
+        },
+        {
+          "id": "Q7",
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "summa": 7
+        },
+        {
+          "id": "Q8",
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "summa": 7
+        },
+        {
+          "id": "Q9",
+          "fakta": 2,
+          "kallstod": 2,
+          "granser_roller": 2,
+          "enkel_svenska": 1,
+          "summa": 7
+        }
+      ]
+    }
+  },
+  "prototype_findings": {
+    "strengths": [
+      "Correct handling of the out-of-scope building-permit question.",
+      "Relevant certificate responsibility guidance and real source quotations."
+    ],
+    "weaknesses": [
+      "Q3 largely omits practical supplier work and one supplier clause lacks support from its selected quote.",
+      "Q6 focuses on joining requirements rather than defining digital-post infrastructure and its use."
+    ]
+  }
+}

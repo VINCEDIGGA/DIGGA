@@ -1,0 +1,335 @@
+---
+openapi: 3.0.3
+info:
+  title: SDK API MT/MK
+  version: 1.0.0
+  description: API for message exchange for document type urn:riv:infrastructure:messaging:MessageWithAttachments:3
+    between API clients (Meddelandeklient) and API producers (Meddelandetjänst).
+  contact:
+    name: Digg - Säker digital kommunikation
+    url: https://www.digg.se/saker-digital-kommunikation
+    email: sdk@digg.se
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: "{protocol}://{servers}"
+  variables:
+    servers:
+      default: open-test.digg.se
+      enum:
+      - open-test.digg.se
+    protocol:
+      enum:
+      - https
+      default: https
+tags:
+- name: Message Rest Service
+  description: Life cycle management of messages (generated documentation from code)
+  externalDocs:
+    url: https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/tekniska-beskrivningar
+components:
+  securitySchemes:
+    message_auth:
+      type: oauth2
+      description: This API implements SDK optional security settings.
+      flows:
+        clientCredentials:
+          tokenUrl: https://iam.digg.se/auth/realms/open-test-ab-tc/protocol/openid-connect/token
+          scopes:
+            urn:sdk.api:deleteMessage: delete a messages
+            urn:sdk.api:getMessage: get a message by id
+            urn:sdk.api:getMessageByFilter: get a message by filter
+            urn:sdk.api:sendMessages: send a message
+  schemas:
+    AttentionInfoDto:
+      type: object
+      properties:
+        subOrganization:
+          $ref: "#/components/schemas/TypedValueDto"
+        attentionPerson:
+          type: array
+          items:
+            $ref: "#/components/schemas/TypedValueDto"
+        referenceId:
+          type: array
+          items:
+            $ref: "#/components/schemas/TypedValueDto"
+    ContentFileDto:
+      type: object
+      properties:
+        fileName:
+          type: string
+        contentType:
+          type: string
+        content:
+          type: string
+    DigitalDocumentDto:
+      type: object
+      properties:
+        documentName:
+          type: string
+        documentId:
+          type: string
+        index:
+          type: string
+        contentTextBody:
+          type: array
+          items:
+            type: string
+        contentFiles:
+          type: array
+          items:
+            $ref: "#/components/schemas/ContentFileDto"
+    Instant:
+      format: date-time
+      type: string
+      example: 2022-03-10T16:15:50Z
+    JsonApiMetadata:
+      type: object
+      properties:
+        version:
+          type: string
+        buildTimestamp:
+          $ref: "#/components/schemas/Instant"
+    JsonApiResourceObjectMessageDto:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          pattern: \S
+          type: string
+        id:
+          type: string
+        attributes:
+          $ref: "#/components/schemas/MessageDto"
+    JsonApiTopLevelDocumentJsonApiResourceObjectMessageDto:
+      required:
+      - data
+      type: object
+      properties:
+        meta:
+          type: object
+          allOf:
+          - $ref: "#/components/schemas/JsonApiMetadata"
+          readOnly: true
+        data:
+          $ref: "#/components/schemas/JsonApiResourceObjectMessageDto"
+    MessageDto:
+      required:
+      - confidentiality
+      - recipient
+      - sender
+      - label
+      type: object
+      properties:
+        messageId:
+          type: string
+        conversationId:
+          type: string
+        refToMessageId:
+          type: string
+        messageStatus:
+          $ref: "#/components/schemas/MessageStatusDto"
+        confidentiality:
+          type: boolean
+        generatingSystem:
+          $ref: "#/components/schemas/TypedValueDto"
+        recipientAttention:
+          $ref: "#/components/schemas/AttentionInfoDto"
+        senderAttention:
+          $ref: "#/components/schemas/AttentionInfoDto"
+        recipient:
+          pattern: \S
+          type: string
+        sender:
+          pattern: \S
+          type: string
+        label:
+          pattern: \S
+          type: string
+        digitalDocument:
+          type: array
+          items:
+            $ref: "#/components/schemas/DigitalDocumentDto"
+        creationDateTime:
+          $ref: "#/components/schemas/Instant"
+        events:
+          $ref: "#/components/schemas/MessageEventDto"
+    MessageEventDto:
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+        instance:
+          type: string
+        eventIssues:
+          type: array
+          items:
+            $ref: "#/components/schemas/MessageEventIssueDto"
+    MessageEventIssueDto:
+      type: object
+      properties:
+        dateTime:
+          $ref: "#/components/schemas/Instant"
+        typeCode:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+        in:
+          type: string
+    MessageStatusDto:
+      enum:
+      - NEW
+      - MESSAGE_EXCHANGE_ERROR
+      - ACCEPTED
+      - REJECTED
+      - WAITING_FOR_RECEIPT
+      - ERROR
+      - RETRIEVED
+      - SCHEDULED
+      - SCHEDULED_FOR_RESEND
+      - SUBMITTED
+      - ACKNOWLEDGED
+      - RECEIPT_SENT
+      type: string
+    TypedValueDto:
+      type: object
+      properties:
+        root:
+          type: string
+        extension:
+          type: string
+        label:
+          type: string
+paths:
+  /v1/sdk/messages:
+    get:
+      summary: Get messages
+      description: "Get a specific message by filter option (messageStatus, creationDateTime,\
+        \ recipientAttention.subOrganization.extension, senderAttention.subOrganization.extension).\
+        \ This operation always excludes digitalDocument\r\n      tags"
+      parameters:
+      - description: Filters messages by its status
+        name: "filter[messageStatus]"
+        in: query
+        schema:
+          type: string
+      - description: Filters messages by its sender function address
+        name: "filter[senderAttention.subOrganization.extension]"
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filters messages by its recipient function address
+        name: "filter[recipientAttention.subOrganization.extension]"
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filters messages its creation date. Messages with a creation
+          date earlier than the provided filter are excluded
+        name: "filter[creationDateTimeStart]"
+        in: query
+        schema:
+          $ref: "#/components/schemas/Instant"
+      - description: Filters messages its creation date. Messages with a creation
+          date later than the provided filter are excluded
+        name: "filter[creationDateTimeStop]"
+        in: query
+        schema:
+          $ref: "#/components/schemas/Instant"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: {}
+        "401":
+          description: Unauthorized. The principal is not authorized to use the API.
+        "404":
+          description: The resource does not exist in the system
+      security:
+      - message_auth: []
+      tags:
+      - Message Rest Service
+    post:
+      summary: Send a new message
+      requestBody:
+        description: Message to send
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JsonApiTopLevelDocumentJsonApiResourceObjectMessageDto"
+      responses:
+        "201":
+          description: OK. Message received and validated. The message will be processed.
+        "400":
+          description: The posted JSON structure is not conforming to contract or
+            a business rule was violated.
+        "401":
+          description: Unauthorized. The principal is not authorized to use the API.
+      security:
+      - message_auth: []
+      tags:
+      - Message Rest Service
+  /v1/sdk/messages/{id}:
+    get:
+      summary: Get message by id
+      description: "Get a message by messageId. Filter options (status, handlingServiceId,\
+        \ creationDateTime, pagenumber, size, contentBodyText, contentFiles)."
+      parameters:
+      - description: The Resource Identifier / Message Id
+        name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: {}
+        "401":
+          description: Unauthorized. The principal is not authorized to use the API.
+        "404":
+          description: The resource does not exist in the system
+      security:
+      - message_auth: []
+      tags:
+      - Message Rest Service
+    delete:
+      summary: Delete message by id
+      parameters:
+      - description: The Resource Identifier / Message Id
+        name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "202":
+          description: OK. The server has received the request but it may not have
+            been completed.
+        "404":
+          description: The resource does not exist in the system
+        "401":
+          description: Unauthorized. The principal is not authorized to use the API.
+        "400":
+          description: The posted JSON structure is not conforming to contract or
+            a business rule was violated.
+      security:
+      - message_auth: []
+      tags:
+      - Message Rest Service

@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+require_once __DIR__ . '/runtime_compat.php';
+
 allow_local_dev_cors();
 
 function allow_local_dev_cors()

@@ -8,7 +8,6 @@
 
   const guideLink = document.getElementById("guide-link");
   const underlagLink = document.getElementById("underlag-link");
-  const convertLink = document.getElementById("convert-link");
   const workshopLink = document.getElementById("workshop-link");
   const backLink = document.getElementById("back-link");
   const contextTitle = document.getElementById("context-title");
@@ -39,6 +38,16 @@
 
   let selectedFiles = [];
   let storedFiles = [];
+  const editedFormFields = new Set();
+  const commonFields = [organizationName, organizationNumber, contactName, contactEmail, contactRole, shortDescription, needText];
+  // A late context response must not replace an edit or a chosen directory match.
+  commonFields.concat(applicationFields).forEach(function (field) {
+    ["input", "change"].forEach(function (eventName) {
+      field.addEventListener(eventName, function (event) {
+        if (!(event.detail && event.detail.restoringContext)) editedFormFields.add(field);
+      });
+    });
+  });
 
   function showInfo(text) {
     dialogText.textContent = text;
@@ -58,32 +67,11 @@
   }
 
   function contextHasContent(context) {
-    if (!context) {
-      return false;
-    }
-    const textFields = [
-      context.organization_name,
-      context.organization_number,
-      context.contact_name,
-      context.contact_email,
-      context.contact_role,
-      context.short_description,
-      context.need_text,
-    ];
-    if (textFields.some(cleanText)) {
-      return true;
-    }
-    const application = context.application || {};
-    if (Object.keys(application).some(function (key) {
-      const value = application[key];
-      return value === true || cleanText(value);
-    })) {
-      return true;
-    }
-    return Array.isArray(context.files) && context.files.length > 0;
+    return DiggApi.hasMeaningfulContext(context);
   }
 
   function setWorkshopEnabled(enabled) {
+    enabled = enabled || Boolean(window.DiggaWorkshopAccess && window.DiggaWorkshopAccess.isUnlocked(caseId));
     if (!workshopLink) {
       return;
     }
@@ -223,19 +211,17 @@
     if (!context) {
       return;
     }
-    organizationName.value = context.organization_name || "";
-    organizationNumber.value = context.organization_number || "";
-    contactName.value = context.contact_name || "";
-    contactEmail.value = context.contact_email || "";
-    contactRole.value = context.contact_role || "";
-    shortDescription.value = context.short_description || "";
-    needText.value = context.need_text || "";
+    [[organizationName, "organization_name"], [organizationNumber, "organization_number"],
+      [contactName, "contact_name"], [contactEmail, "contact_email"], [contactRole, "contact_role"],
+      [shortDescription, "short_description"], [needText, "need_text"]].forEach(function (entry) {
+      if (!editedFormFields.has(entry[0])) entry[0].value = context[entry[1]] || "";
+    });
     storedFiles = context.files || [];
     renderFileList(storedFiles);
     const application = context.application || {};
     applicationFields.forEach(function (field) {
       const key = field.getAttribute("data-application-field");
-      if (!key || application[key] === undefined || application[key] === null) {
+      if (!key || editedFormFields.has(field) || application[key] === undefined || application[key] === null) {
         return;
       }
       if (field.type === "checkbox") {
@@ -243,9 +229,9 @@
       } else {
         field.value = application[key];
       }
-      field.dispatchEvent(new Event("change", { bubbles: true }));
+      field.dispatchEvent(new CustomEvent("change", { bubbles: true, detail: { restoringContext: true } }));
     });
-    document.dispatchEvent(new CustomEvent("digga:context-loaded"));
+    document.dispatchEvent(new CustomEvent("digga:context-loaded", { detail: context }));
     setWorkshopEnabled(contextHasContent(context));
   }
 
@@ -285,9 +271,6 @@
     guideLink.href = guideUrl();
     backLink.href = guideUrl();
     underlagLink.href = "steg-underlag.html?case=" + encodeURIComponent(caseId);
-    if (convertLink) {
-      convertLink.href = "filkonvertering.html?case=" + encodeURIComponent(caseId);
-    }
     setWorkshopEnabled(false);
   }
 
@@ -313,5 +296,12 @@
 
   askAiButton.addEventListener("click", askAiAboutContext);
 
-  loadContext();
+  document.addEventListener("digga:context-saved", function (event) {
+    const context = event.detail;
+    if (context && context.case_id === caseId) {
+      setWorkshopEnabled(contextHasContent(context));
+    }
+  });
+
+  window.DiggaStepContextReady = loadContext();
 })();

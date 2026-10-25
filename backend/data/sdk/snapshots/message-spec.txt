@@ -1,0 +1,1154 @@
+SDK Innehållsspecifikation Meddelande
+Kravspecifikation som reglerar integrationskrav för parter som avser att ansluta meddelandesystem till Säker digital kommunikation (SDK).
+Anslutning för leverantörer av meddelandesystem
+Version: 1.5.2
+Gäller fr o m 2024-11-18
+Exempel för SDK-meddelande
+Schema och innehållsvalidering
+1. Inledning
+Det här dokumentet reglerar hur ett så kallat ostrukturerat SDK-meddelande ska utformas för att kunna utbytas mellan deltagarorganisationer som är anslutna till SDK-federationen.
+Specifikationen beskriver meddelandetyp (dokumenttyp) riv:infrastructure:messaging:MessageWithAttachments.
+Den utgör kravspecifikation och fungerar som ett teknikneutralt, formellt regelverk som reglerar integrationskrav för parter som avser att ansluta system för samverkan enligt denna dokumenttyp.
+Kännetecknande för SDK-federationen är:
+Utbyte av ostrukturerad information – fritext/dokument – och filer t.ex. PDF
+Utbyte mellan (många) organisationer (B2B)
+Känslig information (personuppgifter, uppgifter som kan omfattas av sekretess)
+Domänöverskridande (hälso- och sjukvård, socialtjänst, skola, arbetsmarknad, o.s.v.)
+Interoperabilitet – främst teknisk och legal
+Målet är att ge kunskap om hur SDK-komponenter som meddelandesystem (meddelandetjänst och meddelandeklient/verksamhetssystem) ska anpassas för att kunna hantera SDK-meddelanden.
+Tabeller i dokumentet innehåller ett antal hänvisningar till referenser (R1 – R6), förklaring till referenserna finns i kapitel 6.
+2. Övergripande arkitektur för informationsöverföring inom SDK
+Detta kapitel refererar till flöden som är relevanta för informationsöverföring inom SDK.
+Bilden illustrerar var i arkitekturen som SDK Innehållsspecifikation används. SDK-meddelandet paketeras XHE och MessageType (SDK Meddelande). Se bilden i ett större format. png, 60.8 kB.
+2.1 Övergripande flöden
+Steg 1: Skapa meddelande
+Aktör
+Organisation A. Meddelandetjänst (verksamhets- och meddelandelager).
+Beskrivning
+I meddelandetjänsten skapas en meddelandestruktur enligt schema (XHE, MessageType) och paketeras i AS4.
+AS4
+MessagePayload (MessagePayloadType)
+XHE
+Message (MessageType)
+Kommentar
+Meddelandet skapas i en meddelandetjänst. Steg 1 och steg 2 (steg 3) kan ske samtidigt.
+Steg 2: Adressera
+Aktör
+Organisation A. Meddelandetjänst (verksamhets- och meddelandelager)
+Beskrivning
+Användare (avsändare) inom organisationen med tillgång till en SDK funktionsadress söker i en adressbok för att hitta anslutna organisationer och dess funktionsadresser.
+Meddelandetjänsten kompletterar meddelandet med adressuppgifter (organisations-id, funktions-id).
+Transportadressering:
+AS4
+originalSender (organisations-id)
+finalRecipient (organisations-id)
+Verksamhetsadressering:
+MessageType
+Recipient (organisations-id)
+Function (funktions-id)
+Person (Endast referens: person-id)
+Sender (organisations-id)
+Function (funktion-id)
+Person (Endast referens: person-id)
+XHE
+Receiver (organisations-id)
+Sender (organisations-id)
+HandlingServiceID (funktions-id)
+Kommentar
+Användaren söker i en adressbok för att hitta anslutna organisationer och dess funktionsadresser. Detta kan ske antingen genom integration mot SDK Adressboks Sök-API eller genom en lokal läskopia.
+Specifikationer: Kuverteringsprofil XHE (Se R2)
+Steg 3: Kryptera och signera
+Aktör
+Organisation A. Meddelandetjänst.
+Beskrivning
+Avsändande deltagarorganisation krypterar och signerar meddelandet.
+Mottagande deltagarorganisations krypteringsnyckel hämtas från SMP (CertPub)
+Meddelandetjänsten Base64-kodar det färdiga meddelandet och överför det till Accesspunkten.
+Hur ett meddelande överförs till accesspunkten är en produktspecifik fråga; olika ev. API:er kan erbjudas beroende på produkt.
+Kommentar
+Specifikationer:
+Kuverteringsprofil XHE (Se R2)
+Certifikatspublicering - REST-bindning till SMP (Se R4)
+Steg 4: Skicka meddelande
+Aktör A
+Organisation A. Accesspunkt (AP).
+Beskrivning
+Avsändande accesspunkt skickar meddelande enligt eDelivery-protokoll.
+DNS ger transportadress till SMP
+SMP ger transportadress AP
+Aktör B
+Organisation B. Accesspunkt (AP)
+Beskrivning
+Mottagande Accesspunkt tar emot meddelande för vidare leverans. Intern routing skall baseras på:
+Organisations-id
+Funktions-id
+Steg 5: Status
+Aktör
+Organisation B. Accesspunkt (AP)
+Beskrivning
+Transportkvittering: Mottagande accesspunkt bekräftar överföring synkront enligt eDelivery-protokoll.
+SignalMessage innehåller bl.a. MessageId
+Steg 6: Validering och kryptering
+Aktör
+Organisation B. Meddelandetjänst.
+Beskrivning
+Meddelandekvittering: Mottagande organisations meddelandetjänst validerar meddelande samt kvitterar meddelande.
+1. Ursprungskontroll: Validerar sändarens signatur enligt XHE- specifikation.
+2. Dekrypterar meddelande
+Ursprungskontroll meddelande: Genom kontroll mot SMP (CertPub) kan mottagaren kontrollera att sändarens identitet är korrekt (Organisations-id).
+3. Kvittering sker när meddelandet är validerat och har nått mottagande organisations meddelandetjänst.
+Kvitteringsmeddelanden skall endast signeras (ej krypteras).
+Kvittering sker genom att meddelandetjänsten skickar ett kvitteringsmeddelande till avsändaren.
+OBS! Kvittensmeddelande skall skapas enligt Diggs specifikation Meddelandekvittens (R1).
+Kommentar
+Överföring till mottagande organisations meddelandetjänst är nu garanterad.
+Specifikationer:
+Meddelande-specifikation: Meddelande-kvittens (Se R1) för utformning av meddelande-kvittens
+Certifikats-publicering - REST-bindning till SMP (Se R4)
+SDK Specifikation validering, felhantering och kvittens (Se R6) för tillämpning av SDK:s regelverk.
+3. AS4 och XHE-profilering
+Kapitlet beskriver vilken information som skall anges i AS4 och XHE för denna meddelandetyp (dokumenttyp). För meddelandetypen gäller att:
+Överföring av meddelanden sker enligt Transportprofil AS4 (Se R3).
+Meddelanden paketeras enligt Kuverteringsprofil XHE (R2) och Kodlistor (R5)
+I avsnitt nedan framgår vilken anpassning som ska göras för SDK meddelande.
+3.1 Transportprofilering med AS4
+|
+Konfigurering
+|
+AS4
+|
+Dokumenttyp
+|
+Messaging
+UserMessage
+CollaborationInfo.action
+Värde: busdox-docid-qns::urn:riv:infrastructure:messaging:MessageWithAttachments:3::messagePayload##3.0::tm-base-ext-sigenc
+<Action>busdox-docid-qns::urn:riv:infrastructure:messaging:MessageWithAttachments:3::messagePayload##3.0::tm-base-ext-sigenc</Action>
+|
+Service (Process)
+|
+Messaging
+UserMessage
+CollaborationInfo.service
+Type = urn:fdc:Digg.se:edelivery:process
+Värde = bdx:noprocess
+<Service type="urn:fdc:Digg.se:edelivery:process">bdx:noprocess</Service>
+3.2 Meddelandekuvertering med XHE
+SDK meddelanden skall kuverteras i enlighet med Diggs XHE specifikation.
+| |
+XHE
+|
+Unik identifierare
+ID
+Datum
+CreationDateTime
+|
+Unik identifierare av meddelandet/nyttolast.
+ID: Unik identifierare. Ska vara samma som för nyttolasten
+CreationDateTime: Datum när XHE skapades. Kan vara samma som för nyttolasten.
+<XHEVersionID>1.0</XHEVersionID>
+<xha:Header>
+<ID>862693f7-53d4-4d96-b35c-470055710092</ID>
+<CreationDateTime>2019-08-15T17:52:58.1Z</CreationDateTime>
+..
+<xha:Header>
+Innehållsvalidering - Kodning av kvitteringsmeddelande
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: invariant
+Detaljtext: In $path, Timestamp should match pattern "YYYY-MM-DD'T'hh:mm:ss.s'Z'" but was <value-of select="."/>.
+|
+Avsändare
+FromParty
+Mottagare
+ToParty
+|
+FromParty.PartyIdentification
+Sändande deltagaroganisation (Organisations-id)
+SKA vara samma som AS4 originalSender
+SKA vara samma som MessageType.MessageHeaderType.SenderType
+ToParty.PartyIdentification
+Mottagande användarorganisation (Organisations-id)
+SKA vara samma som AS4 finalRecipient
+SKA vara samma som MessageType.MessageHeaderType.RecipientType
+<xha:FromParty>
+<xha:PartyIdentification>
+<ID schemeID="iso6523-actorid-upis">0203:habo.se</ID>
+</xha:PartyIdentification>
+</xha:FromParty>
+<xha:ToParty>
+<xha:PartyIdentification>
+<ID schemeID="iso6523-actorid-upis">0203:arbetsformedlingen.se</ID>
+</xha:PartyIdentification>
+</xha:ToParty>
+|
+Meddelandets struktur
+|
+Payloads.Payload.DocumentTypeCode
+SKA motsvara rotelementet dvs “Q{urn:riv:infrastructure:messaging:MessageWithAttachments:3}messagePayload”
+Payloads.Payload.ContentTypeCode
+SKA sättas till “application/xml“
+<xha:Payloads>
+<xha:Payload>
+<DocumentTypeCode>Q{urn:riv:infrastructure:messaging:MessageWithAttachments:3}messagePayload</DocumentTypeCode>
+<ContentTypeCode>application/xml</ContentTypeCode>
+|
+Funktionsadress (egen identifierare)
+|
+Payloads.Payload.HandlingServiceID
+Nyttolastens funktionsadress, kan används för att underlätta meddelandehantering i meddelandetjänst/meddelandeväxel.
+SDK Meddelande och Meddelandekvittens
+OBS! Meddelandekvittens är ett separat meddelande som har en egen specifikation, se R1 Meddelandespecifikation: Meddelandekvittens avser.
+Mottagarens Id för att identifiera funktion/enheter.
+SKA vara samma som attention.subOrganization.organizationId.extension
+SKA även sättas i XHE kuvert på kvittensmeddelandet för detta meddelande.
+<xha:Payloads>
+<xha:Payload>
+<DocumentTypeCode>Q{urn:riv:infrastructure:messaging:MessageWithAttachments:3}messagePayload</DocumentTypeCode>
+<ContentTypeCode>application/xml</ContentTypeCode>
+<HandlingServiceID>sub-funktion-org-id</HandlingServiceID>
+<InstanceEncryptionIndicator>true</InstanceEncryptionIndicator>
+<xha:PayloadContent>
+Innehållsvalidering - Kodning av kvitteringsmeddelande
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: not-found
+Detaljtext: Wrong or unknown
+xha:HandlingServiceID
+4 Meddelandemodeller
+4.1 Övergripande beskrivning
+SDK Innehållsspecifikation definierar metadata samt innehållet (nyttolast) för SDK-meddelanden som skickas mellan anslutna deltagarorganisationer.
+4.2 Meddelandestruktur – MessageType
+Samtliga fält skall hanteras och valideras av komponenterna Meddelandetjänst (MT) och Meddelandeklient/Verksamhetssystem (MK).
+SDK meddelande exempel:
+<tns:messagePayload> <tns:Message xmlns:tns="urn:riv:infrastructure:messaging:MessageWithAttachments:3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:riv:infrastructure:messaging:MessageWithAttachments:3 ../core_components/infra_messaging_MessageWithAttachments_3.0.xsd "> <tns:messageHeader> <tns:creationDateTime>2019-08-15T17:52:58.1Z</tns:creationDateTime> <tns:messageId>ff325210-0690-42fe-b86f-95ecab821223</tns:messageId> <tns:conversationId>a8480ada-6a1f-44a3-a960-9acaf4efcdcd</tns:conversationId> <tns:label>Rubrik: Kallelse till SIP möte</tns:label> <tns:confidentiality>false</tns:confidentiality> <tns:generatingSystem> <tns:root>kodverk-id</tns:root> <tns:extension>system-id-123456789</tns:extension> </tns:generatingSystem> <tns:recipient> <tns:recipientID> <tns:root>iso6523-actorid-upis</tns:root> <tns:extension>0203:arbetsformedlingen.se</tns:extension> </tns:recipientID> <tns:label>Arbetsförmedlingen</tns:label> <tns:attention> <tns:subOrganization> <tns:organizationId> <tns:root>urn:riv:infrastructure:messaging:functionalAddress</tns:root> <tns:extension>sub-funktion-org-id</tns:extension> </tns:organizationId> <tns:label>Avdelningen för Arbetsträning</tns:label> </tns:subOrganization> </tns:attention> </tns:recipient> <tns:sender> <tns:senderID> <tns:root>iso6523-actorid-upis</tns:root> <tns:extension>0203:habo.se</tns:extension> </tns:senderID> <tns:label>Håbo kommun</tns:label> <tns:attention> <tns:person> <tns:personId> <tns:root>1.2.752.29.6.2.1</tns:root> <tns:extension>SE2321000016-person</tns:extension> </tns:personId> <tns:label>Karin Svensson</tns:label> </tns:person> <tns:subOrganization> <tns:organizationId> <tns:root>urn:riv:infrastructure:messaging:functionalAddress</tns:root> <tns:extension>SE2321000016-SubOrgUnit-id</tns:extension> </tns:organizationId> <tns:label>Socialtjänsten Håbo kommun</tns:label> </tns:subOrganization> </tns:attention> </tns:sender> </tns:messageHeader> <tns:messageBody> <tns:documents> <tns:documentID>SDK meddelande</tns:documentID> <tns:documentName>Rubrik: Kallelse till SIP möte</tns:documentName> <tns:index>1</tns:index> <tns:ContentText> <tns:characterSequence>Textmeddelande. Vi bör diskutera hur formatering skall ske. T.ex. markdown eller html.</tns:characterSequence> </tns:ContentText> </tns:documents> </tns:messageBody> </tns:Message><messagePayload>
+4.3 MessagePayloadType
+MessagePayloadType utgör meddelandets container.
+4.3.1 MessageType
+MessageType utgör meddelandet. Typen innehåller metadata samt meddelande och dess bilagor.
+|
+Attribut
+|
+Typ
+|
+Beskrivning
+|
+Kardinalitet
+|
+../message
+(MessageType)
+|
+MessageType
+| |
+|
+messageHeader
+|
+MessageHeaderType
+|
+Bärare av metadata
+|
+1..1
+|
+messageBody
+|
+MessageBodyType
+|
+Bärare av innehåll (text, bilaga)
+|
+1..1
+4.3.2 MessageHeaderType
+Används för meddelande-id och adresseringsinformation
+Struktur
+MessageType
+MessageHeaderType 1..1
+Exempel:
+<tns:messageHeader> <tns:creationDateTime>2019-08-15T17:52:58.1Z</tns:creationDateTime> <tns:messageId>ff325210-0690-42fe-b86f-95ecab821223</tns:messageId> <tns:conversationId>a8480ada-6a1f-44a3-a960-9acaf4efcdcd</tns:conversationId> <tns:refToMessageId>ff325210-0690-42fe-b86f-95ecab821223</tns:refToMessageId> <tns:label>Rubrik: Kallelse till SIP möte</tns:label> <tns:confidentiality>false</tns:confidentiality> <tns:generatingSystem> <tns:root>kodverk-id</tns:root> <tns:extension>system-id-123456789</tns:extension> </tns:generatingSystem> <tns:recipient> .. </tns:recipient> <tns:sender> .. </tns:sender> </tns:messageHeader>
+|
+Attribut
+|
+Typ
+|
+Beskrivning
+|
+Kardina-litet
+|
+../messageHeader
+(MessageHeaderType)
+| | |
+|
+creationDateTime
+|
+dateTime
+|
+Tidsstämpel för när meddelandet skapades.
+Tidszon UTC skall användas.
+T.ex. 2018-09-12T15:06:00Z.
+Innehållsvalidering - Kodning av kvitteringsmeddelande #1.
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: SV
+Detaljkod: structure
+Detaljtext: cvc-datatype-valid.1.2.1: '3 Sept. 2019' is not a valid value for 'dateTime'
+Innehållsvalidering - Kodning av kvitteringsmeddelande #2
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: invariant
+Detaljtext: In $path, Timestamp should match pattern "YYYY-MM-DD'T'hh:mm:ss.s'Z'" but was '2019-09-03T12:04:13.123' | at path {path till element}
+|
+1..1
+|
+messageId
+|
+String
+|
+Unik identifierare (UUID) av meddelande.
+Meddelande-id (messageid) SKA vara samma som XHE.ID
+Ska följa RFC4122. Se https://tools.ietf.org/html/rfc4122 Länk till annan webbplats.
+Innehållsvalidering - Kodning av kvitteringsmeddelande
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: invariant
+Detaljtext: In ns:RefToMessageId, 'teststring..' is not a valid UUID. | at path {path till element}
+|
+1..1
+|
+conversationId
+|
+String
+|
+Skapas av sändande system. Unik identifierare (UUID).
+För det första SDK-meddelandet i en konversation gäller att AS4 eb:CollaborationInfo.ConversationId = XHE Header/ID = SDK messageId = SDK conversationId.
+För ett svarsmeddelande gäller att AS4 eb:CollaborationInfo.ConversationId = XHE Header/ID = SDK messageId, medan SDK conversationId återanvänds från det ursprungliga meddelandet.
+“ConversationId” används för att koppla meddelanden i en konversation. Ett “ConversationId“ kan återanvändas i meddelandeutbyte mellan olika mottagare. T.ex. om sändaren vill skicka samma meddelande till flera mottagare.
+Vid ny konversation/nytt meddelande:
+Samma värde används som för messageId eller ett nytt id skapas
+Besvara meddelade:
+ConversationId sätts till samma värde som i meddelandet som besvaras (ConversationId återanvänds).
+Komplettera meddelande
+ConversationId sätts till samma värde som i meddelandet som kompletteras (ConversationId återanvänds).
+Innehållsvalidering - Kodning av kvitteringsmeddelande #1
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: invariant
+Detaljtext: In ns:messageHeader, conversationId must be set. If this is a new message, use the same UUID as messageId to start new conversation
+Innehållsvalidering - Kodning av kvitteringsmeddelande #2
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: invariant
+Detaljtext: In ns:RefToMessageId, 'teststring..' is not a valid UUID.
+Meddelandeklient (MK) skall hantera värdet.
+|
+1..1
+|
+refToMessageId
+|
+String
+|
+Används inte för meddelanden som inte är svar på annat meddelande.
+RefToMessageId sätts av sändande system när ett meddelande besvaras.
+RefToMessageId ska sättas till messageId för meddelandet som besvaras/kompletteras.
+Ger stöd för att se ordningsföljd i konversationstrådar, samt att koppla samman meddelandekvittenser med meddelandet.
+Om ett värde skickas skall det valideras och hanteras i klient.
+Meddelandeklient (MK) skall hantera ordningsföljd mellan meddelanden baserat på värdet.
+Innehållsvalidering - Kodning av kvitteringsmeddelande
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: invariant
+Detaljtext: In ns:RefToMessageId, 'teststring..' is not a valid UUID.
+|
+0..1
+|
+label
+|
+String
+|
+Meddelandets rubrik. Max 256 tecken.
+Meddelandeklient(MK) skall hantera meddelandets rubrik
+Innehållsvalidering - Kodning av kvitteringsmeddelande
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Observera att innehåll i sträng EJ får returneras i “Detaljtext“.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: structure
+Detaljtext: In tns:messageHeader/tns:label, string length {antal tecken} exceeded maxlength 256 at {path to element}
+|
+1..1
+|
+confidentiality
+|
+Boolean
+|
+Kommunicerar sändande organisations sekretessbedömning. Syftet med markeringen är att upplysa mottagande organisation om att meddelandet innehåller sekretessbelagd information och/eller känsliga personuppgifter.
+Meddelandeklient(MK) skall hantera och synliggöra fältet.
+True - omfattas av sekretess
+False - omfattas ej av sekretess
+|
+1..1
+|
+generatingSystem
+|
+IIType
+|
+Identifierare för systemet som skapade/genererade meddelandet. Id kan användas för felsökning/support.
+Regelverk IIType:
+root = kodverk för identifierare
+Identifierare är oreglerad
+extension = id.
+| 0..1
+|
+recipient
+|
+recipientType
+|
+Bärare av metadata för mottagande organisation
+| 1..1
+|
+sender
+|
+senderType
+|
+Bärare av metadata för sändande organisation
+| 1..1
+4.3.2.1 RecipientType
+Innehåller information om mottagande organisation.
+Struktur
+MessageType
+MessageHeaderType 1..
+RecipientType 1..1
+Exempel:
+<tns:recipient> <tns:recipientId> <tns:root>iso6523-actorid-upis</tns:root> <tns:extension>0203:arbetsformedlingen.se</tns:extension> </tns:recipientId> <tns:label>Arbetsförmedlingen</tns:label> <tns:attention> .. </tns:attention> </tns:recipient>
+|
+Attribut
+|
+Typ
+|
+Beskrivning
+|
+Kardinalitet
+|
+../recipient
+(RecipientType)
+|
+|
+|
+|
+recipientId
+|
+IIType
+|
+Mottagande organisation (organisations-id).
+Tillämpas enligt specifikation.
+Identifierare av organisation SKA vara samma värde som
+AS4 header:
+Messaging
+UserMessage
+MessagePropertie
+finalRecipien
+XHE:
+ToParty.PartyIdentification
+Regelverk IIType:
+root = kodverk för identifierare
+Använd: iso6523-actorid-upis
+extension = “0203:” + organisations-id i form av domännamn.
+Ex: 0203:http://inera.se
+Värdet i extension SKA valideras programmatiskt i meddelandetjänst för att säkerställa korrekt adressering. Täcks inte av schema/schematron.
+Innehållsvalidering - Kodning av kvitteringsmeddelande #1
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: security
+Detaljtext: recipientId is not identical to value in XHE envelope.
+Innehållsvalidering - Kodning av kvitteringsmeddelande #2
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: invariant
+Detaljtext: In ns:root, value should be set to ‘iso6523-actorid-upis' but was 'teststring’.
+|
+1..1
+|
+label
+|
+String
+|
+Tillämpas enligt specifikation. Organisationens namn. Max 256 tecken.
+Mappas mot adressbokens attribut för organisationsnamn (organizations "name")
+Om ett värde skickas skall Meddelandeklient (MK) hantera värdet.
+Innehållsvalidering - Kodning av kvitteringsmeddelande
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: SV
+Detaljkod: structure
+Detaljtext: cvc-maxLength-valid: Value 'teststring..' with length = '468' is not facet-valid with respect to maxLength '256' for type '#AnonType_labelMessageHeaderType'. string to long.
+|
+0..1
+|
+attention
+|
+attentionDataType
+|
+Bärare av metadata för funktionsadress och refererad person. Se avsnitt "3.3.2.3 AttentionDataType" för detaljerad information.
+|
+1..1
+4.3.2.2 SenderType
+Innehåller information om sändande organisation.
+Struktur
+MessageType
+MessageHeaderType 1..1
+SenderType 1..1
+Exempel:
+<tns:sender> <tns:senderId> <tns:root>iso6523-actorid-upis</tns:root> <tns:extension>0203:habo.se</tns:extension> </tns:senderId> <tns:label>Håbo kommun</tns:label> <tns:attention> .. </tns:attention></tns:sender>
+|
+Attribut
+|
+Typ
+|
+Beskrivning
+|
+Kardinalitet
+|
+../sender
+(SenderType)
+|
+|
+|
+|
+senderId
+|
+IIType
+|
+Sändande organisation.
+Tillämpas enligt specifikation.
+Identifierare av organisation SKA vara samma värde som
+o AS4 header:
+Messaging
+UserMessage
+MessagePropertie
+originalSend
+XHE
+FromParty.PartyIdentification
+Kontroll av avsändare (gäller vid tillämpning av organisationsidentifierare iso6523:0203)
+SKA vara samma toppdomän i “PartyInfo.From.PartyId” och “MessageProperties Property name="originalSender”
+SKA kontrollera mot SMP att originalSender är registrerad i federationen (ParticipantIdentifier)
+Regelverk IIType:
+root = kodverk för identifierare
+Använd: iso6523-actorid-upis
+extension = “0203:” + organisations-id i form av domännamn.
+Ex: 0203:http://inera.se
+Validering:
+Värdet i extension SKA valideras programmatiskt i meddelandetjänst för att säkerställa korrekt adressering. Täcks inte av schema/schematron.
+Meddelandets XHE signatur SKA valideras mot Diggs SMP (CertPub) tjänst.
+Signaturen SKA motsvara Organisations-id registrerad i Certifikatspubliceringstjänst (CertPub) tjänst.
+Innehållsvalidering - Kodning av kvitteringsmeddelande #1
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kodning av kvitteringsmeddelande där senderId inte validerats OK:
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: invariant
+Detaljtext: Wrong or unknown sender-id
+Innehållsvalidering - Kodning av kvitteringsmeddelande #2
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kodning av kvitteringsmeddelande där Meddelandets XHE signatur inte validerats OK:
+Kvittenskod: REJECTED
+Orsakskod: SIG
+Detaljkod: security
+Detaljtext: Sender signature not validated
+Innehållsvalidering - Kodning av kvitteringsmeddelande #3
+Kodning av kvitteringsmeddelande där schematronvalidering returnerar error:
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: invariant
+Detaljtext: In ns:root should be set to 'iso6523-actorid-upis' but was 'Icke godkänt kodverk'. | {path till element} 1..1
+|
+1..1
+|
+label
+|
+String
+|
+Tillämpas enligt specifikation. Max 256 tecken
+Mappas mot adressbokens attribut för organisationsnamn (t.ex.organizationalUnitName)
+Om ett värde skickas skall Meddelandeklient(MK) hantera värdet.
+Innehållsvalidering - Kodning av kvitteringsmeddelande
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: SV
+Detaljkod: structure
+Detaljtext: cvc-maxLength-valid: Value 'teststring..' with length = '468' is not facet-valid with respect to maxLength '256' for type '#AnonType_labelMessageHeaderType'. string to long.
+|
+0..1
+|
+attention
+|
+attentionDataType
+|
+Bärare av metadata för funktionsadress och refererad person. Se avsnitt "4.3.2.3 AttentionDataType" för detaljerad information. 1..1
+|
+1..1
+4.3.2.3 AttentionDataType
+Används för att adressera funktion/enhet och referera person (Sändare/mottagare).
+Struktur
+MessageType
+MessageHeaderType 1..1
+SenderType/RecipientType 1..1
+AttentionType 0..1
+Exempel:
+<tns:attention> <tns:person> <tns:personId> <tns:root>1.2.752.29.6.2.1</tns:root> <tns:extension>SE2321000016-person</tns:extension> </tns:personId> <tns:label>Karin Svensson</tns:label> </tns:person> <tns:subOrganization> <tns:OrganizationId> <tns:root>urn:riv:infrastructure:messaging:functionalAddress</tns:root> <tns:extension>SE2321000016-SubOrgUnit-id</tns:extension> </tns:OrganizationId> <tns:label>Socialtjänsten Håbo kommun</tns:label> </tns:subOrganization> <tns:reference> <tns:referenceId> <tns:root>37.3.818.dummy</tns:root> <tns:extension>02ae6023-658c-43e7-bb5c-4d79ecddf20e</tns:extension> </tns:referenceId> <tns:label>Recipient Or Sender reference-id</tns:label> </tns:reference></tns:attention>
+|
+Attribut
+|
+Typ
+|
+Beskrivning
+|
+Kardinalitet
+|
+../attention (AttentionDataType)
+|
+|
+|
+|
+../attention/person/PersonId (AttentionPersonType)
+|
+AttentionPersonType
+|
+Identifierare för refererad person (sender eller recipient). Attributet utelämnas om det saknas en unik identifierare.
+Regelverk IIType:
+root = kodverk för identifierare (deltagarorganisationens identifierare)
+Exempel:
+Personnummer: 1.2.752.129.2.1.3.1
+Hsa-id person: 1.2.752.29.6.2.1
+E-post: 0.9.2342.19200300.100.1.3
+Övrig "slask" oid: 1.2.752.129.2.1.2.1
+extension = personal-id.
+Ex: SE2321000016-nnnnn
+Övrigt
+Det finns idag inga krav på att endast mottagande PersonID får ta del av meddelandet. Adressering får endast ske på funktionsnivå.
+PersonID ingår ej i gemensam adressbok
+Om ett värde skickas skall Meddelandeklient (MK) hantera värdet.
+|
+0..*
+|
+../attention/person/label
+|
+String
+|
+Refererad persons fullständiga namn (fullname). Max 256 tecken
+T.ex. Karin Svensson
+Om ett värde skickas skall Meddelandeklient (MK) hantera värdet.
+Innehållsvalidering - Kodning av kvitteringsmeddelande
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: SV
+Detaljkod: structure
+Detaljtext: cvc-maxLength-valid: Value 'teststring..' with length = '468' is not facet-valid with respect to maxLength '256' for type '#AnonType_labelMessageHeaderType'. string to long.
+|
+0..1
+|
+../attention/subOrganization
+(SubOrganizationType)
+|
+SubOrganizationType
+|
+Funktion/Enhet
+|
+1..1
+|
+../attention/subOrganization/organizationId
+|
+IIType
+|
+Id för att identifiera funktion/enheter.
+Hämtas från SDK adressbok "identifier"
+Regelverk IIType:
+root = urn:riv:infrastructure:messaging:functionalAddress
+extension = Identifierare för funktionsbrevlåda
+Ex (hämtas från adressboken): SE2321000016-nnnnn
+Innehållsvalidering - Kodning av kvitteringsmeddelande #1
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: not-found
+Detaljtext: Wrong or unknown ns:subOrganization/ns:organizationId
+Innehållsvalidering - Kodning av kvitteringsmeddelande #2
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: invariant
+Detaljtext: In ns:organizationId, element ns:root must be set to ‘urn:riv:infrastructure:messaging:functionalAddress’ | at {path to element}
+Innehållsvalidering - Kodning av kvitteringsmeddelande #3
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: security
+Detaljtext: ns:subOrganization/ns:organizationId must equal xha:HandlingServiceID
+|
+1..1
+|
+../attention/subOrganization/label
+|
+String
+|
+Funktion/enhetens namn. Max 256 tecken
+T.ex. Socialtjänsten i Håbo
+Hämtas från SDK adressbok
+Om ett värde skickas skall Meddelandeklient (MK) hantera värdet.
+Innehållsvalidering - Kodning av kvitteringsmeddelande
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: SV
+Detaljkod: structure
+Detaljtext: cvc-maxLength-valid: Value 'teststring..' with length = '468' is not facet-valid with respect to maxLength '256' for type '#AnonType_labelMessageHeaderType'. string to long.
+|
+0..1
+|
+../attention/reference
+(ReferenceType)
+|
+|
+|
+0..*
+|
+../attention/reference/referenceId
+|
+IIType
+|
+Referens-id. T.ex. ärende-id eller diarienummer eller personnummer. Referens-id underlättar för sändare och mottagare att koppla meddelandet till lokala ärenden/handlingar eller en specifik invånare/patient. Max 256 tecken.
+Regelverk IIType:
+root = kodverk för identifierare (organisationens interna eller gemensam identifierare)
+T.ex.
+Diarienummer: dnr
+GLN: 1.3.88
+Svenskt personnummer (PNR): 1.2.752.129.2.1.3.1
+Samordningsnummer(SNR): 1.2.752.129.2.1.3.3
+Nationell reservidentitet(NRID): 1.2.752.74.9.1
+Övriga/okänd: unregistered
+extension = id
+Ex: 7362220000318
+Om referens-id används för Sender
+Sändaren bifogar sitt referens-id t.ex. diarienummer.
+Mottagaren skall returnera sändarens referens-id vid svar.
+Om referens-id används för recipient
+Mottagarens referens-id anges. Detta id kan hämtas från föregående meddelande dvs det meddelandet som besvaras.
+Om ett värde skickas skall Meddelandeklient (MK) hantera värdet.
+|
+1..1
+|
+../attention/reference/label
+|
+String
+|
+Namn/etikett på internt referens-id.
+Om ett värde skickas skall Meddelandeklient (MK) hantera värdet.
+|
+0..1
+4.3.3 MessageBodyType
+Innehåller nyttolasten i form av meddelandetext och bilagor.
+Struktur
+MessageType
+MessageBodyType 1..1
+Exempel:
+<tns:messageBody> <tns:documents> .. </tns:documents> </tns:messageBody>
+|
+Attribut
+|
+Typ
+|
+Beskrivning
+|
+Kardinalitet
+|
+../messageBody
+(MessageBodyType)
+| | |
+|
+./Documents
+|
+DigitalDocumentType
+|
+Bärare av textmeddelande och bilaga.
+|
+1..*
+4.3.3.1 DigitalDocumentType
+Innehåller en eller flera dokument (fritext eller bilaga).
+Struktur
+MessageType
+MessageBodyType 1..1
+DigitalDocumentType 1..*
+Exempel:
+<tns:documents> <tns:documentID>SDK meddelande</tns:documentID> <tns:documentName>Rubrik: Kallelse till SIP möte</tns:documentName> <tns:index>1</tns:index> <tns:ContentFiles> .. <tns:ContentFiles> <tns:ContentText> .. </tns:ContentText></tns:documents>
+|
+Attribut
+|
+Typ
+|
+Beskrivning
+|
+Kardi-nalitet
+|
+../documents
+(DigitalDocumentType)
+| |
+Ett meddelande (documents) SKA innehålla minst ett textmeddelande (contentext) och eller en bifogad fil(contentFiles). Regel kontrolleras vid schematronvalidering.
+|
+|
+documentID
+|
+String
+|
+Identifierare av dokument. Skapas av sändaren.
+|
+1..1
+|
+documentName
+|
+String
+|
+Dokumentets namn.
+Om ett värde skickas skall det valideras och hanteras i klient.
+|
+0..1
+|
+Index
+|
+String
+|
+Sorteringsordning. Om flera documents(DigitalDocumentType) skickas skall sorteringsordning sättas. Detta för att underlätta informationsutbyte. Siffror ska användas för presentationsordning där 1 representerar den första.
+|
+0..1
+|
+../contentFiles
+|
+contentAsBase64Type
+|
+Bärare av filer
+|
+0..*
+|
+../contentText
+|
+contentAsTextType
+|
+Bärare av textmeddelande
+|
+0..*
+4.3.3.2 ContentAsTextType
+Fritextmeddelande.
+Struktur
+MessageType
+MessageBodyType 1..1
+DigitalDocumentType 1..*
+contentAsTextType 0..*
+Exempel:
+<tns:ContentText> <tns:characterSequence>Textmeddelande. Formateras med markdown.</tns:characterSequence></tns:ContentText>
+|
+Attribut
+|
+Typ
+|
+Beskrivning
+|
+Kardinalitet
+|
+../contentText
+(ContentAsText)
+| | |
+|
+characterSequence
+|
+1..1
+|
+Fritext (UTF-8).
+Text kan formateras med följande MarkDown koder enligt RFC 7763.
+Headers:
+# H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6
+Strong/bold
+**xyz**
+__xyz__
+Italic:
+*xyz*
+_xyz_
+Bullet:
+* xyz
+Number:
+1.
+2.
+*Two or more line breaks*
+This is the first line
+This is the second line
+---
+*Two or more spaces, and then type return*
+This is the first line
+This is the second line
+Grafiskt gränssnitt i meddelandeklient (verksamhetssystem), tjänst skall rendera ovanstående MarkDown-koder.
+Om ett värde skickas skall Meddelandeklient (MK) hantera värdet.
+|
+1..1
+4.3.3.3. ContentAsBase64
+Base64-kodad bilaga.
+Struktur
+MessageType
+MessageBodyType 1..1
+DigitalDocumentType 0..*
+contentAsBase64Type 0..*
+Exempel:
+<tns:ContentFiles> <tns:fileName>testpdf.pdf</tns:fileName> <tns:contentType>application/pdf</tns:contentType> <tns:content>AkbCRUEBoI5wj9hBHCNFGBqE90IoYQecRcYimxj....</tns:ContentFiles>
+|
+Attribut
+|
+Typ
+|
+Beskrivning
+|
+Kardinalitet
+|
+../ContentFiles (ContentAsBase64Type)
+|
+|
+Bifogas flera element skall dessa hanteras enligt valfri sortering.
+|
+|
+fileName
+|
+String
+|
+Bilagans filnamn. Filnamnet bör visas i meddelandetjänsten.
+|
+1..1
+|
+contentType
+|
+String
+|
+Typ av bilaga som överförs/bifogas. MIME-typ för bifogad fil skall anges.
+Alla deltagarorganisationer ska stödja filtypen PDF.
+Rekommendation för arkivbeständig PDF-format är
+PDF-A1
+PDF-A2
+Utöver PDF ansvarar deltagarorganisationen själv för vilka ytterligare filtyper som ska kunna skickas och tas emot.
+Filtyper som inte stöds av mottagaren skall kvitteras (REJECTED) enligt följande.
+Innehållsvalidering - Kodning av kvitteringsmeddelande
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: not-supported
+Detaljtext: In contentType, The value 'PNG' is not allowed. | at {path to element}
+|
+1..1
+|
+content
+|
+String
+|
+Base64-kodad bilaga (UTF-8). Den binära informationen skall kodas med base64 enligt RFC 4648
+Meddelandet inklusive bifogade filer får ej överstiga 30 MB.
+Innehållsvalidering - Kodning av kvitteringsmeddelande
+Meddelanden kvitteras enligt Diggs specifikation meddelandekvittens, se R1.
+Kvittenskod: REJECTED
+Orsakskod: BV
+Detaljkod: too-long
+Detaljtext: Message size to large.
+|
+1.1
+5. Innehållsvalidering
+Innehållsvalidering finns för att i så stor mån som möjligt säkerställa problemfri kommunikation mellan samtliga parter i SDK federationen. Schema och Schematron bilagorna till detta dokument realiserar de gemensamma valideringsregler som finns. Valideringsreglerna är framtagna utifrån de regler som är specificerade i meddelandemodellerna.
+För att säkerställa transporten av SDK-meddelande ska Meddelandetjänst validera meddelande.
+SDK-Meddelande ska valideras med bifogade schema och schematron filer.
+SDK-Meddelande ska valideras på utgående försändelse.
+SDK-Meddelande ska valideras på inkommande meddelanden.
+Avsändaren SKA valideras
+5.1 Schematronregler
+Schematron är ett regelbaserat valideringsspråk för att göra påståenden om förekomst eller frånvaro av mönster i XML-träd. Schematronreglerna är en utökning av schemat och validerar meddelandeinnehållet utifrån innehållsspecifikationen.
+5.2 Felhantering och kvittens
+Vid inkommande meddelande skall meddelandetjänst hantera valideringsfel genom att skicka ett kvittensmeddelande i retur enligt Diggs specifikation eDelivery – Meddelandespecifikation: Meddelandekvittens, se R1.
+5.3 Exempel på valideringskoder - Meddelandetjänst (Validering av mottaget meddelande)
+Tabellen avser exempel på händelser som primärt behöver hanteras av meddelandetjänst (meddelandelagret).
+Aktör skapar kvittensmeddelandet och felhanteringsmeddelandet enligt eDelivery – Meddelandespecifikation: Meddelandekvittens (R1).
+|
+Händelse (exempel)
+|
+Kvittenskod
+|
+Orsakskod
+|
+Detaljkod
+|
+Kommentar
+|
+Meddelandet mottaget och validerat utan avvikelser
+|
+ACCEPTED
+|
+-
+|
+-
+|
+Meddelandet mottaget, kvitterat och validerat utan avvikelser.
+|
+Meddelandekuvertets struktur och i förekommande fall innehåll kodverksregler etc.
+|
+REJECTED
+|
+SV
+|
+structure
+|
+Meddelandet är strukturellt (xsd) felaktigt eller är korrupt.
+Felaktig datatyper etc
+|
+Kontroll mot skadlig kod i nyttolast.
+|
+REJECTED
+|
+BV
+|
+forbidden
+|
+Felkod REJECTED skall genereras av mottagaren i de fall det är möjligt. En incident behöver skapas om skadlig kod upptäcks.
+Skalskydd i form av antivirussystem kan förhindra filhantering genom t.ex. att sätta meddelande i "karantän".
+|
+Storleksvalidering (storlek)
+|
+REJECTED
+|
+BV
+|
+too-long
+|
+Storleksöverträdelse över fastställd storlek (f.n. > 30mb för hela meddelandet) skall generera ett stoppande fel (REJECTED)
+|
+Logisk schemavalidering (schematron)
+|
+REJECTED
+|
+BV
+|
+invariant
+|
+Logiska regler eller kodverk följs ej (schematron)
+T.ex. typning är felaktig eller saknas.
+|
+MessageId är ej unikt
+|
+REJECTED
+|
+BV
+|
+duplicate
+multiple-matches
+|
+|
+refToMessageId finns ej
+|
+ACCEPTED
+|
+-
+|
+-
+|
+Meddelandet kvitteras med ACCEPTED.
+|
+Filtyp (SDK Innehållsspecifikation - contentAsBase64)
+|
+REJECTED
+|
+BV
+|
+Not-supported
+|
+Meddelandet skall ej kvitteras, felkod REJECTED. Filtypen stöds ej.
+|
+Funktionsadress finns ej
+|
+REJECTED
+|
+BV
+|
+Not-found
+|
+Funktionsadress finns ej eller är felaktig.
+|
+referens till meddelande (refToMessageId) som är markerat som REJECTED.
+|
+REJECTED
+|
+BV
+|
+not-supported
+|
+Meddelandet kan ej levereras och kvitteras på grund av att meddelandet är markerat som felaktigt (t.ex. på grund av sändarens time-out).
+|
+Felaktig avsändare - Sändarens XHE signatur
+|
+REJECTED
+|
+SIG
+|
+security
+|
+Avsändarinformation (organisations-id) är felaktig eller matchar ej XHE-signatur.
+|
+Felaktig avsändare - Angiven avsändare felaktig
+|
+REJECTED
+|
+BV
+|
+security
+|
+Avsändarinformation är felaktig eller matchar ej.
+Kvittens returneras med detaljer om originalSender inte matchar med avsändande accesspunkts konfiguration.
+Vid scenariot att avsändande organisation inte finns registrerad i SMP bör inte kvittens skickas eftersom kvittensen inte kommer levereras till accesspunkt.
+|
+Okrypterat meddelande
+|
+REJECTED
+|
+SIG
+|
+security
+|
+Meddelandet skall ej kvitteras, felkod REJECTED. Meddelande är ej krypterat enligt tillämpad transportmodell
+6. Referenser
+I följande avsnitt anges länkar till ytterligare relevant dokumentation och en sammanställning av samtliga referenser som förekommer i dokumentet.
+6.1 Stödjande dokument
+|
+Referens
+|
+Dokument
+|
+R1
+|
+Meddelandespecifikation: Meddelandekvittens
+|
+R2
+|
+Kuverteringsprofil XHE
+|
+R3
+|
+Transportprofil AS4
+|
+R4
+|
+Certifikatspublicering - REST-bindning till SMP
+|
+R5
+|
+Kodlistor – Tekniska specifikationer
+|
+R6
+|
+SDK Specifikation Validering, felhantering och kvittens

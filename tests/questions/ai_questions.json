@@ -1,0 +1,38 @@
+[
+  {
+    "id": "Q1",
+    "question": "Vi är en liten kommun och vill börja använda SDK. Vad behöver vi göra först?"
+  },
+  {
+    "id": "Q2",
+    "question": "Vi har hört att vi behöver ett O2O-certifikat för SDK. Vad är det och varför behöver vi det?"
+  },
+  {
+    "id": "Q3",
+    "question": "Vår leverantör säger att de kan hjälpa oss att ansluta till SDK. Vad behöver kommunen göra själv och vad kan leverantören göra åt oss?"
+  },
+  {
+    "id": "Q4",
+    "question": "Vi är en liten kommun och vår nuvarande systemleverantör stödjer inte SDK. Vad kan vi göra då?"
+  },
+  {
+    "id": "Q5",
+    "question": "En invånare har skickat in en bygglovsansökan till kommunen. Hur lång tid har kommunen på sig att fatta beslut om bygglovet?"
+  },
+  {
+    "id": "Q6",
+    "question": "Vad är Mina meddelanden och varför skulle en kommun använda det?"
+  },
+  {
+    "id": "Q7",
+    "question": "Kan kommunen skicka digital post genom Mina meddelanden till alla invånare, eller finns det personer som inte kan ta emot den?"
+  },
+  {
+    "id": "Q8",
+    "question": "Vi har fått ett O2O-certifikat men det verkar vara i fel format. Vad ska vi göra?"
+  },
+  {
+    "id": "Q9",
+    "question": "Vi är en liten kommun och vår systemleverantör hjälper oss att ansluta till SDK. Vem ansvarar för O2O-certifikatet – kommunen eller leverantören?"
+  }
+]

@@ -24,7 +24,7 @@
   const MAX_TEXT_ATTACHMENT_BYTES = 1024 * 1024;
 
   let cases = [];
-  let selectedId = localStorage.getItem(SELECTED_CASE_KEY) || null;
+  let selectedId = new URLSearchParams(window.location.search).get("case") || localStorage.getItem(SELECTED_CASE_KEY) || null;
   let view = "ongoing";
   let pendingFile = null;
 
@@ -185,7 +185,14 @@
     if (guideLink) {
       guideLink.href = guideHref(guideCaseId());
     }
+    const sourceLink = document.getElementById("sdk-sources-link");
+    if (sourceLink) {
+      const caseId = guideCaseId();
+      sourceLink.href = "poc/sdk-kallor.html" + (caseId ? "?case=" + encodeURIComponent(caseId) : "");
+    }
   }
+
+  if (window.DiggaWorkshopAccess) window.DiggaWorkshopAccess.setCaseResolver(guideCaseId);
 
   function rememberSelectedCase() {
     if (selectedId) {
@@ -460,7 +467,8 @@
       const bubble = document.createElement("div");
       bubble.className = "message " + msg.role;
       if (msg.role === "assistant") {
-        renderAssistantMessage(bubble, msg.text);
+        const hasClaims = renderEvidenceResponse(bubble, msg);
+        if (!hasClaims) renderAssistantMessage(bubble, msg.text);
       } else {
         bubble.textContent = normalizeDisplayText(msg.text);
       }
@@ -468,6 +476,117 @@
     });
     chatMessages.scrollTop = chatMessages.scrollHeight;
     chatView.classList.toggle("is-empty", messages.length === 0);
+    const examples = document.getElementById("rag-example-prompts");
+    if (examples) examples.open = messages.length === 0;
+  }
+
+  function evidenceUrl(value) {
+    try {
+      const url = new URL(String(value || ""));
+      return /^https?:$/.test(url.protocol) ? url.href : "";
+    } catch (_) { return ""; }
+  }
+
+  function evidenceOrigin(source) {
+    return source.origin || source.evidence_origin || "";
+  }
+
+  function appendEvidenceLink(parent, source) {
+    const local = evidenceOrigin(source) === "case_context";
+    const label = local ? "Sparat kommununderlag" : source.title || "Källa";
+    const url = local ? "" : evidenceUrl(source.source_url);
+    const element = document.createElement(url ? "a" : "span");
+    element.textContent = label;
+    if (url) { element.href = url; element.target = "_blank"; element.rel = "noopener noreferrer"; }
+    parent.appendChild(element);
+  }
+
+  function renderEvidenceResponse(parent, message) {
+    const claims = (Array.isArray(message.claims) ? message.claims : []).filter(function (claim) { return claim && typeof claim.text === "string" && claim.text.trim(); });
+    const hasStoredSummaries = claims.some(function (claim) { return claim.support_check === "stored_summary" || (Array.isArray(claim.evidence) ? claim.evidence : []).some(function (source) { return source && evidenceOrigin(source) === "reviewed_manifest_key_point"; }); });
+    const verification = message.verification;
+    if (verification && typeof verification === "object") {
+      const notice = document.createElement("div");
+      notice.className = "rag-verification rag-verification-" + (["supported", "partial", "excerpts", "reviewed", "no_support"].includes(verification.status) ? verification.status : "no_support");
+      const heading = document.createElement("strong");
+      const labels = { supported: verification.semantic_check === "passed" ? "Källstöd kontrollerat" : "Källor redovisas", partial: "Delvis källstött svar", excerpts: hasStoredSummaries ? "Sparat källstöd" : "Källutdrag", reviewed: "Granskade uppgifter med källor", no_support: "Tillräckligt källstöd saknas" };
+      heading.textContent = labels[verification.status] || labels.no_support;
+      const explanation = document.createElement("p");
+      explanation.textContent = verification.semantic_check === "passed"
+        ? "Svaret har jämförts med källutdragen med modellstöd och fasta regler. Kontrollen kan missa fel. Öppna källan när uppgiften är viktig för ett beslut."
+        : verification.status === "excerpts"
+          ? hasStoredSummaries
+            ? "Här visas sparade utdrag och märkta granskade sammanfattningar. Sammanfattningar är inte ordagranna utdrag ur originalkällan. Ingen modellkontroll av tolkningen har använts."
+            : "Källutdrag visas utan en ny sammanfattning. Ingen modellkontroll av tolkningen har använts."
+          : verification.status === "reviewed"
+            ? "Granskade uppgifter visas tillsammans med sitt källstöd. Kontrollera att de gäller er situation och aktuell version."
+            : verification.status === "no_support"
+              ? "Underlaget räcker inte för att belägga ett svar på frågan. Ett krav kan inte bekräftas bara för att det nämns i frågan."
+              : "Alla delar av frågan kunde inte beläggas. Läs källstödet och komplettera det som saknas.";
+      notice.append(heading, explanation);
+      if (verification.notice) {
+        const detail = document.createElement("p"); detail.className = "rag-verification-detail"; detail.textContent = verification.notice; notice.append(detail);
+      }
+      if (Number.isFinite(verification.omitted_claims) && verification.omitted_claims > 0) {
+        const omitted = document.createElement("p"); omitted.className = "rag-verification-detail"; omitted.textContent = verification.omitted_claims + " påståenden utelämnades vid kontrollen av källstöd."; notice.append(omitted);
+      }
+      parent.appendChild(notice);
+    }
+    if (claims.length) {
+      const list = document.createElement(claims.length > 1 ? "ol" : "div");
+      list.className = "rag-claims";
+      claims.forEach(function (claim) {
+        const item = document.createElement(claims.length > 1 ? "li" : "section"); item.className = "rag-claim";
+        const kind = document.createElement("span"); kind.className = "rag-claim-kind";
+        kind.textContent = claim.support_check === "stored_summary" ? "Sparad granskad sammanfattning" : ({ summary: "Sammanfattning", excerpt: "Källutdrag", reviewed: "Granskad uppgift" })[claim.kind] || "Sammanfattning";
+        const paragraph = document.createElement("p"); paragraph.className = "rag-claim-text"; paragraph.textContent = claim.text;
+        item.append(kind, paragraph);
+        const evidence = (Array.isArray(claim.evidence) ? claim.evidence : []).filter(function (source) { return source && typeof source === "object"; });
+        if (evidence.length) {
+          const citations = document.createElement("div"); citations.className = "rag-claim-sources";
+          const prefix = document.createElement("span"); prefix.textContent = "Källstöd: "; citations.append(prefix);
+          const seen = new Set();
+          evidence.forEach(function (source) {
+            const key = evidenceOrigin(source) === "case_context" ? "case_context" : source.source_url || source.title;
+            if (seen.has(key)) return;
+            if (seen.size) citations.append(document.createTextNode(" · "));
+            seen.add(key); appendEvidenceLink(citations, source);
+          });
+          const details = document.createElement("details"); details.className = "rag-evidence";
+          const summary = document.createElement("summary");
+          summary.textContent = evidence.every(function (source) { return evidenceOrigin(source) === "case_context"; }) ? "Visa sparat underlag" : evidence.some(function (source) { return evidenceOrigin(source) === "reviewed_manifest_key_point"; }) ? "Visa källstöd" : "Visa källutdrag";
+          details.append(summary);
+          evidence.forEach(function (source) {
+            const entry = document.createElement("figure"); entry.className = "rag-evidence-source";
+            const caption = document.createElement("figcaption"); appendEvidenceLink(caption, source);
+            const origin = evidenceOrigin(source);
+            const metadata = [];
+            if (origin === "case_context") metadata.push("Lokal uppgift från kommunen · ingen officiell DIGG-källa");
+            if (origin === "reviewed_manifest_key_point") metadata.push("Granskad sammanfattning · inte ett ordagrant källutdrag");
+            if (source.version) metadata.push("Version: " + source.version);
+            if (source.last_checked) metadata.push("Källa kontrollerad: " + source.last_checked);
+            if (source.environment) metadata.push("Miljö: " + source.environment);
+            if (source.role) metadata.push("Roll: " + source.role);
+            if (metadata.length) { const meta = document.createElement("p"); meta.className = "rag-source-meta"; meta.textContent = metadata.join(" · "); caption.append(meta); }
+            const quote = document.createElement(origin === "reviewed_manifest_key_point" || origin === "case_context" ? "p" : "blockquote");
+            quote.className = "rag-source-quote"; quote.textContent = typeof source.quote === "string" && source.quote ? source.quote : "Inget källutdrag är sparat för den här uppgiften.";
+            entry.append(caption, quote); details.append(entry);
+          });
+          item.append(citations, details);
+        } else {
+          const missing = document.createElement("p"); missing.className = "rag-source-meta"; missing.textContent = "Källutdrag saknas för denna uppgift."; item.append(missing);
+        }
+        list.append(item);
+      });
+      parent.append(list);
+    }
+    const missing = (Array.isArray(message.missing_information) ? message.missing_information : []).filter(function (item) { return typeof item === "string" && item.trim(); });
+    if (missing.length) {
+      const panel = document.createElement("div"); panel.className = "rag-missing-information";
+      const title = document.createElement("strong"); title.textContent = "Det som behöver kompletteras";
+      const list = document.createElement("ul"); missing.forEach(function (text) { const item = document.createElement("li"); item.textContent = text; list.append(item); }); panel.append(title, list); parent.append(panel);
+    }
+    return claims.length > 0;
   }
 
   function setSending(isSending) {
@@ -760,6 +879,15 @@
     const text = messageInput.value.trim();
     messageInput.value = "";
     await sendQuestion(text);
+  });
+
+  document.querySelectorAll("[data-example-prompt]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      if (messageInput.disabled) return;
+      messageInput.value = button.getAttribute("data-example-prompt") || "";
+      messageInput.focus();
+      messageInput.dispatchEvent(new Event("input", { bubbles: true }));
+    });
   });
 
   if (fileInput) {

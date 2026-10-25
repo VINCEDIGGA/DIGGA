@@ -1,0 +1,134 @@
+SDK adressbok
+Anslutning för deltagarorganisationer
+SDK adressbok är en central komponent i Säker digital kommunikation (SDK). I adressboken samlas alla anslutna organisationers funktionsadresser.
+Utbildning i SDK adressbok
+Handledning för administratörer i SDK adressbok
+Film: Introduktion till SDK adressbok.
+1. Inledning
+SDK adressbok är en central komponent i Säker digital kommunikation (SDK). I adressboken samlas alla anslutna organisationers funktionsadresser. På så vis kan man söka efter och hitta den adress man behöver för att skicka ett säkert meddelande till en viss funktion hos en annan ansluten organisation.
+Observera att det endast finns funktionsadresser i SDK adressbok, vilket innebär att man inte kan skicka ett meddelande till en specifik person.
+Varje organisation är ansvarig för att bemanna, registrera och uppdatera sina funktionsadresser på ett strukturerat sätt. I handledningen för SDK adressbok kan du läsa mer om hur du administrerar din organisations funktionsadresser. I slutet av anslutningsprocessen till SDK QA-miljö bjuder Digg in till en utbildning för den/de administratörer som ska ansvara för sin organisations funktionsadresser.
+När verksamhetsflöden är identifierade och funktionsadresser är bemannade är det dags att skapa själva funktionsadressen. När funktionsadressen är skapad är den synlig för andra organisationer som då kan skicka meddelanden till adressen.
+2. Beskrivning av SDK adressbok
+2.1 Varför behövs SDK adressbok?
+SDK adressbok är ett stöd för deltagarorganisationer för att kunna skicka meddelanden till varandra, inte bara på organisationsnivå, utan även inom organisationen på funktionsnivå, till exempel mellan två förvaltningar i en kommun eller från och till en myndighet.
+Adressboken underlättar att söka och hitta mottagare inom en annan organisation. Det handlar till exempel om att kunna skilja mellan olika förvaltningar inom en kommun, olika avdelningar på ett sjukhus, enheter på ett äldreboende eller geografiska enheter eller verksamhetsområden hos en nationell myndighet. I adressboken kallas dessa kontakter för funktionsadresser och en organisation kan således ha flera funktionsadresser i adressboken.
+Funktionsadresserna behöver även tekniskt kopplas till funktionsbrevlådor, men utgör särskilda adresser som är anpassade för SDK-meddelanden.
+Eftersom SDK adressbok inte innehåller uppgifter om personer, kan man inte adressera ett SDK-meddelande till en enskild person. Däremot går det att i SDK-meddelandet referera till exempelvis en person eller ett ärende-ID. På mottagarsidan kan informationen bara läsas av behöriga användare till den funktionsadress som meddelandet har adresserats till.
+2.2 Adressbokens innehåll
+Adressboken är inte ett komplett register från början, utan fylls på med uppgifter i takt med att deltagarorganisationer har avtalat om och godkänts för anslutning till SDK. För att bli godkänd krävs bland annat att organisationen uppfyller kraven på informationssäkerhet för att kunna skicka känsliga personuppgifter.
+För att säkert veta att det är rätt sändande respektive mottagande organisation ska alla SDK-anslutna deltagarorganisationer finnas registrerade hos Digg. Ingen deltagarorganisation kan läggas in i SDK adressbok utan att organisationen har registrerats hos Digg i en gemensam tjänst som heter Service Metadata Publisher (SMP).
+Dessa och andra krav på informationssäkerhet och krav för tillit regleras i Regelverk för deltagarorganisationer inom SDK.
+2.3 Adressbokens kodverk
+En viktig del i SDK adressbok är dess kodverk. Syftet med kodverken är att bidra till en strukturerad sökning av funktionsadresser för att underlätta för andra organisationer att hitta rätt adress i din organisation. För att SDK adressbok ska vara generell och stabil över tid är därför strukturen/kodverken frikopplade från hur verksamheterna är organiserade.
+Varje organisation behöver koppla sina funktionsadresser till adressbokens struktur, vilket innebär att de kan behålla strukturen i adressboken även om de skulle göra en omorganisation eller flytta verksamheter inom organisationen. På så vis blir adressboken enhetlig för alla organisationer vilket underlättar när man söker efter mottagare i en verksamhet man inte är bekant med.
+Kodverk i SDK adressbok
+Det finns tre olika typer av kodverk i SDK adressbok:
+Geografisk hemvist
+Geografisk hemvist används för att beskriva en organisations eller funktions geografiska hemvist utifrån län- och kommuntillhörighet. Här stöds även organisationer som har täckning över hela Sverige, så kallad Nationell täckning.
+Strukturkodverk
+Strukturkodverk beskriver en användarorganisations funktionsadresser inom en standardiserad struktur, till exempel Socialtjänst och kommunal hälso- och sjukvård // Äldreomsorg // Dagverksamhet.
+Sökkodverk
+Sökkodverk används för att möjliggöra en mer exakt sökning genom att koppla specifika sökord till respektive funktionsadress.
+Kodverken som finns med i SDK adressbok består dels av kodverk som även används i andra sammanhang, (till exempel län och kommun samt HSA-katalogen) och dels av specifika kodverk som utarbetats tillsammans med deltagarorganisationer för att täcka upp verksamhetsområden inom t.ex. kommunal verksamhet.
+I takt med att nya verksamhetsområden nyttjar SDK kommer också kodverk att utvecklas för dessa.
+3. Meddelandeflöde via SDK adressbok
+Nedanstående bild illustrerar det övergripande flödet:
+En användare med tillgång till en meddelandeklient eller verksamhetssystem med en SDK-funktionsadress söker i SDK adressbok efter rätt SDK-funktionsadress hos andra organisationer som är anslutna till SDK.
+Användaren skickar ett säkert digitalt meddelande, samt eventuell bilaga, från sin funktionsadress till mottagarens funktionsadress.
+Meddelandet skickas via sändande organisations anslutningspunkt (accesspunkt) till SDK.
+Mottagande organisation tar emot meddelandet via sin anslutningspunkt (accesspunkt) till SDK och skickar det till den funktionsadress som sändaren adresserat det till.
+Användaren i mottagande organisation kan läsa och besvara meddelandet via sin meddelandeklient eller verksamhetssystem med en SDK-funktionsadress.
+Båda parter behöver vara anslutna till SDK hos Digg. Båda parter har även en accesspunkt som är ansluten till eDeliverys transportinfrastruktur hos Digg. Båda parter finns upplagda i SDK adressbok.
+Figur 1: SDK adressbok
+Bilden visar hur ett meddelande går från sändande deltagarorganisation till mottagande deltagarorganisation. Se bilden i ett större format här. png, 71.3 kB.
+4. SDK adressbok är en gemensam komponent
+SDK adressbok utvecklas, testas och förvaltas som en gemensam komponent i SDK-federationen. Den har stöd för säker inloggning, behörighetsstyrning, samt ett användargränssnitt för att registrera adressuppgifter och söka adressuppgifter.
+Användargränssnittet är en webbapplikation som är uppdelad i två delar. Dels ett internt (skyddat) användargränssnitt för autentiserade användare hos anslutna deltagarorganisationer som ska administrera/registrera uppgifter i adressboken. Dels ett publikt öppet sök-API som används av deltagarorganisationer för att söka fram funktionsadresser.
+4.1 Registrera adressuppgifter
+SDK har funktionalitet som stödjer att behöriga användare kan logga in och administrera direkt i den gemensamma tjänsten (adressboken). Administratörerna kan registrera och underhålla information om deltagarorganisationen och dess funktioner (funktionsadresser) via adressbokens administrationsgränssnitt.
+4.2 Söka adressuppgifter
+SDK-anslutna deltagarorganisationer kan söka och hitta andra anslutna deltagarorganisationer och dess funktionsadresser. Vid sökningen kan man söka både på organisations- och funktionsadress inom organisationen.
+Det finns även möjlighet att filtrera sin sökning utifrån
+fritextsökning
+geografisk tillhörighet
+koder i adressbokens kodverk
+egendefinierade sökord
+5. SDK adressbok handledning för administratörer
+Digg har tagit fram en handledning som riktar sig till administratörer som ska arbeta i adressboken. Användarhandledningen beskriver bland annat hur man som administratör i SDK adressbok skapar och redigerar användare och uppgifter för sin organisation, se Handledning för administratörer av SDK adressbok.
+6. Informationsklassificering och ägarskap
+Deltagarorganisationerna är informationsägare till den information som finns registrerad om dem i SDK adressbok.
+En deltagarorganisation utser en eller flera administratörer som:
+har behörighet att logga in i SDK adressbok för att hantera den egna organisationens information (skapa organisationens egna funktionsadresser).
+är informationsägare av sin information i SDK adressbok och ansvarar för att administrera och underhålla den.
+ansvarar för att inga skarpa personuppgifter lagras i SDK adressbok i testmiljö då endast testdata får förekomma i gemensam testmiljö (SDK QA-miljö).
+har läsrättigheter till övriga organisationers adressinformation i SDK adressbok.
+7. Användning och roller
+Nedan är exempel på grundfunktionalitet och användningsfall i SDK adressbok, som stödjer olika roller hos organisationer som har åtkomst till SDK:
+Logga in i adressbok
+Organisation
+SDK-federationsägare (Digg)
+Deltagarorganisation
+Roll
+Federationsoperatör (Digg medarbetare)
+Användaradministratör
+Organisationsadministratör
+Adressadministratör
+Åtgärd
+En behörig användare i en organisation loggar in i SDK adressbok.
+För att en användare skall få tillgång till SDK adressbok krävs att användaren fått behörighet och inloggningsuppgifter (SDK adressbok i OPEN-TEST och i SDK-QA), respektive stark autentisering (SDK adressbok i produktionsmiljö).
+Skapa organisation
+Organisation
+SDK-federationsägare
+Roll
+Federationsoperatör
+Åtgärd
+SDK-federationsoperatör kan skapa deltagarorganisation efter godkänd anslutning.
+Ta bort organisation
+Organisation
+SDK-federationsägare
+Roll
+Federationsoperatör
+Åtgärd
+SDK-federationsoperatör kan avregistrera/radera deltagarorganisation.
+Hantera organisation
+Organisation
+SDK-federationsägare
+Deltagarorganisation
+Roll
+Federationsoperatör
+Organisationsadministratör
+Åtgärd
+Underorganisationer kan hanteras av deltagarorganisationens egna organisationsadministratör samt av Diggs federationsoperatör.
+Uppdatera organisation
+Organisation
+Deltagarorganisation
+Roll
+Organisationsadministratör
+Åtgärd
+Administratör kan redigera metadata kopplat till sin egen deltagarorganisation, t.ex. organisationsnamn, organisationsbeskrivning och organisations-id.
+Hantera användare och behörigheter
+Organisation
+SDK-federationsägare
+Deltagarorganisation
+Roll
+Federationsoperatör
+Användaradministratör
+Åtgärd
+Användare och deras behörigheter kan hanteras av både federationsoperatör och användaradministratör.
+Hantera funktionsadress
+Organisation
+Deltagarorganisation
+Roll
+Organisationsadministratör
+Adressadministratör
+Åtgärd
+Organisations- och adressadministratör kan skapa, läsa, uppdatera och ta bort funktionsadresser.
+Deltagarorganisationen kan redigera metadata kopplat till deltagarorganisationens funktioner, till exempel funktionsnamn, funktionsbeskrivning och funktions-id.
+Söka, läsa och lista information
+Organisation
+Anonym användare via publikt sök-API för SDK adressbok
+Roll
+Anonym användare
+Åtgärd
+Användare kan söka, läsa och lista information om användarorganisationer och dess funktioner.

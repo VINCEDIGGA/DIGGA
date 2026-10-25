@@ -1,0 +1,66 @@
+SDK för deltagarorganisationer
+Anslutning för deltagarorganisationer
+Här kan du läsa om vad SDK är, vad man kan använda SDK till och vilka nyttor den innebär för deltagarorganisationer.
+Vägledningar och rekommendationer inför anslutning till SDK
+Anslutningsavtal, regelverk samt bilagor
+Anslut som deltagarorganisation
+Redan ansluten deltagarorganisation
+Frågor och svar om SDK
+Frågor och svar om nya meddelandetyper
+Lär dig mer - se filmer om SDK
+Introduktion till SDK
+Se filmen för en kort introduktion till SDK.
+Varje dag skickas mängder av information mellan aktörer inom offentlig sektor. Ofta handlar det om känslig eller sekretessklassad information som vårdplaner, behandlingsplaner, bedömningar av arbetsförmåga och utdrag ur belastningsregistret. I brist på säkrare alternativ används fax, brev eller bud, särskilt inom hälso- och sjukvård, skola och socialtjänst.
+Säker digital kommunikation (SDK) innebär att offentliga aktörer kan utbyta känslig och sekretessklassad information digitalt på ett tryggt och säkert sätt. Även privata utförare med offentligt finansierade uppdrag kan ansluta till SDK.
+Säker digital kommunikation bidrar bland annat till följande nyttor:
+Trygghet genom att personuppgifter eller annan känslig information inte sprids till obehöriga.
+Möjlighet till spårbarhet oavsett vilken verksamhet som skickar informationen.
+Snabbare handläggningstider till beslut.
+De meddelanden som skickas via SDK kan innehålla fritext och bilagor i olika format. Meddelandena adresseras till funktionsadresser hos anslutna deltagarorganisationer, exempelvis socialtjänsten inom en kommun, en avdelning på en myndighet eller vårdcentral inom en region. Det går inte att adressera enskilda personer, endast funktion. Däremot går det att referera till personer för att underlätta handläggning.
+SDK är en digital infrastruktur som saknar ett eget användargränssnitt. Det innebär att den personal som använder SDK skapar och tar emot meddelanden i den programvara organisationen valt för att skicka och ta emot meddelanden. Respektive organisation måste själv eller med hjälp av en leverantör ansluta och anpassa sin programvara till SDK transportinfrastruktur.
+Vilka nyttor kan SDK ge din organisation?
+Digg har tagit fram information om uträkning gällande nyttor och kostnader med SDK för din organisation, se Samhällsekonomisk kostnadsnyttoanalys SDK Länk till annan webbplats. (digg.se).
+Sveriges Kommuner och Regioner (SKR) har genom utvecklingsbolaget Inera tagit fram en nyttokalkyl för SDK, se inspelat forum om SDK nyttokalkyl här: Digital utbildning i nyttokalkyler - Inera Länk till annan webbplats.
+Illustration som visar på olika nyttor ett SDK införande innebär. Se bilden om nyttor i ett större format. svg, 121 kB.
+Hur möjliggör SDK nyttorna?
+SDK möjliggör nyttorna genom:
+Rätt säkerhet. Säkerhet som möjliggör digital hantering och informationsutbyte av känsliga personuppgifter
+Systemisk tillit. Infrastrukturens anslutna organisationer har bevisade förmågor att tillsammans via systematiskt informationssäkerhetsarbete ge förutsättningar för säker, trygg och effektiv digital samverkan för alla inblandade.
+Tidseffektivitet. Genom att använda SDK istället för de traditionella kanaler som används idag, telefon, fax och brev, frigörs värdefull tid som kan användas bättre. Tid som idag läggs på administration minskar till förmån för ett bättre fokus på huvudverksamheten. En snabbare hantering innebär ofta en stor vinst för den person som ärendet berör.
+Förbättrad arbetsmiljö. Dagens manuella hantering där en handläggare exempelvis behöver sitta och vänta i telefonköer vid kontakt med annan aktör. Med SDK kan handläggaren istället hantera detta på ett enklare sätt digitalt.
+Ekonomi. Samhället i stort kan minska kostnaderna radikalt vid ett fullt genomfört anslutande till SDK. Beräkningar som Digg gjort visar på kostnadsbesparingar, främst genom effektivare arbetsprocesser, om cirka 1 620 miljoner kronor per år eller cirka 3 500 årsarbetskrafter. Siffrorna gäller det offentliga Sverige som helhet, men även på organisationsnivå kan man förvänta sig besparingar vid införande av SDK.
+Mindre testning. När deltagarorganisationens system uppfyller de tekniska specifikationer som finns i ramverket för meddelandesystem, B3, och har en godkänd accesspunkt som uppfyller ramverket för plattform eDelivery behöver man inte testa mot varje enskild deltagorganisation man vill kommunicera med. När det kommer fler deltagarorganisationer in i SDK behöver ni inte testa mot nya deltagarorganisationer. Varje deltagarorganisation tecknar avtal om anslutning och att ingå i federationen, det behövs inga bilaterala avtal mellan olika deltagarorganisationer.
+Hur fungerar SDK rent tekniskt?
+SDK använder plattform för eDelivery för att transportera meddelanden till mottagaren. Plattformen är baserad på internationella standarder som möjliggör säker överföring av meddelanden, inklusive eventuella bilagor, mellan två för varandra kända och säkert identifierade parter. Till infrastrukturen kan organisationer ansluta sina egna system. SDK fungerar med hjälp av en adressbok som innehåller anslutna deltagarorganisationers funktionsadresser/brevlådor.
+Systemen ansluts till vad som kallas accesspunkter. Accesspunkterna följer gemensamma tekniska specifikationer och kan därför kommunicera med varandra. Det möjliggör att organisationer skicka meddelanden till varandra även om de använder olika lokala system.
+SDK bygger på en fyrhörningsmodell som består av sändare, accesspunkt 1, accesspunkt 2 och mottagare. Detta innebär att meddelandesystemen aldrig utbyter meddelanden direkt utan via accesspunkter.
+Varje organisation väljer och anpassar en teknisk lösning för hur överföringen mellan accesspunkten och de egna systemen ska gå till. En anslutande organisation behöver dels skaffa sig tekniska komponenter (accesspunkt och meddelandetjänst) samt en eller flera meddelandeklienter för att skicka och ta emot SDK-meddelanden. En meddelandeklient kan vara ett befintligt verksamhetssystem.
+Meddelandeflöde mellan deltagarorganisationer inom SDK. Se bilden om meddelandeflöden i ett större format. svg, 22.1 kB.
+Hur använder man SDK i praktiken?
+Följande exempel förklarar hur det går till att skicka ett meddelande i SDK.
+En handläggare loggar in i sin meddelandeklient med sin e-legitimation.
+Handläggaren söker i SDK adressbok upp mottagande organisation och funktion. För att stödja att information adresseras till rätt mottagande funktion finns en sökfunktion för funktioner och beskrivningar i SDK adressbok.
+Handläggaren kan skriva meddelanden och bifoga bilagor med meddelandet.
+Meddelandeklienten skickar meddelandet till deltagarorganisationens meddelandetjänst där meddelandet paketeras, krypteras och signeras.
+Meddelandetjänsten skickar meddelandet till organisationens accesspunkt.
+Accesspunkten skickar meddelandet vidare till mottagarens accesspunkt med användning av Diggs plattformskomponenter.
+Mottagarens accesspunkt överför meddelandet till mottagarens meddelandetjänst som paketerar upp meddelandet och vidarebefordrar det till mottagarens meddelandeklient. Mottagaren kan ha flera olika meddelandeklienter beroende på typer av meddelande.
+Sändande handläggare får en transportkvittens på att meddelandet har levererats till mottagande organisation. Sändande handläggare får även meddelandekvittens på att meddelandet har accepterats av mottagande verksamhet.
+Mottagande handläggare kan nu arbeta vidare med meddelandet. Handläggaren kan även svara på meddelandet.
+SDK kan också användas till att skicka meddelanden internt mellan olika funktioner inom organisationen.
+Funktionsadresserna hanteras i SDK adressbok
+SDK adressbok är en central komponent i SDK. I adressboken samlas alla anslutna organisationers funktionsadresser. Varje enskild organisation ansvarar för att ansluta sina funktionsadresser till adressboken.
+Säg att du vill skicka ett meddelande till Socialförvaltningen i Stockholm. Du adresserar då ditt meddelande till Stockholm Stad med Socialförvaltningen som specifik funktion. Det finns även möjlighet att lägga till en referens. Detta kan till exempel vara ett namn, om du vill att ditt meddelande ska referera till en viss person, eller ett ärendenummer.
+Hantering av allmänna handlingar inom SDK
+Ett meddelande som överförs via SDK från en myndighet alternativt tas emot av en myndighet kan betraktas som en allmän handling enligt tryckfrihetsförordningen. Det är dock upp till varje deltagarorganisation att göra en egen bedömning.
+Meddelandet kan anses vara expedierat av sändande deltagarorganisation när det är tillgängligt för teknisk bearbetning/dekryptering hos mottagarens meddelandetjänst.
+Meddelandet kan anses vara inkommen hos mottagande deltagarorganisation när det är tillgängligt för teknisk bearbetning/dekryptering hos mottagarens meddelandetjänst.
+Stöd för anslutning till SDK
+För att underlätta din organisations anslutning till SDK erbjuder vi olika typer av stöd som hjälper dig genom den process som vi kallar för anslutningsresan. Det finns en vägledning, se Anslutningsresa för deltagarorganisationer, och en lathund för förberedelser och anslutning till SDK.
+Gemensamma regler för deltagarorganisationer i SDK
+SDK-federationen baseras på ett gemensamt ramverk med regler och rutiner för SDK:s deltagarorganisationer. Din organisation behöver säkerställa att den uppfyller regelverket för deltagarorganisationer. Det innebär också att din organisation vid anslutning får intyga att den följer SDK:s regelverk i ansökan om federationsgodkännande och anslutning till SDK produktionsmiljö.
+Vilka system stödjer SDK?
+Deltagarorganisationen kan välja att utveckla sina egna programvaror för SDK alternativt upphandla hela eller delar av den tekniska lösningen. Det behövs någon form av klient för att kunna skicka meddelanden. Det behövs också en meddelandetjänst som packar, krypterar och signerar meddelandet. Meddelandetjänsten skickar sedan meddelandet till den accesspunkt som sändande organisation har tillgång till. För mer information om vilka leverantörer som har genomgått tester för meddelandesystem kan deltagarorganisationen kontakta Digg. För information om leverantörer som är godkända för plattform eDelivery kan ni följa denna länk: eDelivery.
+Bilden illustrerar hur informationen kan se ut hos sändare och mottagare av ett meddelande. Se bilden i ett större format. svg, 55.7 kB.
+Har du frågor om SDK?
+Vid frågor eller funderingar är du välkommen att kontakta oss på sdk@digg.se.

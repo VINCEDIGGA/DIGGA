@@ -1,0 +1,127 @@
+Förberedelser inför anslutning till SDK
+Anslutning för deltagarorganisationer
+Version: 1.5
+Syftet med informationen på denna sida är att ge tips och stöd till organisationer som vill införa SDK. Vägledningen vänder sig i första hand till beslutsfattare och projekt/uppdragsledare eller andra personer med uppdrag att samordna arbetet med att införa SDK i sin organisation. För att dra nytta av vägledningen på bästa sätt bör du ha grundläggande förståelse för vad SDK är och hur tjänsten är uppbyggd.
+Checklistor
+SDK system architecture design (SAD)
+Upphandling för införande och teknisk lösning via Kammarkollegiets ramavtal
+Upphandling av teknisk lösning via Addas dynamiska inköpssystem (DIS)
+Vägledningen beskriver en generaliserad SDK-resa och de huvudsakliga avväganden som man kan komma att stå inför. Den är ett stödjande dokument, medan de dokument som är styrande för SDK finns i regelverk för deltagarorganisationer inom SDK.
+Vägledningen fokuserar på helheten, olika vägval och vad verksamheterna behöver göra. Den tekniska resan berörs endast översiktligt för att skapa en förståelse för helheten. Fördjupat stöd kring anslutningsprocessen hittar du i Anslutningsresa för deltagarorganisationer, samt Deltagarorganisation – instruktioner för anslutning.
+Att läsa vägledningen
+Vägledningen är avsedd att ge stöd i arbetet med SDK och kan användas både för att skapa förståelse för resan som helhet och de enskilda stegen, men kanske framför allt att vara en sammanfattning för att snabbare och enklare kunna identifiera, planera och genomföra åtgärder. I slutet av vägledningen har vi sammanställt en lista över länkar till de informationssidor som kan vara till nytta och ge en djupare förståelse inför ert införandeprojekt.
+Att ansluta organisationen till SDK
+I denna vägledning beskriver vi arbetet med att införa SDK i ett antal steg.
+Illustrationen visar de steg en anslutande organisation genomgår i en anslutningsprocess. Se bilden i ett större format. png, 87.6 kB.
+Som tidigare nämnts är SDK inte ett färdigt program utan en infrastruktur bestående av olika delar (komponenter). För att göra de avvägningar som behövs vid införandet är det bra att skapa sig en överblick över vad SDK innebär redan i ett tidigt skede. Vi rekommenderar att läsa igenom följande checklistor:
+Checklista för teknisk anslutning till SDK med helhetsleverantör
+Checklista för anpassning av meddelandesystem
+Därefter är det viktigt att genomföra ett förarbete som fokuserar på vilka verksamheter och informationsutbyten som är aktuella, tekniska vägval och informationssäkerhet. Med förarbetet som underlag kan man sedan planera och resurssätta arbetet och fatta nödvändiga beslut innan man ansluter till SDK. Därefter är det dags att upphandla och få den tekniska lösningen och anslutningarna på plats. Parallellt behöver man förbereda hur organisationens funktionsadresser ska synliggöras för andra organisationer genom SDK adressbok.
+Vid behov av upphandling
+På Kammarkollegiets webbplats för ramavtal (avropa.se Länk till annan webbplats.) kan ni avropa alla delar för SDK, exempelvis stöd i samband med förberedande utredningar, utveckling av verksamhet samt tekniska lösningar.
+Adda erbjuder ett DIS (dynamiskt inköpssystem) för teknisk anslutning till Säker digital kommunikation (www.adda.se Länk till annan webbplats.). Kommuner, regioner och statliga myndigheter kan ta del av upphandlingsstödet.
+Förstå och initiera
+SDK är ett arbete som kan komma att påverka stora delar av organisationens verksamhet och ett införande bör förankras centralt. Det är bra att involvera aktuella verksamheter för införande och IT-avdelning (eller liknande) så att de kan arbeta tillsammans med införandet.
+I det här skedet är det bra att skaffa sig en förståelse för hur SDK är uppbyggt i form av infrastruktur centralt och lokalt där organisationen behöver sätta upp ett antal tekniska komponenter. Vidare behöver ni bedriva ett arbete tillsammans med de verksamheter som har behov av att skicka känslig information. Slutligen, beroende på hur långt ni har kommit i arbetet med systematisk informationssäkerhet/ ledningssystem för informationssäkerhet (LIS) kan ni behöva göra ett förarbete även inom det området.
+Verksamheten behöver förstå hur SDK kan användas och vilken insats som krävs från de för att få allt på plats. IT-avdelning/digitaliseringsansvariga behöver förstå hur SDK fungerar så att de kan börja fundera på vilken teknisk lösning som passar bäst för organisationen, dvs. vilket program som ska användas för att skicka och ta emot SDK-meddelanden.
+Aktiviteter:
+Börja diskutera frågan i centrala forum.
+Gå igenom grundläggande informationsmaterial om SDK beroende på roll och diskutera vad det kan tänkas innebära inom respektive verksamhet.
+Initiera ett förarbete kring förutsättningar för SDK.
+Mål med detta steg:
+En första förståelse för vad SDK är och vad det kan komma att innebära för organisationen i form av möjligheter och insatser.
+Ledning, verksamhet, IT och informationssäkerhet är involverade.
+Ett förarbete är resurssatt och initierat.
+Förarbete inför SDK anslutning
+Inför arbetet med att ansluta till SDK finns det tre huvudområden att adressera:
+Verksamhetsbehov
+Tekniska krav och vägval
+Val av meddelandeklient/verksamhetssystem för att skicka SDK-meddelanden
+Informationssäkerhetskrav
+Verksamhetsbehov
+Med SDK kan man utbyta känslig information inom organisationen och med andra anslutna offentliga aktörer. Organisationen behöver genomföra en kartläggning för att hitta lämpliga informationsutbyten för att använda SDK. En sådan kartläggning kan ske på många olika sätt. Har man färdiga processkartor kan man utgå från dessa. Ett annat sätt kan vara att inventera verksamheternas arbetssätt tillsammans med personer med god kännedom om verksamhetens dagliga arbete och ta reda på:
+Vilka informationsutbyten med andra offentliga aktörer gör vi analogt idag? (brev, fax, telefonsamtal, anonymiserade mail o.s.v.)
+Vilka är våra motparter i dessa informationsutbyten?
+Hur vanligt förekommande är de?
+Vilka vinster skulle vi göra på att hantera dessa informationsutbyten digitalt?
+Det är även viktigt att veta hur många olika motparter det finns i ett informationsutbyte. Om det är många parter med olika huvudmän inblandade kan det vara en god idé att vänta lite med just det informationsutbytet.
+Det är generellt rekommenderat att man arbetar aktivt med nyttorealisering i samband med digitalisering. I ett tidigt skede är det därför lämpligt att identifiera vilka nyttor man främst eftersträvar med SDK så att man har det med sig i det fortsatta arbetet. Digg har praktiskt material kring hur man kan arbeta med nyttokalkyler och nyttorealisering:
+Diggs vägledning om nyttorealisering Länk till annan webbplats.
+Tekniska och informationssäkerhetsrelaterade krav
+Här handlar det främst om att sätta sig in i de krav som ställs för att ansluta till SDK. Det görs lämpligen genom att gå igenom kraven i SDK:s regelverk. I förhållande till kraven behöver man bedöma nuläget i organisationen, samt identifiera eventuella behov av åtgärder. Om organisationen väljer att upphandla en färdig teknisk lösning är det kraven på informationssäkerhet som blir det viktigaste att fokusera på. Övriga tekniska krav och specifikationer kommer i huvudsak att hanteras av den leverantör man upphandlar för anslutning till SDK.
+SDK federationen utgör en tillämpning av plattform eDelivery, en säker teknik för informationsutbyte som Digg ansvarar för i Sverige. Att SDK är en federation innebär att anslutande organisationer måste leva upp till gemensamma krav som gäller för hantering av känsliga personuppgifter.
+Krav som ställs är bland annat att:
+ha förmåga till stark autentisering (tvåfaktorsinloggning). I det här stadiet kan det vara läge att fundera på om organisationen redan har en sådan lösning på plats som kan användas även för SDK.
+det finns en behörighetshantering som säkerställer att endast behöriga användare har tillgång till informationen.
+ha ett systematiskt och dokumenterat informationssäkerhetsarbete (jmfr. LIS Ledningssystem för informationssäkerhet) där man genomför informationsklassningar, identifierar risker och vidtar organisatoriska och tekniska åtgärder, samt genomför årliga revisioner.
+Vi rekommenderar därför att man tidigt gör en bedömning av organisationens mognad inom dessa områden, exempelvis genom en initial riskanalys inom informationssäkerhetsområdet.
+Accesspunkt
+Accesspunkten är en central del av SDK och utgörs av en teknisk komponent, baserad på eDelivery, som behöver följa fastställda krav från Digg. Ni kan beställa Diggs informationspaket via sdk@digg.se om ni väljer att själva drifta er accesspunkt.
+Man kan välja att sätta upp och drifta en accesspunkt själv, köpa den separat som en tjänst från en leverantör eller köpa den i paket tillsammans med den klient man väljer för att skicka SDK-meddelanden. Ett annat alternativ är att gå samman med en annan organisation och låta de agera accesspunktsoperatör. Att drifta själv rekommenderas för större organisationer som har stora resurser att utveckling och förvaltning. Erfarenheter visar att mindre organisationer i högre utsträckning anlitar en leverantör för att få tillgång till en accesspunkt. På Diggs webbsida publiceras en lista över accesspunktsoperatörer som är godkända av Digg.
+För egenutveckling finns det open source-komponenter som kan användas, exempelvis Domibus (Domain Interoperability bus som tillhandahålls av EU-kommissionen). Information om vilka mjukvaror som är anpassade till eDelivery AS4 hittar du här: eDelivery AS4 conformant solutions (europa.eu) Länk till annan webbplats..
+Ett förarbete bör alltså ta fram förslag på hur man vill skaffa sig den tekniska förmågan, inklusive vilka produkter som krävs och kostnader på kort och lång sikt. Man bör också ta ställning till hur förvaltningen ska hanteras och om den lokala IT-miljön behöver anpassas på något sätt.
+Meddelandesystem (meddelandetjänst/ meddelandeklient)
+En organisation som vill ansluta till SDK behöver själv utveckla eller anlita en leverantör som tillhandahåller system för meddelandetjänst och meddelandeklient. En leverantör kan erbjuda olika lösningar. Det kan vara mjukvara och kringtjänster för utveckling och anpassning av meddelandetjänst och/eller meddelandeklient. Alternativt kan en leverantör erbjuda meddelandetjänst och/eller meddelandeklient som en funktion i den produkt som leverantören tillhandahåller, t ex ett verksamhetssystem. Meddelandetjänsten ansvarar för att styra meddelandet till rätt meddelandeklient, ungefär som en växel som tar emot och skickar meddelandet mellan meddelandeklienten och accesspunkten. Eftersom funktionen för SDK kan nyttjas av olika meddelandeklienter, dvs. det program som användaren använder för att skicka/ta emot meddelanden, behöver man besluta om vilket/vilka program man vill använda. Här handlar det om att identifiera de behov man har i ett första skede:
+Finns det någon klient man redan använder som erbjuder SDK-funktionen?
+Vill man integrera funktionen i något av de verksamhetssystem man använder idag?
+Vill man upphandla en ny klient med SDK-funktionalitet?
+Det är viktigt att tänka över sin strategi både på kortare och längre sikt. Om man inte har stora egna resurser kan det vara bra att börja med SDK genom att upphandla en separat klient för SDK-meddelanden, och på några års sikt arbeta för att få in funktionen i de viktigaste verksamhetssystemen.
+För en mindre organisation kan det underlätta att börja SDK-resan genom att upphandla en helhet från samma leverantör, dvs. ett paket med meddelandeklient, meddelandetjänst och accesspunkt. Det kan också vara lämpligt när en organisation har många olika verksamhetssystem och en separat klient kan användas inom hela organisationen.
+Aktiviteter:
+Utvärdera hur väl organisationen lever upp till de informationssäkerhetskrav som specificeras i regelverk för deltagarorganisationer inom SDK och IT-säkerhetsbilaga. Identifiera eventuella luckor och behov av åtgärder.
+Bedöm vad de olika tekniska lösningarna för att ansluta till SDK innebär för organisationen. Vill vi agera accesspunktsoperatör själva eller upphandla det för SDK? Vill vi försöka upphandla allt i ett helhetspaket, inklusive meddelandeklient?
+Om ni själva vill vara accesspunktsoperatör ska ni följa Diggs regler och rutiner för accesspunktsoperatörer samt anslutningsresa för accesspunktsoperatörer.
+Utvärdera vilka möjligheter som finns på marknaden avseende meddelandeklient för att skicka meddelande och vad som skulle passa bra för er organisation. Ska det vara en fristående klient eller integrerat i verksamhetssystem?
+Identifiera verksamhetsbehoven i er organisation.
+Identifiera era önskade nyttor med att införa SDK.
+Undersök möjlighet till samarbete och erfarenhetsutbyte kring SDK med organisationer som redan har anslutit sig eller påbörjat sin anslutning.
+Mål med detta steg:
+Underlag för det kommande SDK-arbetet:
+Lever vi upp till informationssäkerhetskraven eller finns det behov av åtgärder?
+Hur vill vi upphandla olika tekniska lösningar?
+Vilken typ av meddelandeklient är intressant för oss att börja med?
+Hur ska de tekniska komponenterna förvaltas?
+Behöver vår IT-miljö anpassas?
+Hur ska vi hantera stark autentisering, behörighetshantering och behörighetskatalog?
+Vilka kostnader och nyttor medför införande av SDK på kort och lång sikt?
+Vilken/vilka verksamheter och informationsutbyten är lämpliga att börja med?
+Fatta beslut om införande av SDK
+Ett centralt beslut är inom vilken verksamhet man vill påbörja införandet av SDK. Om organisationen har fått förfrågan att skicka/ta emot meddelanden via SDK från andra organisationer kan det vara en utgångspunkt för ert val. Ett annat sätt kan vara att välja en verksamhet som har ett tydligt behov och ett stort intresse av att skicka digital information. Slutligen kan ni också använda er av SDK-piloternas rapporter och välja någon av de informationsutbyten som genomförts. Vi rekommenderar er att börja testa i en verksamhet och lära av det, men det finns inget formellt hinder för att börja med flera verksamheter samtidigt. Eftersom SDK inte är en specifik meddelandeklient utan kan byggas in som en funktion i olika system, exempelvis i ett verksamhetssystem, bör man fatta ett inriktningsbeslut om man vill upphandla en separat meddelandeklient med SDK-funktionalitet eller om man vill satsa på att ha funktionen integrerad i aktuella verksamhetssystem. SDK är en organisationsfederation, dvs. det är en hel organisation som ansluter sig. Därmed kan inte en egen anslutning av enstaka nämnder eller stadsdelar göras. Organisationen behöver ta ställning till vilka delar av verksamheten som ska använda SDK.
+Aktiviteter
+Fatta beslut om att använda SDK i organisationen och inom vilken verksamhet det ska införas först.
+Initiera arbetet, säkerställa att det finns resurser och kompetenser när det gäller projektledning och samordning, IT/digitalisering, informationssäkerhet och aktuell verksamhet.
+Välj generell inriktning gällande teknisk lösning.
+Fatta beslut om vilka delar av organisationen man vill ansluta.
+Mål med detta steg:
+Beslut om att införa SDK i organisationen.
+Resurser säkrade och inriktningsbeslut tagna för det kommande arbetet.
+Införa SDK
+SDK adressbok
+I SDK adresserar man meddelanden till en funktion i mottagande organisation, dvs. inte till en person. Det är dock möjligt att ange namn på avsedd mottagare i ett separat fält för referens. Adressboken gör att organisationer anslutna till SDK kan hitta rätt mottagare på ett säkert sätt baserat på funktion. Den utgår från en generell struktur för organisationerna som alla behöver använda. Det gör att avsändare som vill skicka ett meddelande alltid hittar rätt mottagare oavsett hur respektive organisation är uppbyggd internt. Varje organisation behöver i ett tidigt skede utse minst en administratör för adressboken.
+Administratören ansvarar för att lägga in och uppdatera den egna organisations funktionsadresser. Det innebär att man behöver bestämma vilka funktioner i verksamheten som ska kunna skicka och ta emot meddelanden via SDK. En möjlighet är att utgå från eventuella befintliga funktionsbrevlådor som organisationen redan använder i e-posten. Sedan kan man lägga till funktionsadresser successivt. I adressboken finns en beskrivning av offentlig verksamhet på tre nivåer (T ex Socialtjänst & kommunal hälso- och sjukvård > Äldreomsorg > Korttidsboende). För att andra organisationer lätt ska hitta rätt adress behöver man kategorisera varje funktion utifrån denna ordning oavsett hur den egna organisationen ser ut. En administratör eller projektledare kan hålla ihop arbetet med kategoriseringen men det är verksamhetens representanter som har nödvändig kunskap och behöver fatta besluten. Mer information om arbetet med adressboken finns i Handledning för administratörer i SDK adressbok.
+Aktiviteter
+Införskaffa SDK-förmåga på valt sätt (accesspunkt, meddelandetjänst, meddelandeklient)
+Upphandlad leverantör av accesspunkt genomför sin del av anslutningsprocessen. Alternativt organisationens IT-avdelning om man väljer att sköta det själv.
+Ansluta till SDK-testmiljö (QA-miljö) och därefter produktionsmiljö.
+Utse adressboksadministratör(-er).
+Definiera och lägga in aktuella funktioner i adressboken.
+Införa SDK-klient.
+Mål med detta steg
+SDK-förmåga etablerad.
+SDK-klient tillgänglig för verksamheten.
+Adressbok uppdaterad med aktuella verksamhetsfunktioner.
+Införa nya arbetssätt
+För att påbörja arbetet med att införa nytt arbetssätt behöver verksamheten ha valt ut ett lämpligt informationsflöde och i kontakt med vald motpart kommit överens om att använda SDK från en viss tidpunkt. Båda parterna behöver identifiera vilka funktioner i respektive organisation som har behov av att dela information och sätta upp funktionsbrevlådor för detta i SDK adressbok. Det är även viktigt att bestämma vilka medarbetare som ska ha behörighet till vilken funktionsbrevlåda och att ha ett informationssäkerhetsperspektiv i arbetet.
+Om inte SDK-meddelanden skickas direkt från ett verksamhetssystem kanske handläggaren behöver flytta informationen mellan system och klient. Denna flytt och mellanlagring behöver ske på ett säkert sätt. Ett generellt tips är att se över hela arbetssättet före och efter informationsutbytet för att se om något kan göras enklare eller säkrare på ett nytt sätt. Som en del i det nya arbetssättet bör rutiner finnas för kontinuerlig bevakning av funktionsbrevlådorna samt felhantering, exempelvis felaktigt skickad eller mottagen information. Det är lämpligt att man testar det nya informationsutbytet i SDK QA-miljö med stöd av lokal IT-kompetens innan man inför det i produktionsmiljön. Personalen behöver också utbildas i SDK-verktyget och det nya arbetssättet om det inte är gjort sedan tidigare. Därefter kan organisationen påbörja införande av ytterligare informationsutbyten.
+Aktiviteter
+Ta kontakt med motpart:
+Kom överens att använda SDK för ett informationsutbyte.
+Bestäm en tidsplan.
+Sätt upp funktionsbrevlåda(-or) och lägg in de i adressboken.
+Ta fram rutiner för nytt arbetssätt och säkerställ att det är i enlighet med de krav på informationssäkerhet som ställs.
+Testa informationsutbyte i SDK QA-miljö
+Utbilda berörd personal i det nya arbetssättet.
+Mål med detta steg:
+Infört SDK som kommunikationsväg för att skicka säkra meddelanden:
+Tagit fram rutiner för nya arbetssätt.
+Utbildat personal.

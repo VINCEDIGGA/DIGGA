@@ -154,13 +154,18 @@ function handle_post_reformat()
 function handle_reformat_status_change(array $input, string $action)
 {
     $jobId = (int) ($input['job_id'] ?? 0);
-    if ($jobId <= 0) {
-        respond(['error' => 'job_id saknas.'], 422);
+    $caseId = trim((string) ($input['case_id'] ?? ''));
+    if ($jobId <= 0 || $caseId === '') {
+        respond(['error' => 'job_id och case_id behövs för granskning.'], 422);
     }
 
+    $lookup = db()->prepare('SELECT id FROM reformat_jobs WHERE id = :id AND case_id = :case_id');
+    $lookup->execute([':id' => $jobId, ':case_id' => $caseId]);
+    if (!$lookup->fetch()) respond(['error' => 'Utkastet finns inte i det här ärendet.'], 404);
+
     $status = $action === 'approve' ? 'approved' : 'rejected';
-    $stmt = db()->prepare('UPDATE reformat_jobs SET status = :status WHERE id = :id');
-    $stmt->execute([':status' => $status, ':id' => $jobId]);
+    $stmt = db()->prepare('UPDATE reformat_jobs SET status = :status WHERE id = :id AND case_id = :case_id');
+    $stmt->execute([':status' => $status, ':id' => $jobId, ':case_id' => $caseId]);
 
     respond([
         'ok' => true,
@@ -177,8 +182,9 @@ function handle_delete_reformat_jobs()
     $jobId = (int) ($input['job_id'] ?? 0);
 
     if ($jobId > 0) {
-        $stmt = db()->prepare('DELETE FROM reformat_jobs WHERE id = :id');
-        $stmt->execute([':id' => $jobId]);
+        if ($caseId === '') respond(['error' => 'case_id behövs för att radera utkast.'], 422);
+        $stmt = db()->prepare('DELETE FROM reformat_jobs WHERE id = :id AND case_id = :case_id');
+        $stmt->execute([':id' => $jobId, ':case_id' => $caseId]);
         respond(['ok' => true, 'deleted' => $stmt->rowCount()]);
     }
 
@@ -350,13 +356,16 @@ function reformat_xml_payload(array $file): array
 {
     $issues = [];
     $text = $file['preview'];
+    if (preg_match('/<!DOCTYPE|<!ENTITY/i', $text)) {
+        respond(['error' => 'DOCTYPE och externa entiteter stöds inte. Använd en fristående XML-fil.'], 422);
+    }
 
     if (class_exists('DOMDocument')) {
         $previous = libxml_use_internal_errors(true);
         $dom = new DOMDocument('1.0', 'UTF-8');
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = true;
-        if ($dom->loadXML($file['preview'])) {
+        if ($dom->loadXML($file['preview'], LIBXML_NONET)) {
             $text = $dom->saveXML() ?: $file['preview'];
         } else {
             foreach (libxml_get_errors() as $error) {

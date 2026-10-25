@@ -1,0 +1,14 @@
+Formulär - Anslutning av deltagarorganisationer till SDK
+Fyll i detta formulär för att påbörja er anslutning till Säker digital kommunikation (SDK) i rollen som deltagarorganisation. Fyll i uppgifterna nedan och skicka in till oss. När vi tagit emot och behandlat anmälan kontaktar vi er.
+Ange organisationsnummer samt det officiella namnet som gäller för anslutande organisation. Använd ej förkortningar.
+Har ni frågor som rör anmälan vänligen kontakta oss på sdk@digg.se.
+Så behandlar vi dina personuppgifter (länken öppnas i ett nytt fönster).
+Mail name e-mail:
+Organisationsnamn * (obligatorisk)
+Organisationsnummer * (obligatorisk)
+Kontaktuppgifter till den person hos er vi ska kontakta inför er anslutning till SDK
+Kontaktuppgifter till den person hos er vi ska kontakta inför er anslutning till SDK
+Förnamn * (obligatorisk)
+Efternamn * (obligatorisk)
+Telefon
+E-post * (obligatorisk)

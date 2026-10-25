@@ -1,0 +1,7 @@
+Schema och innehållsvalidering
+Här hittar du information om XML-schema och valideringsskript för SDK-meddelande
+Anslutning för leverantörer av meddelandesystem
+Version: 1.5
+För att säkerställa ett korrekt meddelandeutbyte ska XML schema och valideringsskript användas vid skapande och validering av SDK-meddelanden.
+På Github hittar du XML schema för att kunna skapa och validera SDK meddelande version3.
+Schema och innehållsvalidering (github) Länk till annan webbplats.

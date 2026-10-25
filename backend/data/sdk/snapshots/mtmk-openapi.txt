@@ -1,0 +1,3 @@
+Open API specifikation MT/MK
+Denna sida innehåller SDK API MT/MK OpenAPI-specifikation som är ett standardiserat format för att beskriva REST-ful API. Filen är av typen YAML och definierar API metoder, parametrar, datatyper och autentisering.
+Open API specifikation MT/MK Länk till annan webbplats.

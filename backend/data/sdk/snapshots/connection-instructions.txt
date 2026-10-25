@@ -1,0 +1,216 @@
+Instruktioner för anslutning till SDK
+Anslutning för deltagarorganisationer
+Vägledande instruktioner för att fylla i blanketterna Anmälan om anslutning till SDK-QA-miljö och Ansökan om federationsgodkännande och anslutning till SDK produktionsmiljö. Vägledningen ger också en detaljerad beskrivning av anslutningsresan, och tydliggör de steg och aktiviteter som genomförs av såväl er som deltagarorganisation som av Digg i vår roll som federationsägare.
+Denna vägledning har tagits fram för att vara ett stöd för er som deltagarorganisation som planerar att ansluta eller är i färd med att ansluta er till Säker digital kommunikation (SDK).
+Vägledningen beskriver anslutningsresans olika steg och hur anslutning till SDK QA-miljö och SDK produktionsmiljö genomförs.
+Utöver dessa miljöer tillhandahåller Digg de tjänster och den support som behövs för att ni som deltagarorganisation ska kunna genomföra anslutning enligt SDK:s regelverk för respektive miljö. Anslutning till SDK:s tjänster (SDK adressbok och SDK testklient) kräver att den anslutande deltagarorganisationen ges åtkomst till tjänsterna i SDK:s miljöer. Digg ger tillgång till tjänsterna när ni som deltagarorganisation uppfyller de krav som ställs inför anslutning till respektive miljö.
+1. Anslutning till SDK-QA-miljö
+När ni som deltagarorganisation gjort era förberedelser och vill påbörja er anslutning till SDK är det första steget att anmäla det till Digg. Det gör ni med hjälp av formuläret: Anslutning av deltagarorganisationer till SDK. Ni fyller i organisationsuppgifter samt uppgifter för en kontaktperson hos er.
+När formuläret kommit in till Digg genomför vi en granskning för att se om er organisation har rätt att ansluta sig till SDK Federationen utifrån SDK:s regelverk. Vid ett godkännande återkommer vi med blanketten Anmälan om anslutning till SDK QA-miljö som skickas per mejl till den person ni angett som kontaktperson. I blanketten behöver ni fylla i de uppgifter som är nödvändiga för oss att kunna genomföra och förvalta er anslutning till SDK-QA-miljön. Nedan finns en sammanställning som tydliggör vilka uppgifter vi efterfrågar samt information om hur ni fyller i blanketten. De uppgifter som följs av asterisk (*) är obligatoriska. Till anmälningsblanketten bifogas användarvillkor för SDK QA-miljön som ni godkänner genom undertecknande av anmälan.
+1. Organisationsuppgifter
+Här anger ni era organisationsuppgifter. De uppgifter vi efterfrågar är:
+Organisationsnamn*
+Organisationsnummer*
+2. Kontaktperson(er)
+Här anger ni uppgifter för den eller de personer hos er som ska vara Diggs kontaktpersoner avseende er anslutning i SDK-QA-miljö. Minst en kontaktperson ska anges. Om ni ser behov av det kan ni välja att ange ytterligare en ansvarig kontaktperson. De uppgifter vi efterfrågar är
+För- och efternamn*
+Roll
+E-postadress*
+Telefonnummer
+3. Teknisk(a) kontakt(er)
+Här anger ni kontaktuppgifter till av er utsedd person eller funktion som ska användas vid tekniska frågor rörande anslutningen. Minst en kontakt ska anges. Om ni ser behov av det kan ni välja att ange ytterligare en teknisk kontakt. De uppgifter vi efterfrågar är
+För- och efternamnn eller funktion*
+E-postadress*
+Telefonnummer
+4. Kontaktuppgift(er) för driftinformation
+Vid anslutning till någon av SDK:s miljöer förväntas man prenumerera på driftinformation via Driftinformation SDK.
+Som ett komplement kan ni välja att få samma information som publiceras på ovan driftsida via mejl.
+Om ni önskar få driftinformation via mejl från oss anger ni här de e-postadresser ni önskar att vi skickar denna typ av information till. Om möjligt ser vi gärna att minst en funktionsadress anges. De uppgifter vi efterfrågar är:
+E-postadress
+Observera att mejl innehållandes driftinformation enbart kommer skickas under kontorstid på helgfria vardagar. För att få driftinformation för sådant som inträffar utanför dessa tider krävs fortsatt prenumeration på vår driftsida.
+5. Användaradministratör av SDK adressbok och SDK testklient
+Här anger ni uppgifter för den person hos er som ska ges rollen användaradministratör av SDK adressbok och SDK testklient samt vilken inloggningsmetod som kommer användas. Se Beslutade e-legitimationer för åtkomst till SDK gemensamma komponenter för information om vilka e-legitimationer Digg stödjer.
+Användaradministratörens roll är att tilldela andra i er organisation de roller med tillhörande behörigheter som finns för SDK adressbok - organisationsadministratör och adressadministratör. Utöver dessa roller kan en användaradministratör även tilldela andra personer rollen användaradministratör vid behov.
+Det är användaradministratören som även tilldelar behörighet till den eller de personer som ska vara användare av SDK testklient i er organisation. Det är användaren som med hjälp av testklienten genomför tester med syfte att verifiera era tekniska lösningar samt grundläggande funktionalitet för hela flödet av meddelanden. Testerna utförs enligt instruktioner i dokumentet Deltagarorganisation – Testfall för federationsgodkännande. Där finns instruktioner för de tester som behöver genomföras med godkänt resultat i samtliga för att kunna ansluta till SDK produktionsmiljö.
+Eftersom tilldelning av roller och behörigheter i SDK adressbok samt SDK testklient hanteras av er internt lämnar vi endast utrymme för en användaradministratör i blanketten.
+De uppgifter vi efterfrågar är
+För- och efternamn*
+E-postadress*
+Telefonnummer
+Inloggningsmetod*
+Identitetsattribut för inloggning*
+Med identitetsattribut menas det attribut som används utifrån angiven inloggningsmetod.
+För inloggning med BankID/Freja+ anges personnummer.
+För inloggning med SITHS anges HSA-ID.
+För inloggning med Freja OrgID anges det attribut som organisationen valt för Freja OrgID.
+För inloggning med EFOS anges EFOS-ID.
+För att stödja och underlätta för administratörer i SDK:s adressbok har vi skapat en handledning, se Handledning för administratörer i SDK adressbok. Där finns bland annat ett avsnitt om hur man som användaradministratör går tillväga för att tilldela roller och behörigheter.
+Vi vill också tipsa om vår digitala utbildning i SDK adressbok. Den riktar sig till administratörer hos deltagarorganisationer och utgör ett stöd i att komma igång, använda och förvalta SDK adressbok - Digital utbildning i SDK adressbok
+Behöver ni hjälp i frågor som rör SDK adressbok vänligen kontakta oss via e-postadress sdk@digg.se.
+6. Tekniska lösningar
+Här anger ni nödvändig information så att Digg kan kontrollera och verifiera er som deltagarorganisation utifrån de uppgifter er accesspunktsoperatör angett i SDK QA-miljön. Ni anger också information om ert meddelandesystem baserat på uppgifter som lämnats till och tilldelats av Digg. De uppgifter vi efterfrågar är
+Deltagaridentitet*
+Förklaring: Ni tar själva fram och beslutar om er deltagaridentitet (organisationsidentifierare) enligt gällande regler och krav inom SDK. Identiteten ska överensstämma med ”Participant Identifier” som er accesspunktsoperatör registrerar i SMP i SDK QA-miljön. Deltagaridentiteten ska även kunna kopplas till er organisation – exempelvis 0203:test.organisationsnamn.se
+Accesspunktsoperatör*
+Förklaring: Organisationsnamnet på er accesspunktsoperatör. Angivet organisationsnamn ska överensstämma exakt med den organisation som är angiven i accesspunktsoperatörens publika AS4-certifikat under fältet 'O’. 'Ni inhämtar uppgiften från er accesspunktsoperatör.
+Accesspunktsidentitet*
+Förklaring: Identiteteten på den accesspunkt som ni använder. Angiven accesspunktsidentitet ska överensstämma exakt med den identifierare som är angiven i accesspunktsoperatörens publika AS4-certifikat under fältet 'CN'- exempelvis AP0001-SDK QA. Ni inhämtar uppgiften från er accesspunktsoperatör.
+Meddelandesystem (namn, version och meddelandesystem-ID)
+Förklaring: Ni anger namn, version och meddelandesystem-ID för det meddelandesystem ni nyttjar för anslutningen. Ni inhämtar uppgifterna från er leverantör.
+7. Övrig information
+Här får ni utrymme att lämna övriga uppgifter ni tror kan vara av intresse för Digg.
+8. Behandling av personuppgifter
+Här lämnas information om hur vi på Digg behandlar personuppgifter.
+Så behandlar vi dina personuppgifter
+9. Underskrift av behörig företrädare
+Anmälan ska undertecknas av behörig(a) företrädare. Underskrift kan ske antingen digitalt eller analogt.
+Vid digtal underskrift ska e-postadress(er) till behörig(a) företrädare anges i förberedda fält i detta avsnitt. När anmälan inkommit till Digg skickas ett underskriftsuppdrag per e-post till angiven/angivna e-postadress(er).
+Om digital underskrift inte är möjligt ska anmälan undertecknas analogt och skickas per post till Digg. Vid analog underskrift ska behörig företrädare ange datum, ort, signatur, namnförtydligande och roll i förberedda fält i detta avsnitt.
+När ni skickat in anmälan till Digg granskar vi att samtliga uppgifter är korrekt ifyllda. Om någon av de obligatoriska uppgifterna saknas eller inte är komplett kontaktar vi den ansvarige för anslutningen hos er per mejl. För de obligatoriska uppgifterna så är det beroende på vad kompletteringen avser som avgör om behörig företrädare hos er behöver underteckna anmälan på nytt. I de fall att nån av de frivilliga uppgifterna saknas tolkar vi det som att ni valt att inte lämna uppgiften. Om uppgift lämnats men inte är komplett kan ni komplettera via svarsmejl till oss.
+När alla uppgifter är kompletta och stämmer och ni blivit godkända att ansluta till SDK-QA-miljö lägger vi upp er organisation tillsammans med er, enligt anmälan, angivna användaradministratör i SDK adressbok i miljön.
+2. Kommunikation
+När ovanstående genomförts kommunicerar vi till er kontaktperson för anslutningen samt till er användaradministratör för SDK adressbok och SDK testklient.
+Till er(a) kontaktperson(er) informerar vi att:
+ni är godkända att ansluta till SDK QA-miljö,
+ni behöver lämna ert publika O2O-certifikat för SDK-QA-miljön till oss, så vi kan publicera det i Certifikatspubliceringstjänsten i SMP ( sista steget innan anslutningen är komplett), samt
+vi ger instruktioner till er användaradministratör av SDK adressbok och SDK testklient. Med hjälp av dessa instruktioner ges tillgång till adressboken.
+Till er användaradministratör skickar vi:
+information att ni är godkända för anslutning till SDK-QA-miljö,
+instruktioner om hur ni får tillgång till SDK adressbok, samt
+instruktion om hur ni meddelar Digg ert publika O2O-certifikat så vi kan publicera det i Certifikatspubliceringstjänsten i SMP.
+3. Certifikat
+Ni som deltagarorganisation behöver lämna ert publika O2O-certifikat för publicering i Certifikatspubliceringstjänsten i SDK-QA-miljö, vilket utförs av oss på Digg. För att garantera riktighet lämnas O2O-certifikat i SDK adressbok av er organisationsadministratör. Er användaradministratör tilldelar rollen organisationsadministratör som i sin tur lägger upp certifikatet.
+Specifikt lämnar er organisationsadministratör ert publika O2O-certifikat genom att logga in i användargränssnittet i adressboken och går till avsnittet ”Mina organisationer” i vänstermenyn, väljer organisation och trycker på ”Redigera”. Längst ned finns ett fält med rubriken ”Deltagarorganisationens publika O2O-certifikat”, med två textfält namngivna ”Krypteringscertifikat” och ”Signeringscertifikat”. Eftersom SDK regelverk i nuläget reglerar att samma certifikat ska användas för både kryptering och signering av SDK-meddelanden lämnar ni samma publika certifikat i båda fälten.
+När det är utfört behöver ni notifiera oss på Digg att certifikatet finns upplagt. Notifiering sker per mejl till sdk@digg.se. Vi hämtar certifikatet från adressboken och publicerar det i Certifikatspubliceringstjänsten i SMP.
+När ovan är utfört kontaktar vi ansvarig kontaktperson för anslutningen hos er samt er användaradministratör.
+Till er(a) kontaktperson(er) informerar vi att:
+vi på Digg publicerat ert publika O2O-certifikat och att anslutningen till SDK-QA-miljö därmed är komplett
+ni som nästa steg i processen behöver genomföra testfall enligt Testfall deltagarorganisation för federationsgodkännande SDK
+er användaradministratör behöver tilldela rollen testklientanvändare, vilket är en förutsättning för att ni ska ha möjlighet att genomföra testerna med hjälp av SDK testklient, samt
+när ni genomfört testfallen enligt ovan dokument, samt gjort övrigt arbete som krävs för att kunna intyga följsamhet till samtliga regler och krav som ställs på er i rollen som deltagarorganisation inom SDK, så kontaktar ni oss. Vi kommer då skicka ut Ansökan om federationsgodkännande och anslutning till SDK produktionsmiljö tillsammans med Anslutningsavtal för deltagarorganisationer angående Säker digital kommunikation (SDK) till er.
+Till er användaradministratör informerar vi att:
+er anslutning till SDK-QA-miljö är komplett
+ni som nästa steg behöver genomföra testfall enligt Testfall deltagarorganisation för federationsgodkännande SDK
+hen i rollen som användaradministratör behöver tilldela rollen testklientanvändare, för att ni ska ha möjlighet att genomföra testerna med hjälp av SDK testklient
+URL till SDK Testklient i SDK-QA, samt
+vilken funktionsadress vi på Digg tilldelat er i SDK Testklient i miljön
+4. Registrering av funktionsadresser i SDK adressbok
+För att genomföra de tester som krävs för att ansluta till SDK produktionsmiljö behöver ni registrera funktionsadresser i SDK adressbok. Det är de(n) som har rollen adressadministratör som är behörig att registrera funktionsadresser. Användaradministratören behöver därmed tilldela rollen adressadministratör som i sin tur registrerar funktionsadresser. I handledningen för administratörer i SDK adressbok finns instruktion för hur man som adressadministratör går tillväga - Handledning för administratörer i SDK adressbok.
+När certifikatet är publicerat av oss, er(a) adressadministratör(er) har registrerat funktionsadresser i SDK adressbok och er(a) användare fått tillgång till SDK testklient är ni redo att påbörja testerna. Det är först efter utförda tester med godkänt resultat i samtliga som ni är kvalificerade att ansöka om federationsgodkännande och anslutning till SDK produktionsmiljö.
+5. Ansökan om federationsgodkännande och anslutning till SDK produktionsmiljö
+Utöver att genomföra testfall enligt våra instruktioner behöver ni även säkerställa att ni är införstådda med samtliga krav som ställs på er i rollen som deltagarorganisation utifrån SDK:s regelverk. Ni behöver genomgå den process som krävs för att kunna intyga er följsamhet till samtliga krav till SDK:s federationsägare (Digg). Det gör ni via blanketten Ansökan om federationsgodkännande och anslutning till SDK produktionsmiljö, som är nästa steg i anslutningen. Blanketten skickas ut till er när ni tar kontakt med oss på Digg via sdk@digg.se och meddelar att ni vill ansöka om federationsgodkännande och ansluta till SDK produktionsmiljö. Det krävs en godkänd ansökan för att ansluta er till SDK produktionsmiljö.
+Som namnet på blanketten antyder så rymmer den två delar:
+ansökan om att bli federationsgodkänd, samt
+ansökan om att ansluta till SDK produktionsmiljö.
+Nedan finns en sammanställning där det framgår vilka uppgifter vi efterfrågar samt information om hur ni fyller i blanketten.
+De uppgifter som följs av asterisk (*) är obligatoriska att ange.
+1. Organisationsuppgifter
+Här anger ni era organsationsuppgifter. De uppgifter vi efterfrågar är:
+Organisationsnamn*
+Organisationsnummer*
+2. Kontaktperson(er)
+Här anger ni uppgifter för den person hos er som ska vara Diggs kontaktperson avseende er anslutning i SDK produktionsmiljö. Minst en kontaktperson ska anges. Om ni ser behov av det kan ni välja att ange ytterligare en ansvarig kontaktperson. De uppgifter vi efterfrågar är:
+För- och efternamn*
+Roll
+E-postadress*
+Telefonnummer
+I detta avsnitt ställer vi också frågan om ni önskar ersätta de(n) ansvariga kontaktperson/er ni anmält vid anslutning till SDK-QA-miljö med de(n) person(er) ni anmäler i detta avsnitt.
+3. Teknisk(a) kontakt(er)
+Här anger ni kontaktuppgifter till av er utsedd person eller funktion som ska användas vid tekniska frågor rörande anslutningen. Minst en kontakt ska anges. Om ni ser behov av det kan ni välja att ange ytterligare en teknisk kontakt. De uppgifter vi efterfrågar är
+För- och efternamn eller funktion*
+E-postadress*
+Telefonnummer
+I detta avsnitt ställer vi också frågan om ni önskar ersätta de(n) tekniska kontakt/er ni anmält vid anslutning till SDK-QA-miljö med de(n) kontakt(er) ni anmäler i detta avsnitt.
+4. Kontaktuppgift(er) för driftinformation
+Vid anslutning till någon av SDK:s miljöer förväntas man prenumerera på driftinformation via Driftinformation SDK.
+Som ett komplement kan ni välja att få samma information som publiceras på ovan driftsida via mejl.
+Om ni önskar få driftinformation via mejl från oss anger ni här den eller de e-postadresser ni önskar att vi skickar denna typ av information till. Om möjligt ser vi gärna att minst en funktionsadress anges. De uppgifter vi efterfrågar är:
+E-postadress*
+Man bör observera att mejl innehållandes driftinformation enbart kommer skickas under kontorstid på helgfria vardagar. För att få driftinformation för sådant som inträffar utanför dessa tider krävs fortsatt prenumeration på vår driftsida.
+5. Användaradministratör av SDK adressbok
+Här anger ni uppgifter för den person hos er som ska ges rollen användaradministratör i SDK adressbok, samt vilken inloggningsmetod som kommer användas.
+Precis som för SDK-QA-miljön så är det användaradministratörens roll att tilldela andra i er organisation de roller med tillhörande behörigheter som finns för SDK adressbok – organisationsadministratör, adressadministratör samt ytterligare användaradministratör vid behov. Eftersom tilldelning av roller och behörigheter i SDK adressbok hanteras av er internt lämnar vi endast utrymme för en användaradministratör i blanketten. De uppgifter vi efterfrågar är:
+För- och efternamn*
+E-post*
+Telefonnummer
+Inloggningsmetod*
+Identitetsattribut för inloggning*
+6. Tekniska lösningar
+Här anger ni information nödvändig för oss på Digg att kunna kontrollera och verifiera er som deltagarorganisation utifrån de uppgifter er accesspunktsoperatör angett i SDK produktionsmiljö. Ni anger också information för ert meddelandesystem baserat på uppgifter som lämnats till och tilldelats av Digg. De uppgifter vi efterfrågar är:
+Deltagaridentitet*
+Förklaring: Ni tar själva fram och beslutar om er deltagaridentitet (organisationsidentifierare) enligt gällande regler och krav inom SDK. Identiteten ska överensstämma med ”Participant Identifier” som er accesspunktsoperatör registrerar i SMP i SDK produktionsmiljö. Deltagaridentiteten ska även kunna kopplas till er organisation.
+Accesspunktsoperatör*
+Förklaring: Organisationsnamnet på er accesspunktsoperatör. Angivet organisationsnamn ska överensstämma exakt med den organisation som är angiven i accesspunktsoperatörens publika AS4-certifikat under fältet 'O’. 'Ni inhämtar uppgiften från er accesspunktsoperatör.
+Accesspunktsidentitet*
+Förklaring: Identiteteten på den accesspunkt som ni använder. Angiven accesspunktsidentitet ska överensstämma exakt med den identifierare som är angiven i accesspunktsoperatörens publika AS4-certifikat under fältet 'CN'- exempelvis AP0001-SDK-PROD. Ni inhämtar uppgiften från er accesspunktsoperatör.
+Meddelandesystem (namn, version och meddelandesystem-ID)*
+Förklaring: Ni anger namn, version och meddelandesystem-ID för det meddelandesystem ni nyttjar för anslutningen. Ni inhämtar uppgifterna från er leverantör.
+7. Intygande om följsamhet till SDK:s regelverk för deltagarorganisationer
+7.1 Referenser
+I detta avsnitt anges länkar till samtliga referenser som intygan avser:
+Regelverk för deltagarorganisationer inom SDK Länk till annan webbplats.
+Bilaga för tillgänglighet inom SDK Länk till annan webbplats.
+Bilaga för IT säkerhet inom SDK Länk till annan webbplats.
+Anslutningsresa för deltagarorganisationer inom SDK Länk till annan webbplats.
+Ni intygar er följsamhet till SDK:s regelverk utifrån påståendet ”Deltagarorganisationen uppfyller samtliga krav i regelverk för deltagarorganisationer inom SDK inklusive bilagor.”
+7.2 Avvikelser mot SDK:s regelverk
+Här har ni möjlighet att i fritext redogöra för eventuella avvikelser i er följsamhet till SDK:s regelverk. Dessa kommer ligga till grund för eventuellt beslut om dispens från Digg som federationsägare. Man bör vara införstådd med att federationsägaren kommer att vara restriktiv när det gäller att bevilja dispens.
+8. Intygande om genomförande av testfall
+I denna del behöver ni intyga att ni tillsammans med er anmälda accesspunktsoperatör och meddelandesystem har genomfört testfall motsvarande testfallen i dokumentet Deltagarorganisation – Testfall för federationsgodkännande med godkänt resultat i samtliga. Ni intygar detta genom att kryssa i en ruta utifrån följande påstående
+* Vi har tillsammans med vår anmälda accesspunktsoperatör och meddelandesystem genomfört testfall motsvarande testfallen i dokumentet ” Testfall deltagarorganisation för federationsgodkännande SDK”.
+9 Övrigt
+Här får ni utrymme att lämna övriga uppgifter ni tror kan vara av intresse för Digg.
+10. Behandling av personuppgifter
+Här lämnas information om hur vi på Digg behandlar personuppgifter - Så behandlar vi dina personuppgifter
+11. Underskrift av behörig företrädare
+Ansökan och anslutningsavtalet ska undertecknas av behörig(a) företrädare. Underskrift kan ske antingen digitalt eller analogt.
+Vid digtal underskrift ska e-postadress(er) till behöriga företrädare anges i förberedda fält i sista avsnittet både i ansökan och avtalet. När dessa inkommit till Digg skickas ett underskriftsuppdrag per e-post till angiven/angivna e-postadress(er).
+Om digital underskrift inte är möjligt ska ansökan och anslutningsavtalet undertecknas analogt och skickas per post till Digg. Vid analog underskrift ska behörig företrädare ange datum, ort, signatur, namnförtydligande och roll i förberedda fält i sista avsniitet i både ansökan och avtalet.
+Observera att vid analog underskrift ska anslutningsavtalet undertecknas och inkomma till Digg i två exemplar.
+6. Anslutningsavtal för deltagarorganisationer angående Säker digital kommunikation (SDK)
+För att ansökan om federationsgodkännande och anslutning till SDK produktionsmiljö ska anses komplett behöver ni fylla i och underteckna Anslutningsavtal för Deltagarorganisationer angående Säker digital kommunikation (SDK).
+När alla uppgifter är kompletta och stämmer och ni därmed är godkända att ansluta till SDK produktionsmiljö undertecknas anslutningsavtalet av behörig hos Digg. Vi lägger upp er organisation tillsammans med er, enligt ansökan, angivna användaradministratör i SDK adressbok i produktionsmiljön.
+7. Kommunikation
+När ovanstående är genomfört kommunicerar vi det till er(a) ansvariga kontaktperson(er) samt till er användaradministratör för SDK adressbok.
+Till er(a) kontaktperson(er) informerar vi att:
+ni är godkända att ansluta till SDK produktionsmiljö,
+ni behöver lämna ert publika O2O-certifikat för SDK produktionsmiljö till oss, så vi kan publicera det i Certifikatspubliceringstjänsten i SMP. (sista steget innan anslutningen är komplett), samt
+vi kommer att ge instruktioner till er användaradministratör av SDK adressbok. Med hjälp av dessa instruktioner ges tillgång till adressboken.
+Till er användaradministratör skickar vi:
+information om att ni är godkända för anslutning till SDK produktionsmiljö,
+instruktioner om hur ni får tillgång till SDK adressbok, samt
+instruktion för hur ni meddelar oss ert publika O2O-certifikat så att Digg publicera det i Certifikatspubliceringstjänsten i SMP.
+För kännedom så är tillvägagångssättet för inlämning av publikt O2O-certifikat detsamma som vid anslutning till SDK QA-miljö.
+När er organisationsadministratör angivit ert publika O2O-certifikat i SDK adressbok och notifiering skickats till sdk@digg.se, publicerar vi det i Certifikatspubliceringstjänsten i SMP. När det är klart bekräftar vi det till er ansvariga kontaktperson.
+Ni är nu anslutna till SDK produktionsmiljö och redo att skicka säkra meddelanden.
+8. Tillägg för privata aktörer
+Privata aktörer ska kunna ansluta till SDK om de bedriver offentligt finansierad verksamhet. Det ska finnas ett tydligt behov av att använda SDK för att kunna utföra sitt offentligt finansierade uppdrag.
+För att ansluta till SDK QA-miljö som privat aktör behöver ni fylla i Bilaga – Privat aktör. För att Digg som federationsägare ska kunna godkänna er anslutning till SDK krävs bland annat ett intygande från er att ni bedriver offentligt finansierat uppdrag, vilket är huvudsyftet med bilagan. Ni ska utöver denna bilaga också fylla i Anmälan om anslutning till SDK QA-miljö.
+Nedan finns en sammanställning som visar vilka uppgifter vi efterfrågor samt information om hur ni fyller i bilagan. De uppgifter som följs av asterisk (*) är obligatoriska.
+Uppgifter för anslutning till QA-miljö av privata aktörer
+1. Intygande
+Här intygar ni att ni bedriver offentligt finansierat uppdrag och enbart kommer nyttja SDK för att fullgöra det/dom.
+2. Tid för uppdrag och uppdragsgivare
+I detta avsnitt anger ni organisationsuppgifter för era uppdragsgivare samt under vilken eller vilka tidsperioder ni bedriver offentligt finansierad verksamhet. Beroende på tidsperiod(er) för uppdragen fyller ni i uppgifterna i punkt 2.1, 2.2 eller 2.3.
+2.1 Ett uppdrag
+Om ni enbart bedriver ett offentligt finansierat uppdrag så är det i denna punkt ni fyller i ovanstående uppgifter.
+De uppgifter vi efterfrågar är:
+Tid för uppdrag (Fr.o.m. – t.o.m.)
+Organisationsnamn på uppdragsgivare
+Organisationsnummer för uppdragsgivare
+2.2 Flera uppdrag som överlappar
+Om ni bedriver flera offentligt finansierade uppdrag som överlappar med varandra så är det i denna punkt ni fyller i ovanstående uppgifter.
+De uppgifter vi efterfrågar är:
+Tid för uppdragen. Ni anger datum för när det första uppdraget startade och när det sista avslutas.
+Organisationsnamn på samtliga uppdragsgivare
+Organisationsnummer för samtliga uppdragsgivare
+2.3 Flera uppdrag med tidsuppehåll
+Om ni bedriver flera offentligt finansierade uppdrag med tidsuppehåll emellan så är det i denna punkt ni fyller i ovanstående uppgifter.
+De uppgifter vi efterfrågar är:
+Tid för uppdragen. Fr.o.m- och t.o.m-datum för varje uppdrag ska anges.
+Organisationsnamn på samtliga uppdragsgivare
+Organisationsnummer för samtliga uppdragsgivare
+3. Komplettering
+Här lämnas utrymme att komplettera med uppgifter för samtliga ovanstående punkter, om utrymmet inte räckt till.
+4. Övrigt
+Här lämnas utrymme att lämna ytterligare komplettering, eller om ni önskar lämna annan information som ni tror är bra för Digg att känna till.

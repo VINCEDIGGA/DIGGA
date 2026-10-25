@@ -1,0 +1,105 @@
+Informationssäkerhets- och tillitsmodell
+Övergripande beskrivning av Informationssäkerhet och tillitsmodell för plattform och federationer.
+Plattformen för SDK stödjer utbyte av informationssäkerhetsklassad information och meddelanden. Utbytet är baserad på egenskaper, funktioner och tjänster med fokus på hög säkerhet och tillit med principen att skapa trygghet och förtroende för alla anslutna och agerande aktörer.
+Plattformen- och federationens övergripande informationssäkerhets- och tillits-modell omfattar flera dimensioner såsom aktörsroller, organisation, rutiner, teknik, säkerhetsåtgärder samt servicenivåer.
+Informations- och IT- säkerhetsarbetet inom plattformen och dess federationer bedrivs systematiskt och riskbaserat enligt modeller och metoder som utgår från ISO27000-serien samt Myndigheten för civilt försvars föreskrifter och vägledningar som gäller för statliga myndigheter.
+Ansvarsförhållanden mellan parter skall regleras via avtal. En federation tillhandahåller specifika regler och rutiner per aktörsroll vilka beskrivs i federationens regelverk.
+Behandling av information är en åtgärd eller kombination av åtgärder beträffande informationshantering som varje aktör ansvarar själva för att etablera och dokumentera enligt egna rutiner och processer.
+Informationssäkerhets och tillitsmodellen är baserad på följande övergripande principer:
+aktörer ansvarar själva för att utforma och etablera ett systematiskt och riskbaserat informationssäkerhetsarbete för behandling av information.
+aktörer ansvarar själva för att dokumentera egna rutiner och processer för behandling av information i anslutna och agerande informationssystem.
+aktörer i samverkan och tillsammans med andra aktörer agerar så snabbt som möjligt för support, fel och avvikelser samt incidenter i plattformen och dess federationer.
+Inledning
+Plattformen stödjer utbyte av informationssäkerhetsklassad information och meddelanden och är baserad på egenskaper och funktioner med fokus på hög säkerhet och tillit med principen att skapa trygghet och förtroende för alla aktörer i plattformen.
+Tillit och förtroende skapas mellan olika aktörer inom plattform och dess anslutna federationer för samtliga miljöer och styrs av gällande förutsättningar, principer, regler, rutiner samt avtal.
+Informationssäkerhet och tillit mellan anslutna aktörer baseras på eget ansvar samt gällande regelverk och rutiner för varje aktörsroll. Efterlevnad av aktörens regelverk kommer att ske via efterlevnadskontroller gällande för dom olika aktörernas regelverk.
+Har aktör andra lagar, förordningar och föreskrifter för hantering och behandling av information samt informationssystem så är det varje enskild aktörs eget ansvar att hantera detta inom egen verksamhet.
+Huvudsyftet med tillit inom plattformen och federationer är att säkerställa att aktörerna har förmågan att hantera information och behandling av information i anslutna och agerande informationssystem och tekniska IT-system på ett verifierbart och tillfredställande sätt.
+Informations- och IT-säkerhetsarbetet inom plattformen och dess federationer ska bedrivas systematiskt och riskbaserat enligt modeller och metoder som utgår från ISO27000-serien samt MSB:s föreskrifter och vägledningar för att skapa systemisk tillit mellan alla aktörer.
+Ansvarsförhållanden per aktörsroll beskrivs övergripande omfattande behandling av information samt hantering av Informationssystem och IT-system och regleras via avtal. Om aktörer tecknar avtal mellan varandra är det varje enskild aktörs eget ansvar att hantera att avtalen uppfyller plattformens och federationens gällande regler.
+En federation tillhandahåller specifika regler och rutiner vilka beskrivs i federationens regelverk. Anpassningar av plattformens regler till existerande standarder beskrivs i SDK-federationens tekniska anpassningar mot plattform för eDelivery Länk till annan webbplats..
+Behandling av information är en åtgärd eller kombination av åtgärder beträffande informationshantering, oberoende av om de utförs automatiserat eller ej, såsom insamling, registrering, organisering, strukturering, lagring, bearbetning eller ändring, framtagning, läsning, användning, utlämning genom överföring, spridning eller tillhandahållande på annat sätt, justering eller sammanförande, begränsning, radering eller förstöring.
+Informationssystem omfattar anslutna och agerande tekniska IT-system och stödsystem samt verktyg som används av aktör för teknisk lagring och överföring av information inom miljöer i plattformen och dess federationer.
+Transportmodell Utökad Bas inom plattformen är dimensionerad för att svara upp mot de krav och risker som gäller för allvarlig konsekvensnivå 3 (konfidentialitet och riktighet) enligt MSB’s informationssäkerhetsklassningsmodell.
+Målgrupper och intressenter
+Denna sida syftar till att öka medvetenhet och skapa förståelse kring Informationssäkerhet och tillit inom plattformen samt anslutning för samtliga intressenter oavsett roll.
+Ansvarsförhållande inom plattform och federation
+Syftet med ansvar och tillit inom plattformen och anslutna federationer är att säkerställa att aktörerna har förmågor att hantera information på ett säkerhet sätt enligt gällande regelverk. Följsamhet granskas och verifieras vid anslutning per aktörsroll.
+Anslutning
+Regler och rutiner gäller för de olika aktörsrollerna vid anslutning, teknik, administration samt identifiering. Regelverken ger förutsättningar att skapa systemisk tillit för en digital samverkan mellan alla aktörer ansluta till och agerar i digital samverkan.
+Aktörsroller i plattformens som omfattas av tillit och ansvar är
+Plattformsansvarig ansvarar övergripande för helheten i plattformen.
+Federationsägare, som ansvarar övergripande för helheten i Federationen.
+Meddelandetypsadministratör, som definierar och reglerar användningen av meddelandetyper.
+Accesspunktsoperatör ansvarar för drift av en accesspunkt.
+Deltagarorganisation ansvarar för hantering av meddelanden före eller efter en funktionsbrevlåda.
+Leverantör av meddelandesystem, som ansvarar för det system som deltagarorganisationen använder för att hantera meddelanden.
+Anslutningsavtal mellan federationsägaren (i rollen som plattformsansvarig) och accesspunktsoperatör är en grundläggande del i att etablera en säker samverkan inom plattformen. Avtalet kräver att accesspunktsoperatören följer regler och rutiner som är nödvändiga för att upprätthålla säkerhet och funktionalitet inom federationen. Tillit inom plattform och Federation verifieras mot federationers regelverk avseende uppfyllnad, anpassningar, avgränsningar och tillägg av Federationsägare som granskas, verifieras samt godkänns av federationsägaren (i rollen som plattformsansvarig).
+Accesspunktsoperatörer ansluts till plattformen samt Federationens olika miljöer genom en anslutningsresa som finns beskriven i regelverk där följsamhet verifieras genom ett plattformsgodkännande och federationsgodkännande av plattformsansvarig.
+Deltagare ansluts till Federation enligt gällande regelverk inom federation.
+Samtliga aktörers ansvar
+Aktörer som är statliga myndigheter ska uppfylla styrande föreskrifter om
+informationssäkerhet enligt MSBFS2020:6.
+säkerhetsåtgärder i informationssystem och IT-system enligt MSBFS 2020:7.
+Samtliga aktörer ansvarar för att:
+kontinuerligt analysera, bedöma och vidta de säkerhetsåtgärder som lagar och förordningar ställer på den egna verksamheten.
+etablera och dokumentera egna regler och rutiner.
+bedriva systematiskt och riskbaserat informationssäkerhetsarbete.
+genomföra egen informationssäkerhetsklassning för att säkerställa kvalitet och trygghet i skydd och tillgång av information i den egna verksamheten.
+analysera och bedöma egen verksamhet utifrån säkerhetsskydd, samhällsviktig verksamhet samt beredskapsperspektiv, t.ex. NIS-förordning
+säkerställa att regler på säkerhet och säkerhetsåtgärder uppfylls av anslutna och agerande informationssystem
+genomföra egna säkerhetstester och granskning inför driftsättning samt kontrollera att valda säkerhetsåtgärder är tillräckliga för att möta identifierade krav på säkerhet
+hantera och ta emot meddelanden från andra anslutna aktörer inom plattform och anslutna federationer där aktören är ansluten under förutsättning att gällande regler och rutiner samt tekniska specifikationer följs.
+påvisa följsamhet till behandling av information och agerande i samt anslutna informationssystem utifrån ställda regler i plattformen och dess federationer.
+stödja andra anslutna aktörer vid behov av support, felhantering, driftavbrott samt incidenthantering och kontakta närmaste berörda aktörer inom plattformen och dess anslutna federationer.
+Varje aktör är själv ansvarig för att hålla sig uppdaterad om de styrande principer, regler och rutiner som gäller för deras roller i anslutning och agerande inom federationen.
+Ansvar och styrande principer, regler och rutiner beskrivs även i federationens regelverk.
+Samtliga aktörer ansvarar även för att kontinuerligt analysera, bedöma och vidta de säkerhetsåtgärder som lagar och förordningar ställer på den egna verksamheten.
+Vägledande principer
+Vägledande principer för informationssäkerhet och tillit utgår från:
+Informationssäkerhet och teknisk IT-säkerhet utgår från standarder inom ISO 27000-serien som gäller övergripande för plattformen och dess federationer.
+Plattformen omfattar principer, regler och rutiner samt rekommendationer vilka beskrivs i gällande regelverk för plattform samt anslutna federationer.
+Deltagar- och avtalsmodeller reglerar ansvar, åtagande och befogenheter för anslutna aktörsroller och beskriver vilka organisationer som kan delta, dvs ansluta till respektive federation.
+Aktörer följs upp och utvärderas kontinuerligt avseende regelefterlevnad enligt gällande regelverk och avtal. Anslutningsmodell där alla organisationer ansluts enligt gällande regelverk per aktörsroll
+Transportinfrastruktur, miljöer och certifikat
+Plattformen stödjer transport och utbyte av information och meddelanden med fokus på hög säkerhet och tillit med principen att skapa trygghet och förtroende för alla aktörer i plattformen.
+Transportinfrastruktur
+Meddelanden utbyts inom en federations transportinfrastruktur och dess miljöer genom olika transportmodeller med transport via accesspunktsoperatörer mellan deltagare. Inom SDK används Transportmodell Utökad Bas.
+Dokumenterade specifikationer för teknisk kommunikation, inklusive aktuella dokument för transportinfrastruktur, transportmodeller, transportprofiler, kuverteringsprofiler och komponentspecifikationer, beskriver hur meddelanden utbyts samt reglerar hur de struktureras, signeras och krypteras.
+Transportinfrastrukturen är realiserad i reglerade och väl dokumenterade miljöer som har tydliga syften och egenskaper beskrivna för ägande, styrning samt förvaltning av utgivning av certifikat och miljöer.
+Transportmodeller
+Plattformen innehåller följande transportmodeller.
+”Transportmodell – Utökad bas ” som tekniskt beskriver och reglerar hur meddelanden utbyts mellan organisationer där deltagare signerar och krypterar meddelanden med privata nycklar mellan meddelandetjänster hos deltagare.
+I tillägg finns en andra transportmodell, ”Transportmodell bas”, som inte används.
+Certifikathantering
+En viktig beståndsdel i plattformens utbud av säkerhetsåtgärder är användningen av PKI/Certifikat. Transportmodellen bestämmer specifikt hur denna typ av säkerhetsåtgärd tillämpas. I transportinfrastrukturen används PKI/Certifikat på bland annat följande sätt.
+Server/funktionscertifikat är kopplad till en tjänst och dess tjänsteinstanser och kan bland annat används för att kryptera och/eller signera kommunikation mellan förmedlingstjänster (såsom accesspunktstjänster).
+Ett TLS -certifikat är ett funktionscertifikat som används för att etablera säkra anslutningar över internet och som en del i skalskydd.
+Ett Accesspunktscertifikat är ett funktionscertifikat (AS4) som används för autentisering av accesspunktstjänster och auktorisationskontroll vid godkännande av en accesspunktstjänst för att kunna agera i en federations miljö.
+Ett informationscertifikat är ett funktionscertifikat som används för att signera den information eller metadata som en tjänst administrerar och tillhandhåller.
+Ett deltagarcertifikat (kallas även O2O certifikat) är ett funktionscertifikat som är utgivet till en Deltagare och som används för att kryptera och signera meddelanden och nyttolaster mellan Deltagarnas verksamhetssystem.
+Användarcertifikat (kallas även e-legitimation) används främst för användare och administratören i plattformen i samband med inloggning, kryptering samt signering av informationsmängder
+Certifikatutfärdare styrs enligt olika aktörers regelverk för följande certifikat.
+Accesspunktscertifikat utfärdas av plattformsansvarig per miljö och federation.
+TLS-certifikat utfärdas av betrodd certifikatsutgivare. Utgivningen finns reglerad i tillämplig transportprofil och som del i skalskydd och enligt anvisning från plattformsansvarig och federationsägare.
+Deltagarcertifikat utfärdas av extern certifikatsutgivare enligt gällande regelverk för federationen.
+Användarcertifikat utfärdas enligt de principer som gäller för e-legitimation.
+Tillit
+Tillit inom plattform och Federation verifieras mot federationers regelverk avseende uppfyllnad, anpassningar, avgränsningar och tillägg av Federationsägare som granskas, verifieras samt godkänns av Plattformsansvarig.
+Standardiserad kommunikation Accesspunktsoperatör till Accesspunktsoperatör via Transportinfrastrukturens miljöer och plattformstjänster samt miljöer.
+Plattformsansvarig godkänner Accesspunktsoperatör – Kundkännedom och avtal.
+Användning av standardiserade komponenter för plattformstjänster
+Användning av en adressbok som endast kan uppdateras av godkända adressboksadministratörer.
+Användning av separata och avskilda miljöer (Test, QA, Produktion).
+Tillit inom Federationer och Deltagarsäkerhet
+Styrs av ramverket för plattformen gällande förutsättningar, principer, regler, rutiner omfattande Federation samt Deltagare.
+Deltagar- och avtals-modell skall beskrivas i Federationens regelverk och ansvaret ligger på Federationsägare.
+Federationsägare godkänner Deltagare – Kundkännedom och avtal
+Användning av standardiserade komponenter för Federationstjänster.
+Användning av separata och avskilda miljöer (Test, QA, Produktion).
+Tillit och säkerhet för Deltagare till Deltagare
+Styrs av federationens regelverk och ansvaret ligger på Deltagare/Tjänsteleverantörer i federationer utifrån gällande ramverk.
+Samtliga Deltagare måste följa samma gemensamma regelverk för alla Deltagare.
+Deltagare har yttersta ansvaret för den information som skickas via transportinfrastrukturen inom ramen för federation, både som avsändare och mottagare av digitala meddelanden.
+Relationen regleras genom verksamhetsrelationer och verksamhetsavtal mellan Deltagare och tjänsteleverantörer samt Deltagare och Accesspunktsoperatörer.
+Operationell tillit skapas genom teknisk operabilitet och kontinuerlig drift av komponenterna som levererar tjänster till federation och plattform.

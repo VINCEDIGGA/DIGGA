@@ -1,0 +1,153 @@
+CLAUDE ORIGINALSVAR
+
+Status: inte genomfört ännu.
+Datum och tid: 24/10/2026
+Exakt modellnamn som visas i tjänsten: Sonnet 5.5
+Tjänst och eventuell abonnemangsnivå: Free
+Underlag: Både KORT och HELA (välj samma för alla tre):
+Filnamn: DIGGA-RAG-KUNSKAP-ALLT-2026-10-20.txt / UNDERLAG_KORT_2026-10-24.txt
+Filuppladdning accepterad: ja 
+Slutmarkör återgiven: ja (SLUT PÅ GEMENSAMT TESTUNDERLAG 2026-10-24)
+Visade tjänsten en varning om filens storlek eller avkortning:
+Webbsökning: av
+Minne eller personliga instruktioner: av
+Temperatur: ej visad
+Försök nummer: 1
+
+ORIGINALSVAR
+Jag har läst hela det korta underlaget. Nu kontrollerar jag att varje citat jag tänker använda står exakt så i filen.
+
+## FILÅTKOMST
+
+Jag fick två kunskapsfiler: `DIGGA-RAG-KUNSKAP-ALLT-2026-10-20.txt` (1,3 MB) och `UNDERLAG_KORT_2026-10-24.txt` (38 kB). Testprompten talar om en fil, så jag använder **UNDERLAG_KORT_2026-10-24.txt**. Den är det gemensamma urvalet för jämförelsen. Säg till om du menade den stora filen.
+
+Jag har läst hela filen. Den är inte avkortad och går att läsa. Dess sista icke-tomma rad är:
+`SLUT PÅ GEMENSAMT TESTUNDERLAG 2026-10-24.`
+
+Filen säger själv att den är ett urval, inte hela kunskapsbasen. Slutmärket visar bara att filen kom fram hel. Citaten nedan har jag kontrollerat mot filens text.
+
+---
+
+## Q1. Vad behöver vi göra först?
+
+**SVAR:**
+- Börja med ett förarbete. Det gäller vilka verksamheter och informationsutbyten som är aktuella, tekniska vägval och informationssäkerhet.
+- Fatta beslut om att använda SDK och i vilken verksamhet ni börjar.
+- Se till att resurser finns för projektledning, IT, informationssäkerhet och verksamheten.
+
+**KÄLLSTÖD:**
+- SDK:preparation:2 (officiell källkopia): "Därefter är det viktigt att genomföra ett förarbete som fokuserar på vilka verksamheter och informationsutbyten som är aktuella, tekniska vägval och informationssäkerhet."
+- SDK:preparation:6 (officiell källkopia): "Fatta beslut om att använda SDK i organisationen och inom vilken verksamhet det ska införas först."
+
+**BEGRÄNSNING:** Texten är en vägledning med rekommendationer, inte ett krav på ordningen. Urvalet säger inte hur lång tid eller hur mycket resurser en liten kommun behöver.
+
+---
+
+## Q2. Vad är ett O2O-certifikat och varför behövs det?
+
+**SVAR:**
+- O2O är certifikaten som krypterar och signerar innehållet i meddelanden mellan organisationer i SDK.
+- Certifikat behövs för att system ska kunna identifiera varandra och kommunicera säkert.
+- Det är ett SDK-begrepp. Det gäller inte Mina meddelanden.
+
+**KÄLLSTÖD:**
+- SDK:certificates:2 (officiell källkopia): "O2O används som begrepp för de certifikat som används för kryptering och signering av nyttolasten mellan deltagarorganisationer inom SDK."
+- SDK:certificates:1 (officiell källkopia): "Certifikathantering är en grundläggande del av säker kommunikation och krävs för att system inom SDK ska kunna identifiera varandra, utbyta information på ett säkert sätt och upprätthålla tillit mellan parter."
+
+**BEGRÄNSNING:** Citatet om "krävs" gäller certifikat i allmänhet. Urvalet visar inget uttryckligt krav för just er kommun, och ingen exakt regel för O2O i produktion.
+
+---
+
+## Q3. Vad gör kommunen själv och vad kan leverantören göra?
+
+**SVAR:**
+- Kommunen ska se till att rätt certifikat finns och är giltigt. I vissa fall sköter leverantören certifikaten, i andra fall kommunen själv.
+- Enligt anslutningsinstruktionen (QA-miljö) lägger organisationens organisationsadministratör upp det publika O2O-certifikatet i SDK adressbok. Därefter mejlar ni Digg.
+- Frågor att ställa till leverantören finns i en lokal guide (REF:008). Det är en rekommendation, inte en officiell regel.
+
+**KÄLLSTÖD:**
+- SDK:certificates:1 (officiell källkopia): "I vissa fall hanteras certifikat av er leverantör, men i andra fall ansvarar organisationen själv för att certifikat anskaffas och hålls giltiga."
+- SDK:connection-instructions:5 (officiell källkopia): "För att garantera riktighet lämnas O2O-certifikat i SDK adressbok av er organisationsadministratör."
+
+**BEGRÄNSNING:** Materialet säger inte exakt vad just er leverantör kan göra. Det säger inte heller om leverantören får vara organisationsadministratör. Produktionsmiljön beskrivs inte i anslutningsinstruktionen i urvalet.
+
+---
+
+## Q4. Vår systemleverantör stödjer inte SDK. Vad kan vi göra?
+
+**SVAR:**
+- Texten rekommenderar att en organisation med små resurser upphandlar en separat klient för SDK-meddelanden. Funktionen kan senare byggas in i verksamhetssystemen.
+- Vid upphandling kan ni använda Kammarkollegiets ramavtal på avropa.se eller Addas dynamiska inköpssystem. Båda nämns i texten.
+
+**KÄLLSTÖD:**
+- SDK:preparation:5 (officiell källkopia): "Om man inte har stora egna resurser kan det vara bra att börja med SDK genom att upphandla en separat klient för SDK-meddelanden, och på några års sikt arbeta för att få in funktionen i de viktigaste verksamhetssystemen."
+- SDK:preparation:2 (officiell källkopia): "Adda erbjuder ett DIS (dynamiskt inköpssystem) för teknisk anslutning till Säker digital kommunikation"
+
+**BEGRÄNSNING:** Det här är rekommendationer, inte krav. Urvalet säger inte vilka leverantörer som finns eller vad det kostar.
+
+---
+
+## Q5. Hur lång tid har kommunen på sig att fatta beslut om bygglov?
+
+**SVAR:** Frågan kan inte besvaras utifrån filen. Urvalet innehåller inga uppgifter om bygglov, handläggningstider eller beslutsfrister.
+
+**KÄLLSTÖD:** Saknas.
+
+**BEGRÄNSNING:** Filen handlar om SDK och Mina meddelanden. Fristen för bygglov måste kontrolleras i en källa som verkligen gäller den frågan.
+
+---
+
+## Q6. Vad är Mina meddelanden och varför skulle en kommun använda det?
+
+**SVAR:**
+- Mina meddelanden är en infrastruktur för digital post. Den omfattar tjänster hos förmedlare, Digg och brevlådeoperatörer.
+- Offentliga aktörer ansluter för att skicka digital post. Då behövs avtal med Digg och tekniska tester.
+- Varför kommunen skulle använda det kan jag inte besvara. Det finns inget stöd i filen.
+
+**KÄLLSTÖD:**
+- REF:002 (importerad referens, inte sparad officiell källkopia): "Digital post-infrastrukturen, även kallad Mina meddelanden, omfattar tjänster hos förmedlare, Digg och brevlådeoperatörer."
+- SDK:digital-post:1 (officiell källkopia): "För att få skicka digital post via infrastrukturen Mina meddelanden behöver du ha tecknat avtal med Digg"
+
+**BEGRÄNSNING:** Urvalet beskriver inga fördelar eller skäl för kommuner. Mina meddelanden är inte samma sak som SDK.
+
+---
+
+## Q7. Kan kommunen skicka digital post till alla invånare?
+
+**SVAR:**
+- Det kan jag inte avgöra utifrån filen. Den säger inte vilka som kan eller inte kan ta emot digital post.
+- Filen säger bara att avsändaren ska kontrollera mottagarens digitala brevlåda och skicka till rätt brevlåda.
+
+**KÄLLSTÖD:**
+- REF:002 (importerad referens, inte sparad officiell källkopia): "kontrollera mottagarens digitala brevlåda via Recipient och skicka till rätt brevlåda"
+
+**BEGRÄNSNING:** Filen säger inte om alla invånare har en brevlåda, och inte vad som gäller för dem som saknar en. Jag kan inte säga att alla kan eller att vissa inte kan ta emot post.
+
+---
+
+## Q8. Vi har ett O2O-certifikat i fel format. Vad ska vi göra?
+
+**SVAR:**
+- Filen anger inget format och ingen konvertering. Jag kan därför inte säga vad som är fel, och jag har inte sett certifikatet.
+- Fråga leverantören vilket format som krävs och hur byte görs. Det står i en lokal guide (REF:008), som är en rekommendation och inte en officiell regel.
+- Skicka aldrig en privat nyckel eller ett lösenord i chatten. Det gäller även här.
+
+**KÄLLSTÖD:**
+- REF:008 (lokal sammanfattning, inte officiell regel): "fråga leverantören vem som praktiskt skapar, installerar och förvaltar certifikat, vilken testmiljö som används, vilket format som krävs och hur byte eller förnyelse görs."
+- SDK:glossary:7 (officiell källkopia): "Ett certifikat som följer X.509-standarden, men är utfärdat till en organisation med validering av organisationens och firmatecknarens behörighet."
+
+**BEGRÄNSNING:** Urvalet saknar formatkrav, filändelser och felsökning. Det skiljer inte heller på krav i OPEN-TEST, QA och produktion när det gäller format.
+
+---
+
+## Q9. Vem ansvarar för O2O-certifikatet, kommunen eller leverantören?
+
+**SVAR:**
+- Det beror på upplägget. I vissa fall hanterar leverantören certifikaten. I andra fall ansvarar organisationen själv för att anskaffa och förnya dem.
+- Vid förnyelse kan leverantören planera och genomföra arbetet tillsammans med Digg. Då måste kommunen först meddela Digg att leverantören ska installera den privata nyckeln.
+
+**KÄLLSTÖD:**
+- SDK:certificates:1 (officiell källkopia): "I vissa fall hanteras certifikat av er leverantör, men i andra fall ansvarar organisationen själv för att certifikat anskaffas och hålls giltiga."
+- SDK:certificate-renewal:2 (officiell källkopia): "Om ni som deltagarorganisation önskar att er leverantör av meddelandesystem tar hand om installationen av den privata nyckeln i er meddelandetjänst, behöver ni meddela oss på Digg om detta."
+
+**BEGRÄNSNING:** Filen anger inget enkelt svar på vem som är ansvarig. Förnyelsetexten gäller QA och produktion för redan anslutna organisationer. Er konkreta ansvarsfördelning måste framgå av avtalet med leverantören, och det finns inte i materialet.

@@ -1,0 +1,67 @@
+Kontaktvägar för support, incident- och felhantering inom SDK
+Anslutning för deltagarorganisationer/leverantörer av meddelandesystem/accesspunktsoperatörer
+Version: 1.6
+På denna sida kan du läsa information om kontaktvägar för support och incidenthantering.
+1. Support
+1.1 Ansvar
+Federationsägaren är ansvarig för att tillhandahålla kontaktvägar för support, problem- och felhantering samt incidenthantering. Federationsägaren ansvarar för att skicka ut information om servicefönster och information till deltagarorganisationer och anslutna leverantörer.
+1.2 Kontaktvägar vid pågående incidenter och förändringar
+Vid incidenter av allvarlig karaktär publiceras information på sidan Driftsinformation för Säker digital kommunikation. På denna sida kan man prenumerera för att få notifieringar om allvarliga incidenter och förändringar.
+1.3 Användarstöd och förbättringsförslag
+Allmänna frågor, synpunkter och ärenden som gäller SDK skickas till sdk@digg.se.
+1.4 Kontakt via e-post
+För kontakt med SDK förvaltning rekommenderar vi er att kontakta sdk@digg.se. Återkoppling sker vanligtvis inom en arbetsdag.
+1.5 Kontakt via telefon
+Federationsägaren erbjuder möjlighet till kontakt via telefon.
+Support och användarstöd
+Kundservice, Digg
+0771 – 11 44 00
+Öppettider telefon
+Vardagar kl. 9.00-12.00
+Incidenter
+Se information nedan.
+2. Servicefönster
+Servicefönster avser den tid då Federationsägaren kan utföra planerade underhållsåtgärder på SDK:s gemensamma komponenter. Driftstopp i samband med planerat arbete publiceras på sidan Driftsinformation för Säker digital kommunikation. Allvarliga incidenter informeras om på driftstatussidan.
+Deltagarorganisationer och deras leverantörer ska prenumerera på uppdateringar av driftstatussidan via ett RSS-flöde för att säkerställa att de nås av all information som gäller driftstatus.
+3. Fel- och incidenthantering
+När ett fel behöver anmälas på grund av bristande funktionalitet i den infrastruktur Digg tillhandahåller kan detta göras via e-post eller telefon. Se kontaktvägar ovan.
+3.1 Kontrollera befintlig störning
+Innan du gör en felanmälan, kontrollera driftstatus på federationsägarens driftssida för att se om felet kan bero på en pågående driftstörning.
+3.2 Utred felet och kontakta rätt part
+Om ett fel behöver anmälas till federationsägaren, ska detta i de flesta fall göras via den leverantör som tillhandahåller teknisk lösning för SDK. Anledningen till detta är att merparten av tänkbara felkällor ligger i tekniska komponenter som används inom SDK i anslutning mot Diggs centrala tjänster och funktioner.
+Exempel på typer av situationer och kontaktvägar för deltagarorganisationer.
+Kontakta er leverantör av meddelandesystem vid:
+Tekniska fel kopplad till meddelandesystem (meddelandetjänst/meddelandeklient)
+Fel i meddelandeöverföring till en annan deltagarorganisation
+Misstänkt sårbarhet eller säkerhetsbrist i lokala komponenter (MT/MK)
+Kontakta mottagande eller sändande deltagare vid:
+Felaktigt inkomna meddelanden (t.ex. feladresserat)
+Incidenter som kräver felsökning av loggar
+Kontakta er accesspunktsoperatör vid:
+Problem i gemensam infrastruktur (SMP, CertPub)
+Felaktig eller inkorrekt metadata från gemensam infrastruktur
+Misstänkt sårbarhet eller säkerhetsbrist i lokala accesspunkt
+Kontakta federationsägarenvid:
+Problem i gemensam infrastruktur (SMP, CertPub)
+Misstänkt sårbarhet eller säkerhetsbrist i lokala accesspunkt
+Accesspunktsoperatör som inte följer regelverk eller uppfyller åtagande
+Vid väsentliga ändringar i lokala komponenter
+Utred felet så du har en klar bild över vilka brister du vill anmäla.
+Exempel på typer av situationer och kontaktvägar för accesspunktsoperatörer:
+Kontakta federationsägaren vid:
+Problem i gemensam infrastruktur (SMP, CertPub)
+Rapportera sårbarhet eller säkerhetsbrist i lokala accesspunkt
+Incidenter som kräver felsökning av loggar
+För aktuella kontaktuppgifter rörande andra accesspunktsoperatörer, kontakta federationsägaren.
+Exempel på typer av situationer och kontaktvägar för leverantörer av meddelandesystem
+Kontakta federationsägaren vid:
+Problem i gemensam infrastruktur (SDK adressbok)
+Rapportera sårbarhet eller säkerhetsbrist i lokala MT/MK
+Incidenter som kräver felsökning av loggar
+3.3 Personuppgiftsincident
+Allvarliga personuppgiftsincidenter hanterar deltagarorganisationen enligt normala rutiner mot Integritetsskyddsmyndigheten (IMY).
+Kontaktvägar till federationsägaren vid incidenter för accesspunktsoperatörer – alla incidenter
+Kontorstid mellan kl 8.00 - 16.27
+Accesspunktsoperatör kontaktar federationsägarens incidenthantering enligt erhållna kontaktuppgifter vid anslutning som accesspunktsoperatör.
+Ej kontorstid
+Accesspunktsoperatör kontaktar federationsägarens tjänsteman i beredskap (TIB) enligt erhållna kontaktuppgifter vid anslutning som accesspunktsoperatör.

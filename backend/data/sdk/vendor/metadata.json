@@ -1,0 +1,17 @@
+{
+  "name": "Symfony YAML",
+  "url": "https://github.com/symfony/yaml",
+  "branch": "6.4",
+  "version": "6.4.48",
+  "revision": "91288fddb497a598b564343ea663ea272370a7dc",
+  "deprecation_version": "3.7.1",
+  "deprecation_revision": "f3202fa1b5097b0af062dc978b32ecf63404e31d",
+  "php_requirement": ">=8.1",
+  "dependencies": {
+    "symfony/deprecation-contracts": "^2.5|^3; bundled function.php and LICENSE from the pinned 3.7.1 revision",
+    "symfony/polyfill-ctype": "^1.8; ctype functions must be provided by the native extension or a bootstrapped compatibility polyfill"
+  },
+  "license": "MIT",
+  "included_files": "Core runtime classes and LICENSE, including ParserState.php; Symfony Console command, resources and tests are not used or bundled",
+  "purpose": "Parse OpenAPI YAML locally on PHP 8.1+ with object and custom-tag construction disabled; no server Composer installation is required"
+}

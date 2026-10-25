@@ -1,0 +1,363 @@
+{
+  "id": "Q1",
+  "question": "Vi är en liten kommun och vill börja använda SDK. Vad behöver vi göra först?",
+  "http_status": 200,
+  "seconds": 0.06,
+  "response": {
+    "mode": "reviewed_guidance",
+    "answer": "- Börja med verksamhetens behov och vilka informationsutbyten som är aktuella. Involvera ledning, verksamhet, IT och informationssäkerhet i förarbetet.\n\n- Bedöm hur organisationen uppfyller informationssäkerhetskraven i SDK:s regelverk och IT-säkerhetsbilaga. Identifiera luckor och åtgärder även när ni köper en teknisk lösning.\n\n- Bestäm tekniskt vägval och ansvar: ni behöver meddelandetjänst, meddelandeklient och tillgång till en godkänd accesspunkt. Meddelandesystem kan utvecklas internt eller komma från extern leverantör.\n\n- Bestäm deltagaridentiteten och be accesspunktsoperatören bekräfta registreringen i SDK QA:s SMP. Utse användaradministratör som kan tilldela organisations- och adressadministratör.\n\n- Påbörja anslutningen med Diggs formulär och organisations- och kontaktuppgifter. Efter granskning av rätten att ansluta skickar Digg QA-blanketten; samla deltagaridentitet, accesspunktsuppgifter samt meddelandesystemets namn, version och ID till underlaget.\n\n- Planera för QA-testerna. Publikt O2O-certifikat behöver publiceras, funktionsadresser registreras och användare få tillgång till SDK testklient innan ni påbörjar testerna. Samtliga manuella testfall ska markeras i testklienten.",
+    "claims": [
+      {
+        "text": "Börja med verksamhetens behov och vilka informationsutbyten som är aktuella. Involvera ledning, verksamhet, IT och informationssäkerhet i förarbetet.",
+        "kind": "reviewed",
+        "support_check": "reviewed_fact",
+        "evidence": [
+          {
+            "source_id": "preparation",
+            "chunk_id": "snapshot:preparation:L19:fdd27e6271f3",
+            "title": "Förberedelser inför anslutning till SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/vagledningar-och-rekommendationer-infor-anslutning-till-sdk/forberedelser-infor-anslutning-till-sdk",
+            "quote": "Därefter är det viktigt att genomföra ett förarbete som fokuserar på vilka verksamheter och informationsutbyten som är aktuella, tekniska vägval och informationssäkerhet.",
+            "version": "1.5",
+            "last_checked": "2026-10-15",
+            "environment": "alla",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/preparation.txt",
+            "line_start": 19
+          },
+          {
+            "source_id": "preparation",
+            "chunk_id": "snapshot:preparation:L33:cd587cefc6d1",
+            "title": "Förberedelser inför anslutning till SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/vagledningar-och-rekommendationer-infor-anslutning-till-sdk/forberedelser-infor-anslutning-till-sdk",
+            "quote": "Ledning, verksamhet, IT och informationssäkerhet är involverade.",
+            "version": "1.5",
+            "last_checked": "2026-10-15",
+            "environment": "alla",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/preparation.txt",
+            "line_start": 33
+          }
+        ]
+      },
+      {
+        "text": "Bedöm hur organisationen uppfyller informationssäkerhetskraven i SDK:s regelverk och IT-säkerhetsbilaga. Identifiera luckor och åtgärder även när ni köper en teknisk lösning.",
+        "kind": "reviewed",
+        "support_check": "reviewed_fact",
+        "evidence": [
+          {
+            "source_id": "preparation",
+            "chunk_id": "sdk-6",
+            "title": "Förberedelser inför anslutning till SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/vagledningar-och-rekommendationer-infor-anslutning-till-sdk/forberedelser-infor-anslutning-till-sdk",
+            "quote": "Utvärdera hur väl organisationen lever upp till de informationssäkerhetskrav som specificeras i regelverk för deltagarorganisationer inom SDK och IT-säkerhetsbilaga. Identifiera eventuella luckor och behov av åtgärder.",
+            "version": "1.5",
+            "last_checked": "2026-10-15",
+            "environment": "alla",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/preparation.txt",
+            "line_start": 71
+          },
+          {
+            "source_id": "preparation",
+            "chunk_id": "snapshot:preparation:L51:94c5da4f960f",
+            "title": "Förberedelser inför anslutning till SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/vagledningar-och-rekommendationer-infor-anslutning-till-sdk/forberedelser-infor-anslutning-till-sdk",
+            "quote": "Om organisationen väljer att upphandla en färdig teknisk lösning är det kraven på informationssäkerhet som blir det viktigaste att fokusera på.",
+            "version": "1.5",
+            "last_checked": "2026-10-15",
+            "environment": "alla",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/preparation.txt",
+            "line_start": 51
+          }
+        ]
+      },
+      {
+        "text": "Bestäm tekniskt vägval och ansvar: ni behöver meddelandetjänst, meddelandeklient och tillgång till en godkänd accesspunkt. Meddelandesystem kan utvecklas internt eller komma från extern leverantör.",
+        "kind": "reviewed",
+        "support_check": "reviewed_fact",
+        "evidence": [
+          {
+            "source_id": "preparation",
+            "chunk_id": "sdk-6",
+            "title": "Förberedelser inför anslutning till SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/vagledningar-och-rekommendationer-infor-anslutning-till-sdk/forberedelser-infor-anslutning-till-sdk",
+            "quote": "En organisation som vill ansluta till SDK behöver själv utveckla eller anlita en leverantör som tillhandahåller system för meddelandetjänst och meddelandeklient.",
+            "version": "1.5",
+            "last_checked": "2026-10-15",
+            "environment": "alla",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/preparation.txt",
+            "line_start": 64
+          },
+          {
+            "source_id": "connection-journey",
+            "chunk_id": "snapshot:connection-journey:L19:adf49623e299",
+            "title": "Anslutningsresa för deltagarorganisationer",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/anslutningsresa-for-deltagarorganisationer",
+            "quote": "Deltagarorganisationen har anskaffat eller anslutit till en godkänd accesspunkt från en av Diggs godkända accesspunktsoperatörer för plattform för eDelivery.",
+            "version": "1.5.2",
+            "last_checked": "2026-10-15",
+            "environment": "QA/produktion",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/connection-journey.txt",
+            "line_start": 19
+          }
+        ]
+      },
+      {
+        "text": "Bestäm deltagaridentiteten och be accesspunktsoperatören bekräfta registreringen i SDK QA:s SMP. Utse användaradministratör som kan tilldela organisations- och adressadministratör.",
+        "kind": "reviewed",
+        "support_check": "reviewed_fact",
+        "evidence": [
+          {
+            "source_id": "connection-journey",
+            "chunk_id": "snapshot:connection-journey:L34:e4e74cf929a2",
+            "title": "Anslutningsresa för deltagarorganisationer",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/anslutningsresa-for-deltagarorganisationer",
+            "quote": "Deltagarorganisationen har säkerställt att accesspunktsoperatör har registrerat organisationen i Diggs metadatatjänst (SMP) i SDK QA-miljö.",
+            "version": "1.5.2",
+            "last_checked": "2026-10-15",
+            "environment": "QA/produktion",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/connection-journey.txt",
+            "line_start": 34
+          },
+          {
+            "source_id": "connection-instructions",
+            "chunk_id": "snapshot:connection-instructions:L33:808eff7d8256",
+            "title": "Instruktioner för anslutning till SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/instruktioner-for-anslutning-till-sdk",
+            "quote": "Användaradministratörens roll är att tilldela andra i er organisation de roller med tillhörande behörigheter som finns för SDK adressbok - organisationsadministratör och adressadministratör.",
+            "version": null,
+            "last_checked": "2026-10-15",
+            "environment": "QA/produktion",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/connection-instructions.txt",
+            "line_start": 33
+          }
+        ]
+      },
+      {
+        "text": "Påbörja anslutningen med Diggs formulär och organisations- och kontaktuppgifter. Efter granskning av rätten att ansluta skickar Digg QA-blanketten; samla deltagaridentitet, accesspunktsuppgifter samt meddelandesystemets namn, version och ID till underlaget.",
+        "kind": "reviewed",
+        "support_check": "reviewed_fact",
+        "evidence": [
+          {
+            "source_id": "connection-instructions",
+            "chunk_id": "snapshot:connection-instructions:L8:ce4b209df245",
+            "title": "Instruktioner för anslutning till SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/instruktioner-for-anslutning-till-sdk",
+            "quote": "Det gör ni med hjälp av formuläret: Anslutning av deltagarorganisationer till SDK. Ni fyller i organisationsuppgifter samt uppgifter för en kontaktperson hos er.",
+            "version": null,
+            "last_checked": "2026-10-15",
+            "environment": "QA/produktion",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/connection-instructions.txt",
+            "line_start": 8
+          },
+          {
+            "source_id": "connection-instructions",
+            "chunk_id": "snapshot:connection-instructions:L9:8de8945e286d",
+            "title": "Instruktioner för anslutning till SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/instruktioner-for-anslutning-till-sdk",
+            "quote": "Vid ett godkännande återkommer vi med blanketten Anmälan om anslutning till SDK QA-miljö som skickas per mejl till den person ni angett som kontaktperson.",
+            "version": null,
+            "last_checked": "2026-10-15",
+            "environment": "QA/produktion",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/connection-instructions.txt",
+            "line_start": 9
+          },
+          {
+            "source_id": "connection-instructions",
+            "chunk_id": "snapshot:connection-instructions:L52:1698a0cb7da4",
+            "title": "Instruktioner för anslutning till SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/instruktioner-for-anslutning-till-sdk",
+            "quote": "Deltagaridentitet*",
+            "version": null,
+            "last_checked": "2026-10-15",
+            "environment": "QA/produktion",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/connection-instructions.txt",
+            "line_start": 52
+          },
+          {
+            "source_id": "connection-instructions",
+            "chunk_id": "snapshot:connection-instructions:L54:a071612586c4",
+            "title": "Instruktioner för anslutning till SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/instruktioner-for-anslutning-till-sdk",
+            "quote": "Accesspunktsoperatör*",
+            "version": null,
+            "last_checked": "2026-10-15",
+            "environment": "QA/produktion",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/connection-instructions.txt",
+            "line_start": 54
+          },
+          {
+            "source_id": "connection-instructions",
+            "chunk_id": "snapshot:connection-instructions:L56:9522706d76cd",
+            "title": "Instruktioner för anslutning till SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/instruktioner-for-anslutning-till-sdk",
+            "quote": "Accesspunktsidentitet*",
+            "version": null,
+            "last_checked": "2026-10-15",
+            "environment": "QA/produktion",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/connection-instructions.txt",
+            "line_start": 56
+          },
+          {
+            "source_id": "connection-instructions",
+            "chunk_id": "snapshot:connection-instructions:L58:afc24f984b0d",
+            "title": "Instruktioner för anslutning till SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/instruktioner-for-anslutning-till-sdk",
+            "quote": "Meddelandesystem (namn, version och meddelandesystem-ID)",
+            "version": null,
+            "last_checked": "2026-10-15",
+            "environment": "QA/produktion",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/connection-instructions.txt",
+            "line_start": 58
+          }
+        ]
+      },
+      {
+        "text": "Planera för QA-testerna. Publikt O2O-certifikat behöver publiceras, funktionsadresser registreras och användare få tillgång till SDK testklient innan ni påbörjar testerna. Samtliga manuella testfall ska markeras i testklienten.",
+        "kind": "reviewed",
+        "support_check": "reviewed_fact",
+        "evidence": [
+          {
+            "source_id": "connection-instructions",
+            "chunk_id": "snapshot:connection-instructions:L99:083b865c2d81",
+            "title": "Instruktioner för anslutning till SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/instruktioner-for-anslutning-till-sdk",
+            "quote": "När certifikatet är publicerat av oss, er(a) adressadministratör(er) har registrerat funktionsadresser i SDK adressbok och er(a) användare fått tillgång till SDK testklient är ni redo att påbörja testerna.",
+            "version": null,
+            "last_checked": "2026-10-15",
+            "environment": "QA/produktion",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/connection-instructions.txt",
+            "line_start": 99
+          },
+          {
+            "source_id": "qa-tests",
+            "chunk_id": "snapshot:qa-tests:L5:7ffe3be06027",
+            "title": "Testfall deltagarorganisation för federationsgodkännande SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/testfall-deltagarorganisation-for-federationsgodkannande-sdk",
+            "quote": "Testfallen utförs i SDK QA-miljö och förutsätter att deltagarorganisationen följer de regler och specifikationer som finns för miljön.",
+            "version": null,
+            "last_checked": "2026-10-15",
+            "environment": "QA",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/qa-tests.txt",
+            "line_start": 5
+          },
+          {
+            "source_id": "qa-tests",
+            "chunk_id": "snapshot:qa-tests:L9:53eae964bc2f",
+            "title": "Testfall deltagarorganisation för federationsgodkännande SDK",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/testfall-deltagarorganisation-for-federationsgodkannande-sdk",
+            "quote": "Samtliga manuella testfall ska markeras som genomförda i SDK testklient under fliken \"Nytt anslutningstest\".",
+            "version": null,
+            "last_checked": "2026-10-15",
+            "environment": "QA",
+            "role": "deltagarorganisation",
+            "evidence_origin": "official_snapshot",
+            "provenance": "official_snapshot_body",
+            "snapshot_path": "backend/data/sdk/snapshots/qa-tests.txt",
+            "line_start": 9
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "preparation",
+        "source_id": "preparation",
+        "title": "Förberedelser inför anslutning till SDK",
+        "service": "SDK",
+        "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/vagledningar-och-rekommendationer-infor-anslutning-till-sdk/forberedelser-infor-anslutning-till-sdk",
+        "version": "1.5",
+        "last_checked": "2026-10-15",
+        "environment": "alla",
+        "role": "deltagarorganisation"
+      },
+      {
+        "id": "connection-journey",
+        "source_id": "connection-journey",
+        "title": "Anslutningsresa för deltagarorganisationer",
+        "service": "SDK",
+        "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/anslutningsresa-for-deltagarorganisationer",
+        "version": "1.5.2",
+        "last_checked": "2026-10-15",
+        "environment": "QA/produktion",
+        "role": "deltagarorganisation"
+      },
+      {
+        "id": "connection-instructions",
+        "source_id": "connection-instructions",
+        "title": "Instruktioner för anslutning till SDK",
+        "service": "SDK",
+        "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/instruktioner-for-anslutning-till-sdk",
+        "version": null,
+        "last_checked": "2026-10-15",
+        "environment": "QA/produktion",
+        "role": "deltagarorganisation"
+      },
+      {
+        "id": "qa-tests",
+        "source_id": "qa-tests",
+        "title": "Testfall deltagarorganisation för federationsgodkännande SDK",
+        "service": "SDK",
+        "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-deltagarorganisationer/anslut-som-deltagarorganisation/testfall-deltagarorganisation-for-federationsgodkannande-sdk",
+        "version": null,
+        "last_checked": "2026-10-15",
+        "environment": "QA",
+        "role": "deltagarorganisation"
+      }
+    ],
+    "verification": {
+      "status": "reviewed",
+      "checked_claims": 6,
+      "omitted_claims": 0,
+      "semantic_check": "not_used",
+      "notice": "Förhandsgranskade vägledningspunkter med ordagranna utdrag ur sparade officiella källor. Ingen semantisk modellkontroll har använts. Detta är vägledning, inte Diggs godkännande eller en kontroll av er faktiska anslutning."
+    },
+    "missing_information": []
+  }
+}

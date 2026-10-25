@@ -1,0 +1,166 @@
+.organization-lookup {
+  display: grid;
+  align-content: start;
+  gap: 0.35rem;
+  min-width: 0;
+  font-family: var(--font, Ubuntu, "Helvetica Neue", sans-serif);
+}
+
+/* Help text must not stretch the neighbouring organisation-number input. */
+.context-grid:has(> .organization-lookup) {
+  align-items: start;
+}
+
+.organization-lookup [hidden] {
+  display: none !important;
+}
+
+.organization-lookup > label {
+  margin: 0;
+}
+
+.organization-lookup-control {
+  position: relative;
+  min-width: 0;
+}
+
+.organization-lookup-control:focus-within {
+  z-index: 20;
+}
+
+.organization-lookup-control > input {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  font: inherit;
+}
+
+.organization-lookup-control > input:focus-visible {
+  border-color: var(--accent, #546850);
+  outline: 3px solid rgba(84, 104, 80, 0.25);
+  outline-offset: 1px;
+}
+
+.organization-suggestions {
+  position: absolute;
+  z-index: 30;
+  inset-inline: 0;
+  top: calc(100% + 0.3rem);
+  width: 100%;
+  max-width: 100%;
+  max-height: 18rem;
+  max-height: min(18rem, 45vh);
+  margin: 0;
+  padding: 0.25rem 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  list-style: none;
+  border: 1px solid #aab7a5;
+  border-radius: var(--radius, 2px);
+  background: var(--panel, #fff);
+  box-shadow: 0 6px 18px rgba(36, 52, 38, 0.16);
+}
+
+.organization-suggestions [role="option"] {
+  min-height: 3.15rem;
+  padding: 0.65rem 0.75rem;
+  border-inline-start: 3px solid transparent;
+  color: var(--text, #2b2a28);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.organization-suggestions [role="option"] + [role="option"] {
+  border-top: 1px solid var(--line, #e8e8e8);
+}
+
+.organization-suggestions [role="option"] strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.organization-suggestions [role="option"] span {
+  display: block;
+  margin-top: 0.15rem;
+  color: #566154;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.organization-suggestions [role="option"]:hover {
+  background: #f3f6ef;
+}
+
+.organization-suggestions [role="option"].is-active,
+.organization-suggestions [role="option"][aria-selected="true"],
+.organization-suggestions [role="option"]:focus-visible {
+  border-inline-start-color: var(--accent, #546850);
+  background: var(--accent-soft, #eef0ed);
+  outline: 2px solid var(--accent, #546850);
+  outline-offset: -2px;
+}
+
+.organization-lookup-help,
+.organization-lookup-status,
+.organization-lookup-source {
+  margin: 0;
+  color: #566154;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.organization-lookup-status {
+  color: var(--text, #2b2a28);
+}
+
+.organization-lookup-status:empty,
+.organization-lookup-source:empty {
+  display: none;
+}
+
+.organization-lookup-replace {
+  justify-self: start;
+  max-width: 100%;
+  min-height: 2.55rem;
+  margin: 0.15rem 0;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  white-space: normal;
+  text-align: start;
+}
+
+.organization-lookup-replace:focus-visible,
+.organization-lookup-source a:focus-visible {
+  outline: 3px dotted var(--focus-color, #2b2a28);
+  outline-offset: 3px;
+}
+
+.organization-lookup-source a {
+  color: var(--accent, #546850);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.organization-lookup-source small {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: inherit;
+}
+
+@media (max-width: 700px) {
+  .organization-suggestions {
+    max-height: 14rem;
+    max-height: min(14rem, 40vh);
+  }
+
+  .organization-suggestions [role="option"] {
+    min-height: 3.4rem;
+  }
+}

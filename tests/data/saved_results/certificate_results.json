@@ -1,0 +1,493 @@
+{
+  "kind": "Historical saved local endpoint test; identity metadata removed from the publication copy",
+  "case_count": 9,
+  "passed_expectations": 8,
+  "input_difference": "Historical C2 used the supplied expired public certificate. The portable rerunner generates an expired synthetic public certificate instead.",
+  "scope": "Fixed-rule/OpenSSL API checks, separate from language-model scoring and from browser upload controls",
+  "known_deviation": "C4 produced non-JSON output because an OpenSSL warning preceded the structured response. It remains a failed expectation.",
+  "limits": [
+    "Does not establish certificate-chain trust, revocation status, organisation ownership or SDK approval.",
+    "Dummy private-key/PFX markers test rejection of those markers; they are not complete real key packages.",
+    "The stored and trust_verified fields are reported flags, not an independent audit of logging or storage."
+  ],
+  "results": [
+    {
+      "id": "C1",
+      "label": "Publikt självsignerat certifikat inom giltighetstiden",
+      "input_sha256": "79068c6768203547cbf602b0b78a88b3a813f8ffb479324ae265fe1159273d0a",
+      "input_bytes": 1029,
+      "expected": {
+        "http": 200,
+        "valid": true,
+        "failed_rule": null
+      },
+      "http": 200,
+      "valid_json": true,
+      "matches_expectation": true,
+      "response": {
+        "valid": true,
+        "checks": [
+          {
+            "id": "pem-public",
+            "label": "Publikt PEM-certifikat",
+            "status": "pass",
+            "message": "Ett publikt PEM-certifikat har lästs."
+          },
+          {
+            "id": "x509-parse",
+            "label": "X.509 kan läsas",
+            "status": "pass",
+            "message": "X.509-metadata kan läsas."
+          },
+          {
+            "id": "certificate-dates",
+            "label": "Giltighetsperiod",
+            "status": "pass",
+            "message": "Certifikatet är inom sin angivna giltighetsperiod."
+          }
+        ],
+        "issues": [],
+        "normalized": {
+          "valid_from": "2026-10-24T11:57:54+00:00",
+          "valid_to": "2026-11-24T11:57:54+00:00",
+          "days_remaining": 30,
+          "signature_algorithm": "RSA-SHA256",
+          "public_key_bits": 2048,
+          "key_usage": null,
+          "stored": false,
+          "trust_verified": false
+        },
+        "coverage": {
+          "summary": "Endast metadata i ett publikt PEM X.509-certifikat läses i minnet. Innehållet sparas inte och skickas inte till en språkmodell.",
+          "level": "lokal förhandskontroll",
+          "xsd": false,
+          "schematron": false,
+          "implemented_rules": [
+            "pem-public",
+            "x509-parse",
+            "certificate-dates"
+          ],
+          "exclusions": [
+            "Certifikatkedjans tillit",
+            "Återkallelse/OCSP/CRL",
+            "Koppling till deltagaridentitet",
+            "Verifiering av godkänd utfärdare i vald miljö",
+            "Privat nyckel",
+            "Federationsgodkännande"
+          ]
+        },
+        "source_urls": [
+          "https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat"
+        ]
+      }
+    },
+    {
+      "id": "C2",
+      "label": "Tillhandahållet exempelcertifikat med passerat slutdatum",
+      "input_sha256": "1272e95e71974aa20a484e1e6c24f307833788b8a6ce8487a9afbe7eaf4633f2",
+      "input_bytes": 2389,
+      "expected": {
+        "http": 200,
+        "valid": false,
+        "failed_rule": "certificate-dates"
+      },
+      "http": 200,
+      "valid_json": true,
+      "matches_expectation": true,
+      "response": {
+        "valid": false,
+        "checks": [
+          {
+            "id": "pem-public",
+            "label": "Publikt PEM-certifikat",
+            "status": "pass",
+            "message": "Ett publikt PEM-certifikat har lästs."
+          },
+          {
+            "id": "x509-parse",
+            "label": "X.509 kan läsas",
+            "status": "pass",
+            "message": "X.509-metadata kan läsas."
+          },
+          {
+            "id": "certificate-dates",
+            "label": "Giltighetsperiod",
+            "status": "fail",
+            "message": "Certifikatet är utgånget eller har ännu inte börjat gälla."
+          }
+        ],
+        "issues": [
+          {
+            "path": "/",
+            "severity": "error",
+            "message": "Certifikatet är utgånget eller har ännu inte börjat gälla.",
+            "rule": "certificate-dates",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat"
+          }
+        ],
+        "normalized": {
+          "valid_from": "2024-06-25T11:44:12+00:00",
+          "valid_to": "2026-06-25T21:50:00+00:00",
+          "days_remaining": -122,
+          "signature_algorithm": "RSA-SHA512",
+          "public_key_bits": 3072,
+          "key_usage": "Digital Signature, Key Encipherment",
+          "stored": false,
+          "trust_verified": false
+        },
+        "coverage": {
+          "summary": "Endast metadata i ett publikt PEM X.509-certifikat läses i minnet. Innehållet sparas inte och skickas inte till en språkmodell.",
+          "level": "lokal förhandskontroll",
+          "xsd": false,
+          "schematron": false,
+          "implemented_rules": [
+            "pem-public",
+            "x509-parse",
+            "certificate-dates"
+          ],
+          "exclusions": [
+            "Certifikatkedjans tillit",
+            "Återkallelse/OCSP/CRL",
+            "Koppling till deltagaridentitet",
+            "Verifiering av godkänd utfärdare i vald miljö",
+            "Privat nyckel",
+            "Federationsgodkännande"
+          ]
+        },
+        "source_urls": [
+          "https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat"
+        ]
+      }
+    },
+    {
+      "id": "C3",
+      "label": "Publikt certifikat med giltighetsstart i framtiden",
+      "input_sha256": "4a262ac3c8e4b56455022ce9ace52428e41c195028d0478a1198a21a6c5a6178",
+      "input_bytes": 1029,
+      "expected": {
+        "http": 200,
+        "valid": false,
+        "failed_rule": "certificate-dates"
+      },
+      "http": 200,
+      "valid_json": true,
+      "matches_expectation": true,
+      "response": {
+        "valid": false,
+        "checks": [
+          {
+            "id": "pem-public",
+            "label": "Publikt PEM-certifikat",
+            "status": "pass",
+            "message": "Ett publikt PEM-certifikat har lästs."
+          },
+          {
+            "id": "x509-parse",
+            "label": "X.509 kan läsas",
+            "status": "pass",
+            "message": "X.509-metadata kan läsas."
+          },
+          {
+            "id": "certificate-dates",
+            "label": "Giltighetsperiod",
+            "status": "fail",
+            "message": "Certifikatet är utgånget eller har ännu inte börjat gälla."
+          }
+        ],
+        "issues": [
+          {
+            "path": "/",
+            "severity": "error",
+            "message": "Certifikatet är utgånget eller har ännu inte börjat gälla.",
+            "rule": "certificate-dates",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat"
+          }
+        ],
+        "normalized": {
+          "valid_from": "2026-11-01T11:57:54+00:00",
+          "valid_to": "2026-12-01T11:57:54+00:00",
+          "days_remaining": 37,
+          "signature_algorithm": "RSA-SHA256",
+          "public_key_bits": 2048,
+          "key_usage": null,
+          "stored": false,
+          "trust_verified": false
+        },
+        "coverage": {
+          "summary": "Endast metadata i ett publikt PEM X.509-certifikat läses i minnet. Innehållet sparas inte och skickas inte till en språkmodell.",
+          "level": "lokal förhandskontroll",
+          "xsd": false,
+          "schematron": false,
+          "implemented_rules": [
+            "pem-public",
+            "x509-parse",
+            "certificate-dates"
+          ],
+          "exclusions": [
+            "Certifikatkedjans tillit",
+            "Återkallelse/OCSP/CRL",
+            "Koppling till deltagaridentitet",
+            "Verifiering av godkänd utfärdare i vald miljö",
+            "Privat nyckel",
+            "Federationsgodkännande"
+          ]
+        },
+        "source_urls": [
+          "https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat"
+        ]
+      }
+    },
+    {
+      "id": "C4",
+      "label": "PEM-markeringar med skadat certifikatinnehåll",
+      "input_sha256": "4da73daf6d3478607913ca88de2238eb6d3f0a9db6967e574df9454776a46faa",
+      "input_bytes": 62,
+      "expected": {
+        "http": 200,
+        "valid": false,
+        "failed_rule": "x509-parse"
+      },
+      "http": 200,
+      "valid_json": false,
+      "matches_expectation": false,
+      "response": {}
+    },
+    {
+      "id": "C5",
+      "label": "Vanlig text utan PEM-markeringar",
+      "input_sha256": "1c0ceeb223add73ffd0d7a7906e6328f3f6faf00ae1da5036ff50ada43785062",
+      "input_bytes": 30,
+      "expected": {
+        "http": 200,
+        "valid": false,
+        "failed_rule": "pem-public"
+      },
+      "http": 200,
+      "valid_json": true,
+      "matches_expectation": true,
+      "response": {
+        "valid": false,
+        "checks": [
+          {
+            "id": "pem-public",
+            "label": "Publikt PEM-certifikat",
+            "status": "fail",
+            "message": "Exportera den publika delen som ett enda PEM X.509-certifikat med BEGIN CERTIFICATE."
+          }
+        ],
+        "issues": [
+          {
+            "path": "/",
+            "severity": "error",
+            "message": "Exportera den publika delen som ett enda PEM X.509-certifikat med BEGIN CERTIFICATE.",
+            "rule": "pem-public",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat"
+          }
+        ],
+        "normalized": null,
+        "coverage": {
+          "summary": "Endast metadata i ett publikt PEM X.509-certifikat läses i minnet. Innehållet sparas inte och skickas inte till en språkmodell.",
+          "level": "lokal förhandskontroll",
+          "xsd": false,
+          "schematron": false,
+          "implemented_rules": [
+            "pem-public"
+          ],
+          "exclusions": [
+            "Certifikatkedjans tillit",
+            "Återkallelse/OCSP/CRL",
+            "Koppling till deltagaridentitet",
+            "Verifiering av godkänd utfärdare i vald miljö",
+            "Privat nyckel",
+            "Federationsgodkännande"
+          ]
+        },
+        "source_urls": [
+          "https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat"
+        ]
+      }
+    },
+    {
+      "id": "C6",
+      "label": "Ofarlig testtext med markering för privat nyckel",
+      "input_sha256": "29a476e648a54b7141bfd22e63afd717698d1b73a7017f45dad58136346903b0",
+      "input_bytes": 76,
+      "expected": {
+        "http": 200,
+        "valid": false,
+        "failed_rule": "public-only"
+      },
+      "http": 200,
+      "valid_json": true,
+      "matches_expectation": true,
+      "response": {
+        "valid": false,
+        "checks": [
+          {
+            "id": "public-only",
+            "label": "Endast publikt certifikat",
+            "status": "fail",
+            "message": "Privata nycklar och nyckelpaket får inte användas här. Välj endast ett publikt PEM-certifikat."
+          }
+        ],
+        "issues": [
+          {
+            "path": "/",
+            "severity": "error",
+            "message": "Privata nycklar och nyckelpaket får inte användas här. Välj endast ett publikt PEM-certifikat.",
+            "rule": "public-only",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat"
+          }
+        ],
+        "normalized": null,
+        "coverage": {
+          "summary": "Endast metadata i ett publikt PEM X.509-certifikat läses i minnet. Innehållet sparas inte och skickas inte till en språkmodell.",
+          "level": "lokal förhandskontroll",
+          "xsd": false,
+          "schematron": false,
+          "implemented_rules": [
+            "public-only"
+          ],
+          "exclusions": [
+            "Certifikatkedjans tillit",
+            "Återkallelse/OCSP/CRL",
+            "Koppling till deltagaridentitet",
+            "Verifiering av godkänd utfärdare i vald miljö",
+            "Privat nyckel",
+            "Federationsgodkännande"
+          ]
+        },
+        "source_urls": [
+          "https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat"
+        ]
+      }
+    },
+    {
+      "id": "C7",
+      "label": "Ofarlig testtext med PFX-paketmarkering",
+      "input_sha256": "883e1837bae7da4653365c2022f981ca504c570130eeed3e2e122fa361a2e327",
+      "input_bytes": 60,
+      "expected": {
+        "http": 200,
+        "valid": false,
+        "failed_rule": "public-only"
+      },
+      "http": 200,
+      "valid_json": true,
+      "matches_expectation": true,
+      "response": {
+        "valid": false,
+        "checks": [
+          {
+            "id": "public-only",
+            "label": "Endast publikt certifikat",
+            "status": "fail",
+            "message": "Privata nycklar och nyckelpaket får inte användas här. Välj endast ett publikt PEM-certifikat."
+          }
+        ],
+        "issues": [
+          {
+            "path": "/",
+            "severity": "error",
+            "message": "Privata nycklar och nyckelpaket får inte användas här. Välj endast ett publikt PEM-certifikat.",
+            "rule": "public-only",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat"
+          }
+        ],
+        "normalized": null,
+        "coverage": {
+          "summary": "Endast metadata i ett publikt PEM X.509-certifikat läses i minnet. Innehållet sparas inte och skickas inte till en språkmodell.",
+          "level": "lokal förhandskontroll",
+          "xsd": false,
+          "schematron": false,
+          "implemented_rules": [
+            "public-only"
+          ],
+          "exclusions": [
+            "Certifikatkedjans tillit",
+            "Återkallelse/OCSP/CRL",
+            "Koppling till deltagaridentitet",
+            "Verifiering av godkänd utfärdare i vald miljö",
+            "Privat nyckel",
+            "Federationsgodkännande"
+          ]
+        },
+        "source_urls": [
+          "https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat"
+        ]
+      }
+    },
+    {
+      "id": "C8",
+      "label": "Två publika certifikat i samma indata",
+      "input_sha256": "f2094099ec6c03ac7521f6504e75a634d280c5b7024dc47b6f89418130ddd8f5",
+      "input_bytes": 2058,
+      "expected": {
+        "http": 200,
+        "valid": false,
+        "failed_rule": "pem-public"
+      },
+      "http": 200,
+      "valid_json": true,
+      "matches_expectation": true,
+      "response": {
+        "valid": false,
+        "checks": [
+          {
+            "id": "pem-public",
+            "label": "Publikt PEM-certifikat",
+            "status": "fail",
+            "message": "Exportera den publika delen som ett enda PEM X.509-certifikat med BEGIN CERTIFICATE."
+          }
+        ],
+        "issues": [
+          {
+            "path": "/",
+            "severity": "error",
+            "message": "Exportera den publika delen som ett enda PEM X.509-certifikat med BEGIN CERTIFICATE.",
+            "rule": "pem-public",
+            "source_url": "https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat"
+          }
+        ],
+        "normalized": null,
+        "coverage": {
+          "summary": "Endast metadata i ett publikt PEM X.509-certifikat läses i minnet. Innehållet sparas inte och skickas inte till en språkmodell.",
+          "level": "lokal förhandskontroll",
+          "xsd": false,
+          "schematron": false,
+          "implemented_rules": [
+            "pem-public"
+          ],
+          "exclusions": [
+            "Certifikatkedjans tillit",
+            "Återkallelse/OCSP/CRL",
+            "Koppling till deltagaridentitet",
+            "Verifiering av godkänd utfärdare i vald miljö",
+            "Privat nyckel",
+            "Federationsgodkännande"
+          ]
+        },
+        "source_urls": [
+          "https://www.digg.se/saker-digital-kommunikation/sdk-for-leverantorer-av-meddelandesystem/anslut-som-leverantor-av-meddelandesystem/anslutningsresa-for-leverantorer-av-meddelandesystem/anslutningsinformation-certifikat"
+        ]
+      }
+    },
+    {
+      "id": "C9",
+      "label": "Tom indata",
+      "input_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "input_bytes": 0,
+      "expected": {
+        "http": 422,
+        "valid": null,
+        "failed_rule": null
+      },
+      "http": 422,
+      "valid_json": true,
+      "matches_expectation": true,
+      "response": {
+        "error": "Lägg till ett dokument eller välj ett exempel."
+      }
+    }
+  ]
+}

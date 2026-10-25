@@ -535,6 +535,8 @@ body.underlag-page .context-header .eyebrow,
 .underlag-hero {
   position: relative;
   display: grid;
+  /* The scrolling guide shell must keep the full content height of its header. */
+  flex-shrink: 0;
   grid-template-columns: minmax(0, 1fr) minmax(11rem, 16.5rem);
   align-items: stretch;
   overflow: hidden;
@@ -569,6 +571,8 @@ body.guide-page .guide-intake-wrap:has(#guide-intake[hidden]) {
 .underlag-hero-copy {
   position: relative;
   z-index: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
   padding: 0.7rem 1.5rem 0.75rem;
 }
 

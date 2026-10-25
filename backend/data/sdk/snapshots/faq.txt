@@ -1,0 +1,390 @@
+Frågor och svar om SDK
+Anslutning för deltagarorganisationer
+När din organisation ska ansluta till SDK är det vanligt att det uppstår frågor och funderingar. På denna sida försöker vi svara på några av dem.
+På denna sida hittar du FAQ:er uppdelade i olika kategorier. Förhoppningsvis svarar de på de frågor du har inför anslutningen till Säker digital kommunikation (SDK). Har du fler frågor är du välkommen att kontakta oss via e-post på sdk@digg.se
+Ordlista för Säker digital kommunikation
+Det finns många ord och begrepp som kan vara svåra att förstå när man läser om Säker digital kommunikation. Därför har vi sammanställt en ordlista som förklarar många av dem. Läs mer på länken nedan.
+Ordlista för Säker digital kommunikation
+FAQ Vad är SDK?
+Vem är huvudansvarig för SDK-tjänsten?
+Digg ansvarar för tjänsten SDK, och är så kallad federationsägare.
+Vad är SDK produktionsmiljö?
+SDK produktionsmiljö är en driftsmiljö som tillhandahålls av Digg som SDK federationsägare. SDK produktionsmiljö stödjer informationsutbyte av uppgifter klassade upp till, och innefattande, konsekvensnivån allvarlig enligt Myndigheten för samhällsskydd och beredskaps (MSB) modell för klassificering av information. Testdata får inte förekomma i SDK produktionsmiljö.
+Vad är eDelivery och varför har det valts som grund för SDK?
+eDelivery är ett byggblock framtaget av EU-kommissionens finansieringsprogram Connecting Europe Facility (CEF).
+eDelivery syftar till att utgöra ett generellt byggblock för säker och robust överföring av dokument och data över internet mellan offentliga och privata organisationer samt medborgare. Informationsöverföring med eDelivery sker på ett standardiserat, säkert, tillförlitligt och tryggt sätt och följer en s.k. fyrhörningsmodell.
+I Sverige ansvarar Myndigheten för digital förvaltning, Digg, för plattform för eDelivery.
+Inom vilka användningsområden är det tänkt att SDK ska tillämpas?
+Nivån på informationssäkerhet inom SDK är dimensionerad för att tillgodose skyddsnivå allvarlig enligt informationsklassningsmodell som tillhandahålls i Myndigheten för Samhällsskydd och Beredskaps (MSB) metodstöd för systematiskt informationssäkerhetsarbete. Det innebär att SDK uppfyller den säkerhetsnivå som krävs för att utbyta sekretessbelagd information som kan innehålla integritetskänsliga och känsliga personuppgifter.
+Går det att skicka säkerhetsklassad dokumentation kopplat till t.ex. upphandling via SDK?
+Ja, det är endast dokument eller information som är klassad med högre känslighetsgrad än konsekvensnivå allvarlig enligt MSB:s modell som inte ska skickas via SDK. Det innebär att information kopplad till rikets säkerhet inte får skickas via SDK.
+Exempel på information som SDK är tänkt att användas för regleras t ex i:
+OSL – Offentlighets- och sekretesslagen ​
+PDL – Patientdatalagen​
+GDPR – Dataskyddsförordningen (The General Data Protection Regulation)​
+SoLPUL – Lag (2001:454) om behandling av personuppgifter inom socialtjänsten​
+SDK ska däremot inte användas för information som lyder under säkerhetsskyddslagen.
+Går det att konfigurera någon funktion i meddelandeklienten som sorterar/ klassificerar information, som kommer in via SDK, till den egna organisationen?
+Nej, det är upp till varje organisation att kravställa funktionaliteten i respektive meddelandeklient, lära ut användningen av SDK och säkerställa vem som får behörighet till vilka funktionsbrevlådor internt och därmed behörighet att ta del av de meddelanden som kommer in.
+Vilka filformat stöds i tjänsten och hur stora informationsmängder går det att skicka
+SDK:s specifikationer stödjer alla typer av bilagor. Det finns dock en storleksgräns på 30 MB för ett SDK-meddelande inklusive bilagor.
+När det gäller storlek på informationsmängderna, kan eDelivery, som SDK bygger på, hantera större filer och Digg kravställer i dagsläget att en Accesspunktsoperatör ska kunna hantera 100 MB. Det går alltså att öka storleken på SDK-meddelanden i en framtida utveckling av tjänsten, vilket kan bli aktuellt utifrån deltagarorganisationernas behov och förutsättningar att hantera större meddelanden och bilagor.
+Går det att skicka flera bilagor i samma SDK-meddelande? Hur stora filer kan då skickas?
+Ja, det går att skicka flera dokument, dvs bilagor i samma meddelande. Det beskrivs i teknisk specifikation SDK Innehållsspecifikation - Meddelande.
+Storleksbegränsningen om 30 MB gäller hela meddelandet, dvs meddelandet inklusive alla bilagor. Begränsningen är satt för att alla parter ska kunna hantera denna typ av meddelanden.
+Hur är det tänkt kring namnsättningen på det som skickas?
+Namnsättning på filnivå är inte definierat i SDK-meddelande eftersom det handlar om ostrukturerat innehåll i meddelandet. Man kan utbyta SDK-meddelanden inom många olika verksamhetsområden och med många olika bilagor.
+Om behov finns kan man komma överens mellan sändare och mottagare om meddelanderubriken i SDK-meddelanden.
+För varje dokument som bifogas är det filnamnet som används som identifierare.
+Kan man markera ett meddelande som brådskande?
+Nej, i nuläget finns inget specifikt attribut (fält) för det i meddelandetyp SDK-meddelande. Sändare kan ange att något är brådskande genom att skriva det i ärenderubriken.
+Behov har lyfts av att kunna ange prioritet för meddelande, men man behöver då komma överens om ett gemensamt regelverk för hur prioritet sätts. Det är möjligt att ta fram nya meddelandetyper i SDK som stödjer ytterligare fält.
+Vad händer om mottagaren inte finns tillgänglig i SDK Adressbok?
+|
+Det krävs att både avsändare och mottagare är anslutna till SDK och därmed SDK Adressbok för att mottagande respektive avsändande funktionsbrevlåda ska vara registrerade och kunna använda tjänsten.
+Stöder SDK intern meddelandeöverföring?
+Ja, alla anslutna organisationer kan använda SDK för att skicka meddelande internt inom organisationen om så önskas. Tänk på att de funktionsadresser som används internt även är synliga för alla andra anslutna organisationer och ska kunna ta emot meddelanden även från externa parter.
+Meddelanden i SDK kan endast skickas till funktionsbrevlådor men man kan lägga till en enskild person som referens. Vad innebär det i praktiken?
+Det innebär att man endast kan skapa adresser för och skicka meddelanden till/från funktionsadresser, men referera till ett specifikt ärende eller en individ i ett meddelande.
+I specifikationen för meddelandetyp SDK-meddelande finns det ett fält för referens som är ett fritextfält där man kan ange ärendenummer, en specifik individ eller liknande. Det innebär att den tekniska lösningen som organisationen valt för att använda SDK behöver ha stöd för att hantera ett referensfält.
+Kan andra personer än referenspersonen läsa meddelandet?
+Funktionsadresserna hanteras på samma sätt som andra funktionsbrevlådor, d v s att man lokalt tilldelar behörighet till de som har rätt att ta del av meddelanden som inkommer till just den adressen.
+Endast de personer som har behörighet till respektive funktionsadress kan ta del av meddelanden som inkommer. Detta är oavsett vilken eventuell referensperson som sändaren skrivit in i referensfältet.
+Kan man skicka meddelandet med både avsändarens och mottagarens referens?
+Man kan ange bådas referens. Det finns fält för detta i SDK-meddelandet. Om en part anger sitt referensid, måste mottagande part skicka tillbaka det till sändaren. Mottagaren kan också skicka sitt referensid och ursprunglig sändare måste då visa det för sina användare. Det är frivilligt att använda fältet i befintliga SDK-meddelanden.
+Varje meddelande har även ett unikt tekniskt meddelande-id, som parterna i sina SDK-lösningar kan välja att använda i sina interna system för att ha kontroll över meddelandeutbytet. Det beskrivs i specifikation för meddelandetypen, se SDK Innehållsspecifikation - Meddelande.
+Om flera användare har behörighet till en funktionsbrevlåda i SDK och kan läsa ett SDK-meddelande, finns det då loggar på vem som har läst ett meddelande?
+Ja, men deltagarorganisationen behöver själv se till att den tekniska lösning man använder för att skicka och ta emot meddelanden loggar vem, av de användare som har behörighet till funktionsbrevlådan, som hanterar meddelanden.
+Kan svar skickas till avsändaren utan att andra har möjlighet att läsa meddelandet? Kan man välja om svaret ska skickas till funktionsbrevlåda eller enskild person?
+Nej, meddelanden som skickas och tas emot via SDK kan endast skickas och tas emot via de funktionsadresser som finns registrerade i SDK Adressbok. Eftersom SDK-meddelanden endast skickas och tas emot via funktionsadresser kan man inte skicka ett svar till en enskild person.
+Transportkvittenser, som ska skickas när ett meddelande har kommit till mottagande deltagarorganisations accesspunkt, har man pratat om och är alla införstådda med att en sådan kvittens inte är att likställa med att handlingen anses som inkommen?
+Det finns två olika tekniska kvittenser i SDK:
+När mottagande organisations accesspunkt har tagit emot sändande organisations meddelande.
+När mottagande organisations meddelandetjänst har dekrypterat meddelandet.
+I båda fallen anses meddelandet expedierat och inkommen hos mottagande deltagarorganisation.
+Är tanken att innehållet/datan ska stanna hos Digg den tid som det tar för mottagaren att öppna sitt meddelande?
+SDK-meddelandet och dess innehåll (“datan”) som överförs stannar inte hos Digg eftersom överföringen sker direkt från avsändande organisations accesspunkt till mottagande organisations accesspunkt.
+Däremot behöver gemensamma tjänster hos Digg finnas för att sändaren och mottagaren ska kunna hitta och adressera varandra i SDK-federationen:
+SDK Adressbok (hos Digg) för att kunna hitta mottagande organisations funktionsadress
+SMP och SML (hos Digg) för att lokalisera mottagande organisations accesspunkt.
+Varför bygger man inte ett klientkoncept centralt? Varför innehåller inte SDK även en meddelandeklient för användarna?
+SKR/Inera och Digg beslutade tidigt att inte ta fram lösningar eller produkter där det redan finns en leverantörsmarknad, vilket är fallet när det gäller meddelandeklienter. Dessa kan vara både i form av fristående produkter/lösningar eller integrerade i olika verksamhetssystem.
+SDK är en transportinfrastruktur för meddelandekommunikation. De gemensamma delar som ingår i SDK-konceptet är SDK Testklient som finns i OPEN-TEST och SDK QA. Testklienten simulerar en meddelandeklient som ett testverktyg för att verifiera din organisations anslutning.
+eDelivery och SDK bygger på att det finns både kommersiella lösningar och organisationer som själva vill utveckla egna lösningar, vilket SDK projektets tidigare pilotorganisationer, regioner och kommuner, har visat exempel på. En del av de tidigare pilotorganisationerna valde att anskaffa/köpa en färdig klient och andra pilotorganisationer (framförallt större organisationer) valde att utveckla en egen klient.
+Tjänsten ”Säkra meddelanden” används av vissa organisationer för att skicka meddelanden till enskilda individer. Kommer SDK tillåta utskick till en icke-ansluten SDK brevlåda, t.ex. för individer, för att undvika flera meddelandetjänster i en organisation?
+Nej, SDK är en federation vilket innebär att endast de organisationer som är anslutna till SDK kan skicka meddelanden till och från varandra. De meddelanden som skickas via SDK adresseras till och från funktionsbrevlådor som är registrerade i SDK:s Adressbok.
+Vad är skillnaden mellan SDK och säker e-post som t.ex. domstolarna och Allmänna reklamationsnämnden använder?
+SDK är en federation som ska kunna användas av många olika organisationer och som bygger på ett gemensamt regelverk, gemensamma specifikationer och en gemensam adresskälla i SDK Adressbok.
+Respektive organisation kan använda befintliga eller nya lösningar för t. ex. säker e-post om dessa är anpassade till SDK och organisationen är ansluten till SDK-federationen hos Digg.
+FAQ Deltagarorganisationer
+Hur ansluter vi till SDK?
+För att påbörja anslutningen till SDK anmäler man det till oss på Digg genom formuläret som finns här – Formulär för anslutning av deltagarorganisationer till SDK.
+För att få en helhetsbild av anslutningen kan man ta del av Anslutningsresa för deltagarorganisation till SDK
+Vad kostar det att ansluta till SDK?
+Anslutande organisationer står själva för de kostnader som uppstår i den egna verksamheten (t.ex. utveckling av IT-stöd) som behövs för att ansluta till SDK.
+Kostnader för lokala resurser varierar beroende på om man väljer att göra egen utveckling eller anlita en leverantör. Det beror också på hur stor del av organisationen som ska kunna använda SDK och som t.ex. behöver meddelandeklienter.
+För information om uträkning på nyttor och kostnader med SDK för din organisation rekommenderar vi att ni hämtar Diggs samhällsekonomiska kostnadsnyttoanalys SDK.
+Hur ändrar jag min organisations kontaktperson för anslutning till SDK?
+För att anmäla ändringar, som exempelvis kontaktperson för anslutning gör man en anmälan till Digg via vårt ändringsformulär.
+Hur får min deltagarorganisation tag på deltagaridentiteten som ska inkluderas i anmälan om ansökning till SDK QA-miljö?
+Det är ni som deltagarorganisation som tar fram er deltagaridentitet utifrån en gemensam kodlista och enligt identifieringsschemat ISO6523:0203. Deltagaridentiteten ska kunna kopplas till den organisation som angivits i anslutningsblanketterna.
+Exempel för SDK-QA-miljö: 0203:sdkqa.digg.se
+Exempel för produktionsmiljön: 0203:digg.se
+Mer information finns här: Deltagarorganisation – Instruktioner för anslutning till SDK
+Till vem skickar vi vårt publika O2O-certifikat för SDK?
+Ert publika certifikat anmäler ni för registrering och publicering i SMP till oss på Digg. Hur ni går tillväga framgår här: Deltagarorganisation – Instruktioner för anslutning till SDK.
+Hur får man tillgång till en funktionsadress (funktionsbrevlåda) i SDK testklient?
+|
+När användare av SDK:s testklient tilldelats behörighet skapar Digg
+en funktionsadress (funktionsbrevlåda) i SDK testklient för din organisation i samband med hantering av anslutningsärendet.
+Var ska man påbörja sin anslutningsprocess? Vilka är de viktigaste delarna att börja med i ett förberedande arbete?
+Det finns mycket information att läsa in sig på för att få en första överblick kring införande av SDK. Börja med dessa sidor:
+SDK för dig som deltagarorganisation
+SDK avtal, regelverk och rekommendationer för deltagarorganisationer innehållsförteckning
+Vägledning för införande av SDK
+Erfarenheter
+Var finns SDK anslutningsblanketter?
+De anslutningsblanketter ni som deltagarorganisation behöver för att ansluta till SDK får ni av oss på Digg. När ni anmält att ni vill påbörja er anslutning via anslutningsformuläret för deltagarorganisationer återkommer vi med de blanketter och övriga dokument som behövs under anslutningsprocessen. Ta gärna del av Instruktioner för anslutning till SDK, där det finns mer detaljerad information.
+Hur registreras vi som deltagarorganisation hos Digg?
+När er accesspunktsoperatör (extern eller ni själva vid egenutveckling) registrerar er som deltagarorganisation i Diggs SMP.
+Hur publiceras vi som deltagarorganisation hos Digg?
+När ni angett ert publika O2O-certifikat enligt vad som framgår i Instruktioner för anslutning till SDK så kontrollerar och publicerar vi på Digg er som deltagarorganisation.
+Tar Digg ut någon avgift för de organisationer som ansluter till SDK?
+Nej, för närvarande tas det inte ut någon avgift för deltagarorganisation vid nyttjande av SDK.
+FAQ Adressbok
+Hur går det till när organisationen får tillgång till SDK Adressbok?
+SDK-miljöerna, med tillhörande SDK Adressbok, blir tillgängliga under anslutningsprocessen efter det att organisationen får ett konto och möjlighet att logga in i SDK QA där organisationen ansluter för att testa sin meddelandetjänst (MT) och meddelandeklient (MK).
+Adressboken nås via MK, antingen genom en integration med tjänsten, eller genom en läskopia. SDK Adressbok finns även i SDK produktionsmiljö, som är den gemensamma produktionsmiljön.
+Vem ansvarar för att registrera nya organisationer och funktionsadresser i SDK Adressbok? Hur ser administrationen ut och finns det olika typer av behörighet?
+Federationsoperatören (Digg) lägger upp deltagarorganisationen i SDK Adressbok.
+Deltagarorganisationen anmäler en användaradministratör. Det är användaradministratören som sedan skapar deltgarorganisationens användare och tilldelar de roller.
+Sammanställning av roller och behörigheter:
+Användaradministratör kan skapa och administrera deltagarorganisationens användare. Användarna kan tilldelas rollerna organisationsadministratör, adressadministratör och användaradministratör.
+Organisationsadministratör kan hantera beskrivning av organisationen samt vilka kodverk som organisationen skall använda. Rollen kan även hantera underorganisationer samt importera och exportera funktionsadresser.
+Adressadministratör kan hantera organisationens funktionsadresser.
+Uppdateras SDK Adressbok manuellt?
+Ja, Deltagarorganisationens information (t.ex. funktionsbrevlådor) i SDK Adressbok underhålls manuellt via ett administrationsgränssnitt. Det är deltagarorganisationen själv som ansvarar för informationen samt att registrera och hålla den uppdaterad.
+Kommer det att finnas stöd för att synkronisera adressinformation från lokala kataloger?
+Befintlig version av SDK Adressbok bygger på att man administrerar sina uppgifter via en administratör. Det kan finnas en fördel att administrera manuellt till en början för att försäkra sig om att det blir korrekt.
+Det går att använda en import- och exportfunktion i SDK Adressbok för att undvika omfattande manuellt arbete. Ett tips är att först exportera ut en fil (csv-format) från Adressboken för att återanvända strukturen när man arbetar igenom sitt adressboksinnehåll som sedan kan importeras till adressboken. Mer om det i Handledning för administratörer av SDK Adressbok.
+Vad ska man tänka på när man skapar funktionsadresser i SDK Adressbok?
+Börja gärna med ett fåtal funktionsadresser och komplettera efter hand. Tänk på att det är mellan funktionsbrevlådor som meddelanden skickas, inte mellan individer. Funktionsadresserna behöver sedan kopplas till respektive funktionsbrevlåda samt tilldelas behörigheter (i lokal meddelandeklient).
+Har ni funderat kring hur flera verksamheter ska läggas upp inom samma organisationsidentifierare (domän + organisationsnummer)?
+SDK Adressbok stödjer en organisationsstruktur i två nivåer, deltagarorganisation och underorganisation. På respektive nivå finns funktionsadresser. Underliggande organisation är ”frivillig” och det är organisationen som ansvarar för och definierar dessa inom sin verksamhet. Detta finns reglerat i Regelverk för deltagarorganisationer inom SDK samt handledning som beskriver hur det lämpligen sätts upp.
+Exempelvis skulle det för en kommun kunna innebära:
+Kommun = deltagarorganisation
+Kommunalt bolag = underliggande organisation
+Enhet eller motsvarande inom underliggande organisation kan ha minst en funktionsbrevlåda.
+Vad är ett kodverk och vad fyller det för funktion i SDK Adressbok?
+Med kodverk menar vi den struktur som SDK Adressbok bygger upp sina funktionsadresser mot. Det är som nyckelord som adresserna kopplas till för att organisationerna ska strukturera sina funktionsadresser på ett så enhetligt sätt som möjligt.
+Kodverken underlättar när en organisation behöver söka fram en adress hos en mottagande organisation.
+Det finns tre sorters kodverk:
+Geografiskt (var i landet funktionen hör hemma)
+Strukturkodverk (var i organisationen funktionen hör hemma)
+Sökordskodverk (sökord som definierar funktionen)
+Hur går arbetet till för att skapa en struktur för regionernas verksamhet i SDK Adressbok?
+Det finns i dagsläget ett strukturkodverk för Regional hälso- och sjukvård inom verksamhetsområde Primärvård och specialiserad psykiatrisk vård samt en struktur för specialiserad somatisk vård och övrig hälso- och sjukvård.
+Vad är skillnaden på SMP och SDK Adressbok?
+SMP står för den tekniska informationen mellan mottagare, medan SDK Adressbok beskriver organisationsstrukturen.
+Hur hänger SDK Adressbok och Katalogtjänst HSA ihop?
+SDK Adressbok är ett gemensamt adressregister för information om SDK-anslutna organisationer och deras funktionsadresser.
+SDK Adressbok ingår inte som en del av eDelivery från CEF, utan är en kompletterande gemensam komponent som ingår i tjänsten. Det är bara organisationer som är anslutna till SDK som finns med i SDK Adressbok. Den används för att söka säkra mottagarorganisationer och funktioner inom dessa.
+Det finns planer på att kunna försörja adressboken med koppling till deltagarorganisationers lokala kataloger via synkroniserings-API. Om det blir aktuellt, är det tänkbart att HSA kan vara en sådan adresskälla för de organisationer som finns i HSA. I så fall kan det även vara lämpligt att utgå från Ineras referensarkitektur för grunddata och katalog för hur synkronisering mellan olika adresskällor ska ske.
+HSA innehåller dock mycket annan information, t.ex. personuppgifter, som inte ska finnas i SDK Adressbok som är ett enklare ”adressregister”.
+SDK Adressbok kommer även att innehålla organisationer/verksamheter som inte finns i HSA.
+FAQ Införande och anslutningsprocess
+Hur beställer vi SDK?
+För att påbörja anslutningen till SDK anmäler man det till Digg genom formuläret som finns i Instruktioner för anslutning till SDK.
+För att få en helhetsbild av anslutningen kan man ta del av Anslutningsresa för deltagarorganisation till SDK.
+Behöver organisationen teckna avtal med Digg eller räcker det att leverantörerna gör det?
+För att skapa tillit till SDK-federationen och för att ansvarsförhållandena i federationen ska vara tydliga behöver deltagarorganisationen själva teckna avtal med Digg. Leverantörer kan ansluta till OPEN-TEST genom att göra en anmälan till Digg, se anslutningsformulär.
+Vad behöver vi tänka på innan vi beställer SDK?
+Digg har tagit fram ett stödjande material i form av en vägledning för organisationer som vill ansluta till SDK. Vägledningen riktar sig till beslutsfattare och verksamhetsrepresentanter, samt eventuella projekt/uppdragsledare som håller ihop arbetet med SDK för deltagarorganisationen. Läs Förbredelser inför anslutning för SDK
+Hur lång tid bör en organisation räkna med vid införandet av SDK
+Hela anslutningsprocessen och tid för införandet varierar bland annat beroende på vilka typ av teknisk lösning som väljs, hur mycket resurser som läggs i projektet och storleken på organisationen. Det som kan räknas in utöver ovanstående är eventuella ledtider mellan de olika intressenterna, Digg och eventuella leverantörer.
+Vilka resurser och kompetenser behövs med avseende på att sätta upp de olika delarna vid införandet av SDK, verksamhet, informationssäkerhet och teknik?
+Tillsätt gärna en lokal projektledare som driver och håller ihop projektet.
+Inom teknik rekommenderas resurser med kunskap inom arkitektur och teknik. Utöver att undersöka vilka beslut som ska tas inom teknik, bör organisationen även se över eventuell integration och infrastruktur med övriga existerande system.
+Ett informationssäkerhetsarbete behövs, där regelverk för SDK och existerande processer ses över. Det kan vara bra att utföra en dataklasskonsekvensbedömning och en informationssäkerhetsresa.
+För verksamheterna som ska använda SDK bör verksamhetskunniga vara med i arbetet med att identifiera informationsutbyten som SDK ska användas inom. Se över om det finns någon verksamhet som uttryckt behov av SDK att börja med samt om de har en verksamhetsutvecklare (eller liknande) som kan delta i införandet.
+Var ska man börja sin anslutningsprocess? Finns det några tips och tricks?
+Det finns mycket information att läsa in sig på för att få en första överblick kring införande av SDK:
+Anslutningsresa för deltagarorganisationer.
+Förberedelser för anslutning till Säker digital kommunikation.
+Workshop material - Informationsutbyten - Öppen info: Säker digital kommunikation - Confluence (atlassian.net) Länk till annan webbplats. för att hjälpa till i identifieringen av nyttiga informationsutbyten att börja med.
+Du kan också kontakta Digg på sdk@digg.se för en dialog om hur din organisation kan påbörja sin anslutningsresa.
+Vilka tillgänglighetskrav (SLA) gäller för anslutande system till SDK?
+Kravet på tillgänglighet är: dygnet runt, alla dagar i veckan (99,5%). Det innebär att meddelandeklienten ska vara tillgänglig oavsett om det är inom eller utanför verksamhetens arbetstid så det finns möjlighet att ta emot och lagra inkommande meddelanden.
+Kravet avser lagring i meddelandeklientens funktionsbrevlåda och inte verksamhetens tillgänglighet. Meddelandeklienten måste alltid lagra meddelandet direkt, verksamheten kommer däremot behandla meddelanden enligt användarorganisationens rutiner och ev. svarstidskrav.
+Läs mer i bilaga för tillgänglighet
+FAQ Frågor som rör anslutning
+Hur registreras organisationen som deltagare hos Digg?
+När organisationens accesspunktsoperatör (som kan vara deltagarorganisationen själv) registrerar deltagarorganisationen som deltagare i Diggs SMP.
+Hur publiceras deltagare hos Digg?
+Genom att organisationen skickar in SDK anslutningsblankett till Digg som kontrollerar och därefter publicerar deltagaren i Diggs SMP.
+Hur får organisationen tag i Accesspunktsidentitet som ska inkluderas i anslutningsblanketten?
+Den får de av organisationens accesspunktsoperatör (som kan vara deltagarorganisationen själv).
+Hur och till vem skickar vi vårt publika O2O-certifikat till SDK-federationen?
+Deltagarorganisationens organisationsadministratör i SDK Adressbok registrerar O2O certifikatets publika nyckel. Läser mer om hur administration sker Handledning för administratörer i SDK adressbok.
+Tekniska detaljer se Anslutningsinformation - certifikat
+Finns det krav på att ha en AP/Meddelandetjänst per kommun/organisation?
+SDK Regelverk för deltagarorganisationer och SDK Anslutningsavtal reglerar inte direkt hur en deltagarorganisation organiserar sin IT-drift, leverantörer eller mjukvara (t.ex. MT, MK). En förutsättning är dock att regelverk och specifikationer följs:
+För mer om organisationens ansvar, se SDK Anslutningsavtal avsnitt ”Överlåta rätt eller ansvar”
+Kortfattat kan man säga att en deltagarorganisation kan använda en eller flera valfria leverantörer som levererar, tillhandahåller och förvaltar IT-lösningar som t.ex. Accesspunkt (AP), Meddelandetjänst (MT) och Meddelandeklient(er) (MK) under förutsättning att regelverk och specifikationer följs.
+Kan man få beskrivet lite närmare vad det innebär att meddelandetjänstens krav på svarstid är relativt lång (15 min.)?
+Svartidskravet sträcker sig från att mottagande accesspunkt lägger upp meddelandet för mottagande meddelandetjänst att “hämta”, tills att samma accesspunkt tagit emot meddelandekvittens att skicka tillbaka.
+Motivering för kravet om 15 minuter är att tillåta buffring av meddelanden mellan accesspunkt och meddelandetjänst.
+Hänsyn behöver också tas till schema- och schematronvalidering på större meddelanden med bilagor.
+FAQ Informationssäkerhet
+Vad behöver man som organisation tänka på inom informationssäkerhetsarbetet?
+På våra informationssidor hittar du dokumentation om SDK Informationssäkerhet.
+Se även:
+Anslutningsavtal för deltagarorganisationer angående SDK
+Regelverk för deltagarorganisationer inom SDK
+Bilaga om personuppgiftsbehandling inom SDK
+Bilaga om tillgänglighet inom SDK
+Bilaga om IT-säkerhet inom SDK
+Vi har begränsade resurser för arbete med informationssäkerhet. Kan vi ändå ta oss an det förberedande arbetet för SDK på något sätt?
+Ja, det går att påbörja arbetet dels med kartläggning av verksamheten och dels de tekniska vägvalen. Ni kan även att kartlägga vilka rutiner ni som organisation har inom informationssäkerhet idag. Se ovanstående fråga och svar med länkar till mer information.
+Förberedelser för införande av SDK
+En förutsättning för att skicka meddelanden är krav på informationsklassning, men hur säkerställs två parters syn på aktuell informationsklassning?
+Parternas syn på informationsklassning behöver inte säkerställas specifikt, så länge båda parterna (organisationerna) gör en klassning som inte överskrider den nivå som SDK är avsedd för.
+Informationssäkerheten inom SDK är dimensionerad för att svara mot de risker som uppgifter med allvarlig konsekvensnivå kan förväntas medföra. Respektive deltagarorganisation ansvarar för den egna klassningen och för bedömningen av vilken information som kan överföras via SDK och eDelivery transportinfrastruktur.
+De dokument man skickar via SDK kommer behöva mellanlagras när man tar ut information från ett system för att bifoga det i SDK-meddelandet. Vad bör vi tänka på vid mellanlagring av dokument som ska bifogas, eller som tagits emot, via ett SDK-meddelande?
+Det finns flera sätt att göra det på och vilken modell man väljer beror på organisationens tekniska förutsättningar och riskbedömning. Som exempel har Region Gotland tagit fram följande rutin:
+När man skapar ett dokument från t ex ett verksamhetssystem så mellanlagrar man det i en mapp ”hämtade filer” på sin dator
+Respektive verksamhet har en rutin att dokumentet ska raderas efter överföringen till eller från MK. Det finns också med som en punkt i vår sammanfattning av informationssäkerhetskrav SDK för verksamheten
+En automatisk tömning av mappen ”hämtade filer” görs regelbundet för säkerhets skull.
+Det är möjligt att utveckla en integrationslösning mellan verksamhetssystemet och meddelandeklienten.
+Det är också möjligt att integrera meddelandeklienten direkt med verksamhetssystemet, t ex med stöd av SDK API MT/MK. Se Rekommendation API MT-MK för SDK.
+Man kan också tänka sig att man istället för mappen ”hämtade filer” har en speciell krypterad lagringsplats som används som mellanlagring. Egentligen samma som ovan men med lite mindre riskfaktor
+Det går även att använda bara text. Så gör Gotlands socialtjänst, dvs de klipper ut ur journalsystemet och klistrar in i meddelandet och vise versa. De tycker det går smidigt och slipper då momentet med att spara ned en PDF.
+Hur din organisation väljer att hantera eventuell mellanlagring av dokument är något ni bör kravställa till er leverantör av meddelandeklient. Varje organisation behöver själv ta fram rutiner och riktlinjer för hur information i SDK-meddelanden och eventuella bilagor/dokument som skickas eller tas emot via SDK hanteras lokalt.
+Vem är legalt ansvarig om ett meddelande inte kommer fram?
+Ansvaret för meddelandeutbytet ligger på sändande respektive mottagande deltagarorganisation i SDK.
+Inom SDK regleras ansvar för meddelanden som förmedlas via SDK:s olika aktörer, se vidare i:
+Anslutningsavtal för deltagarorganisationer
+Regelverk för deltagarorganisationer
+I SDK:s tekniska specifikation för validering, felhantering och kvittens anges också krav på omsändning mm.
+Hur ser personuppgiftsansvaret ut mellan sändande och mottagande organisation?
+Personuppgiftsansvar för den information som sänds i ett meddelande kan uppstå både hos sändande och mottagande organisation. Detta beskrivs i:
+Anslutningsavtal för deltagarorganisationer
+Regelverk för deltagarorganisationer
+Bilaga om personuppgiftsbehandling inom SDK
+Hos respektive deltagarorganisation kan det finnas behov av att reglera personuppgiftsbiträdes-förhållanden. T ex om en deltagarorganisation tillhandahåller teknisk lösning för flera underorganisationer eller om extern leverantör anlitas.
+Är informationsutbyte i SDK en allmän handling eller ej? Kan det betraktas som arbetsmaterial?
+Avsändaren av ett SDK-meddelande ska göra en bedömning av om uppgifterna omfattas av sekretess eller ej och markera det i ett fält. Om svaret är JA ska man även ange vad som omfattas samt grunden för bedömningen, vilket anges i meddelandets fritextfält.
+Det fråntar inte mottagaren ansvaret att göra sin bedömning på motsvarande sätt. Detta beskrivs i Rekommendation för hantering av uppgifter som omfattas av sekretess.
+Om det utgör arbetsmaterial eller ej är en bedömning som mottagaren behöver göra. Det finns ingen generell regel eller rekommendation i SDK.
+Är informationsutbyte i SDK en allmän handling eller ej? Kan det betraktas som arbetsmaterial?
+Avsändaren av ett SDK-meddelande ska göra en bedömning av om uppgifterna omfattas av sekretess eller ej och markera det i ett fält. Om svaret är JA ska man även ange vad som omfattas samt grunden för bedömningen, vilket anges i meddelandets fritextfält.
+Det fråntar inte mottagaren ansvaret att göra sin bedömning på motsvarande sätt. Detta beskrivs i Rekommendation för hantering av uppgifter som omfattas av sekretess.
+Om det utgör arbetsmaterial eller ej är en bedömning som mottagaren behöver göra. Det finns ingen generell regel eller rekommendation i SDK.
+Om mottagaren är ett funktionskonto hur vet man då att mottagaren är behörig till den information som man skickar? Behörig är ju den som t ex deltar i aktuell patients vård, inte alla som jobbar på en viss funktion?
+Deltagarorganisation (sändande och mottagande) ansvarar för att de personer som tilldelas behörighet till en funktionsadress ska vara behöriga att hantera den information som kan skickas till adressen. Det regleras i Regelverk för deltagarorganisationer, avsnitt om åtkomst till deltagarorganisationens meddelandesystem.
+Som exempel är en medicinsk sekreterare inte delaktig i den fysiska vården men har en viktig funktion i patientens vård kopplat till planering och kan därmed ha rätt att hantera känslig information och ges behörighet att hantera funktionsadressen.
+Finns det risker i händelse av att en organisation felaktigt implementerar funktionsadresser i en adressbok i SDK-federationen där konsekvensen av en felhanterad adressbok kan medföra att informationsflödet når en, utifrån sekretess och dataskydd, otillåtet bred krets av mottagare?
+Tillitsprincipen som SDK bygger på att varje ansluten organisation bär ett självständigt ansvar för att meddelanden adresseras till rätt mottagande funktionsadress.
+Varje organisation utser sin/sina administratörer som är behöriga att skapa och hantera sin organisations funktionsadresser. De behöver ha god kunskap om såväl adressboken och hur den fungerar som sin organisations behov av funktionsadresser. Digg som federationsägare erbjuder utbildning för de som utsetts till administratörer för sin organisation.
+Finns det risk att meddelande skickas till fel funktionsbrevlåda, specifikt om rätt mottagare inte är med i adressboken? Ett exempel är att skicka till fel funktion, men rätt kommun.
+Ja, den risken finns och det är därför viktigt att ha så bra beskrivningar som möjligt av sina funktionsadresser för att hjälpa den sändande organisationen. Sökord kan användas för att underlätta att hitta rätt mottagare.
+Även om det går ska man inte skicka till fel del av mottagande organisation. Det är viktigt att ta fram tydliga regler och processer för att säkerställa att tjänsten används på bästa sätt.
+Mottagaren kommer att avvisa feladresserade meddelande i enligt med tekniska regelverk.
+Hur fungerar det vid felskick? Går det att ångra ett meddelande när det har blivit fel?
+Det går inte att ångra ett meddelande vid felskick. Organisationen själv ansvarar för att sätta upp processer och rutiner för att ta hand om meddelanden som hamnar hos fel mottagare.
+I Regelverk för deltagarorganisationer finns gemensamma krav för incidenthantering, felhantering och support.
+Vad innebär det att ansluta en underorganisation?
+Huvudregeln för anslutning till SDK är att deltagarorganisation gör sin egen anslutning till SDK. Det är dock möjligt att ansluta en underorganisation, t ex kommunala bolag, via sin egen anslutning. Då gäller, enligt Regelverk för deltagarorganisationer, att:
+En deltagarorganisation som ansluter underorganisationer ska ha formella relation till dessa. Deltagarorganisationen ansvarar för att även underorganisationer följer SDK:s regelverk.
+Att ansluta en underorganisation innebär bland annat att:
+Anslutande deltagarorganisation ansvarar för att definiera vilka underorganisationer som ingår i dess anslutning.
+Deltagarorganisationen ansvarar för att vid behov reglera personuppgiftshanteringen via personuppgiftsbiträdesavtal med underliggande organisationer.
+En underorganisation ska som huvudregel endast registreras en gång i SDK Adressbok, den kan endast tillhöra en deltagarorganisation.
+Se även Anslutningsavtal för deltagarorganisationer, i avsnitt Generella åtaganden, Ansvar och ansvarsbegränsning samt Överlåta rätt eller ansvar.
+Hur hänger SDK ihop med Identifieringstjänsten SITHS?
+SDK är en federation för säkert meddelandeutbyte mellan organisationer. Som en del i säkerheten krävs att anslutna organisationer har ett funktionscertifikat, t ex SITHS för kryptering av SDK-meddelanden, så kallad ”organisation-till-organisation” (O2O)-kryptering och validering.
+SDK:s regelverk anger också krav på transportkryptering av trafiken mellan anslutna organisationer där SITHS’ funktionscertifikat ska användas.
+Kan man använda en e-legitimation som är godkänd enligt Diggs kvalitetsmärke för svensk e-legitimation (LoA3) för åtkomst till anslutande system för SDK?
+Ja, i första hand ska en e-legitimation användas som är godkänd enligt Diggs kvalitetsmärke Svensk e-legitimation (minst LoA3).
+Läs mer om krav på e-legitimationer i Regelverk för deltagarorganisationer, i avsnittet om åtkomst till deltagarorganisationens meddelandesystem.
+Är Microsoft Authenticator godkänd att använda som ”autentiseringsapplikation (OTP)” för åtkomst till anslutande system till SDK?
+Nej, Microsoft Authenticator uppfyller inte kraven på autentisering vid åtkomst till anslutande system.
+Är AD-inloggning och SMS-kod tillräcklig som OTP enligt SDKs regelverk?
+Nej, engångskoder som sänds via SMS uppfyller inte kraven för autentiseringsfaktor vid åtkomst till anslutande system.
+För den som önskar ytterligare information om engångskoder via SMS, se t.ex. Vägledning för utfärdare, Digg Länk till annan webbplats.
+Varför ställer SDK:s regelverk inte bara krav på användning av e-legitimationer som är godkända enligt Diggs kvalitetsmärke för svensk e-legitimation (LoA3) utan formulerar egna krav?
+Det finns deltagarorganisationer som uttryckt behov av alternativa inloggningsmetoder.
+Läs mer om krav på e-legitimationer: Regelverk för deltagarorganisationer, i avsnitt om åtkomst till deltagarorganisationens meddelandesystem.
+Kommer SDK att klassas som kritisk infrastruktur enligt NIS2?
+Digg har inte tagit ställning till om eller hur NIS2 blir relevant för SDK (januari 2024) men det blir aktuellt att analysera detta framöver.
+FAQ Leverantörsmarknad
+Vad kostar det att anskaffa lösningar för SDK?
+Anslutande organisationer står själva för kostnader i den egna verksamheten (t.ex. utveckling av de egna IT-stöden) som behövs för en anslutning till Säker digital kommunikation (SDK). Kostnader för lokala resurser varierar beroende på om man väljer att göra egen utveckling eller anlita leverantör. Kostnaderna beror också på hur stor del av organisationen som ska kunna använda SDK och som t.ex. behöver meddelandeklienter.
+Finns det systemleverantörer som kan hjälpa oss att ansluta till SDK?
+Alla leverantörer som är intresserade av att testa sina lösningar är välkomna att beställa och använda Diggs öppna testmiljö (OPEN-TEST) för tjänsteleverantörer.
+Vad är skillnaden på Meddelandetjänst och Meddelandeklient?
+Meddelandeklienten (MK) är det användargränssnitt som används när man skickar meddelanden med SDK.
+Meddelandetjänsten (MT) är den integrationsmotor (som en växel) som tar emot och skickar meddelandet mellan meddelandeklienten och accesspunkten.
+Finns det en standard eller API:er kring vilket protokoll som ska användas mellan Accesspunkt (AP), Meddelandeklient (MK) och Meddelandetjänst (MT)?
+Standardiserat meddelandeflöde / meddelande
+SDK standardiserar meddelanden som förmedlas mellan komponenter accesspunkt (AP), meddelandetjänst (MT) och meddelandeklient (MK). Innehållsspecifikation-meddelande beskriver i detalj hur ett meddelande ska vara utformat tekniskt och innehållsmässigt, se SDK Innehållsspecifikation-Meddelande.
+Standardiserat API
+Sedan december 2023 finns ett SDK API (“standardiserat API“) som primärt är framtaget för att standardisera informationsöverföringen mellan server-komponenterna “Meddelandetjänst” (MT) och “Meddelandeklient/Verksamhetssystem” (MK).
+SDK API ska möjliggöra en så kallad “lös koppling” mellan komponenterna MT och MK.
+SDK API är framtaget för att stödja en så kallad “system till system”-kommunikation.
+SDK API stödjer SDK Innehållsspecifikation-meddelande.
+För mer information om SDK API, se Rekommendation för API MT-MK.
+Är er erfarenhet att man kravställer att leverantörer ska vara öppna för att ansluta flera meddelandeklienter (MK)?
+Det ser olika ut baserat på hur en organisation tänker inför sin anskaffning. Det beror t ex på om organisationen anskaffar en lösning för att snabbt komma igång för ett täcka ett mer kortsiktigt behov eller om man vill ha en lösning som stödjer behov även på lång sikt och med till exempel flera meddelandeklienter (MK).
+Om en organisation har behov av att kunna ansluta flera meddelandeklienter till meddelandetjänsten kan det tänkas att organisationen kravställer/utvärderar på integrationsförmåga i meddelandetjänsten mot specifika verksamhetssystem och/eller en mer generell integrationsförmåga. Det kan t ex handla om att kravställa stöd för API enligt Rekommendation för API MT-MK.
+Går det att använda en Meddelandeklient till flera kommuner, till exempel kommunalförbund?
+Ja det gör det, om kommunerna har tydliga avgränsningar kring vem som har tillgång till vilka funktionsbrevlådor.
+SDK:s regelverk reglerar inte direkt hur en användarorganisation organiserar sin IT-drift, leverantörer eller mjukvara (t.ex. MT, MK). En förutsättning är att regelverk och specifikationer följs.
+Kortfattat kan man säga att en deltagarorganisation kan använda en eller flera valfria leverantörer som levererar, tillhandahåller och förvaltar IT-lösningar som t.ex. accesspunkt, meddelandetjänst och meddelandeklient(-er) under förutsättning att regelverk och specifikationer följs.
+Behöver man en speciell programvara, “mejlklient”, för att kunna använda SDK? Är alla mejlklienter tillåtna?
+En användarorganisation behöver tre komponenter för att ansluta till SDK-federationen:
+Accesspunkt
+Meddelandetjänst
+Meddelandeklient/Verksamhetssystem
+Dessa komponenter behöver antingen utvecklas i egen regi eller anskaffas och anpassas för att fungera i SDK-federationen. Det innebär bl.a. att de ska följa de tekniska specifikationerna och krav på informationssäkerhet och it-säkerhet. Digg godkänner accesspunkt, meddelandetjänst och meddelandeklient i samband med anslutning till SDK.
+När det gäller val av meddelandeklient ställer SDK inte krav som begränsar vilka klienter som används men de behöver stödja de gemensamma regelverk som gäller inom SDK-federationen.
+Är det möjligt med integration mot befintliga e-postsystem?
+Ja, olika meddelandeklienter kan integreras lokalt. Det är användarorganisationen som beslutar vilka lokala meddelandeklienter man vill använda för att ansluta till SDK.
+En e-postklient kan integreras eller länkas till en SDK-meddelandeklient så det blir möjligt att skicka SDK-meddelanden via den lokala e-postklienten. Meddelandet måste då anpassas för att kunna överföras enligt Innehållsspecifikation Meddelande (dokumenttyp). Det innebär bl.a. att ha stöd för att hantera integration mot SDK:s gemensamma adressbok, alternativt en lokal adressbokskopia, och SDK:s funktionsadresser som används för teknisk adressering på funktionsnivå inom SDK. Den klient som ansluts behöver följa de informationssäkerhetskrav som krävs för hantering av känsliga personuppgifter.
+Jag har hört att Adda Inköpscentral har tagit fram ett Dynamiskt inköpssystem för Säker digital kommunikation, stämmer det?
+|
+Ja, det stämmer. Adda inköpscentral har sedan hösten 2023 publicerat ett Dynamiskt inköpssystem (DIS) för Säker digital kommunikation (SDK). Mer information om DIS:et och vilket stöd som finns att få finns att läsa på Addas hemsida Länk till annan webbplats. .
+Finns det stöd för upphandling för myndigheter?
+Kammarkollegiet ser över hur de kan erbjuda stöd till myndigheter när det gäller upphandling för att underlätta införande av SDK hos myndigheter.
+FAQ anpassning av anslutande system till SDK
+Var finns information om vilka certifikat som får användas?
+Du hittar mer information om certifikat här: Anslutningsinformation - certifikat
+Behöver man en speciell programvara, “mejlklient”, för att kunna använda SDK? Är alla mejlklienter tillåtna?
+En deltagarorganisation behöver tre komponenter för att ansluta till SDK-federationen
+Accesspunkt
+Meddelandetjänst
+Meddelandeklient/Verksamhetssystem
+Dessa komponenter behöver antingen utvecklas på egen hand eller anskaffas och anpassas för att fungera i SDK-federationen. Det innebär bl.a. att de ska följa SDK:s regelverk, tekniska specifikationerna, informationssäkerhet och it-säkerhet.
+Digg specificerar och godkänner accesspunkten, meddelandetjänst och meddelandeklient i samband med anslutning till SDK.
+När det gäller val av meddelandeklient, ställer SDK inte krav som begränsar vilka typ klienter som används men de behöver följa de regelverk som gäller i SDK-federationen.
+Se även frågor och svar under leverantörsmarknad nedan, samt: SDK Checklista för anpassning av meddelandesystem och Checklista för teknisk anslutning till SDK med helhetsleverantör.
+Var finns publika certifikat till era tjänster/miljöer?
+Du hittar mer information om certifikat här: Anslutningsinformation - certifikat
+Behöver man en speciell programvara, “mejlklient”, för att kunna använda SDK? Är alla mejlklienter tillåtna?
+En deltagarorganisation behöver tre komponenter för att ansluta till SDK-federationen
+Accesspunkt
+Meddelandetjänst
+Meddelandeklient/Verksamhetssystem
+Dessa komponenter behöver antingen utvecklas på egen hand eller anskaffas och anpassas för att fungera i SDK-federationen. Det innebär bl.a. att de ska följa SDK:s regelverk, tekniska specifikationerna, informationssäkerhet och it-säkerhet.
+Digg specificerar och godkänner accesspunkten, meddelandetjänst och meddelandeklient i samband med anslutning till SDK.
+När det gäller val av meddelandeklient, ställer SDK inte krav som begränsar vilka typ klienter som används men de behöver följa de regelverk som gäller i SDK-federationen.
+Se även frågor och svar under leverantörsmarknad nedan, samt: SDK Checklista för anpassning av meddelandesystem och Checklista för teknisk anslutning till SDK med helhetsleverantör.
+Var finns URL till era servrar?
+Du hittar den information du söker på följande länkar:
+Miljöspecifikation för miljön OPEN-TEST för leverantörer av meddelandesystem
+Miljöspecifikation för SDK QA-miljö
+Miljöspecifikation för SDK produktionsmiljö
+Kan ni ge exempel på värden som används vid slagning mot Digg Certifikats-publiceringstjänst för att kryptera meddelandet?
+|
+ParticipantIdentifier: Identifierar deltagarorganisation i federationen och registreras av deltagarorganisationens AP-operatör, har formatet "0203:somedomain.se".
+SML Zone: Beror på miljö.
+Miljöspecifikation för miljön OPEN-TEST för leverantörer av meddelandesystem
+Miljöspecifikation för SDK QA-miljö
+Miljöspecifikation för SDK produktionsmiljö
+documentidentifier scheme: "busdox-docid-qns", se
+SDK Innehållsspecifikation meddelande
+participantidentifier scheme: "iso6523-actorid-upis", se Kuverteringsprofil XHE.
+DocumentId SDK:
+"urn:riv:infrastructure:messaging:MessageWithAttachments:3::messagePayload##3.0::tm-base-ext-sigenc", se SDK Innehållsspecifikation-meddelande.
+DocumentId för :
+"urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##fdc:digg.se:edelivery:messagetype:response:1::2.1::tm-base-ext-sigenc", se Meddelandespecifikation – Meddelandekvittens.
+Är det krav på vilket servercertifikat vi kommer med då vi ansluter mot SDK adressbok i SDK QA- och produktionsmiljö?
+Nej, däremot så är det viktigt att säkerställa att man kommunicerar mot "rätt" SDK Adressbok.
+I Bilaga för IT-säkerhet står följande:
+"Om anslutet system/backend-system använder SDK Adressboks API för direktsökning eller skapar en lokal läskopia av SDK Adressbok ska:
+Transportkryptering tillämpas enligt generella krav på protokoll och krypteringsalgoritmer.".
+Hur kan jag som avsändare veta vilka meddelandetyper och version(-er) som aktuell mottagare stödjer för SDK-meddelanden? Är det via SDK Adressbok? Hittar inte information i API:et och tänker att den måste vara publikt tillgänglig.
+I SMP registreras organisationer som deltagare tillsammans med vilken majorversion av dokumenttypen som respektive deltagare stödjer. Adressboken innehåller inte vilken version av dokumenttyp som stöds.
+Hur säkerställer man att giltig version av payload nyttjas? Finns det uttryckt och i så fall var?
+Validering av dokumenttyp sker i följande steg:
+1. AP-Operatör/Meddelandetjänst
+Ska säkerställa att kuvertering är korrekt. Det görs på AS4 nivå samt inre kuvert XHE ’Kuverteringsprofil XHE’.
+T.ex.
+<xha:BusinessScopeCriterion>
+<BusinessScopeCriterionTypeCode>DOCUMENTID</BusinessScopeCriterionTypeCode>
+<BusinessScopeCriterionValue>urn:riv:infrastructure:messaging:MessageWithAttachments:3::messagePayload##3.0::tm-base-ext-sigenc</BusinessScopeCriterionValue>
+</xha:BusinessScopeCriterion>
+…
+<xha:Payload>
+<DocumentTypeCode>messagePayload</DocumentTypeCode>
+<ContentTypeCode>urn:riv:infrastructure:messaging:MessageWithAttachments:3</ContentTypeCode>
+…
+2. Deltagarorganisation
+Meddelandetjänst -MTska efter dekryptering validera nyttolast mot schema, se Specifikation av validering, felhantering och kvittens.
+Så mottages ett meddelande som på AS4/XHE är “MessageWithAttachments:3” så skall MT schemavalidera med den versionen. Här ingår även schematronvalidering.
+Varför är svarstidskravet så högt som 15 minuter i meddelandetjänsten?
+Att meddelanden kan köas upp i gränssnittet mellan AP och MT är största anledningen till att meddelandekvittens tillåts dröja med flera minuter. Hänsyn behöver också tas till schema- och schematronvalidering på större meddelanden med bilagor.
+För mer information svarstider se Bilaga för tillgänglighet inom SDK.
+Se film om Säker digital kommunikation
+Vill du veta mer om SDK kan du ta del av inspelade seminarier med fokus på olika seminarier.
+Lär dig mer - se filmer om SDK Länk till annan webbplats.

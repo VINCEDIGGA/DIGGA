@@ -1,0 +1,1347 @@
+openapi: 3.0.3
+info:
+    title: SDK Adressbok API
+    version: "1.2"
+    description: |-
+        Public search and fetch API for Organizations, Addresses, Code systems and Codes
+
+        > This documentation is licensed under a CC4.0-BY-SA license. https://creativecommons.org/licenses/by-sa/4.0/
+    contact:
+        name: DIGG SDK
+        url: "https://sdk.digg.se"
+        email: sdk@digg.se
+    license:
+        name: MIT
+        url: "https://spdx.org/licenses/MIT.html"
+servers:
+    - url: "http://localhost:8090/api"
+      description: Local dev env
+    - url: "https://sdk-prod.digg.se/addressbook/api"
+      description: Digg SDK produktionsmiljö
+    - url: "https://sdk-qa.digg.se/addressbook/api"
+      description: Digg sdk-qa miljö
+    - url: "https://open-test.digg.se/addressbook/api"
+      description: Digg open-test miljö för tjänsteleverantörer
+tags:
+    - name: Address
+      description: Operations to addresses
+    - name: Code
+      description: Operations to manage Codes
+    - name: CodeSystem
+      description: Operations to manage Code systems
+    - name: Organization
+      description: Operations to manage participants and organizations
+paths:
+    "/addresses/{addressResourceIdentifier}":
+        parameters:
+            - $ref: "#/components/parameters/addressId"
+            - $ref: "#/components/parameters/include"
+            - $ref: "#/components/parameters/Accept-Language"
+        get:
+            summary: Fetch address
+            tags:
+                - Address
+            responses:
+                "200":
+                    $ref: "#/components/responses/JSONAPISingleAddressResponse"
+                "400":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "404":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "500":
+                    description: Internal Server Error
+            operationId: get-one-address
+            description: |
+                Retrieves one address by Resource Identifier.
+
+                *Error handling*
+
+                Returns 200 if the address is found
+
+                Returns 404 if the address does not exist
+    /addresses:
+        get:
+            summary: Find addresses
+            tags:
+                - Address
+            responses:
+                "200":
+                    $ref: "#/components/responses/JSONAPIAddressResponse"
+                "204":
+                    $ref: "#/components/responses/JSONAPIAddressResponse"
+                "400":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "404":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "500":
+                    description: Internal Server Error
+            operationId: get-all-addresses
+            description: |+
+                Find addresses with filtering or full text search, or a combination of search and filtering.
+                Responses are paged, default page size is 25 results per page, see pagination.
+
+                *Error handling*
+
+                Returns 200 if any addresses is found
+
+                Returns 204 if no addresses match the filter criterias, contains a JSONAPIAddressResponse with an empty data: []
+
+                Returns 400 if any of the query parameters fails validation 
+
+                Returns 404 if the address is uniquely identified (filter[organization.participantIdentifier] + filter[identifier]) but not found
+
+            parameters:
+                - $ref: "#/components/parameters/search-term"
+                - $ref: "#/components/parameters/filter.name"
+                - $ref: "#/components/parameters/filter.organization.participantIdentifier"
+                - $ref: "#/components/parameters/filter.organization.type"
+                - $ref: "#/components/parameters/filter.identifier"
+                - $ref: "#/components/parameters/filter.unitName"
+                - $ref: "#/components/parameters/filter.categories"
+                - $ref: "#/components/parameters/filter.code"
+                - $ref: "#/components/parameters/filter.codeSystem"
+                - $ref: "#/components/parameters/filter.regionCode"
+                - $ref: "#/components/parameters/filter.municipalityCode"
+                - $ref: "#/components/parameters/excludeNationalCoverage"
+                - $ref: "#/components/parameters/matchAllCodes"
+                - $ref: "#/components/parameters/caseSensitive"
+                - $ref: "#/components/parameters/include"
+                - $ref: "#/components/parameters/pageNumber"
+                - $ref: "#/components/parameters/pageSize"
+                - $ref: "#/components/parameters/Accept-Language"
+    /addresses/search:
+        get:
+            summary: Search for addresses
+            tags:
+                - Address
+            responses:
+                "200":
+                    $ref: "#/components/responses/JSONAPIAddressResponse"
+                "204":
+                    $ref: "#/components/responses/JSONAPIAddressResponse"
+                "400":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "500":
+                    description: Internal Server Error
+            operationId: search-for-addresses
+            description: |+
+                Full text search of text attributes of Addresses by the given search term, and applies filtering. Responses are ordered by best match to search term. Responses are paged, default page size is 25 results per page, see pagination.
+
+                *Error handling*
+
+                Returns 200 if any addresses is found
+
+                Returns 204 if no addresses match the search / filter criterias, contains a JSONAPIAddressResponse with an empty data: []
+
+                Returns 400 if any of the query parameters fails validation
+
+            parameters:
+                - $ref: "#/components/parameters/search-term"
+                - $ref: "#/components/parameters/filter.categories"
+                - $ref: "#/components/parameters/filter.code"
+                - $ref: "#/components/parameters/filter.codeSystem"
+                - $ref: "#/components/parameters/filter.regionCode"
+                - $ref: "#/components/parameters/filter.municipalityCode"
+                - $ref: "#/components/parameters/excludeNationalCoverage"
+                - $ref: "#/components/parameters/matchAllCodes"
+                - $ref: "#/components/parameters/caseSensitive"
+                - $ref: "#/components/parameters/include"
+                - $ref: "#/components/parameters/pageNumber"
+                - $ref: "#/components/parameters/pageSize"
+                - $ref: "#/components/parameters/Accept-Language"
+    /addresses/categories:
+        get:
+            summary: Fetch all categories
+            tags:
+                - Address
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/AddressCategoriesResponse"
+                            examples: {}
+                "400":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "404":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "500":
+                    description: Internal Server Error
+            operationId: get-all-categories
+            description: Get all available categories (search tags) to be used when filtering for addresses
+            parameters:
+                - $ref: "#/components/parameters/Accept-Language"
+    "/organizations/{organizationResourceIdentifier}":
+        parameters:
+            - $ref: "#/components/parameters/organizationId"
+        get:
+            summary: Fetch organization
+            tags:
+                - Organization
+            operationId: get-one-organization
+            responses:
+                "200":
+                    $ref: "#/components/responses/JSONAPISingleOrganizationResponse"
+                "204":
+                    description: No Content
+                "400":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "404":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "500":
+                    description: Internal Server Error
+            description: |-
+                Retrieves one Organization by Resource Identifier, this value has no real-world reference or business meaning, i.e. it is a technical surrogate identifier.
+
+                Returns 200 if the organization is found
+                Returns 404 if the organization does not exist
+            parameters:
+                - $ref: "#/components/parameters/include"
+                - $ref: "#/components/parameters/Accept-Language"
+    "/organizations/{organizationResourceIdentifier}/addresses":
+        parameters:
+            - $ref: "#/components/parameters/organizationId"
+            - $ref: "#/components/parameters/Accept-Language"
+        get:
+            summary: List addresses
+            operationId: get-addresses-for-organization
+            tags:
+                - Address
+            responses:
+                "200":
+                    $ref: "#/components/responses/JSONAPIAddressResponse"
+                "204":
+                    $ref: "#/components/responses/JSONAPIAddressResponse"
+                "400":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "404":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "500":
+                    description: Internal Server Error
+            description: |
+                Lists addresses for an organization. Responses are paged.
+
+                Returns 200 is any addresses is found
+                Returns 204 is no addresses for the organization match the filter criterias, contains a JSONAPIAddressResponse with an empty data: []
+                Returns 400 is any of the query parameters fails validation 
+                Returns 404 is the organization does not exist
+            parameters:
+                - $ref: "#/components/parameters/filter.name"
+                - $ref: "#/components/parameters/filter.categories"
+                - $ref: "#/components/parameters/filter.code"
+                - $ref: "#/components/parameters/filter.regionCode"
+                - $ref: "#/components/parameters/filter.municipalityCode"
+                - $ref: "#/components/parameters/excludeNationalCoverage"
+                - $ref: "#/components/parameters/matchAllCodes"
+                - $ref: "#/components/parameters/pageNumber"
+                - $ref: "#/components/parameters/pageSize"
+    /organizations:
+        get:
+            summary: Find organizations
+            tags:
+                - Organization
+            operationId: get-all-organizations
+            responses:
+                "200":
+                    $ref: "#/components/responses/JSONAPIOrganizationResponse"
+                "204":
+                    $ref: "#/components/responses/JSONAPIOrganizationResponse"
+                "400":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "404":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "500":
+                    description: Internal Server Error
+            description: |
+                Retrieves one Organization by Resource Identifier, this value has no real-world reference or business meaning, i.e. it is a technical surrogate identifier.
+
+                Returns 200 if any organizations is found
+                Returns 204 if no organizations match the filter criterias, contains a JSONAPIOrganizationResponse with an empty data: []
+                Returns 400 if any of the query parameters fails validation 
+                Returns 404 if the organization is uniquely identified (filter[id] or filter[participantIdentifier] + filter[organizationNumber]) but not found
+            parameters:
+                - $ref: "#/components/parameters/search-term"
+                - $ref: "#/components/parameters/filter.name"
+                - $ref: "#/components/parameters/filter.id"
+                - $ref: "#/components/parameters/filter.participantIdentifier"
+                - $ref: "#/components/parameters/filter.organizationNumber"
+                - $ref: "#/components/parameters/filter.type"
+                - $ref: "#/components/parameters/filter.regionCode"
+                - $ref: "#/components/parameters/filter.municipalityCode"
+                - $ref: "#/components/parameters/filter.managementCode"
+                - $ref: "#/components/parameters/excludeNationalCoverage"
+                - $ref: "#/components/parameters/caseSensitive"
+                - $ref: "#/components/parameters/include"
+                - $ref: "#/components/parameters/pageNumber"
+                - $ref: "#/components/parameters/pageSize"
+                - $ref: "#/components/parameters/Accept-Language"
+    /organizations/search:
+        get:
+            summary: Search for organizations
+            tags:
+                - Organization
+            responses:
+                "200":
+                    $ref: "#/components/responses/JSONAPIOrganizationResponse"
+                "204":
+                    description: No Content
+                "400":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "500":
+                    description: Internal Server Error
+            operationId: search-for-organizations
+            description: |
+                Full text search of text attributes of organizations by the given search term, and applies filtering. Responses are ordered by best match to search term. Responses are paged, default page size is 25 results per page, see pagination.
+
+                Error handling
+
+                Returns 200 if any organizations is found
+
+                Returns 204 if no organizations match the search / filter criterias, contains a JSONAPIOrganizationResponse with an empty data: []
+
+                Returns 400 if any of the query parameters fails validation
+            parameters:
+                - $ref: "#/components/parameters/search-term"
+                - $ref: "#/components/parameters/caseSensitive"
+                - $ref: "#/components/parameters/filter.type"
+                - $ref: "#/components/parameters/include"
+                - $ref: "#/components/parameters/pageNumber"
+                - $ref: "#/components/parameters/pageSize"
+                - $ref: "#/components/parameters/Accept-Language"
+    /codesystems:
+        get:
+            summary: Find Code Systems
+            tags:
+                - CodeSystem
+            responses:
+                "200":
+                    $ref: "#/components/responses/JSONAPICodeSystemResponse"
+                "400":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "500":
+                    description: Internal Server Error
+            operationId: get-all-codesystems
+            description: |-
+                Lists Code Systems. Responses are paged.
+
+                Returns 200 if any code system is found
+                Returns 204 if no code system match the filter criterias, contains a JSONAPICodeSystemResponse with an empty data: []
+                Returns 400 if any of the query parameters fails validation 
+                Returns 404 if the code system is uniquely identified (filter[id]) but not found
+            parameters:
+                - $ref: "#/components/parameters/filter.name"
+                - $ref: "#/components/parameters/codesystem.filter.id"
+                - $ref: "#/components/parameters/filter.systemType"
+                - $ref: "#/components/parameters/pageNumber"
+                - $ref: "#/components/parameters/pageSize"
+                - $ref: "#/components/parameters/Accept-Language"
+    "/codesystems/{identifier}":
+        parameters:
+            - schema:
+                  type: string
+              name: identifier
+              in: path
+              required: true
+              description: "A unique and persistent Code System identifier in the form of an ,,Object Identifier (OID),,."
+        get:
+            summary: Fetch Code System
+            tags:
+                - CodeSystem
+            responses:
+                "200":
+                    $ref: "#/components/responses/JSONAPISingleCodeSystemResponse"
+                "400":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "404":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "500":
+                    description: Internal Server Error
+            operationId: get-one-codesystem
+            description: |-
+                Retrieves one Code System by system identifier.
+
+                Returns 200 if the code system is found
+                Returns 404 if the code system does not exist
+            parameters:
+                - $ref: "#/components/parameters/Accept-Language"
+    "/codesystems/{identifier}/codes":
+        parameters:
+            - schema:
+                  type: string
+              name: identifier
+              in: path
+              required: true
+              description: "A unique and persistent Code System identifier in the form of an ,,Object Identifier (OID),."
+            - $ref: "#/components/parameters/Accept-Language"
+        get:
+            summary: List Codes for Code System
+            operationId: get-all-codes-for-codesystem
+            tags:
+                - Code
+            responses:
+                "200":
+                    $ref: "#/components/responses/JSONAPICodeResponse"
+                "204":
+                    $ref: "#/components/responses/JSONAPICodeResponse"
+                "404":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "500":
+                    description: Internal Server Error
+            description: |-
+                Get all codes for one codesystem
+
+                Returns 200 if any codes is found
+                Returns 204 if no codes for the codesystem exists, contains a JSONAPICodeResponse with an empty data: []
+                Returns 404 if the codesystem does not exist
+    "/codesystems/{identifier}/codes/{code}":
+        parameters:
+            - schema:
+                  type: string
+              name: identifier
+              in: path
+              required: true
+              description: "A unique and persistent Code System identifier in the form of an ,,Object Identifier (OID),,."
+            - schema:
+                  type: string
+              name: code
+              in: path
+              required: true
+              description: 'A unique code identifier - constructed from the concatenation of "{codeSystemIdentifier}-{code value}".'
+            - $ref: "#/components/parameters/Accept-Language"
+        get:
+            summary: Fetch Code
+            tags:
+                - Code
+            operationId: get-one-code-for-codesystem
+            responses:
+                "200":
+                    $ref: "#/components/responses/JSONAPISingleCodeResponse"
+                "204":
+                    $ref: "#/components/responses/JSONAPICodeResponse"
+                "400":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "404":
+                    $ref: "#/components/responses/JSONAPIErrorResponse"
+                "500":
+                    description: Internal Server Error
+            description: |-
+                Get one code for one codesystem
+
+                Returns 200 if the code is found
+                Returns 204 is no code for the codesystem match the code, contains a JSONAPICodeResponse (FIXME: check if this is correct) with an empty data: []
+                Returns 404 if the codesystem or code does not exist
+components:
+    schemas:
+        OrganizationNumber:
+            type: string
+            pattern: '^(\d{6}-\d{4})$'
+            x-field-extra-annotation: "@jakarta.validation.constraints.NotBlank"
+            example: 123456-1234
+        ParticipantIdentifier:
+            type: string
+            pattern: '^0203:(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$'
+            x-field-extra-annotation: "@jakarta.validation.constraints.NotBlank"
+            example: "0203:participant.se"
+        ParticipantStatus:
+            type: object
+            title: ParticipantStatus
+            properties:
+                lastChecked:
+                    type: string
+                result:
+                    type: string
+                    enum:
+                        - OK
+                        - NOT_FOUND
+                    example: OK
+        Address:
+            type: object
+            x-examples: {}
+            description: Represents a reachable adress within an organization
+            properties:
+                identifier:
+                    type: string
+                    pattern: "^[a-zA-Z0-9åäöÅÄÖ.:!#$%&'*+/=?^_`{|}~-]+$"
+                name:
+                    type: string
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                unitName:
+                    type: string
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                description:
+                    type: string
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                activatedAt:
+                    type: string
+                    format: date-time
+                deactivatedAt:
+                    type: string
+                    format: date-time
+                    x-field-extra-annotation: "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)"
+                updatedAt:
+                    type: string
+                    format: date-time
+                    x-field-extra-annotation: "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)"
+                categories:
+                    type: array
+                    x-field-extra-annotation: "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY)"
+                    items:
+                        type: string
+                        pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                codes:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/CodeWrapper"
+                municipalityCode:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/CodeWrapper"
+                regionCode:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/CodeWrapper"
+        JSONAPIAddressResourceObject:
+            type: object
+            description: |-
+                "Resource objects” appear in a JSON:API document to represent resources.
+
+                A resource object MUST contain at least the following top-level members:
+                * type
+                * id
+            x-examples: {}
+            properties:
+                type:
+                    type: string
+                id:
+                    type: string
+                attributes:
+                    $ref: "#/components/schemas/Address"
+                relationships:
+                    $ref: "#/components/schemas/JSONAPIParentRelationshipObject"
+                links:
+                    $ref: "#/components/schemas/JSONAPISelfLinks"
+            required:
+                - type
+            x-stoplight:
+                id: r5l5ixr61idol
+        Organization:
+            type: object
+            x-examples: {}
+            properties:
+                createdAt:
+                    type: string
+                    format: date-time
+                updatedAt:
+                    type: string
+                    format: date-time
+                name:
+                    type: string
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                    x-field-extra-annotation: "@jakarta.validation.constraints.NotBlank"
+                description:
+                    type: string
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                    x-field-extra-annotation: "@jakarta.validation.constraints.NotBlank"
+                alternateName:
+                    type: string
+                    nullable: true
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                participantIdentifier:
+                    $ref: "#/components/schemas/ParticipantIdentifier"
+                affiliation:
+                    type: string
+                managementCode:
+                    $ref: "#/components/schemas/CodeWrapper"
+                publicProvider:
+                    type: boolean
+                organizationNumber:
+                    $ref: "#/components/schemas/OrganizationNumber"
+                countryCode:
+                    type: string
+                    enum:
+                        - SE
+                    example: SE
+                validCodeSystems:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/CodeSystemWrapper"
+                municipalityCode:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/CodeWrapper"
+                regionCode:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/CodeWrapper"
+                type:
+                    type: string
+                    enum:
+                        - O
+                        - UO
+                    example: UO
+                participantStatus:
+                    $ref: "#/components/schemas/ParticipantStatus"
+            required:
+                - name
+                - description
+                - participantIdentifier
+                - organizationNumber
+        JSONAPIOrganizationResourceObject:
+            type: object
+            description: |-
+                "Resource objects” appear in a JSON:API document to represent resources.
+
+                A resource object MUST contain at least the following top-level members:
+                * type
+                * id
+            x-examples: {}
+            properties:
+                type:
+                    type: string
+                id:
+                    type: string
+                attributes:
+                    $ref: "#/components/schemas/Organization"
+                links:
+                    $ref: "#/components/schemas/JSONAPISelfLinks"
+                relationships:
+                    $ref: "#/components/schemas/JSONAPIParentRelationshipObject"
+            required:
+                - type
+            x-field-extra-annotation: "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY)"
+            x-stoplight:
+                id: aeoce78hcx7t3
+        CodeSystem:
+            title: CodeSystem
+            x-stoplight:
+                id: lsg7kumm5z5em
+            type: object
+            properties:
+                system:
+                    type: string
+                    description: A unique identifier for the code system (business identifier) usually an OID.
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                name:
+                    type: string
+                    description: Name for this code system.
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                version:
+                    type: string
+                    description: The version for this code system.
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                alternateName:
+                    type: string
+                    description: An alternate name for this code system.
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                description:
+                    type: string
+                    description: A clear text description of the code system.
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                systemType:
+                    type: string
+                    enum:
+                        - SEARCH
+                        - STRUCTURE
+                        - GEO
+                        - SYSTEM
+                        - OTHER
+                    description: |-
+                        Defines the purpose of the code system.
+
+                        Must be one of [SEARCH, STRUCTURE, GEO, SYSTEM, OTHER].
+                createdAt:
+                    type: string
+                    description: The date and time when this code system was added to the system.
+                    format: date-time
+                updatedAt:
+                    type: string
+                    description: "\t\nThe date and time when this code system was updated (e.g. a change of metadata)."
+                    format: date-time
+                email:
+                    type: string
+                    description: The email address to the organization maintaining this code system.
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                url:
+                    type: string
+                    description: The homepage of this code system.
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+            required:
+                - system
+                - name
+                - version
+                - systemType
+        JSONAPICodeSystemResourceObject:
+            type: object
+            properties:
+                type:
+                    type: string
+                id:
+                    type: string
+                attributes:
+                    $ref: "#/components/schemas/CodeSystem"
+            required:
+                - type
+            x-examples: {}
+            description: |-
+                "Resource objects” appear in a JSON:API document to represent resources.
+
+                A resource object MUST contain at least the following top-level members:
+                * type
+                * id
+        Code:
+            title: Codes
+            x-stoplight:
+                id: wve2umm94d1xz
+            type: object
+            description: 'A list of Codes defined by a set of decided Terminology Systems. Codes are applied to a Functional Address to facilitate systematic searching. Search codes may express the "business function" of the Address (Swedish: "sökkod eller funktionskod") and / or organizational structure of the Address (Swedish: "strukturkod").'
+            properties:
+                code:
+                    type: string
+                    description: Symbol in syntax defined by the system.
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                displayName:
+                    type: string
+                    description: "Representation defined by the system. If missing {@link #originalText} should be used."
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                originalText:
+                    type: string
+                    description: A human language representation of the concept as seen/selected/uttered by the user who entered the data and/or which represents the intended meaning of the user.
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+                additionalInfo:
+                    type: string
+                    description: "Additional information, a human-friendly description to determine the applicability of the code."
+                    pattern: '^[a-zA-Z0-9åäöÅÄÖ :;,.?!@&''"\[\]/()#%|_+-]+$'
+            required:
+                - code
+                - originalText
+        JSONAPICodeResourceObject:
+            type: object
+            x-examples: {}
+            properties:
+                type:
+                    type: string
+                id:
+                    type: string
+                attributes:
+                    $ref: "#/components/schemas/Code"
+            required:
+                - type
+            description: |-
+                "Resource objects” appear in a JSON:API document to represent resources.
+
+                A resource object MUST contain at least the following top-level members:
+                * type
+                * id
+        JSONAPIMeta:
+            type: object
+            x-examples:
+                example-1:
+                    version: AB-3.3.1 (build 3219-ef6293e)
+                    buildTimestamp: "2022-08-26T08:33:41+0200"
+            description: Optional Metadata of this API. See JSON API Top Level Object.
+            properties:
+                api-version:
+                    type: string
+                    description: "The version of this API, adhering to the Semantic Versioning concept."
+                version:
+                    type: string
+                    description: "The version of this Software Artifact, adhering to the Semantic Versioning concept."
+                buildTimestamp:
+                    type: string
+                    description: Software build timestamp.
+                request-id:
+                    type: string
+                    description: Identifier for this request.
+            title: ""
+            x-class-extra-annotation: "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY)"
+        JSONAPISelfLinks:
+            type: object
+            x-class-extra-annotation: "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)"
+            properties:
+                self:
+                    type: string
+                    description: Link to this page of results
+        JSONAPIPaginationLinks:
+            type: object
+            properties:
+                self:
+                    type: string
+                    description: Link to this page of results
+                prev:
+                    type: string
+                    description: Link to the previous page of results
+                next:
+                    type: string
+                    description: Link to the next page of results
+                last:
+                    type: string
+                    description: Link to the last page of results
+                first:
+                    type: string
+                    description: Link to the first page of results
+            x-class-extra-annotation: "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)"
+        JSONAPIParentRelationshipObject:
+            type: object
+            x-field-extra-annotation: "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)"
+            x-examples: {}
+            description: Parent organization
+            properties:
+                parent:
+                    type: object
+                    title: Parent
+                    properties:
+                        data:
+                            type: object
+                            title: ParentData
+                            properties:
+                                id:
+                                    type: string
+                                type:
+                                    type: string
+                                    enum:
+                                        - organizations
+                                        - addresses
+                                        - codesystems
+        JSONAPIErrorObject:
+            type: object
+            description: |
+                **title**: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+
+                **detail**: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+
+                **source**: an object containing references to the primary source of the error. 
+
+                **status**: the status code of error.
+
+                **traceId**: a unique identifier for this particular occurrence of the problem.
+
+                **errorCode**: an application-specific error code, expressed as a string value.
+            x-examples: {}
+            x-class-extra-annotation: "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY)"
+            properties:
+                title:
+                    type: string
+                    description: "A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization."
+                detail:
+                    type: string
+                    description: "A human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized."
+                source:
+                    type: string
+                    description: An object containing references to the source of the error
+                status:
+                    type: string
+                    description: "The HTTP status code applicable to this problem, expressed as a string value."
+                traceId:
+                    type: string
+                    description: A unique identifier for this particular occurrence of the problem.
+                errorCode:
+                    type: string
+                    description: "An application-specific error code, expressed as a string value."
+        JSONAPIErrorResponse:
+            title: JSONAPIErrorResponse
+            type: object
+            properties:
+                errors:
+                    type: array
+                    x-stoplight:
+                        id: 1lkyqjozj1ktc
+                    items:
+                        $ref: "#/components/schemas/JSONAPIErrorObject"
+        JSONAPISingleAddressResponse:
+            title: JSONAPISingleAddressResponse
+            type: object
+            properties:
+                meta:
+                    $ref: "#/components/schemas/JSONAPIMeta"
+                links:
+                    $ref: "#/components/schemas/JSONAPIPaginationLinks"
+                data:
+                    $ref: "#/components/schemas/JSONAPIAddressResourceObject"
+                included:
+                    type: array
+                    x-field-extra-annotation: "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY)"
+                    items:
+                        $ref: "#/components/schemas/JSONAPIOrganizationResourceObject"
+            required:
+                - data
+        JSONAPIAddressResponse:
+            title: JSONAPIAddressResponse
+            type: object
+            properties:
+                meta:
+                    $ref: "#/components/schemas/JSONAPIMeta"
+                links:
+                    $ref: "#/components/schemas/JSONAPIPaginationLinks"
+                data:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/JSONAPIAddressResourceObject"
+                included:
+                    type: array
+                    x-field-extra-annotation: "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY)"
+                    items:
+                        $ref: "#/components/schemas/JSONAPIOrganizationResourceObject"
+            required:
+                - data
+        AddressCategoriesResponse:
+            type: object
+            properties:
+                categories:
+                    type: array
+                    items:
+                        type: string
+        JSONAPISingleOrganizationResponse:
+            title: JSONAPISingleOrganizationResponse
+            type: object
+            properties:
+                meta:
+                    $ref: "#/components/schemas/JSONAPIMeta"
+                links:
+                    $ref: "#/components/schemas/JSONAPIPaginationLinks"
+                data:
+                    $ref: "#/components/schemas/JSONAPIOrganizationResourceObject"
+                included:
+                    type: array
+                    x-field-extra-annotation: "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY)"
+                    items:
+                        $ref: "#/components/schemas/JSONAPIOrganizationResourceObject"
+            required:
+                - data
+        JSONAPIOrganizationResponse:
+            title: JSONAPIOrganizationResponse
+            type: object
+            properties:
+                meta:
+                    $ref: "#/components/schemas/JSONAPIMeta"
+                links:
+                    $ref: "#/components/schemas/JSONAPIPaginationLinks"
+                data:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/JSONAPIOrganizationResourceObject"
+                included:
+                    type: array
+                    x-field-extra-annotation: "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY)"
+                    items:
+                        $ref: "#/components/schemas/JSONAPIOrganizationResourceObject"
+            required:
+                - data
+        JSONAPISingleCodeSystemResponse:
+            title: JSONAPISingleCodeSystemResponse
+            type: object
+            properties:
+                meta:
+                    $ref: "#/components/schemas/JSONAPIMeta"
+                links:
+                    $ref: "#/components/schemas/JSONAPIPaginationLinks"
+                data:
+                    $ref: "#/components/schemas/JSONAPICodeSystemResourceObject"
+            required:
+                - data
+        JSONAPICodeSystemResponse:
+            title: JSONAPICodeSystemResponse
+            type: object
+            properties:
+                meta:
+                    $ref: "#/components/schemas/JSONAPIMeta"
+                links:
+                    $ref: "#/components/schemas/JSONAPIPaginationLinks"
+                data:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/JSONAPICodeSystemResourceObject"
+            required:
+                - data
+        JSONAPISingleCodeResponse:
+            title: JSONAPISingleCodeResponse
+            type: object
+            properties:
+                meta:
+                    $ref: "#/components/schemas/JSONAPIMeta"
+                links:
+                    $ref: "#/components/schemas/JSONAPIPaginationLinks"
+                data:
+                    $ref: "#/components/schemas/JSONAPICodeResourceObject"
+            required:
+                - data
+        JSONAPICodeResponse:
+            title: JSONAPICodeResponse
+            type: object
+            properties:
+                meta:
+                    $ref: "#/components/schemas/JSONAPIMeta"
+                links:
+                    $ref: "#/components/schemas/JSONAPIPaginationLinks"
+                data:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/JSONAPICodeResourceObject"
+            required:
+                - data
+        CodeSystemWrapper:
+            type: object
+            x-examples: {}
+            description: ""
+            properties:
+                system:
+                    type: string
+                name:
+                    type: string
+                version:
+                    type: string
+                    nullable: true
+        CodeWrapper:
+            type: object
+            x-examples: {}
+            properties:
+                text:
+                    type: string
+                coding:
+                    type: object
+                    title: CodeWrapperCoding
+                    properties:
+                        system:
+                            type: string
+                        code:
+                            type: string
+                        displayText:
+                            type: string
+                        additionalInfo:
+                            type: string
+                            nullable: true
+    responses:
+        JSONAPIErrorResponse:
+            description: |-
+                4xx Client error
+
+                Error objects provide additional information about problems encountered while performing an operation. Error objects MUST be returned as an array keyed by errors in the top level of a JSON:API document
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/JSONAPIErrorResponse"
+                    examples: {}
+            headers:
+                Content-Language:
+                    $ref: "#/components/headers/Content-Language"
+        JSONAPISingleAddressResponse:
+            description: "A JSON object MUST be at the root of every JSON:API request and response document containing data. This object defines a document’s “top level”."
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/JSONAPISingleAddressResponse"
+            headers:
+                Content-Language:
+                    $ref: "#/components/headers/Content-Language"
+        JSONAPIAddressResponse:
+            description: "A JSON object MUST be at the root of every JSON:API request and response document containing data. This object defines a document’s “top level”."
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/JSONAPIAddressResponse"
+            headers:
+                Content-Language:
+                    $ref: "#/components/headers/Content-Language"
+        JSONAPISingleOrganizationResponse:
+            description: "A JSON object MUST be at the root of every JSON:API request and response document containing data. This object defines a document’s “top level”."
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/JSONAPISingleOrganizationResponse"
+            headers:
+                Content-Language:
+                    $ref: "#/components/headers/Content-Language"
+        JSONAPIOrganizationResponse:
+            description: "A JSON object MUST be at the root of every JSON:API request and response document containing data. This object defines a document’s “top level”."
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/JSONAPIOrganizationResponse"
+            headers:
+                Content-Language:
+                    $ref: "#/components/headers/Content-Language"
+        JSONAPISingleCodeSystemResponse:
+            description: "A JSON object MUST be at the root of every JSON:API request and response document containing data. This object defines a document’s “top level”."
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/JSONAPISingleCodeSystemResponse"
+            headers:
+                Content-Language:
+                    $ref: "#/components/headers/Content-Language"
+        JSONAPICodeSystemResponse:
+            description: "A JSON object MUST be at the root of every JSON:API request and response document containing data. This object defines a document’s “top level”."
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/JSONAPICodeSystemResponse"
+            headers:
+                Content-Language:
+                    $ref: "#/components/headers/Content-Language"
+        JSONAPISingleCodeResponse:
+            description: "A JSON object MUST be at the root of every JSON:API request and response document containing data. This object defines a document’s “top level”."
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/JSONAPISingleCodeResponse"
+            headers:
+                Content-Language:
+                    $ref: "#/components/headers/Content-Language"
+        JSONAPICodeResponse:
+            description: "A JSON object MUST be at the root of every JSON:API request and response document containing data. This object defines a document’s “top level”."
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/JSONAPICodeResponse"
+            headers:
+                Content-Language:
+                    $ref: "#/components/headers/Content-Language"
+    parameters:
+        pageNumber:
+            name: "page[number]"
+            in: query
+            schema:
+                type: integer
+                default: 0
+                example: 1
+                minimum: 0
+            description: Controls what subset (a.k.a "page") of the whole available set/collection should be returned.
+        pageSize:
+            name: "page[size]"
+            in: query
+            required: false
+            schema:
+                type: integer
+                default: 25
+                example: 10
+                maximum: 25
+            description: "Limits the number of resources returned in the response. The server will default to 25 for this value if omitted. A client can get fewer results by setting a smaller value. If set to larger than 25, the server will ignore this parameter and use the default (25)."
+        include:
+            name: include
+            in: query
+            required: false
+            schema:
+                type: string
+                enum:
+                    - parent
+                pattern: parent
+                example: parent
+            description: 'Request parameter to allow the client to customize which related resources should be returned. Valid value(s): "parent".'
+        caseSensitive:
+            name: caseSensitive
+            in: query
+            required: false
+            schema:
+                type: boolean
+                default: false
+                example: true
+            description: An optional string value ("true" / "false") indicating if distinction between uppercase and lowercase letters should be active. Inactive ("false") by default. NB! Only applies to text-attribute filters
+        matchAllCodes:
+            name: "filter[matchAllCodes]"
+            in: query
+            schema:
+                type: boolean
+                default: false
+                example: true
+            description: 'Controls the filtering logic for codes - used in conjunction with filter[codes.coding.code]. If "true" only Addresses that contain at least ALL the submitted codes will be fetched (if omitted or set to "false" - the default behavior of matching at least ONE submitted code will be applied).'
+        excludeNationalCoverage:
+            name: "filter[excludeNationalCoverage]"
+            in: query
+            required: false
+            schema:
+                type: boolean
+                default: false
+                example: true
+            description: Excludes addresses with nationwide coverage (i.e. Addresses with no Region- and Municipality codes set). Defaults to false.
+        filter.municipalityCode:
+            name: "filter[municipalityCode.coding.code]"
+            in: query
+            required: false
+            schema:
+                type: string
+                example: "0180,0183"
+            description: 'Applies geographic filtering on ,,Swedish Municipality code ("Kommunkod"),,. Comma-separated list if many.'
+            x-separator: ","
+        filter.managementCode:
+            name: "filter[managementCode.coding.code]"
+            in: query
+            required: false
+            schema:
+                type: string
+                example: "1"
+            description: Filter by management code. Comma-separated list if many.
+            x-separator: ","
+        filter.regionCode:
+            name: "filter[regionCode.coding.code]"
+            in: query
+            required: false
+            schema:
+                type: string
+                example: "01"
+            description: 'Applies geographic filtering on ,,Swedish Region code ("Länskod"),,. Comma-separated list if many.'
+            x-separator: ","
+        filter.codeSystem:
+            name: "filter[codes.coding.system]"
+            in: query
+            required: false
+            schema:
+                type: string
+                example: 1.2.752.129.5.1.25
+            description: "Filters  by Code Systems. May be used in combination with function codes, to conduct fully qualified code searches. Note: Code System filter will apply to all Codes in the filter expression."
+            x-separator: ","
+        filter.code:
+            name: "filter[codes.coding.code]"
+            in: query
+            required: false
+            schema:
+                type: string
+                example: "2600"
+            description: 'Filters by Codes. Note: codes (and code systems) used by SDK is defined in "SDK Kodverksregister" (SDK Code System Registry).'
+            x-separator: ","
+        organizationId:
+            name: organizationResourceIdentifier
+            in: path
+            required: true
+            schema:
+                type: string
+                format: uuid
+            description: "A unique and persistent identifier ,,set by the server,, in the form of a ,,UUID,,. This value has no real-world reference or business meaning, i.e. it is a technical surrogate identifier. Any changes by the client to this field will be ignored."
+        addressId:
+            name: addressResourceIdentifier
+            in: path
+            required: true
+            schema:
+                type: string
+                format: uuid
+            description: "A unique and persistent identifier ,,set by the server,, in the form of a ,,UUID,, This value has no real-world reference or business meaning, i.e. it is a technical surrogate identifier. Any changes by the client to this field will be ignored."
+        filter.categories:
+            name: "filter[categories]"
+            in: query
+            required: false
+            schema:
+                type: string
+            description: Filters addresses by category (a.k.a "tags").
+            x-separator: ","
+        filter.unitName:
+            name: "filter[unitName]"
+            in: query
+            required: false
+            schema:
+                type: string
+            description: Filters addresses by its unit name.
+            x-separator: ","
+        filter.type:
+            name: "filter[type]"
+            in: query
+            required: false
+            schema:
+                type: string
+                enum:
+                    - O
+                    - UO
+                example: O
+            description: Filters organizations by "Type".
+            x-separator: ","
+        filter.organization.type:
+            name: "filter[organization.type]"
+            in: query
+            required: false
+            schema:
+                type: string
+                enum:
+                    - O
+                    - UO
+                example: O
+            description: Filters addresses by "Type" of parent Organization.
+            x-separator: ","
+        filter.participantIdentifier:
+            name: "filter[participantIdentifier]"
+            in: query
+            required: false
+            schema:
+                type: string
+                example: "0203:participant.se"
+            description: Filters organizations by Participant Identifier.
+            x-separator: ","
+        filter.organization.participantIdentifier:
+            name: "filter[organization.participantIdentifier]"
+            in: query
+            required: false
+            schema:
+                type: string
+                example: "0203:participant.se"
+            description: Filters addresses by Participant Identifier of the parent Organization.
+            x-separator: ","
+        filter.identifier:
+            name: "filter[identifier]"
+            in: query
+            required: false
+            schema:
+                type: string
+                example: "mottagare:::participant.se"
+            description: Filters addresses by its identifier (the unique function address used for message routing).
+            x-separator: ","
+        filter.name:
+            name: "filter[name]"
+            in: query
+            required: false
+            schema:
+                type: string
+                example: sdk
+            description: Filters by name
+            x-separator: ","
+        search-term:
+            name: q
+            in: query
+            schema:
+                type: string
+                example: sdk
+            description: The search term to use for free text search
+        filter.organizationNumber:
+            name: "filter[organizationNumber]"
+            in: query
+            required: false
+            schema:
+                type: string
+                example: "2021006883"
+            description: Filter by organization number
+            x-separator: ","
+        filter.id:
+            name: "filter[id]"
+            in: query
+            schema:
+                type: string
+            description: The resource identifier(s) to filter by.
+            x-separator: ","
+        codesystem.filter.id:
+            name: "filter[id]"
+            in: query
+            schema:
+                type: string
+            description: The resource identifier(s) to filter by.
+            x-separator: ","
+        filter.systemType:
+            name: "filter[systemType]"
+            in: query
+            required: false
+            schema:
+                type: string
+            description: Filter by system type
+            x-separator: ","
+        Accept-Language:
+            name: Accept-Language
+            in: header
+            required: false
+            schema:
+                type: string
+                default: sv-SE
+                example: sv-SE; en-US
+            description: Indicates the natural language and locale that the client prefers
+    headers:
+        Content-Language:
+            description: Describe the language(s) intended for the audience
+            schema:
+                type: string
+                default: sv
+            example: "sv, en"
+    securitySchemes: {}

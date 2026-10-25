@@ -1,0 +1,11 @@
+{
+  "id": "Q5",
+  "question": "En invånare har skickat in en bygglovsansökan till kommunen. Hur lång tid har kommunen på sig att fatta beslut om bygglovet?",
+  "http_status": 200,
+  "seconds": 0.03,
+  "response": {
+    "mode": "guardrail",
+    "answer": "Det ligger utanför mitt område.\n- Jag kan hjälpa till med SDK, Mina meddelanden, DIGG-anslutning, API-underlag och kommunens anslutningsarbete.\n- För bygglov ska invånaren använda kommunens egen bygglovssida eller e-tjänst, eller kontakta kommunens bygglovshandläggare.\n- Om frågan egentligen gäller hur kommunen ska skicka bygglovsbeslut eller meddelanden säkert via SDK eller digital post, skriv det så hjälper jag med anslutningsdelen.",
+    "sources": []
+  }
+}

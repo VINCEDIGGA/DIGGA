@@ -11,6 +11,7 @@ const DiggApi = (function () {
     config.stepContextEndpoint || "backend/api/step_context.php";
   const CASE_ATTACHMENTS_ENDPOINT =
     config.caseAttachmentsEndpoint || "backend/api/case_attachments.php";
+  const REFORMAT_ENDPOINT = config.reformatEndpoint || "backend/api/reformat_files.php";
   const STEP_CONTEXT_TIMEOUT_MS = 3500;
 
   function load() {
@@ -155,6 +156,9 @@ const DiggApi = (function () {
   }
 
   async function deleteRemoteCaseData(caseId) {
+    ["digga-sdk-preparation-v1:", "digga-sdk-guide-v1:", "digg-guided-onboarding-v4:", "digga-workshop-v1:", "digg-reformat-workspace-v1:"].forEach(function (prefix) {
+      localStorage.removeItem(prefix + caseId);
+    });
     try {
       await fetch(STEP_CONTEXT_ENDPOINT, {
         method: "DELETE",
@@ -173,6 +177,17 @@ const DiggApi = (function () {
       });
     } catch (error) {
       console.warn("Kunde inte radera uppladdade filer i backend", error);
+    }
+
+    try {
+      const response = await fetch(REFORMAT_ENDPOINT, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ case_id: caseId }),
+      });
+      if (!response.ok) console.warn("Kunde inte radera verkstadsutkast i backend");
+    } catch (error) {
+      console.warn("Kunde inte radera verkstadsutkast i backend", error);
     }
 
     const data = load();
@@ -224,12 +239,50 @@ const DiggApi = (function () {
   }
 
   function formatAssistantText(data) {
-    let text = data.answer || "Jag fick inget textsvar från RAG-backenden.";
+    let text = data.answer || (Array.isArray(data.claims) ? data.claims.filter(function (claim) { return claim && typeof claim.text === "string"; }).map(function (claim) { return claim.text; }).join("\n\n") : "") || "Jag fick inget textsvar från RAG-backenden.";
     text += formatSources(data.sources);
     if (data.warning) {
       text += "\n\nObs: " + data.warning;
     }
     return text;
+  }
+
+  function structuredEvidence(data) {
+    const claims = (Array.isArray(data.claims) ? data.claims : []).filter(function (claim) {
+      return claim && typeof claim.text === "string" && claim.text.trim();
+    }).slice(0, 60).map(function (claim) {
+      return {
+        id: typeof claim.id === "string" || typeof claim.id === "number" ? String(claim.id) : "",
+        text: claim.text,
+        kind: ["summary", "excerpt", "reviewed"].includes(claim.kind) ? claim.kind : "summary",
+        support_check: ["model_supported", "exact_excerpt", "reviewed_fact"].includes(claim.support_check) ? claim.support_check : "",
+        evidence: (Array.isArray(claim.evidence) ? claim.evidence : []).filter(function (source) { return source && typeof source === "object"; }).slice(0, 12).map(function (source) {
+          const result = {};
+          ["source_id", "chunk_id", "title", "source_url", "quote", "version", "last_checked", "environment", "role", "origin", "evidence_origin"].forEach(function (key) {
+            result[key] = typeof source[key] === "string" || typeof source[key] === "number" && Number.isFinite(source[key]) ? String(source[key]) : "";
+          });
+          return result;
+        }),
+      };
+    });
+    let verification = null;
+    if (data.verification && typeof data.verification === "object") {
+      const value = data.verification;
+      verification = {
+        status: ["supported", "partial", "excerpts", "reviewed", "no_support"].includes(value.status) ? value.status : "no_support",
+        checked_claims: Number.isFinite(value.checked_claims) ? Math.max(0, Math.floor(value.checked_claims)) : null,
+        omitted_claims: Number.isFinite(value.omitted_claims) ? Math.max(0, Math.floor(value.omitted_claims)) : null,
+        semantic_check: ["passed", "not_used", "unavailable"].includes(value.semantic_check) ? value.semantic_check : "unavailable",
+        notice: typeof value.notice === "string" ? value.notice : "",
+      };
+    }
+    return {
+      mode: typeof data.mode === "string" ? data.mode : "",
+      answer: typeof data.answer === "string" ? data.answer : claims.map(function (claim) { return claim.text; }).join("\n\n"),
+      claims: claims,
+      verification: verification,
+      missing_information: (Array.isArray(data.missing_information) ? data.missing_information : []).filter(function (item) { return typeof item === "string" && item.trim(); }).slice(0, 30),
+    };
   }
 
   function assistantErrorText(error) {
@@ -244,8 +297,22 @@ const DiggApi = (function () {
     );
   }
 
+  function hasMeaningfulContext(context) {
+    if (!context) return false;
+    if (["organization_name", "organization_number", "contact_name", "contact_email", "contact_role", "short_description", "need_text"].some(function (key) { return String(context[key] || "").trim(); })) return true;
+    if (Array.isArray(context.files) && context.files.length) return true;
+    return Object.entries(context.application || {}).some(function (entry) {
+      const key = entry[0], value = entry[1];
+      if (/^sdk_(service|environment|stage)$/.test(key) || key === "multiple_signers" || /^sdk_test_.+_(mode|result)$/.test(key)) return false;
+      if (typeof value === "boolean") return value;
+      if (typeof value !== "string") return false;
+      return value.trim() !== "" && !["false", "nej", "not_started", "simulation", "qa", "production", "preparation"].includes(value.trim());
+    });
+  }
+
   return {
     MAX_ONGOING: MAX_ONGOING,
+    hasMeaningfulContext: hasMeaningfulContext,
 
     getCases: async function () {
       return ongoing(load());
@@ -373,21 +440,23 @@ const DiggApi = (function () {
 
       let text;
       let sources = [];
+      let evidence = {};
       try {
         const response = await askRag(question, caseId);
         text = formatAssistantText(response);
         sources = Array.isArray(response.sources) ? response.sources : [];
+        evidence = structuredEvidence(response);
       } catch (error) {
         console.warn("RAG/LLM-anrop misslyckades", error);
         text = assistantErrorText(error);
       }
 
-      const message = {
+      const message = Object.assign({
         id: "msg-" + Date.now() + "-assistant",
         role: "assistant",
         text: text,
         sources: sources,
-      };
+      }, evidence);
       data.messages[caseId].push(message);
       save(data);
       return message;

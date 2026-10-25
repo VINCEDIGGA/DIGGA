@@ -13,6 +13,13 @@ if (!function_exists('env_value')) {
     }
 }
 
+$llmBaseUrl = rtrim(env_value('LLM_BASE_URL', $localSecrets['llm']['base_url'] ?? 'https://api.mistral.ai/v1'), '/');
+$baseLlmModel = env_value('LLM_MODEL', $localSecrets['llm']['model'] ?? 'mistral-small-latest');
+// Grounded answers and their support review need the same stronger model.
+// Keep the base model for other tools and allow an explicit cost/quality override.
+$groundedModelDefault = parse_url($llmBaseUrl, PHP_URL_HOST) === 'api.mistral.ai'
+    ? 'mistral-large-2512' : $baseLlmModel;
+
 return [
     'db' => [
         'host' => env_value('DB_HOST', $localSecrets['db']['host'] ?? '127.0.0.1'),
@@ -23,8 +30,9 @@ return [
     ],
     'llm' => [
         'api_key' => env_value('LLM_API_KEY', $localSecrets['llm']['api_key'] ?? null),
-        'base_url' => rtrim(env_value('LLM_BASE_URL', $localSecrets['llm']['base_url'] ?? 'https://api.mistral.ai/v1'), '/'),
-        'model' => env_value('LLM_MODEL', $localSecrets['llm']['model'] ?? 'mistral-small-latest'),
+        'base_url' => $llmBaseUrl,
+        'model' => $baseLlmModel,
+        'grounded_model' => env_value('RAG_MODEL', $localSecrets['llm']['grounded_model'] ?? $groundedModelDefault),
         'timeout' => (int) env_value('LLM_TIMEOUT', (string) ($localSecrets['llm']['timeout'] ?? '30')),
         'max_tokens' => (int) env_value('LLM_MAX_TOKENS', (string) ($localSecrets['llm']['max_tokens'] ?? '800')),
     ],

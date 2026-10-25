@@ -1,0 +1,28 @@
+Instruktion för förnyelse av O2O-certifikat
+På denna webbsida hittar du vägledande instruktioner för hur ni i rollen som deltagarorganisation gör för att förnya er organisations O2O-certifikat i SDK-QA-miljö och SDK produktionsmiljö.
+Vägledningen beskriver de olika stegen i processen och tydliggör vilka av dessa ni som deltagarorganisation ansvarar för och även vad Digg utför i rollen som federationsägare.
+1. Förnyelse av O2O-certifikat
+När ni som deltagarorganisation behöver förnya ert O2O-certifikat i SDK-QA-miljön och/eller SDK produktionsmiljö ansvarar ni själva för att införskaffa ett nytt certifikat från någon av de certifikatsutfärdare som är godkända att nyttjas i aktuell miljö enligt SDK:s regelverk.
+Mer information om certifikat och de godkända certifikatsutfärdarna hittar ni på följande sidor.
+För SDK-QA-miljö: Anslutningsinformation certifikat | Digg Länk till annan webbplats.
+För SDK produktionsmiljö: Bilaga för IT säkerhet inom SDK | Digg Länk till annan webbplats.
+2. Lämna publikt certifikat till Digg
+När ni införskaffat det nya certifikatet behöver den publika delen lämnas till oss på Digg. För att garantera riktighet lämnar ni den i SDK adressbok i den aktuella miljön.
+SDK adressbok i SDK-QA: Start - SDK Adressbok Länk till annan webbplats.
+SDK adressbok i SDK produktionsmiljö: Start - SDK Adressbok Länk till annan webbplats.
+För att kunna lämna publikt O2O-certifikat i adressboken krävs att man har behörighet i rollen som organisationsadministratör. En roll som kan innehas av en eller flera personer i er organisation.
+2.1 Hur du som organisationsadministratör går tillväga
+För att lämna publikt O2O-certifikat loggar du som organisationsadministratör in i adressboken och går därefter till ”Mina organisationer” i vänstermenyn.
+Om du har rollen organisationsadministratör för fler än en organisation så kommer samtliga listas i följande vy. Välj den organisation du avser lämna publikt O2O-certifikat för och välj sedan ”Redigera”.
+Scrolla längst ned till rubriken ”Deltagarorganisationens publika O2O-certifikat”.
+2.1.1 Krypterings- och signeringscertifikat
+Enligt SDK regelverk ska ni som deltagarorganisation använda samma certifikat för kryptering och signering av meddelanden inom SDK. Du som organisationsadministratör behöver därför lägga in er organisations publika certifikat i båda fälten – ”Krypteringscertifikat” och ”Signeringscertifikat”.
+2.1.2 Varför två fält om samma certifikat ska användas för kryptering och signering?
+SDK adressbok är utformad för att fungera långsiktigt och kunna bemöta framtida förändringar som ställer krav på dess funktionalitet. Ett sådant krav skulle exempelvis kunna vara att Digg i rollen som federationsägare inför en ändring i regelverket som skulle betyda att ni som deltagarorganisation ges möjlighet att använda olika certifikat för kryptering och signering av SDK-meddelanden. Om sådan ändring införs behöver ni kunna lämna båda dessa certifikat till oss, och samtidigt informera oss om vilket certifikat ni vill nyttja för kryptering respektive signering. Det är av denna anledning som adressboken har separata fält för kryptering och signering, även om nuvarande regelverk reglererar att samma certifikat ska användas för båda ändamål.
+3. Notifiera oss på Digg
+När ni lagt upp det publika certifikatet i adressboken notifierar ni oss på Digg. Det gör ni enklast genom att skicka ett mejl till sdk@digg.se. I mejlet informerar ni oss att ni lagt upp publikt certifikat i adressboken och anger vilken miljö som avses. Vi kommer därefter överens om en tidpunkt för när förnyelsen ska genomföras.
+Vid överenskommen tidpunkt publicerar Digg ert publika O2O-certifikat i Certifikatspubliceringstjänsten i SMP i aktuell miljö, och ni installerar den privata nyckeln i er meddelandetjänst. När detta är genomfört är certifikatet förnyat.
+3.2 Stöd från leverantör av meddelandesystem
+Om ni som deltagarorganisation önskar att er leverantör av meddelandesystem tar hand om installationen av den privata nyckeln i er meddelandetjänst, behöver ni meddela oss på Digg om detta.
+Bekräftelsen behöver inkomma från er ansvariga kontaktperson gentemot Digg för den aktuella miljön.
+Det innebär att er leverantör planerar och genomför förnyelsen av ert O2O-certifikat tillsammans med Digg.

@@ -1,7 +1,7 @@
 (function () {
   const params = new URLSearchParams(window.location.search);
   const caseId = params.get("case");
-  const STORAGE_KEY =
+  let STORAGE_KEY =
     "digg-guided-onboarding-v4:" + (caseId ? caseId : "default");
   const CASE_STORAGE_KEY = "digg-temp-frontend-v3";
   const SELECTED_CASE_KEY = "digg-selected-case-v3";
@@ -18,7 +18,7 @@
     return;
   }
 
-  const phases = [
+  const genericPhases = [
     {
       title: "Förstå behov och välj spår",
       meta: "Behov, underlag och anslutningsspår.",
@@ -68,6 +68,8 @@
     },
   ];
 
+  let phases = genericPhases;
+  let guideMode = "ena";
   const guideTitle = document.getElementById("guide-title");
   const guideLede = document.getElementById("guide-lede");
   const guideContext = document.getElementById("guide-context");
@@ -91,7 +93,6 @@
   const nextStep = document.getElementById("next-step");
   const guideLink = document.getElementById("guide-link");
   const underlagLink = document.getElementById("underlag-link");
-  const convertLink = document.getElementById("convert-link");
   const workshopLink = document.getElementById("workshop-link");
 
   if (new URLSearchParams(window.location.search).has("reset")) {
@@ -102,6 +103,44 @@
   let savedStepContexts = [];
   let selectedMaterials = [];
   let state = loadState();
+
+  const modeBar = document.createElement("div");
+  modeBar.className = "sdk-guide-selector";
+  const modeLabel = document.createElement("label");
+  modeLabel.htmlFor = "guide-service";
+  modeLabel.textContent = "Anslutningsspår";
+  const modeSelect = document.createElement("select");
+  modeSelect.id = "guide-service";
+  [["ena", "Ena, digital post eller API-delning"], ["sdk", "Säker digital kommunikation (SDK)"]].forEach(function (pair) {
+    const option = document.createElement("option"); option.value = pair[0]; option.textContent = pair[1]; modeSelect.append(option);
+  });
+  const sourceLibrary = document.createElement("a");
+  sourceLibrary.className = "btn-secondary";
+  sourceLibrary.textContent = "SDK-källor och material";
+  sourceLibrary.href = "sdk-kallor.html?case=" + encodeURIComponent(caseId);
+  modeBar.append(modeLabel, modeSelect, sourceLibrary);
+  document.querySelector(".guide-grid").before(modeBar);
+  modeSelect.addEventListener("change", function () {
+    if (window.DiggaSdk) window.DiggaSdk.setService(modeSelect.value);
+    selectMode(modeSelect.value);
+  });
+  function selectMode(value) {
+    const mode = value === "sdk" && window.DiggaSdk ? "sdk" : "ena";
+    if (mode !== guideMode) {
+      guideMode = mode;
+      STORAGE_KEY = (mode === "sdk" ? "digga-sdk-guide-v1:" : "digg-guided-onboarding-v4:") + caseId;
+      phases = mode === "sdk" ? window.DiggaSdk.phases : genericPhases;
+      state = loadState();
+    }
+    modeSelect.value = mode;
+    sourceLibrary.hidden = mode !== "sdk";
+    render();
+  }
+  if (window.DiggaSdk) {
+    window.DiggaSdk.ready.then(function () {
+      selectMode(window.DiggaSdk.getApplication().sdk_service);
+    });
+  }
 
   if (caseId && guideLink) {
     guideLink.href = "steg-for-steg.html?case=" + encodeURIComponent(caseId);
@@ -114,16 +153,13 @@
       window.location.href = underlagLink.href;
     });
   }
-  if (caseId && convertLink) {
-    convertLink.href =
-      "filkonvertering.html?case=" + encodeURIComponent(caseId);
-  }
 
   function workshopUrl() {
     return "reformat-workspace.html?case=" + encodeURIComponent(caseId);
   }
 
   function setWorkshopEnabled(enabled) {
+    enabled = enabled || Boolean(window.DiggaWorkshopAccess && window.DiggaWorkshopAccess.isUnlocked(caseId));
     if (!workshopLink) {
       return;
     }
@@ -221,29 +257,7 @@
   }
 
   function contextHasContent(context) {
-    if (!context) {
-      return false;
-    }
-    const textFields = [
-      context.organization_name,
-      context.organization_number,
-      context.contact_name,
-      context.contact_email,
-      context.contact_role,
-      context.short_description,
-      context.need_text,
-    ];
-    if (textFields.some(cleanText)) {
-      return true;
-    }
-    const application = context.application || {};
-    if (Object.keys(application).some(function (key) {
-      const value = application[key];
-      return value === true || cleanText(value);
-    })) {
-      return true;
-    }
-    return Array.isArray(context.files) && context.files.length > 0;
+    return DiggApi.hasMeaningfulContext(context);
   }
 
   function hasSavedUnderlag() {
@@ -297,7 +311,7 @@
     const summary = dynamicCaseSummary();
     if (caseId) {
       guideIntake.hidden = true;
-      guideTitle.textContent = "Anslutning Workflow";
+      guideTitle.textContent = guideMode === "sdk" ? "SDK – guidad anslutning" : "Anslutning Workflow";
       guideLede.hidden = true;
     }
 
@@ -486,8 +500,11 @@
       const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY));
       if (parsed && Number.isInteger(parsed.active)) {
         return {
-          active: Math.min(parsed.active, phases.length - 1),
-          checked: parsed.checked || {},
+          active: Math.max(0, Math.min(parsed.active, phases.length - 1)),
+          checked: Object.fromEntries(phases.map(function (phase, index) {
+            const items = parsed.checked && Array.isArray(parsed.checked[index]) ? parsed.checked[index] : [];
+            return [index, Array.from(new Set(items.filter(function (item) { return Number.isInteger(item) && item >= 0 && item < phase.checks.length; })))];
+          })),
         };
       }
     } catch (error) {
@@ -608,13 +625,13 @@
           ? " Kommunens behov är: " + currentNeed
           : " Kommunens beskrivning och behov är inte ifyllda än. Förklara generellt och be användaren fylla i Beskrivning och behov innan du ger specifika råd.";
         const question =
-          'I SDK-guiden Anslutning Workflow: vad menas med checklistpunkten "' +
+          (guideMode === "sdk" ? 'I SDK-guiden: vad menas med checklistpunkten "' : 'I guiden för Ena/digital post/API-delning: vad menas med checklistpunkten "') +
           text +
           '" i steget "' +
           phase.title +
           '"?' +
           context +
-          " Håll svaret till Säker digital kommunikation (SDK), inte Mina meddelanden, om checklistan inte uttryckligen säger digital post. Förklara kort och konkret vad jag ska göra.";
+          (guideMode === "sdk" ? " Håll svaret till Säker digital kommunikation (SDK) och ange aktuell DIGG-källa." : " Utgå från kommunens valda tjänst och behov.") + " Förklara kort och konkret vad jag ska göra.";
         params.set("guideQuestion", question);
         if (caseId) {
           params.set("case", caseId);
@@ -629,11 +646,27 @@
     });
 
     phaseDetail.append(intro, checklistHeading, checklist);
+    if (guideMode === "sdk") {
+      const materials = document.createElement("div"); materials.className = "sdk-phase-resources";
+      const heading = document.createElement("h3"); heading.textContent = "Läs och använd i detta steg";
+      const list = document.createElement("ul");
+      (phase.resources || []).forEach(function (resource) {
+        const li = document.createElement("li"); const a = document.createElement("a"); a.textContent = resource[0]; a.href = resource[1]; a.target = "_blank"; a.rel = "noopener noreferrer"; li.append(a); list.append(li);
+      });
+      const underlag = document.createElement("a"); underlag.className = "btn-secondary"; underlag.href = "steg-underlag.html?case=" + encodeURIComponent(caseId) + "#sdk-preparation";
+      underlag.textContent = state.active === 2 ? "Öppna QA-testprotokollet" : "Öppna SDK-underlaget";
+      const note = document.createElement("p"); note.className = "sdk-guide-note"; note.textContent = "Rutorna är din arbetschecklista. Verkliga tester och DIGGs beslut dokumenteras i underlaget. DIGG beslutar om federationsgodkännande.";
+      materials.append(heading, list, underlag, note); phaseDetail.append(materials);
+    }
   }
 
   function renderReadiness() {
     const score = readiness();
     readinessScore.textContent = score + "%";
+    if (guideMode === "sdk") {
+      readinessCopy.textContent = "Av din arbetschecklista är markerat klart. Detta är inget anslutningsbesked.";
+      return;
+    }
     if (score < 35) {
       readinessCopy.textContent = "Starta med första stegen.";
     } else if (score < 75) {

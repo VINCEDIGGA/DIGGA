@@ -1,0 +1,3225 @@
+SDK Adressbok API
+Version 1.2
+Table of Contents
+1. Bakgrund
+2. Arkitekturell översikt
+3. Användningsfall Adressbokens API
+Validera att en adress är giltig för en viss organisation före meddelandeskickning
+Sök efter organisation, lista dess adresser, välj en adress att skicka meddelande
+till
+Använd filtrering för att hitta en adress för ett visst syfte i en viss region
+Sök efter en address att skicka meddelande till
+4. Generell information
+Produktionsmiljöer och URL:er
+Licens & upphovsrätt
+Säkerhetsaspekter
+Dataanvändning och XSS
+Cross-Origin Resource Sharing (CORS)
+5. Endpoints
+5.1. Address
+5.1.1. List addresses
+5.1.2. Find addresses
+5.1.3. Fetch all categories
+5.1.4. Fetch address
+5.1.5. Search for addresses
+5.2. Code
+5.2.1. List Codes for Code System
+5.2.2. Fetch Code
+5.3. CodeSystem
+5.3.1. Find Code Systems
+5.3.2. Fetch Code System
+5.4. Organization
+5.4.1. Find organizations
+5.4.2. Fetch organization
+5.4.3. Search for organizations
+6. Models
+6.1.
+Address
+6.2.
+AddressCategoriesResponse
+6.3.
+Code
+6.4.
+CodeSystem
+6.5.
+CodeSystemWrapper
+6.6.
+CodeWrapper
+6.7.
+CodeWrapperCoding
+6.8.
+JSONAPIAddressResourceObject
+6.9.
+JSONAPIAddressResponse
+6.10.
+JSONAPICodeResourceObject
+6.11.
+JSONAPICodeResponse
+6.12.
+JSONAPICodeSystemResourceObject
+6.13.
+JSONAPICodeSystemResponse
+6.14.
+JSONAPIErrorObject
+6.15.
+JSONAPIErrorResponse
+6.16.
+JSONAPIMeta
+6.17.
+JSONAPIOrganizationResourceObject
+6.18.
+JSONAPIOrganizationResponse
+6.19.
+JSONAPIPaginationLinks
+6.20.
+JSONAPIParentRelationshipObject
+6.21.
+JSONAPISelfLinks
+6.22.
+JSONAPISingleAddressResponse
+6.23.
+JSONAPISingleCodeResponse
+6.24.
+JSONAPISingleCodeSystemResponse
+6.25.
+JSONAPISingleOrganizationResponse
+6.26.
+Organization
+6.27.
+Parent
+6.28.
+ParentData
+6.29.
+ParticipantStatus
+Dokumentet syftar till att beskriva den övergripande lösningsarkitekturen för Säker digital
+kommunikation och dokumentera publika API:et mot SDK Adressbok.
+För komplett dokumentation för de underliggande eDelivery-plattformen och ramverket se
+nedanstående länkad dokumentation.
+SDK system architecture design (SAD) | Digg
+Anslutningsavtal, regelverk samt bilagor | Digg
+Informationssäkerhets- och tillitsmodell | Digg
+1. Bakgrund
+Tidigare årsarbeten med SDK har visat att behoven går att realisera tekniskt baserat på EU:s
+ramverk CEF eDelivery, se ref R6, samt kompletterande specifikationer och anvisningar som
+finns i federationen SDK. Exempel på dokumentation är regelverk för deltagarorganisationer
+inom SDK, it-säkerhetsbilaga och intygan om överensstämmelse framtaget för
+deltagarorganisationer.
+Federationen Säker digital kommunikation (SDK) består bl a av ramverk, regler, rutiner
+specifikationer och beskrivningar och viss gemensam infrastruktur vid informationsutbyte
+mellan regioner, kommuner, statliga myndigheter och privata utförare av offentligt uppdrag.
+Under 2015 och 2016 har flera behovsanalyser hos kommuner, regioner, privata vårdutförare
+respektive statliga myndigheter visat på ett stort behov av säker digital kommunikation.
+Idag sker informationshanteringen mellan aktörerna till stor del manuellt, med fax, brev,
+telefon och e-post, därför att det saknas alternativ. Det tar tid, driver kostnader och
+skapar osäkerhet.
+Det finns bland annat stora behov inom hälso- och sjukvård, socialtjänst och skola.
+Behovsbilden har ytterligare konkretiserats i projektets etableringsfas hösten 2017, och
+aktörerna har konstaterat att behoven bygger på att:
+Informationen är känslig men ej av sådan karaktär att den avser rikets säkerhet.
+Informationen ska kunna gå över öppet nät.
+Informationen ska kunna vara ostrukturerad, för att kunna ersätta dagens fax,
+fysiska brev och telefonsamtal kan inte krav ställas på innehållets struktur.
+Kommunikationen ska kunna ske mellan funktionsbrevlådor som möjliggör
+meddelandeutbyte från en handläggare hos sändande part till en annan handläggare hos
+mottagande part.
+Kommunicerande parter ska kunna hitta säkra adressater, skicka, ta emot, och få
+kvittens på att ett meddelande överförts.
+Förutsättningarna ska vara samma för offentliga aktörer och privata utförare av
+offentligt uppdrag.
+Parterna ska kunna ansluta till en federation enligt fastställda regelverk utan att
+bilaterala överenskommelser ska behövas mellan alla olika parter.
+SDK är ett samarbetsprojekt mellan Sveriges kommuner, regioner och myndigheter som har
+pågått sedan 2017. SDK har tagits fram av Digg och Inera i samarbete med Sveriges Kommuner
+och Regioner (SKR) samt enskilda kommuner, regioner och andra myndigheter.
+2. Arkitekturell översikt
+Figure 1. Arkitekturell översikt - Säker digital kommunikation.
+Den arkitekturella ansatsen för Säker digital kommunikation är att etablera ett gemensamt
+ramverk för säkert meddelandeutbyte baserat på standarder i så stor utsträckning som
+möjligt. Till ramverket ska det vara möjligt att ansluta meddelandetjänster med
+meddelandeklienter som användarens gränssnitt.
+Anslutna meddelandetjänster kan kommunicera med varandra genom standardprotokoll, en
+överenskommen profilering av dessa protokoll, samt en gemensam innehållsspecifikation för
+själva meddelandet. Meddelandetjänsterna ansluts via s.k accesspunkter som ansvarar för att
+göra tekniska vägval och utföra säker robust transport till mottagande organisations
+accesspunkt.
+Mottagarens meddelandetjänst hämtar mottagna meddelande från dess accesspunkt och gör
+meddelandet tillgängligt till behöriga användare i meddelandeklient. Själva
+meddelandeöverföringen är asynkron, vilket innebär att meddelandetjänsten kan sända
+meddelandet utan att behöva vänta på att få ett svar tillbaka från mottagarens system.
+Meddelandekvittensen skickas som ett separat meddelande tillbaka till avsändande
+meddelandetjänst, som sedan kan läsa av kvittensen alternativt visa larm om meddelandet inte
+kvitterades.
+Den asynkrona modellen ger stöd för att köa meddelanden hos avsändande respektive mottagande
+system, för både själva transporten och de valideringssteg som behöver utföras. Det ingår
+även viss nödvändig gemensam infrastruktur i lösningen:
+För att etablera tilliten till transportinfrastrukturens AP-operatörer, behövs en
+betrodd certifikatsutgivare (CA) och en reglerad hantering av denna, se avsnitt 6.2
+Säkerhetsmekanismer. Utgivna certifikat används för att realisera
+säkerhetsmekanismer som transportkryptering, e-stämpling av försändelse,
+AS4-meddelandekryptering mot mottagande accesspunkt.
+För att etablera tilliten till deltagarorganisationer behövs betrodda
+certifikatsutgivare (CA) och en reglerad hantering av dessa, se avsnitt 6.2
+Säkerhetsmekanismer. Utgivna certifikat används för att realisera
+säkerhetsmekanismer på meddelandenivå såsom meddelandekryptering och signering.
+Meddelandekryptering och signering tillämpas mellan deltagarorganisationer.
+En Certifikatpubliceringstjänst (CertPub) som innehåller deltagarorganisationers
+publika nyckel för att möjliggöra meddelandekryptering och signering, sk.
+organisation till organisation kryptering/signering (O2O-certifikat).
+En källa till adressuppgifter (SDK adressbok) för de parter som kan kommunicera med
+varandra. Källan uppdateras av respektive deltagarorganisation, se nedan under
+Adresseringsmodell.
+En metadatatjänst (SMP) som innehåller tekniska uppgifter om var de olika tjänsterna
+för meddelandeutbyte finns (teknisk ändpunkt för leverans av meddelande), vad de
+tekniskt stödjer (meddelandeformat, version etc), samt vilka certifikat som
+mottagande accesspunkt använder.
+I den referensmodell, se figur nedan figur, för meddelandeöverföringen som tagits fram finns
+följande huvudsakliga logiska komponenter/lager:
+Meddelandeklient (Verksamhetslager): hanterar gränssnittet mot användaren, hanterar
+koncept som "brevlåda", säker inloggning, behörighetsstyrning, besvara meddelande,
+konversationer (meddelandetrådning) osv.
+Meddelandeklienten har det primära ansvaret för lagring av inkomna och skickade
+meddelanden, men ansvaret kan vara delegerat till en annan tjänst för lagring. o
+Representerar en funktionsadress o Ansvarar för att adressera meddelandet o Ansvarar
+för att skapa och presenterar meddelanden o Presenterar skickade meddelande samt
+dess meddelandestatus/kvittens meddelande o Lagrar meddelanden
+Meddelandetjänst (Meddelandelager/meddelandeväxel): ansvarar för
+kryptering/dekryptering och signering/validerar signatur samt hanterar själva
+meddelandeöverföringen, hämta och lämna meddelanden hos accesspunkten (AP-operatör),
+validering av utgående/inkommande meddelanden, vid behov inom organisationen styra
+meddelande till rätt meddelandeklient (intern routing), svarstidsbevakning och ge
+stöd för omsändning av meddelandet om tidigare försök misslyckats. Meddelandetjänst
+integrerar med accesspunkt via gränsyta C (ej standardiserat tekniskt gränssnitt).
+Accesspunkt (Transportlager): hanterar extern säker kommunikation med andra parter
+(gränsyta A), validering och säker kvittens på transportnivå samt teknisk
+adressering för att nå mottagarens accesspunkt. Säkerställer insynsoch
+integritetsskyddad transport via kryptering, e-stämpling av försändelse och kontroll
+av certifikat och stämplar.
+Gemensamma komponenter: realiserar tjänster (gränsyta B) för adressering till
+organisation och funktion inom organisation, certifikatshantering, metadata om var
+de olika tjänsterna för meddelandeutbyte finns och vad de tekniskt stödjer.
+Figure 2. Referensmodell för säker meddelandeöverföring.
+3. Användningsfall Adressbokens API
+Följande är exempel på hur Adressbokens API kan användas för att hitta adresser för att
+skicka meddelanden till. Generellt så är det rekommenderat att använda filtrering snarare än
+sökning för att hitta adresser. Filtrering är snabbare och mer effektivt än sökning.
+Validera att en adress är giltig för en viss organisation före meddelandeskickning
+Före ett meddelande skickas till en mottagare ska adressen valideras att den är giltig
+för mottagarorganisationen.
+https://sdk-prod.digg.se/addressbook/api/addresses?filter[identifier]=sdk:0203:intern.digg.sdk-prod.digg.se&filter[organization.participantIdentifier]=0203:intern.digg.sdk-prod.digg.se
+Om adressen är giltig för organisationen kommer adressen att returneras. Om adressen
+inte är giltig för organisationen kommer en tom lista att returneras.
+Sök efter organisation, lista dess adresser, välj en adress att skicka meddelande till
+Fritextsökning efter efter en organisation går även att kombinera med filtrering.
+https://sdk-prod.digg.se/addressbook/api/organizations?q=digg
+Efter att önskad organisation har hittats kan adresserna för organisationen listas.
+https://sdk-prod.digg.se/addressbook/api/organizations/a2f3fe81-7ee6-4c9b-b226-778db2339089/addresses
+Listningen av adresser är paginerad, och kan kräva flera anrop för att visa alla
+adresser.
+Använd filtrering för att hitta en adress för ett visst syfte i en viss region
+Använd en kombination av filtrering utifrån kodverk och koder tillsammans med geografisk
+avgränsning, exemplet söker efter adresser för anhörigstöd i Värmdö kommun.
+https://sdk-prod.digg.se/addressbook/api/addresses?filter[codes.coding.code]=1400&filter[municipalityCode.coding.code]=0120
+Sök efter en address att skicka meddelande till
+Sökningar går att kombinera med filtrering för att hitta adresser som matchar specifika
+kriterier.
+https://sdk-prod.digg.se/addressbook/api/addresses?q=digg&filter[regionCode.coding.code]=22&filter[excludeNationalCoverage]=false
+4. Generell information
+Detta API baseras på standarden
+JSON API
+och är specificerat enligt
+OpenAPI 3.0.3
+.
+Specifikationen för Adressbokens API för nedladdning:
+sdk-addressbook-v1.2.openapi.yaml
+Rapport över kompatibilitet mellan Diggs och Ineras implementationer av API:
+API Kompatibilitet: Digg vs Inera
+Endast läsoperationer är tillgängliga via denna version av Adressbok API, ingen
+auktorisation krävs för att utföra dessa läsoperationer.
+Produktionsmiljöer och URL:er
+| Miljö
+| URL UI
+| Bas-URL API
+| Exempel: lista alla adresser
+|
+SDK Produktionsmiljö
+|
+https://sdk-prod.digg.se/addressbook
+|
+https://sdk-prod.digg.se/addressbook/api
+|
+https://sdk-prod.digg.se/addressbook/api/addresses
+|
+SDK Acceptansmiljö
+|
+https://sdk-qa.digg.se/addressbook
+|
+https://sdk-qa.digg.se/addressbook/api
+|
+https://sdk-qa.digg.se/addressbook/api/addresses
+|
+SDK Öppen testmiljö
+|
+https://open-test.digg.se/addressbook
+|
+https://open-test.digg.se/addressbook/api
+|
+https://open-test.digg.se/addressbook/api/addresses
+Licens & upphovsrätt
+Detta API är licensierat under en
+MIT-licens
+.
+Detta dokument är licensierat under en
+CC4.0-BY-SA-licens
+.
+Säkerhetsaspekter
+Dataanvändning och XSS
+En anmärkning om säkerhet och
+XSS-attacker
+(Cross-Site Scripting).
+API:et gör inga antaganden om klientens miljö.
+Det är främst konsumentens ansvar att säkerställa att den data som
+returneras av API:et (representerad som JSON) är säker att använda i
+klientens IT-miljö.
+Till exempel, om datan används av en webbläsarbaserad klient bör
+åtgärder vidtas för att säkerställa att känsliga tecken hanteras
+korrekt (t.ex. genom escaping).
+API:et upprätthåller dock viss formatering och validering av indata.
+Endast en begränsad uppsättning tecken tillåts i textfält – se
+dokumentationen för respektive fält nedan.
+Särskilt bör det noteras att webbkänsliga tecken som “<”
+och “>” inte är tillåtna att mata in i systemet.
+Cross-Origin Resource Sharing (CORS)
+CORS tillåts inte och inga CORS-headers sätts. Det innebär att API:et endast kan nås
+från samma ursprung.
+5. Endpoints
+Dokumentationen nedan genereras direkt från API specifikation och källkod (på engelska).
+Mappning av koncept mellan informationsmodell och API:
+| Resurs i API
+| Benämning infomodell
+| Svensk översättning
+| Beskrivning
+|
+Addresses
+|
+Functional Address
+|
+Funktionsadress
+|
+(Virtuell) verksamhetsfunktion inom organisation. Minsta adresserbara enhet för
+ett meddelande inom SDK.
+|
+Organizations
+|
+Organization
+|
+Organisation
+|
+Användarorganisation inom SDK. En organisation har en eller flera
+funktionsadresser.
+|
+Codesystems
+|
+Codesystems
+|
+Kodverk
+|
+Kodverk och koder som används inom SDK. Ett kodverk har en eller flera koder.
+|
+Codes
+|
+Codes
+|
+Koder
+|
+Kodverk och koder som används inom SDK. Ett kodverk har en eller flera koder.
+5.1. Address
+5.1.1. List addresses
+| Method
+|
+GET
+| Path
+|
+/organizations/{organizationResourceIdentifier}/addresses
+| Operation Id
+|
+getAddressesForOrganization
+Lists addresses for an organization. Responses are paged. Returns 200 is any
+addresses is found Returns 204 is no addresses for the organization match the filter
+criterias, contains a JSONAPIAddressResponse with an empty data: [] Returns 400 is
+any of the query parameters fails validation Returns 404 is the organization does
+not exist
+Path Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+organizationResourceIdentifier
+|
+A unique and persistent identifier ,,set by the server,, in the form
+of a ,,UUID,,. This value has no real-world reference or business
+meaning, i.e. it is a technical surrogate identifier. Any changes by
+the client to this field will be ignored.
+|
+X
+|
+null
+|
+Header Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+Accept-Language
+|
+Indicates the natural language and locale that the client prefers
+|
+-
+|
+sv-SE
+|
+Query Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+filter[name]
+|
+Filters by name
+|
+-
+|
+null
+|
+|
+filter[categories]
+|
+Filters addresses by category (a.k.a "tags").
+|
+-
+|
+null
+|
+|
+filter[codes.coding.code]
+|
+Filters by Codes. Note: codes (and code systems) used by SDK is
+defined in "SDK Kodverksregister" (SDK Code System
+Registry).
+|
+-
+|
+null
+|
+|
+filter[regionCode.coding.code]
+|
+Applies geographic filtering on ,,Swedish Region code
+("Länskod"),,. Comma-separated list if many.
+|
+-
+|
+null
+|
+|
+filter[municipalityCode.coding.code]
+|
+Applies geographic filtering on ,,Swedish Municipality code
+("Kommunkod"),,. Comma-separated list if many.
+|
+-
+|
+null
+|
+|
+filter[excludeNationalCoverage]
+|
+Excludes addresses with nationwide coverage (i.e. Addresses with no
+Region- and Municipality codes set). Defaults to false.
+|
+-
+|
+false
+|
+|
+filter[matchAllCodes]
+|
+Controls the filtering logic for codes - used in conjunction with
+filter[codes.coding.code]. If "true" only
+Addresses that contain at least ALL the submitted codes will be
+fetched (if omitted or set to "false" - the
+default behavior of matching at least ONE submitted code will be
+applied).
+|
+-
+|
+false
+|
+|
+page[number]
+|
+Controls what subset (a.k.a "page") of the whole
+available set/collection should be returned.
+|
+-
+|
+0
+|
+|
+page[size]
+|
+Limits the number of resources returned in the response. The server
+will default to 25 for this value if omitted. A client can get fewer
+results by setting a smaller value. If set to larger than 25, the
+server will ignore this parameter and use the default (25).
+|
+-
+|
+25
+|
+Return Type
+JSONAPIAddressResponse
+Content Type
+application/json
+Responses
+Table 1. http response codes
+| Code
+| Message
+| Datatype
+|
+200
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPIAddressResponse
+|
+204
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPIAddressResponse
+|
+400
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+404
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+500
+|
+Internal Server Error
+|
+<<>>
+5.1.2. Find addresses
+| Method
+|
+GET
+| Path
+|
+/addresses
+| Operation Id
+|
+getAllAddresses
+Find addresses with filtering or full text search, or a combination of search and
+filtering. Responses are paged, default page size is 25 results per page, see
+pagination.
+Error handling
+Returns 200 if any addresses is found Returns 204 if no addresses match the filter
+criterias, contains a JSONAPIAddressResponse with an empty data: [] Returns 400 if
+any of the query parameters fails validation Returns 404 if the address is uniquely
+identified (filter[organization.participantIdentifier] + filter[identifier]) but not
+found
+Header Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+Accept-Language
+|
+Indicates the natural language and locale that the client prefers
+|
+-
+|
+sv-SE
+|
+Query Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+q
+|
+The search term to use for free text search
+|
+-
+|
+null
+|
+|
+filter[name]
+|
+Filters by name
+|
+-
+|
+null
+|
+|
+filter[organization.participantIdentifier]
+|
+Filters addresses by Participant Identifier of the parent
+Organization.
+|
+-
+|
+null
+|
+|
+filter[organization.type]
+|
+Filters addresses by "Type" of parent
+Organization.
+|
+-
+|
+null
+|
+|
+filter[identifier]
+|
+Filters addresses by its identifier (the unique function address
+used for message routing).
+|
+-
+|
+null
+|
+|
+filter[unitName]
+|
+Filters addresses by its unit name.
+|
+-
+|
+null
+|
+|
+filter[categories]
+|
+Filters addresses by category (a.k.a "tags").
+|
+-
+|
+null
+|
+|
+filter[codes.coding.code]
+|
+Filters by Codes. Note: codes (and code systems) used by SDK is
+defined in "SDK Kodverksregister" (SDK Code System
+Registry).
+|
+-
+|
+null
+|
+|
+filter[codes.coding.system]
+|
+Filters by Code Systems. May be used in combination with function
+codes, to conduct fully qualified code searches. Note: Code System
+filter will apply to all Codes in the filter expression.
+|
+-
+|
+null
+|
+|
+filter[regionCode.coding.code]
+|
+Applies geographic filtering on ,,Swedish Region code
+("Länskod"),,. Comma-separated list if many.
+|
+-
+|
+null
+|
+|
+filter[municipalityCode.coding.code]
+|
+Applies geographic filtering on ,,Swedish Municipality code
+("Kommunkod"),,. Comma-separated list if many.
+|
+-
+|
+null
+|
+|
+filter[excludeNationalCoverage]
+|
+Excludes addresses with nationwide coverage (i.e. Addresses with no
+Region- and Municipality codes set). Defaults to false.
+|
+-
+|
+false
+|
+|
+filter[matchAllCodes]
+|
+Controls the filtering logic for codes - used in conjunction with
+filter[codes.coding.code]. If "true" only
+Addresses that contain at least ALL the submitted codes will be
+fetched (if omitted or set to "false" - the
+default behavior of matching at least ONE submitted code will be
+applied).
+|
+-
+|
+false
+|
+|
+caseSensitive
+|
+An optional string value ("true" /
+"false") indicating if distinction between
+uppercase and lowercase letters should be active. Inactive
+("false") by default. NB! Only applies to
+text-attribute filters
+|
+-
+|
+false
+|
+|
+include
+|
+Request parameter to allow the client to customize which related
+resources should be returned. Valid value(s):
+"parent".
+|
+-
+|
+null
+|
+/parent/
+|
+page[number]
+|
+Controls what subset (a.k.a "page") of the whole
+available set/collection should be returned.
+|
+-
+|
+0
+|
+|
+page[size]
+|
+Limits the number of resources returned in the response. The server
+will default to 25 for this value if omitted. A client can get fewer
+results by setting a smaller value. If set to larger than 25, the
+server will ignore this parameter and use the default (25).
+|
+-
+|
+25
+|
+Return Type
+JSONAPIAddressResponse
+Content Type
+application/json
+Responses
+Table 2. http response codes
+| Code
+| Message
+| Datatype
+|
+200
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPIAddressResponse
+|
+204
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPIAddressResponse
+|
+400
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+404
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+500
+|
+Internal Server Error
+|
+<<>>
+5.1.3. Fetch all categories
+| Method
+|
+GET
+| Path
+|
+/addresses/categories
+| Operation Id
+|
+getAllCategories
+Get all available categories (search tags) to be used when filtering for addresses
+Header Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+Accept-Language
+|
+Indicates the natural language and locale that the client prefers
+|
+-
+|
+sv-SE
+|
+Return Type
+AddressCategoriesResponse
+Content Type
+application/json
+Responses
+Table 3. http response codes
+| Code
+| Message
+| Datatype
+|
+200
+|
+OK
+|
+AddressCategoriesResponse
+|
+400
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+404
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+500
+|
+Internal Server Error
+|
+<<>>
+5.1.4. Fetch address
+| Method
+|
+GET
+| Path
+|
+/addresses/{addressResourceIdentifier}
+| Operation Id
+|
+getOneAddress
+Retrieves one address by Resource Identifier.
+Error handling
+Returns 200 if the address is found Returns 404 if the address does not exist
+Path Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+addressResourceIdentifier
+|
+A unique and persistent identifier ,,set by the server,, in the form
+of a ,,UUID,, This value has no real-world reference or business
+meaning, i.e. it is a technical surrogate identifier. Any changes by
+the client to this field will be ignored.
+|
+X
+|
+null
+|
+Header Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+Accept-Language
+|
+Indicates the natural language and locale that the client prefers
+|
+-
+|
+sv-SE
+|
+Query Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+include
+|
+Request parameter to allow the client to customize which related
+resources should be returned. Valid value(s):
+"parent".
+|
+-
+|
+null
+|
+/parent/
+Return Type
+JSONAPISingleAddressResponse
+Content Type
+application/json
+Responses
+Table 4. http response codes
+| Code
+| Message
+| Datatype
+|
+200
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPISingleAddressResponse
+|
+400
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+404
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+500
+|
+Internal Server Error
+|
+<<>>
+5.1.5. Search for addresses
+| Method
+|
+GET
+| Path
+|
+/addresses/search
+| Operation Id
+|
+searchForAddresses
+Full text search of text attributes of Addresses by the given search term, and
+applies filtering. Responses are ordered by best match to search term. Responses are
+paged, default page size is 25 results per page, see pagination.
+Error handling
+Returns 200 if any addresses is found Returns 204 if no addresses match the search /
+filter criterias, contains a JSONAPIAddressResponse with an empty data: [] Returns
+400 if any of the query parameters fails validation
+Header Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+Accept-Language
+|
+Indicates the natural language and locale that the client prefers
+|
+-
+|
+sv-SE
+|
+Query Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+q
+|
+The search term to use for free text search
+|
+-
+|
+null
+|
+|
+filter[categories]
+|
+Filters addresses by category (a.k.a "tags").
+|
+-
+|
+null
+|
+|
+filter[codes.coding.code]
+|
+Filters by Codes. Note: codes (and code systems) used by SDK is
+defined in "SDK Kodverksregister" (SDK Code System
+Registry).
+|
+-
+|
+null
+|
+|
+filter[codes.coding.system]
+|
+Filters by Code Systems. May be used in combination with function
+codes, to conduct fully qualified code searches. Note: Code System
+filter will apply to all Codes in the filter expression.
+|
+-
+|
+null
+|
+|
+filter[regionCode.coding.code]
+|
+Applies geographic filtering on ,,Swedish Region code
+("Länskod"),,. Comma-separated list if many.
+|
+-
+|
+null
+|
+|
+filter[municipalityCode.coding.code]
+|
+Applies geographic filtering on ,,Swedish Municipality code
+("Kommunkod"),,. Comma-separated list if many.
+|
+-
+|
+null
+|
+|
+filter[excludeNationalCoverage]
+|
+Excludes addresses with nationwide coverage (i.e. Addresses with no
+Region- and Municipality codes set). Defaults to false.
+|
+-
+|
+false
+|
+|
+filter[matchAllCodes]
+|
+Controls the filtering logic for codes - used in conjunction with
+filter[codes.coding.code]. If "true" only
+Addresses that contain at least ALL the submitted codes will be
+fetched (if omitted or set to "false" - the
+default behavior of matching at least ONE submitted code will be
+applied).
+|
+-
+|
+false
+|
+|
+caseSensitive
+|
+An optional string value ("true" /
+"false") indicating if distinction between
+uppercase and lowercase letters should be active. Inactive
+("false") by default. NB! Only applies to
+text-attribute filters
+|
+-
+|
+false
+|
+|
+include
+|
+Request parameter to allow the client to customize which related
+resources should be returned. Valid value(s):
+"parent".
+|
+-
+|
+null
+|
+/parent/
+|
+page[number]
+|
+Controls what subset (a.k.a "page") of the whole
+available set/collection should be returned.
+|
+-
+|
+0
+|
+|
+page[size]
+|
+Limits the number of resources returned in the response. The server
+will default to 25 for this value if omitted. A client can get fewer
+results by setting a smaller value. If set to larger than 25, the
+server will ignore this parameter and use the default (25).
+|
+-
+|
+25
+|
+Return Type
+JSONAPIAddressResponse
+Content Type
+application/json
+Responses
+Table 5. http response codes
+| Code
+| Message
+| Datatype
+|
+200
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPIAddressResponse
+|
+204
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPIAddressResponse
+|
+400
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+500
+|
+Internal Server Error
+|
+<<>>
+5.2. Code
+5.2.1. List Codes for Code System
+| Method
+|
+GET
+| Path
+|
+/codesystems/{identifier}/codes
+| Operation Id
+|
+getAllCodesForCodesystem
+Get all codes for one codesystem Returns 200 if any codes is found Returns 204 if no
+codes for the codesystem exists, contains a JSONAPICodeResponse with an empty data:
+[] Returns 404 if the codesystem does not exist
+Path Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+identifier
+|
+A unique and persistent Code System identifier in the form of an
+,,Object Identifier (OID),.
+|
+X
+|
+null
+|
+Header Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+Accept-Language
+|
+Indicates the natural language and locale that the client prefers
+|
+-
+|
+sv-SE
+|
+Return Type
+JSONAPICodeResponse
+Content Type
+application/json
+Responses
+Table 6. http response codes
+| Code
+| Message
+| Datatype
+|
+200
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPICodeResponse
+|
+204
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPICodeResponse
+|
+404
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+500
+|
+Internal Server Error
+|
+<<>>
+5.2.2. Fetch Code
+| Method
+|
+GET
+| Path
+|
+/codesystems/{identifier}/codes/{code}
+| Operation Id
+|
+getOneCodeForCodesystem
+Get one code for one codesystem Returns 200 if the code is found Returns 204 is no
+code for the codesystem match the code, contains a JSONAPICodeResponse (FIXME: check
+if this is correct) with an empty data: [] Returns 404 if the codesystem or code
+does not exist
+Path Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+identifier
+|
+A unique and persistent Code System identifier in the form of an
+,,Object Identifier (OID),,.
+|
+X
+|
+null
+|
+|
+code
+|
+A unique code identifier - constructed from the concatenation of
+"{codeSystemIdentifier}-{code value}".
+|
+X
+|
+null
+|
+Header Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+Accept-Language
+|
+Indicates the natural language and locale that the client prefers
+|
+-
+|
+sv-SE
+|
+Return Type
+JSONAPISingleCodeResponse
+Content Type
+application/json
+Responses
+Table 7. http response codes
+| Code
+| Message
+| Datatype
+|
+200
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPISingleCodeResponse
+|
+204
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPICodeResponse
+|
+400
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+404
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+500
+|
+Internal Server Error
+|
+<<>>
+5.3. CodeSystem
+5.3.1. Find Code Systems
+| Method
+|
+GET
+| Path
+|
+/codesystems
+| Operation Id
+|
+getAllCodesystems
+Lists Code Systems. Responses are paged. Returns 200 if any code system is found
+Returns 204 if no code system match the filter criterias, contains a
+JSONAPICodeSystemResponse with an empty data: [] Returns 400 if any of the query
+parameters fails validation Returns 404 if the code system is uniquely identified
+(filter[id]) but not found
+Header Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+Accept-Language
+|
+Indicates the natural language and locale that the client prefers
+|
+-
+|
+sv-SE
+|
+Query Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+filter[name]
+|
+Filters by name
+|
+-
+|
+null
+|
+|
+filter[id]
+|
+The resource identifier(s) to filter by.
+|
+-
+|
+null
+|
+|
+filter[systemType]
+|
+Filter by system type
+|
+-
+|
+null
+|
+|
+page[number]
+|
+Controls what subset (a.k.a "page") of the whole
+available set/collection should be returned.
+|
+-
+|
+0
+|
+|
+page[size]
+|
+Limits the number of resources returned in the response. The server
+will default to 25 for this value if omitted. A client can get fewer
+results by setting a smaller value. If set to larger than 25, the
+server will ignore this parameter and use the default (25).
+|
+-
+|
+25
+|
+Return Type
+JSONAPICodeSystemResponse
+Content Type
+application/json
+Responses
+Table 8. http response codes
+| Code
+| Message
+| Datatype
+|
+200
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPICodeSystemResponse
+|
+400
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+500
+|
+Internal Server Error
+|
+<<>>
+5.3.2. Fetch Code System
+| Method
+|
+GET
+| Path
+|
+/codesystems/{identifier}
+| Operation Id
+|
+getOneCodesystem
+Retrieves one Code System by system identifier. Returns 200 if the code system is
+found Returns 404 if the code system does not exist
+Path Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+identifier
+|
+A unique and persistent Code System identifier in the form of an
+,,Object Identifier (OID),,.
+|
+X
+|
+null
+|
+Header Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+Accept-Language
+|
+Indicates the natural language and locale that the client prefers
+|
+-
+|
+sv-SE
+|
+Return Type
+JSONAPISingleCodeSystemResponse
+Content Type
+application/json
+Responses
+Table 9. http response codes
+| Code
+| Message
+| Datatype
+|
+200
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPISingleCodeSystemResponse
+|
+400
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+404
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+500
+|
+Internal Server Error
+|
+<<>>
+5.4. Organization
+5.4.1. Find organizations
+| Method
+|
+GET
+| Path
+|
+/organizations
+| Operation Id
+|
+getAllOrganizations
+Retrieves one Organization by Resource Identifier, this value has no real-world
+reference or business meaning, i.e. it is a technical surrogate identifier. Returns
+200 if any organizations is found Returns 204 if no organizations match the filter
+criterias, contains a JSONAPIOrganizationResponse with an empty data: [] Returns 400
+if any of the query parameters fails validation Returns 404 if the organization is
+uniquely identified (filter[id] or filter[participantIdentifier] +
+filter[organizationNumber]) but not found
+Header Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+Accept-Language
+|
+Indicates the natural language and locale that the client prefers
+|
+-
+|
+sv-SE
+|
+Query Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+q
+|
+The search term to use for free text search
+|
+-
+|
+null
+|
+|
+filter[name]
+|
+Filters by name
+|
+-
+|
+null
+|
+|
+filter[id]
+|
+The resource identifier(s) to filter by.
+|
+-
+|
+null
+|
+|
+filter[participantIdentifier]
+|
+Filters organizations by Participant Identifier.
+|
+-
+|
+null
+|
+|
+filter[organizationNumber]
+|
+Filter by organization number
+|
+-
+|
+null
+|
+|
+filter[type]
+|
+Filters organizations by "Type".
+|
+-
+|
+null
+|
+|
+filter[regionCode.coding.code]
+|
+Applies geographic filtering on ,,Swedish Region code
+("Länskod"),,. Comma-separated list if many.
+|
+-
+|
+null
+|
+|
+filter[municipalityCode.coding.code]
+|
+Applies geographic filtering on ,,Swedish Municipality code
+("Kommunkod"),,. Comma-separated list if many.
+|
+-
+|
+null
+|
+|
+filter[managementCode.coding.code]
+|
+Filter by management code. Comma-separated list if many.
+|
+-
+|
+null
+|
+|
+filter[excludeNationalCoverage]
+|
+Excludes addresses with nationwide coverage (i.e. Addresses with no
+Region- and Municipality codes set). Defaults to false.
+|
+-
+|
+false
+|
+|
+caseSensitive
+|
+An optional string value ("true" /
+"false") indicating if distinction between
+uppercase and lowercase letters should be active. Inactive
+("false") by default. NB! Only applies to
+text-attribute filters
+|
+-
+|
+false
+|
+|
+include
+|
+Request parameter to allow the client to customize which related
+resources should be returned. Valid value(s):
+"parent".
+|
+-
+|
+null
+|
+/parent/
+|
+page[number]
+|
+Controls what subset (a.k.a "page") of the whole
+available set/collection should be returned.
+|
+-
+|
+0
+|
+|
+page[size]
+|
+Limits the number of resources returned in the response. The server
+will default to 25 for this value if omitted. A client can get fewer
+results by setting a smaller value. If set to larger than 25, the
+server will ignore this parameter and use the default (25).
+|
+-
+|
+25
+|
+Return Type
+JSONAPIOrganizationResponse
+Content Type
+application/json
+Responses
+Table 10. http response codes
+| Code
+| Message
+| Datatype
+|
+200
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPIOrganizationResponse
+|
+204
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPIOrganizationResponse
+|
+400
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+404
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+500
+|
+Internal Server Error
+|
+<<>>
+5.4.2. Fetch organization
+| Method
+|
+GET
+| Path
+|
+/organizations/{organizationResourceIdentifier}
+| Operation Id
+|
+getOneOrganization
+Retrieves one Organization by Resource Identifier, this value has no real-world
+reference or business meaning, i.e. it is a technical surrogate identifier. Returns
+200 if the organization is found Returns 404 if the organization does not exist
+Path Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+organizationResourceIdentifier
+|
+A unique and persistent identifier ,,set by the server,, in the form
+of a ,,UUID,,. This value has no real-world reference or business
+meaning, i.e. it is a technical surrogate identifier. Any changes by
+the client to this field will be ignored.
+|
+X
+|
+null
+|
+Header Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+Accept-Language
+|
+Indicates the natural language and locale that the client prefers
+|
+-
+|
+sv-SE
+|
+Query Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+include
+|
+Request parameter to allow the client to customize which related
+resources should be returned. Valid value(s):
+"parent".
+|
+-
+|
+null
+|
+/parent/
+Return Type
+JSONAPISingleOrganizationResponse
+Content Type
+application/json
+Responses
+Table 11. http response codes
+| Code
+| Message
+| Datatype
+|
+200
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPISingleOrganizationResponse
+|
+204
+|
+No Content
+|
+<<>>
+|
+400
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+404
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+500
+|
+Internal Server Error
+|
+<<>>
+5.4.3. Search for organizations
+| Method
+|
+GET
+| Path
+|
+/organizations/search
+| Operation Id
+|
+searchForOrganizations
+Full text search of text attributes of organizations by the given search term, and
+applies filtering. Responses are ordered by best match to search term. Responses are
+paged, default page size is 25 results per page, see pagination. Error handling
+Returns 200 if any organizations is found Returns 204 if no organizations match the
+search / filter criterias, contains a JSONAPIOrganizationResponse with an empty
+data: [] Returns 400 if any of the query parameters fails validation
+Header Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+Accept-Language
+|
+Indicates the natural language and locale that the client prefers
+|
+-
+|
+sv-SE
+|
+Query Parameters
+| Name
+| Description
+| Required
+| Default
+| Pattern
+|
+q
+|
+The search term to use for free text search
+|
+-
+|
+null
+|
+|
+caseSensitive
+|
+An optional string value ("true" /
+"false") indicating if distinction between
+uppercase and lowercase letters should be active. Inactive
+("false") by default. NB! Only applies to
+text-attribute filters
+|
+-
+|
+false
+|
+|
+filter[type]
+|
+Filters organizations by "Type".
+|
+-
+|
+null
+|
+|
+include
+|
+Request parameter to allow the client to customize which related
+resources should be returned. Valid value(s):
+"parent".
+|
+-
+|
+null
+|
+/parent/
+|
+page[number]
+|
+Controls what subset (a.k.a "page") of the whole
+available set/collection should be returned.
+|
+-
+|
+0
+|
+|
+page[size]
+|
+Limits the number of resources returned in the response. The server
+will default to 25 for this value if omitted. A client can get fewer
+results by setting a smaller value. If set to larger than 25, the
+server will ignore this parameter and use the default (25).
+|
+-
+|
+25
+|
+Return Type
+JSONAPIOrganizationResponse
+Content Type
+application/json
+Responses
+Table 12. http response codes
+| Code
+| Message
+| Datatype
+|
+200
+|
+A JSON object MUST be at the root of every JSON:API request and
+response document containing data. This object defines a document’s
+“top level”.
+|
+JSONAPIOrganizationResponse
+|
+204
+|
+No Content
+|
+<<>>
+|
+400
+|
+4xx Client error Error objects provide additional information about
+problems encountered while performing an operation. Error objects
+MUST be returned as an array keyed by errors in the top level of a
+JSON:API document
+|
+JSONAPIErrorResponse
+|
+500
+|
+Internal Server Error
+|
+<<>>
+6. Models
+6.1.
+Address
+Represents a reachable adress within an organization
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+identifier
+|
+|
+String
+|
+|
+|
+name
+|
+|
+String
+|
+|
+|
+unitName
+|
+|
+String
+|
+|
+|
+description
+|
+|
+String
+|
+|
+|
+activatedAt
+|
+|
+Date
+|
+|
+date-time
+|
+deactivatedAt
+|
+|
+Date
+|
+|
+date-time
+|
+updatedAt
+|
+|
+Date
+|
+|
+date-time
+|
+categories
+|
+|
+List of
+[string]
+|
+|
+|
+codes
+|
+|
+List of
+CodeWrapper
+|
+|
+|
+municipalityCode
+|
+|
+List of
+CodeWrapper
+|
+|
+|
+regionCode
+|
+|
+List of
+CodeWrapper
+|
+|
+6.2.
+AddressCategoriesResponse
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+categories
+|
+|
+List of
+[string]
+|
+|
+6.3.
+Code
+Codes
+A list of Codes defined by a set of decided Terminology Systems. Codes are applied to a
+Functional Address to facilitate systematic searching. Search codes may express the
+"business function" of the Address (Swedish: "sökkod eller
+funktionskod") and / or organizational structure of the Address (Swedish:
+"strukturkod").
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+code
+|
+X
+|
+String
+|
+Symbol in syntax defined by the system.
+|
+|
+displayName
+|
+|
+String
+|
+Representation defined by the system. If missing {@link #originalText}
+should be used.
+|
+|
+originalText
+|
+X
+|
+String
+|
+A human language representation of the concept as seen/selected/uttered by
+the user who entered the data and/or which represents the intended meaning
+of the user.
+|
+|
+additionalInfo
+|
+|
+String
+|
+Additional information, a human-friendly description to determine the
+applicability of the code.
+|
+6.4.
+CodeSystem
+CodeSystem
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+system
+|
+X
+|
+String
+|
+A unique identifier for the code system (business identifier) usually an
+OID.
+|
+|
+name
+|
+X
+|
+String
+|
+Name for this code system.
+|
+|
+version
+|
+X
+|
+String
+|
+The version for this code system.
+|
+|
+alternateName
+|
+|
+String
+|
+An alternate name for this code system.
+|
+|
+description
+|
+|
+String
+|
+A clear text description of the code system.
+|
+|
+systemType
+|
+X
+|
+String
+|
+Defines the purpose of the code system. Must be one of [SEARCH, STRUCTURE,
+GEO, SYSTEM, OTHER].
+|
+Enum:
+SEARCH, STRUCTURE, GEO, SYSTEM, OTHER,
+|
+createdAt
+|
+|
+Date
+|
+The date and time when this code system was added to the system.
+|
+date-time
+|
+updatedAt
+|
+|
+Date
+|
+The date and time when this code system was updated (e.g. a change of
+metadata).
+|
+date-time
+|
+email
+|
+|
+String
+|
+The email address to the organization maintaining this code system.
+|
+|
+url
+|
+|
+String
+|
+The homepage of this code system.
+|
+6.5.
+CodeSystemWrapper
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+system
+|
+|
+String
+|
+|
+|
+name
+|
+|
+String
+|
+|
+|
+version
+|
+|
+String
+|
+|
+6.6.
+CodeWrapper
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+text
+|
+|
+String
+|
+|
+|
+coding
+|
+|
+CodeWrapperCoding
+|
+|
+6.7.
+CodeWrapperCoding
+CodeWrapperCoding
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+system
+|
+|
+String
+|
+|
+|
+code
+|
+|
+String
+|
+|
+|
+displayText
+|
+|
+String
+|
+|
+|
+additionalInfo
+|
+|
+String
+|
+|
+6.8.
+JSONAPIAddressResourceObject
+"Resource objects” appear in a JSON:API document to represent resources.
+A resource object MUST contain at least the following top-level members: * type * id
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+type
+|
+X
+|
+String
+|
+|
+|
+id
+|
+|
+String
+|
+|
+|
+attributes
+|
+|
+Address
+|
+|
+|
+relationships
+|
+|
+JSONAPIParentRelationshipObject
+|
+|
+|
+links
+|
+|
+JSONAPISelfLinks
+|
+|
+6.9.
+JSONAPIAddressResponse
+JSONAPIAddressResponse
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+meta
+|
+|
+JSONAPIMeta
+|
+|
+|
+links
+|
+|
+JSONAPIPaginationLinks
+|
+|
+|
+data
+|
+X
+|
+List of
+JSONAPIAddressResourceObject
+|
+|
+|
+included
+|
+|
+List of
+JSONAPIOrganizationResourceObject
+|
+|
+6.10.
+JSONAPICodeResourceObject
+"Resource objects” appear in a JSON:API document to represent resources.
+A resource object MUST contain at least the following top-level members: * type * id
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+type
+|
+X
+|
+String
+|
+|
+|
+id
+|
+|
+String
+|
+|
+|
+attributes
+|
+|
+Code
+|
+|
+6.11.
+JSONAPICodeResponse
+JSONAPICodeResponse
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+meta
+|
+|
+JSONAPIMeta
+|
+|
+|
+links
+|
+|
+JSONAPIPaginationLinks
+|
+|
+|
+data
+|
+X
+|
+List of
+JSONAPICodeResourceObject
+|
+|
+6.12.
+JSONAPICodeSystemResourceObject
+"Resource objects” appear in a JSON:API document to represent resources.
+A resource object MUST contain at least the following top-level members: * type * id
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+type
+|
+X
+|
+String
+|
+|
+|
+id
+|
+|
+String
+|
+|
+|
+attributes
+|
+|
+CodeSystem
+|
+|
+6.13.
+JSONAPICodeSystemResponse
+JSONAPICodeSystemResponse
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+meta
+|
+|
+JSONAPIMeta
+|
+|
+|
+links
+|
+|
+JSONAPIPaginationLinks
+|
+|
+|
+data
+|
+X
+|
+List of
+JSONAPICodeSystemResourceObject
+|
+|
+6.14.
+JSONAPIErrorObject
+title
+: a short, human-readable summary of the problem that SHOULD NOT change from occurrence
+to occurrence of the problem, except for purposes of localization.
+detail
+: a human-readable explanation specific to this occurrence of the problem. Like title,
+this field’s value can be localized.
+source
+: an object containing references to the primary source of the error.
+status
+: the status code of error.
+traceId
+: a unique identifier for this particular occurrence of the problem.
+errorCode
+: an application-specific error code, expressed as a string value.
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+title
+|
+|
+String
+|
+A short, human-readable summary of the problem that SHOULD NOT change from
+occurrence to occurrence of the problem, except for purposes of
+localization.
+|
+|
+detail
+|
+|
+String
+|
+A human-readable explanation specific to this occurrence of the problem.
+Like title, this field’s value can be localized.
+|
+|
+source
+|
+|
+String
+|
+An object containing references to the source of the error
+|
+|
+status
+|
+|
+String
+|
+The HTTP status code applicable to this problem, expressed as a string
+value.
+|
+|
+traceId
+|
+|
+String
+|
+A unique identifier for this particular occurrence of the problem.
+|
+|
+errorCode
+|
+|
+String
+|
+An application-specific error code, expressed as a string value.
+|
+6.15.
+JSONAPIErrorResponse
+JSONAPIErrorResponse
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+errors
+|
+|
+List of
+JSONAPIErrorObject
+|
+|
+6.16.
+JSONAPIMeta
+**
+Optional Metadata of this API. See JSON API Top Level Object.
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+api-version
+|
+|
+String
+|
+The version of this API, adhering to the Semantic Versioning concept.
+|
+|
+version
+|
+|
+String
+|
+The version of this Software Artifact, adhering to the Semantic Versioning
+concept.
+|
+|
+buildTimestamp
+|
+|
+String
+|
+Software build timestamp.
+|
+|
+request-id
+|
+|
+String
+|
+Identifier for this request.
+|
+6.17.
+JSONAPIOrganizationResourceObject
+"Resource objects” appear in a JSON:API document to represent resources.
+A resource object MUST contain at least the following top-level members: * type * id
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+type
+|
+X
+|
+String
+|
+|
+|
+id
+|
+|
+String
+|
+|
+|
+attributes
+|
+|
+Organization
+|
+|
+|
+links
+|
+|
+JSONAPISelfLinks
+|
+|
+|
+relationships
+|
+|
+JSONAPIParentRelationshipObject
+|
+|
+6.18.
+JSONAPIOrganizationResponse
+JSONAPIOrganizationResponse
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+meta
+|
+|
+JSONAPIMeta
+|
+|
+|
+links
+|
+|
+JSONAPIPaginationLinks
+|
+|
+|
+data
+|
+X
+|
+List of
+JSONAPIOrganizationResourceObject
+|
+|
+|
+included
+|
+|
+List of
+JSONAPIOrganizationResourceObject
+|
+|
+6.19.
+JSONAPIPaginationLinks
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+self
+|
+|
+String
+|
+Link to this page of results
+|
+|
+prev
+|
+|
+String
+|
+Link to the previous page of results
+|
+|
+next
+|
+|
+String
+|
+Link to the next page of results
+|
+|
+last
+|
+|
+String
+|
+Link to the last page of results
+|
+|
+first
+|
+|
+String
+|
+Link to the first page of results
+|
+6.20.
+JSONAPIParentRelationshipObject
+Parent organization
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+parent
+|
+|
+Parent
+|
+|
+6.21.
+JSONAPISelfLinks
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+self
+|
+|
+String
+|
+Link to this page of results
+|
+6.22.
+JSONAPISingleAddressResponse
+JSONAPISingleAddressResponse
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+meta
+|
+|
+JSONAPIMeta
+|
+|
+|
+links
+|
+|
+JSONAPIPaginationLinks
+|
+|
+|
+data
+|
+X
+|
+JSONAPIAddressResourceObject
+|
+|
+|
+included
+|
+|
+List of
+JSONAPIOrganizationResourceObject
+|
+|
+6.23.
+JSONAPISingleCodeResponse
+JSONAPISingleCodeResponse
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+meta
+|
+|
+JSONAPIMeta
+|
+|
+|
+links
+|
+|
+JSONAPIPaginationLinks
+|
+|
+|
+data
+|
+X
+|
+JSONAPICodeResourceObject
+|
+|
+6.24.
+JSONAPISingleCodeSystemResponse
+JSONAPISingleCodeSystemResponse
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+meta
+|
+|
+JSONAPIMeta
+|
+|
+|
+links
+|
+|
+JSONAPIPaginationLinks
+|
+|
+|
+data
+|
+X
+|
+JSONAPICodeSystemResourceObject
+|
+|
+6.25.
+JSONAPISingleOrganizationResponse
+JSONAPISingleOrganizationResponse
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+meta
+|
+|
+JSONAPIMeta
+|
+|
+|
+links
+|
+|
+JSONAPIPaginationLinks
+|
+|
+|
+data
+|
+X
+|
+JSONAPIOrganizationResourceObject
+|
+|
+|
+included
+|
+|
+List of
+JSONAPIOrganizationResourceObject
+|
+|
+6.26.
+Organization
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+createdAt
+|
+|
+Date
+|
+|
+date-time
+|
+updatedAt
+|
+|
+Date
+|
+|
+date-time
+|
+name
+|
+X
+|
+String
+|
+|
+|
+description
+|
+X
+|
+String
+|
+|
+|
+alternateName
+|
+|
+String
+|
+|
+|
+participantIdentifier
+|
+X
+|
+String
+|
+|
+|
+affiliation
+|
+|
+String
+|
+|
+|
+managementCode
+|
+|
+CodeWrapper
+|
+|
+|
+publicProvider
+|
+|
+Boolean
+|
+|
+|
+organizationNumber
+|
+X
+|
+String
+|
+|
+|
+countryCode
+|
+|
+String
+|
+|
+Enum:
+SE,
+|
+validCodeSystems
+|
+|
+List of
+CodeSystemWrapper
+|
+|
+|
+municipalityCode
+|
+|
+List of
+CodeWrapper
+|
+|
+|
+regionCode
+|
+|
+List of
+CodeWrapper
+|
+|
+|
+type
+|
+|
+String
+|
+|
+Enum:
+O, UO,
+|
+participantStatus
+|
+|
+ParticipantStatus
+|
+|
+6.27.
+Parent
+Parent
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+data
+|
+|
+ParentData
+|
+|
+6.28.
+ParentData
+ParentData
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+id
+|
+|
+String
+|
+|
+|
+type
+|
+|
+String
+|
+|
+Enum:
+organizations, addresses, codesystems,
+6.29.
+ParticipantStatus
+ParticipantStatus
+| Field Name
+| Required
+| Type
+| Description
+| Format
+|
+lastChecked
+|
+|
+String
+|
+|
+|
+result
+|
+|
+String
+|
+|
+Enum:
+OK, NOT_FOUND,
+Last updated 2025-06-25 13:56:49 +0200
